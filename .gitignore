@@ -33,3 +33,7 @@ sim/out/*.txt
 fp-info-cache
 *.lck
 ~*.lck
+
+# whole-car render scene (share/car_scene.py writes it) and test renders
+share/scene/
+share/*_quick.png

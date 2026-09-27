@@ -16,7 +16,7 @@ ROWS = [
     ('have', 'INJORA INJS235 35 kg brushless steering servo', 'INJS235', 1, 0, 'have', '-', '-', 'Drops into the Slash 4x4 servo bulkhead; powered by the drive board 7.5 V rail.'),
     ('have', 'SICK TiM561 270 degree lidar + donor M12 power and M12-D to RJ45 cables', 'TiM561-2050101', 1, 0, 'have', '-', '-', 'Donated lidar; Ethernet to the brain board, 9-28 V from the drive board eFuse.'),
     ('have', 'LUCID Triton 2.3 MP GigE PoE camera', 'TRI023S-CC', 1, 0, 'have', '-', '-', 'Donated camera (at school); powered over PoE by the brain board.'),
-    ('have', 'Carbon-fibre filament for all printed parts (about 0.8 kg)', 'PETG-CF or PA-CF', 1, 0, 'have', '-', '-', 'At school.'),
+    ('have', 'Carbon-fibre filament for all printed parts (about 0.85 kg with the canopy), PLA for the bench stand (about 0.2 kg)', 'PETG-CF or PA-CF; PLA', 1, 0, 'have', '-', '-', 'At school.'),
     ('have', 'SendCutSend $250 service credit', '-', 1, 0, 'have', '-', '-', 'Covers the aluminium heat spreader cut.'),
     # ---------------------------------------------------------------- still needed, already on the sheet
     ('sheet_keep', 'NVIDIA Jetson Orin Nano Super Developer Kit', '945-13766-0005-000', 1, 399.00, 'sheet_keep', 'quoted',
@@ -94,6 +94,17 @@ ROWS = [
     ('cooling', 'Aluminium heat spreader 3/16 in (4.76 mm) 6061, 60 x 48 mm, 4 holes tapped M3', 'SendCutSend, mech/out/dxf/heat_spreader.dxf', 1, 12.00, 'credit', 'estimate', 'sendcutsend.com', 'Covered by the existing SendCutSend credit. 3/16 in leaves 1 mm for the thermal pad under the FETs.'),
     ('hardware', 'M3 hardware: 50 brass heat-set inserts, socket-screw assortment, nylocs, MS621FE RTC cell', 'various', 1, 22.00, 'buy', 'estimate', '-', 'Deck and sensor mounts (about 45 inserts).'),
     ('hardware', 'Board stack standoffs: 6 x M3 7 mm M-F (deck to drive board), 4 x M3 20 mm M-F (drive to brain board)', 'hex, brass', 1, 8.00, 'buy', 'estimate', '-', 'The brain board sits on all four corners: two posts thread into deck standoffs through the drive board, two are held by nuts under it.'),
+    # ---------------------------------------------------------------- finishing parts (mech/extras.py, docs/COMPLETE_CAR.md)
+    ('finish_brain', 'Wi-Fi antennas, dual-band 2.4/5 GHz dipole, RP-SMA, swivel, about 108 mm', 'generic', 2, 5.00, 'buy', 'estimate', '-',
+     'Screw onto the two RP-SMA jacks in the stack canopy. The M.2 Wi-Fi card itself moves over from the dev kit.'),
+    ('finish_brain', 'Antenna pigtails, M.2 card jack to RP-SMA bulkhead jack, 1.13 mm coax, 150 mm', 'MHF4 on most M.2 cards: check the card', 2, 4.00, 'buy', 'estimate', '-',
+     'Wi-Fi card (under the Jetson module) to the canopy; the routed runs are 67 and 80 mm (docs/WIRING.md).'),
+    ('finish_brain', 'Canopy mounting: 3 x M3 40 mm M-F hex standoffs, 3 x M3 x 6 button-head screws', 'hex, brass', 1, 3.00, 'buy', 'estimate', '-',
+     'The standoffs replace three of the brain board top screws; the fourth corner (Antmicro H4) is under the camera RJ45.'),
+    ('finish', 'E-stop loop jumper: JST-PH 2-pin housing, 2 crimps, short wire loop', 'PHR-2, SPH-002T-P0.5S', 1, 1.00, 'buy', 'estimate', 'digikey',
+     'J504 has to be closed for the motor to run when no E-stop button is fitted (ARCHITECTURE.md, What you plug in).'),
+    ('finish', 'Zip ties 2.5 mm, 100', 'nylon', 1, 4.00, 'buy', 'estimate', '-',
+     'Camera cable in the slots on the right side pod, lidar cables on the camera arch, pack and motor leads.'),
 ]
 
 REMOVED = [
@@ -120,7 +131,8 @@ def main():
     welder = s(('pack_tool',), ('optional',))
     sensor = s(('sensor',), ('buy',))
     cam_cable = s(('sensor',), ('conditional',))
-    other = s(('charge', 'cooling', 'hardware'), ('buy',))
+    other = s(('charge', 'cooling', 'hardware', 'finish', 'finish_brain'), ('buy',))
+    brain_finish = s(('finish_brain',), ('buy',))     # canopy, antennas, pigtails: only with the brain board
     sheet_keep = s(('sheet_keep',), ('sheet_keep',))
     new_buy = drive + brain + pack + sensor + other
     lines = [
@@ -128,14 +140,14 @@ def main():
         ('Brain board / Jetson carrier (parts + fab x5 + assembly x1)', brain),
         ('18650 pack materials (cells, nickel, insulation, leads)', pack),
         ('Lens', sensor),
-        ('Charger, cable, fan, thermal pad, hardware', other),
+        ('Charger, cable, fan, thermal pad, hardware, antennas', other),
         ('NEW PURCHASES, total', new_buy),
         ('Still-needed items already on the sheet (Jetson dev kit, NVMe)', sheet_keep),
         ('CAR V2 TOTAL (new purchases + sheet items)', new_buy + sheet_keep),
         ('Conditional: camera M12 cable (skip if LUCID includes one)', cam_cable),
         ('Optional: spot welder (only if the lab has none)', welder),
         ('Worst case (everything above)', new_buy + sheet_keep + cam_cable + welder),
-        ('Phase 1 only (drive board + pack + kit, Jetson on its dev-kit carrier)', new_buy - brain + sheet_keep),
+        ('Phase 1 only (drive board + pack + kit, Jetson on its dev-kit carrier)', new_buy - brain - brain_finish + sheet_keep),
     ]
     with open(os.path.join(HERE, 'cost_summary.csv'), 'w', newline='') as f:
         w = csv.writer(f); w.writerow(['line', 'usd'])

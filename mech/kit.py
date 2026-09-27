@@ -184,7 +184,7 @@ def boards():
     B['rj45_poe_camera'] = box(-39.4, -21.6, -73.9, -51.9, zb + t, zb + t + 13.5)  # Antmicro's RJ45, now PoE source
     B['rj45_lidar'] = box(53.2, 69.6, -6.0, 15.8, zb + t, zb + t + 13.5)          # J1301 behind the LAN7800
     B['stack_header'] = box(0.0, 51.0, -13.5, -9.5, z + t, zb)                     # SSQ socket + TSW pins, 20 mm
-    B['fan_40mm'] = box(-46, -6, -88.4, -78.4, 2.0, 42.0)
+    B['fan_40mm'] = box(FAN_X[0], FAN_X[1], -88.4, -78.4, 2.0, 42.0)
     return B
 
 
@@ -259,6 +259,15 @@ ARCH_X = (136.0, 150.0)
 ARCH_Y = 42.0
 ARCH_BOLTS = [(x, sy * ARCH_Y) for x in (ARCH_X[0] - 5, ARCH_X[1] + 5) for sy in (1, -1)]
 POD = dict(x0=-105.0, x1=120.0, y_in=76.0, y_out=94.0, h=50.0, t=2.4)
+# 40 mm side-pod fan (right pod), x range in the car frame. It sat at x -46..-6 until 2026-09-28, right
+# outboard of the camera's RJ45 jack (brain board J6, car x -39.4..-21.6), where the camera plug has to
+# go: the jack opens toward the car's right side, 2 mm from the pod wall. Moved forward, it is also
+# centred on the ESC power stage (car x -30..20) instead of behind it.
+FAN_X = (-16.0, 24.0)
+# the camera plug passes through the right pod here: a slot open at the top, through both walls
+CAM_PLUG_NOTCH = dict(x=(-40.5, -20.5), z0=27.0)
+POD_TIE_SLOTS_X = (4.0, 70.0)       # zip-tie slot pairs on the right pod's top for the camera cable
+SERVO_SLOT = (98.5, 103.5, -52.0, -28.0)    # deck slot for the steering servo lead (x0, x1, y0, y1)
 POD_BOLTS = {1: [(-88, 72.5), (10, 72.5), (105, 72.5)], -1: [(-88, -72.5), (105, -72.5)]}
 WING = dict(strut_x=(-214.0, -200.0), strut_y=55.0, z=88.0, chord=(-228.0, -183.0), span=95.0)
 WING_BOLTS = [(x, sy * WING['strut_y']) for x in (WING['strut_x'][0] - 5, WING['strut_x'][1] + 5) for sy in (1, -1)]
@@ -303,7 +312,10 @@ def deck_full():
             s = P['POST_SLOT']
             d = d.cut(box(px - s / 2, px + s / 2, sy * py - s / 2, sy * py + s / 2, -60, 1))
     d = d.cut(box(-58, -46, -64, -40, -60, 1))     # motor phases + hall lead, under the drive board's rear edge
-    d = d.cut(box(86, 98, -50, -30, -60, 1))       # servo lead
+    # servo lead: a 5 x 24 mm slot just ahead of the front splice plates (x 67-97) and behind the cross rib
+    # (x 104-107). Until 2026-09-28 it was x 86-98, over the right front splice plate and around the joint
+    # bolt at (92, -40), so the plate blocked it and the bolt had no deck around it.
+    d = d.cut(box(SERVO_SLOT[0], SERVO_SLOT[1], SERVO_SLOT[2], SERVO_SLOT[3], -60, 1))
     d = d.cut(box(100, 112, 36, 50, -60, 1))        # lidar / camera cable drop to the right-hand keeper (spare)
     # holes: inserts (4.0) or clearance (3.4)
     holes = []
@@ -467,9 +479,18 @@ def side_pod(sy):
         pod = pod.cut(box(xv, xv + 12, yo - 5, yo + 1, 10, h - 20))
     if sy < 0:
         # fan window on the inner wall, fan behind it (40 mm fan, blows inboard over the ESC heatsink)
-        pod = pod.cut(box(-45, -7, yi - 1, yi + t + 1, 2, 40))
-        for (fx, fz) in ((-42, 5), (-10, 5), (-42, 37), (-10, 37)):
+        f0, f1 = FAN_X
+        pod = pod.cut(box(f0 + 1, f1 - 1, yi - 1, yi + t + 1, 2, 40))
+        for (fx, fz) in ((f0 + 4, 5), (f1 - 4, 5), (f0 + 4, 37), (f1 - 4, 37)):     # 32 mm hole pitch
             pod = pod.cut(cyl((fx, yi - 1, fz), 3.4, t + 12, (0, 1, 0)))
+        # the camera's RJ45 plug and its boot run straight out through the pod (the jack opens 2 mm from
+        # the inner wall): a slot open at the top, through both walls
+        n0, n1 = CAM_PLUG_NOTCH['x']
+        pod = pod.cut(box(n0, n1, yi - 1, yo + 1, CAM_PLUG_NOTCH['z0'], h + 5))
+        # zip-tie slots in pairs across the top, to hold the camera cable along the pod
+        for xs in POD_TIE_SLOTS_X:
+            for ys in (yi + 5.5, yo - 5.0):
+                pod = pod.cut(box(xs - 2.75, xs + 2.75, ys - 1.1, ys + 1.1, h - 8, h + 5))
     if sy < 0:
         pod = pod.mirror('XZ')
     return pod

@@ -23,3 +23,7 @@ towers with the posts through the slots, the deck will too.
 | 10 | Triton bottom face: spacing of the four corner M3 holes | `CAM_HOLE_PITCH` | 20 x 20, ESTIMATE | the cradle has +-1.5 mm slots; confirm on the camera (LUCID's manual says 4 corner M3 on the bottom but gives no spacing) |
 | 11 | Puller Pro sensor plug: pitch and pin order | drive board J_HALL | JST-ZH 6-pin assumed | decides the board connector |
 | 12 | M12 lidar plug bodies behind the TiM561 | `tim561()` estimates | 45 mm long | they run under the camera arch |
+| 13 | wheel drop with the chassis lifted (suspension droop), front and rear | `STAND_H` in `mech/extras.py` | 40 mm assumed | the bench stand's height: 125 mm leaves about 13 mm under the tyres at 40 mm of droop |
+| 14 | the camera cable's RJ45 plug and boot, width and height | `CAM_PLUG_NOTCH` in `kit.py` | 20 mm slot for a 14 x 10 mm boot | the slot through the right side pod; widen it for a fatter boot |
+| 15 | antenna connectors on the M.2 Wi-Fi card from the dev kit | pigtails in `bom/make_bom.py` | MHF4 assumed | order pigtails with the matching plug |
+| 16 | brain board corner H4 (brain-local 10, 5) under the camera RJ45 J6 | - | no screw from the top | the 20 mm standoff there only supports the board; the canopy uses the other three corners |

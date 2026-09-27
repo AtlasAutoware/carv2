@@ -186,8 +186,8 @@
     177.5,
     25.2
    ],
-   "volume_cm3": 131.4,
-   "mass_g_solid_petgcf": 171.0,
+   "volume_cm3": 132.0,
+   "mass_g_solid_petgcf": 172.0,
    "fits_250_bed": true,
    "solids": 1
   },
@@ -296,8 +296,8 @@
     25.0,
     50.0
    ],
-   "volume_cm3": 54.9,
-   "mass_g_solid_petgcf": 71.0,
+   "volume_cm3": 52.2,
+   "mass_g_solid_petgcf": 68.0,
    "fits_250_bed": true,
    "solids": 1
   },

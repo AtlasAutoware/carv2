@@ -23,10 +23,13 @@ Once, when building the car:
 | steering servo | drive board | the servo's own 3-pin lead |
 | lidar power | drive board | the donor M12 power cable into a 2-pin terminal |
 | lidar Ethernet | brain board RJ45 #2 | the donor M12-D to RJ45 cable |
-| camera | brain board RJ45 #1 | one M12 X-coded to RJ45 cable: data and PoE power together |
+| camera | brain board RJ45 #1 | one M12 X-coded to RJ45 cable: data and PoE power together; the plug goes out through the slot in the right side pod |
 | Jetson fan, side-pod fan | brain board / drive board | their own leads |
-| Wi-Fi antennas | M.2 Wi-Fi card | two u.FL |
+| Wi-Fi antennas | M.2 Wi-Fi card | two pigtails to the RP-SMA jacks in the stack canopy (check the card's plug: MHF4 or u.FL) |
 | E-stop loop (optional) | drive board | 2-pin JST-PH, normally closed; a jumper if unused |
+
+Every run, its length and its route are in `docs/WIRING.md`. The parts that finish the car (the stack canopy,
+the bench stand, and the fixes that came out of modelling the plugs) are in `docs/COMPLETE_CAR.md`.
 
 Every day: **one USB-C cable.** A 65 W USB-C charger charges the car. A laptop on the same
 port reaches the Jetson (USB networking and flashing), VESC Tool on the ESC and the Jetson's
