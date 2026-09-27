@@ -13,7 +13,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROWS = [
     # ---------------------------------------------------------------- already in hand
     ('have', 'Traxxas Slash 4x4 chassis (new car) with Holmes Hobbies Puller Pro 540 2200 kV sensored motor', 'KA2246-R00 label, 6822 chassis', 1, 0, 'have', '-', '-', 'The rolling chassis for car 2.'),
-    ('have', 'INJORA INJS235 35 kg brushless steering servo', 'INJS235', 1, 0, 'have', '-', '-', 'Drops into the Slash 4x4 servo bulkhead; powered by the drive board 7.4 V rail.'),
+    ('have', 'INJORA INJS235 35 kg brushless steering servo', 'INJS235', 1, 0, 'have', '-', '-', 'Drops into the Slash 4x4 servo bulkhead; powered by the drive board 7.5 V rail.'),
     ('have', 'SICK TiM561 270 degree lidar + donor M12 power and M12-D to RJ45 cables', 'TiM561-2050101', 1, 0, 'have', '-', '-', 'Donated lidar; Ethernet to the brain board, 9-28 V from the drive board eFuse.'),
     ('have', 'LUCID Triton 2.3 MP GigE PoE camera', 'TRI023S-CC', 1, 0, 'have', '-', '-', 'Donated camera (at school); powered over PoE by the brain board.'),
     ('have', 'Carbon-fibre filament for all printed parts (about 0.8 kg)', 'PETG-CF or PA-CF', 1, 0, 'have', '-', '-', 'At school.'),
@@ -39,7 +39,7 @@ ROWS = [
     ('drive_pcb', 'USB 2.0 4-port hub', 'USB2514B-I/M2', 1, 2.50, 'buy', 'estimate', 'microchip.com', 'Laptop sees the Jetson, VESC Tool and the serial console on one cable.'),
     ('drive_pcb', 'USB 2.0 switches (flash-mode path straight to the Jetson)', 'TS3USB30EDGSR', 2, 1.00, 'buy', 'estimate', 'ti.com', 'NVIDIA wants a direct USB link for recovery-mode flashing; slide switch SW801 picks it.'),
     ('drive_pcb', 'USB to UART bridge (Jetson serial console)', 'CP2102N-A02-GQFN24', 1, 3.00, 'buy', 'estimate', 'silabs.com', 'Boot log and console even with the network down.'),
-    ('drive_pcb', 'Servo supply module, 36 V in, 8 A (set to 7.4 V)', 'TPSM63610RDFR', 1, 9.00, 'buy', 'estimate', 'ti.com/product/TPSM63610', 'Integrated inductor; covers the 35 kg servo stall current.'),
+    ('drive_pcb', 'Servo supply module, 36 V in, 8 A (set to 7.5 V)', 'TPSM63610RDFR', 1, 9.00, 'buy', 'estimate', 'ti.com/product/TPSM63610', 'Integrated inductor; covers the 35 kg servo stall current.'),
     ('drive_pcb', 'eFuse for the lidar supply', 'TPS26600PWPR', 1, 3.00, 'buy', 'estimate', 'ti.com/product/TPS2660', 'Current-limited 12-16.8 V to the TiM561; the Jetson can power-cycle it.'),
     ('drive_pcb', 'Battery power monitor (V, I, energy) read by the Jetson', 'INA228AIDGSR', 1, 4.00, 'buy', 'estimate', 'ti.com/product/INA228', 'Real state of charge in ROS.'),
     ('drive_pcb', 'IMU on the VESC I2C bus', 'LSM6DS3TR-C', 1, 3.00, 'buy', 'estimate', 'st.com', 'VESC firmware lsm6ds3 driver (WHO_AM_I 0x6A).'),

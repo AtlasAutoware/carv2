@@ -37,7 +37,7 @@
  (property "Sheetfile" "atlas_drive_h_usb.kicad_sch" (at 314.96 114.90 0) (effects (font (size 1.27 1.27)) (justify left top)))
  (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80" (page "9")))))
 (sheet (at 25.40 127.00) (size 83.82 25.4) (fields_autoplaced yes) (stroke (width 0.1524) (type solid)) (fill (color 0 0 0 0.0000)) (uuid "edd5adde-4945-57fa-a26d-986cd0c0495e")
- (property "Sheetname" "I_OUT Servo 7.4 V (TPSM63610), lidar eFuse (TPS26600)," (at 25.40 126.30 0) (effects (font (size 1.27 1.27)) (justify left bottom)))
+ (property "Sheetname" "I_OUT Servo 7.5 V (TPSM63610), lidar eFuse (TPS26600)," (at 25.40 126.30 0) (effects (font (size 1.27 1.27)) (justify left bottom)))
  (property "Sheetfile" "atlas_drive_i_out.kicad_sch" (at 25.40 153.00 0) (effects (font (size 1.27 1.27)) (justify left top)))
  (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80" (page "10")))))
 (sheet (at 121.92 127.00) (size 83.82 25.4) (fields_autoplaced yes) (stroke (width 0.1524) (type solid)) (fill (color 0 0 0 0.0000)) (uuid "261ab2dc-1bf7-55ac-841e-addb57748483")

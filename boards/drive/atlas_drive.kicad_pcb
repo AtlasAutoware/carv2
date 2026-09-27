@@ -22755,7 +22755,7 @@
 				)
 			)
 		)
-		(property "Description" "precharge resistor, 2 x 22 Ohm pulse-proof 2512 in parallel (11 Ohm, tau 16 ms): each takes 0.1 J per switch-on, under its single-pulse rating (sim/precharge.py; one 10 Ohm 2512 was over it)"
+		(property "Description" "precharge resistor, 2 x 22 Ohm pulse-proof 2512 in parallel (11 Ohm, tau 16 ms): each takes 0.15 J per switch-on, under its single-pulse rating (sim/precharge.py; one 10 Ohm 2512 was over it)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -80639,7 +80639,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Description" "precharge resistor, 2 x 22 Ohm pulse-proof 2512 in parallel (11 Ohm, tau 16 ms): each takes 0.1 J per switch-on, under its single-pulse rating (sim/precharge.py; one 10 Ohm 2512 was over it)"
+		(property "Description" "precharge resistor, 2 x 22 Ohm pulse-proof 2512 in parallel (11 Ohm, tau 16 ms): each takes 0.15 J per switch-on, under its single-pulse rating (sim/precharge.py; one 10 Ohm 2512 was over it)"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)

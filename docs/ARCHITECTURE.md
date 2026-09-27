@@ -307,7 +307,7 @@ change.
   (6), one reference over copper, and one 0.2 mm piece of track at a corner of a USB pair that it
   calls open (the piece overlaps the rest of the track).
 - Brain board: DRC shows no unconnected nets and no clearance errors. It still lists 199
-  footprint-library differences (Antmicro's footprints are not the stock KiCad ones), 42
+  footprint-library differences (Antmicro's footprints are not the stock KiCad ones), 37
   silkscreen warnings, and the courtyard and hole overlaps that Antmicro excluded in their project.
 - Fabrication files for both boards are in `boards/*/out/fab/`: zipped Gerbers and drill files,
   pick-and-place and BOM.
@@ -321,7 +321,7 @@ change.
 - Drive: phase A's divider resistor R507 and filter capacitor C508 are on the underside, beside
   SENS_A's via under the corner of the MCU. On top, the automatic placer had boxed them in.
 - Drive: the PPHV branch to C713 runs straight down beside it. That lets the charger's STAT line
-  leave the PMID copper to the west instead of cutting the PMID pour in two.
+  leave the CHG_PMID copper to the west instead of cutting that pour in two.
 - Drive: PD_IRQ_N runs along the edge of the motor-supply keep-out, which leaves room beside U701
   for the two vias that take the stack's I2C lines down to the inner layers.
 - Drive: about 20 capacitors and resistors had their ground pad cut off in a small island of the

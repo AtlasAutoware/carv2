@@ -1,7 +1,7 @@
 (kicad_sch (version 20250114) (generator "eeschema") (generator_version "9.0")
  (uuid "edd5adde-4945-57fa-a26d-986cd0c0495e")
  (paper "A2")
- (title_block (title "ATLAS-DRV-1 drive board: Servo 7.4 V (TPSM63610), lidar eFuse (TPS26600), fan") (date "2026-09-27") (rev "0.1") (company "Atlas Autoware (501c3), Fairfax VA") (comment 1 "Generated from design.py by tools/eda.py; edit the Python, not this file"))
+ (title_block (title "ATLAS-DRV-1 drive board: Servo 7.5 V (TPSM63610), lidar eFuse (TPS26600), fan") (date "2026-09-27") (rev "0.1") (company "Atlas Autoware (501c3), Fairfax VA") (comment 1 "Generated from design.py by tools/eda.py; edit the Python, not this file"))
  (lib_symbols (symbol "atlas:TPSM63610"
 		(pin_names
 			(offset 0.508))
@@ -1211,7 +1211,7 @@
 						(font
 							(size 1.27 1.27))))))
 		(embedded_fonts no)))
- (text "Servo 7.4 V (TPSM63610), lidar eFuse (TPS26600), fan" (exclude_from_sim no) (at 25.4 25.4 0) (effects (font (size 3 3) (thickness 0.5) bold) (justify left)) (uuid "86ddd289-fdf0-524c-a2c7-a236f8f77aa3"))
+ (text "Servo 7.5 V (TPSM63610), lidar eFuse (TPS26600), fan" (exclude_from_sim no) (at 25.4 25.4 0) (effects (font (size 3 3) (thickness 0.5) bold) (justify left)) (uuid "86ddd289-fdf0-524c-a2c7-a236f8f77aa3"))
 (text "TPSM63610 from VM: RFBT 100k / RFBB 15.4k = 7.49 V, RT 15.8k = 1 MHz, EN divider 100k / 16.2k = on above 9 V." (exclude_from_sim no) (at 25.4 33.02 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "0f4e3d8e-baf4-564f-a59f-60f68c660a4c"))
 (text "Output 4 x 47 uF 16 V + 220 uF polymer for servo stall pulses (8 A, 10 A peak)." (exclude_from_sim no) (at 25.4 38.1 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "f0b39d8f-ef2b-5a15-b51e-906622f11e86"))
 (text "TPS26600 from VSYS: ILIM 12k = 1 A, dVdT 22 nF, UVLO 10 V. SHDN from the Jetson (LIDAR_EN), off by default." (exclude_from_sim no) (at 25.4 43.18000000000001 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "83999a81-6949-54bf-91ea-09b39e4a99b2"))

@@ -17,5 +17,7 @@ Stand-ins: in the car pictures the lidar, the camera, the Jetson module with its
 card, the RJ45 jacks and the stacking header are simple shapes, not models of the real parts. In the
 drive board pictures a few parts have no 3D model in KiCad and show as bare pads.
 
-To make them again: `boards/tools/run_kicad.sh "" glb-drive glb-brain render-drive render-brain`,
-then `python3 share/make_renders.py` (VTK), and `sim/run_all.sh` for the plots.
+To make them again: `boards/tools/run_kicad.sh glb-drive glb-brain render-drive render-brain`
+writes the board models and renders to `boards/*/out/render/`; copy the PNGs you want here. Then run
+`share/make_renders.py` once per view (VTK; the loop is in its docstring). `sim/run_all.sh` writes
+the plots to `sim/out/`.

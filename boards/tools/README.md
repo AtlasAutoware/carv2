@@ -2,8 +2,11 @@
 
 These scripts turn `design.py` and `layout.py` into finished KiCad boards. Some of them run inside
 KiCad's Python (`flatpak run --command=python3 --filesystem=home org.kicad.KiCad script.py ...`, marked
-**K** below). The rest need plain Python with numpy, scipy, shapely and scikit-image. `run_kicad.sh`
-wraps the KiCad steps, one argument per step (`pcb-drive`, `drc-drive`, `fab-brain` and so on).
+**K** below). The rest need plain Python with numpy, scipy, shapely, scikit-image and matplotlib
+(`pdfpads.py` also needs PyMuPDF). `run_kicad.sh` wraps the KiCad steps, one argument per step:
+`run_kicad.sh drc-drive fab-drive`, `run_kicad.sh render-brain` and so on. It works from the folder
+it sits in; a first argument ending in `.tar.gz` is a sync tarball in `.work/` to unpack first.
+`pcb-<board>` builds a board again from its placement, so on a routed board it throws the routing away.
 
 ## Order of work
 
@@ -11,8 +14,9 @@ wraps the KiCad steps, one argument per step (`pcb-drive`, `drc-drive`, `fab-bra
    schematic capture and `chips.py` for the pin tables. `check_fp.py` checks that every footprint
    exists with the right pads.
 2. **Placement.** `placer.py` runs the board's `layout.py` against a footprint model, then places
-   the remaining parts next to the pins they connect to. Once a board is routed, its layout sets
-   `KEEP_AUTO`, so the other parts stay put when one part is moved.
+   the remaining parts next to the pins they connect to. The drive board's layout sets `KEEP_AUTO`
+   now that it is routed, so the other parts stay put when one part is moved. The brain board's
+   layout pins its parts by hand instead.
 3. **Board.** `build_pcb.py` (**K**) builds the board from the placement and the hand-drawn copper
    in `layout.copper()`: escapes, via arrays and pours. `check_copper.py` checks that copper before
    KiCad sees it.
@@ -55,4 +59,4 @@ removed parts, renets the rest and places the new ones.
 - `pdfpads.py` reads pad sizes off TI land-pattern PDFs, for `make_footprints.py`.
 - `sexp.py` reads and writes KiCad files.
 - `pack_sync.sh` packs the sources for the KiCad machine. It is specific to how these boards were
-  built and has a hard-coded path.
+  built and has a hard-coded path (the build container's copy of the repo).

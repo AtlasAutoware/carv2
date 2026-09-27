@@ -2469,7 +2469,7 @@
 "fields": {
 "MPN": "CRCW251222R0FKEGHP",
 "Manufacturer": "Vishay",
-"Description": "precharge resistor, 2 x 22 Ohm pulse-proof 2512 in parallel (11 Ohm, tau 16 ms): each takes 0.1 J per switch-on, under its single-pulse rating (sim/precharge.py; one 10 Ohm 2512 was over it)"
+"Description": "precharge resistor, 2 x 22 Ohm pulse-proof 2512 in parallel (11 Ohm, tau 16 ms): each takes 0.15 J per switch-on, under its single-pulse rating (sim/precharge.py; one 10 Ohm 2512 was over it)"
 },
 "path": "/9dcb4722-a200-5c97-8571-fc07e1e08ae7/07822070-3b9b-58e3-8987-8d6986b7cfff",
 "sheetfile": "atlas_drive_c_switch.kicad_sch",
@@ -2500,7 +2500,7 @@
 "fields": {
 "MPN": "CRCW251222R0FKEGHP",
 "Manufacturer": "Vishay",
-"Description": "precharge resistor, 2 x 22 Ohm pulse-proof 2512 in parallel (11 Ohm, tau 16 ms): each takes 0.1 J per switch-on, under its single-pulse rating (sim/precharge.py; one 10 Ohm 2512 was over it)"
+"Description": "precharge resistor, 2 x 22 Ohm pulse-proof 2512 in parallel (11 Ohm, tau 16 ms): each takes 0.15 J per switch-on, under its single-pulse rating (sim/precharge.py; one 10 Ohm 2512 was over it)"
 },
 "path": "/9dcb4722-a200-5c97-8571-fc07e1e08ae7/d43b2d85-8186-5b8a-85a7-fd1b5acbac8e",
 "sheetfile": "atlas_drive_c_switch.kicad_sch",

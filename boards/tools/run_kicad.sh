@@ -1,14 +1,17 @@
 #!/bin/bash
-# Runs on the KiCad machine. usage: run_kicad.sh SYNC_TARBALL [steps...]
+# Runs on the KiCad machine. usage: run_kicad.sh [SYNC_TARBALL | ""] steps...
+# The optional first argument is a tarball in .work/ to unpack first (pack_sync.sh makes it), or "".
 # steps: sch-drive erc-drive pcb-drive dsn-drive ses-drive sestrim-drive padvia-drive finish-drive drc-drive svg-drive,
 #        fork-brain net-brain geom-brain forkpcb-brain dsn-brain ..., stack,
 #        render-<board> (3D images to out/render), glb-<board> (3D model for share/make_renders.py),
 #        fab-<board> (gerbers, drill, CPL, BOM to out/fab)
 set -e
-ROOT=/home/eshanki/atlasstuff/carv2
+ROOT=$(cd "$(dirname "$0")/../.." && pwd)
 cd $ROOT
-if [ -n "$1" ] && [ -f ".work/$1" ]; then tar xzf ".work/$1"; fi
-shift || true
+if [ -z "$1" ] || [[ "$1" == *.tar.gz ]]; then
+  if [ -n "$1" ] && [ -f ".work/$1" ]; then tar xzf ".work/$1"; fi
+  shift || true
+fi
 export KICAD_STOCK_SYMBOLS=$HOME/.local/share/flatpak/runtime/org.kicad.KiCad.Library.Symbols/x86_64/stable/active/files/symbols
 export KICAD_FP_DIR=$HOME/.local/share/flatpak/runtime/org.kicad.KiCad.Library.Footprints/x86_64/stable/active/files/footprints
 KCLI="flatpak run --command=kicad-cli org.kicad.KiCad"

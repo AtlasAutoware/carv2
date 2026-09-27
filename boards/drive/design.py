@@ -110,7 +110,7 @@ d.R('R', '470', 'PRE_G0', 'PRE_G', desc='precharge gate Rg (datasheet 220-470 Oh
 d.chip('Q', NFET_Q5B, {'G': 'PRE_G', 'D': 'PRE_D', 'S': 'VM'}, desc='precharge FET')
 for _ in range(2):
     d.R('R', '22', 'SW_IN', 'PRE_D', size='2512', mpn='CRCW251222R0FKEGHP', mfr='Vishay',
-        desc='precharge resistor, 2 x 22 Ohm pulse-proof 2512 in parallel (11 Ohm, tau 16 ms): each takes 0.1 J per '
+        desc='precharge resistor, 2 x 22 Ohm pulse-proof 2512 in parallel (11 Ohm, tau 16 ms): each takes 0.15 J per '
              'switch-on, under its single-pulse rating (sim/precharge.py; one 10 Ohm 2512 was over it)')
 d.D('D', 'SMCJ20A', 'GND', 'VM', 'Diode_SMD:D_SMC', kind='Z', mpn='SMCJ20A', mfr='Littelfuse',
     desc='motor bus TVS 1500 W: regen with the BMS open')
@@ -330,7 +330,7 @@ d.block('G_CHARGE', 'USB-C: TPS25751D PD sink + BQ25798 charger', [
     'on I2Cc, negotiates up to 20 V and programs the BQ25798 (0x6B) on the same bus. Target port on the Jetson I2C.',
     'BQ25798: PROG 17.4k = 4S, 1.5 MHz, 1 uH. TS fixed at 25 C (5.23k / 30.1k || 10k). ILIM_HIZ 39k / 100k = 3.25 A.',
     'SYS output is VSYS (NVDC path): the brain board and the lidar run from it, from USB power when it is plugged in.',
-    'EEPROM image: TI Application Customization Tool (TPS25751). Header J51 can program it off-line.',
+    'EEPROM image: TI Application Customization Tool (TPS25751). Header J702 can program it off-line.',
 ])
 d.chip('J', USBC16, {'VBUS': 'VBUS_C', 'CC1': 'USB_CC1', 'CC2': 'USB_CC2', 'D+': 'USBC_DP', 'D-': 'USBC_DN',
                        'SBU1': None, 'SBU2': None, 'GND': 'GND', 'SHIELD': 'GND'})
@@ -460,7 +460,7 @@ d.R('R', '1k', '+3V3', 'CP_RXLED_A', desc='RX LED')
 d.LED('D', 'YELLOW', 'CP_RXLED_A', 'CP_RXLED', size='0402')
 
 # =============================================================================== I. outputs
-d.block('I_OUT', 'Servo 7.4 V (TPSM63610), lidar eFuse (TPS26600), fan', [
+d.block('I_OUT', 'Servo 7.5 V (TPSM63610), lidar eFuse (TPS26600), fan', [
     'TPSM63610 from VM: RFBT 100k / RFBB 15.4k = 7.49 V, RT 15.8k = 1 MHz, EN divider 100k / 16.2k = on above 9 V.',
     'Output 4 x 47 uF 16 V + 220 uF polymer for servo stall pulses (8 A, 10 A peak).',
     'TPS26600 from VSYS: ILIM 12k = 1 A, dVdT 22 nF, UVLO 10 V. SHDN from the Jetson (LIDAR_EN), off by default.',

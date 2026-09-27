@@ -1,4 +1,4 @@
-ERC report (2026-09-27T06:25:58, Encoding UTF8)
+ERC report (2026-09-27T16:41:28, Encoding UTF8)
 Report includes: Errors, Warnings, Exclusions
 
 ***** Sheet /
@@ -19,7 +19,7 @@ Report includes: Errors, Warnings, Exclusions
 
 ***** Sheet /H_USB One-cable debugging: USB2514B hub, CP2102N conso/
 
-***** Sheet /I_OUT Servo 7.4 V (TPSM63610), lidar eFuse (TPS26600),/
+***** Sheet /I_OUT Servo 7.5 V (TPSM63610), lidar eFuse (TPS26600),/
 
 ***** Sheet /J_STACK Brain board socket, battery monitor, board ID/
 

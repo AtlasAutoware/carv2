@@ -36,8 +36,8 @@ From `bom/cost_summary.md` (prices from September 2026):
 
 | | USD |
 | --- | ---: |
-| Drive board, 5 bare boards + 1 assembled | 525.70 |
-| Brain board, 5 bare boards + 1 assembled | 563.90 |
+| Drive board: 5 boards, 1 of them assembled | 525.70 |
+| Brain board: 5 boards, 1 of them assembled | 563.90 |
 | 18650 pack materials | 134.20 |
 | Camera lens | 144.00 |
 | Charger, cable, fan, thermal pad, hardware | 94.99 |
@@ -54,13 +54,13 @@ numbers because the team already has them.
 On 27 September 2026 the design is finished and nothing has been ordered.
 
 - Both boards are routed. KiCad's DRC finds no unconnected nets and no clearance errors on
-  either of them. What it still lists is minor: silkscreen clipped at the board edge, one 0.2 mm
-  track end on the drive board, and on the brain board the footprint-library differences and
-  courtyard overlaps that come with Antmicro's design (their exclusions are kept).
+  either of them. What it still lists is minor: silkscreen warnings on both boards, one 0.2 mm
+  track end on the drive board, and on the brain board the footprint-library differences that
+  come with Antmicro's design and the courtyard and hole overlaps Antmicro excluded.
 - The stack header matches on both boards: all 40 pins carry the same net at the same place, and
   the brain board's corner holes sit over the drive board's (`boards/tools/check_stack.py`).
-- The simulations changed two parts, the precharge resistors and the bulk capacitors
-  (`sim/README.md`).
+- The precharge simulation changed the precharge resistors. The bulk capacitors changed too: the
+  first choice was tall enough to hit the brain board's SSD (`sim/README.md`).
 - The printed kit passes its interference checks. Print the two fit coupons first.
 
 What to check before ordering, and the layout choices that are not obvious from the schematics,
@@ -69,8 +69,11 @@ are at the end of `docs/ARCHITECTURE.md`.
 ## Rebuilding
 
 - Boards: KiCad 10 and Python 3. `boards/tools/run_kicad.sh` runs every step (schematic, board,
-  routing export and import, DRC, renders, fabrication files). The routing itself was done with
-  Freerouting 1.9 and finished with `boards/tools/mazeroute.py`.
+  routing export and import, DRC, renders, fabrication files).
+  `boards/tools/run_kicad.sh drc-drive fab-drive` checks the finished drive board and writes its
+  fabrication files. Careful with `pcb-drive`: it builds the board again from the placement,
+  without the routing. The routing itself was done with Freerouting 1.9 and finished with
+  `boards/tools/mazeroute.py`.
 - Printed kit: `pip install cadquery ezdxf matplotlib`, then `python3 mech/kit.py`.
 - Simulations: ngspice and Python with numpy, scipy and matplotlib; `sim/run_all.sh`.
 - Firmware: build the `fw_atlas_drv1` target in the VESC `bldc` repository with the two files from
@@ -79,5 +82,5 @@ are at the end of `docs/ARCHITECTURE.md`.
 ## Licenses
 
 The brain board is derived from Antmicro's Jetson Orin Baseboard (Apache-2.0); its schematic and
-board keep Antmicro's notices, and `boards/brain/vendor/fetch.sh` downloads the original. The VESC
+board keep Antmicro's notices, and `boards/brain/vendor/antmicro/fetch.sh` downloads the original. The VESC
 hardware target is derived from the VESC firmware (GPL-3.0), so those two files are GPL-3.0.
