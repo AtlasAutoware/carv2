@@ -1,0 +1,23 @@
+{
+ "peak_phase_current": 70.0,
+ "battery_current": 32.6,
+ "ambient_c": 35.0,
+ "total_loss_w": 9.88,
+ "losses_w": {
+  "fet_hs": 0.552,
+  "fet_ls": 0.462,
+  "batt_fet": 0.08,
+  "shunt_esc": 0.057,
+  "shunt_bms": 0.531,
+  "shunt_main": 0.213
+ },
+ "board_max_c": 57.6,
+ "board_mean_c": 49.3,
+ "spreader_mean_c": 54.5,
+ "hottest_esc_fet_c": 57.6,
+ "esc_fet_junction_c": 58.0,
+ "bms_fet_c": 52.1,
+ "bulk_caps_c": 54.7,
+ "mcu_c": 50.9,
+ "servo_module_c": 49.5
+}

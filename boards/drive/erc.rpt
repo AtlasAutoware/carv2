@@ -1,0 +1,35 @@
+ERC report (2026-09-27T06:25:58, Encoding UTF8)
+Report includes: Errors, Warnings, Exclusions
+
+***** Sheet /
+
+***** Sheet /A_PACK Pack connection/
+
+***** Sheet /B_BMS Battery protection: BQ7791508, 4S, low-side FETs/
+
+***** Sheet /C_SWITCH Main switch: TPS48111 + 4 FETs, MCU-sequenced pr/
+
+***** Sheet /D_POWER Power button latch and logic supplies/
+
+***** Sheet /E_ESC ESC power stage: DRV8323RS + 12 x CSD18510Q5B +/
+
+***** Sheet /F_MCU STM32F405 running VESC firmware, IMU, CAN, hall/
+
+***** Sheet /G_CHARGE USB-C: TPS25751D PD sink + BQ25798 charger/
+
+***** Sheet /H_USB One-cable debugging: USB2514B hub, CP2102N conso/
+
+***** Sheet /I_OUT Servo 7.4 V (TPSM63610), lidar eFuse (TPS26600),/
+
+***** Sheet /J_STACK Brain board socket, battery monitor, board ID/
+
+ ** ERC messages: 0  Errors 0  Warnings 0
+
+ ** Ignored checks:
+    - Global label only appears once in the schematic
+    - Four connection points are joined together
+    - SPICE model issue
+    - Library symbol issue
+    - Symbol doesn't match copy in library
+    - Footprint link issue
+    - Assigned footprint doesn't match footprint filters

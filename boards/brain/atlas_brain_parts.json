@@ -1,0 +1,4076 @@
+{
+"name": "atlas_brain",
+"parts": [
+{
+"ref": "J1001",
+"value": "STACK_2x20",
+"footprint": "Connector_PinHeader_2.54mm:PinHeader_2x20_P2.54mm_Vertical",
+"pads": {
+"1": "STK_VSYS",
+"2": "STK_VSYS",
+"3": "STK_VSYS",
+"4": "STK_VSYS",
+"5": "STK_VSYS",
+"6": "STK_VSYS",
+"7": "GND",
+"8": "GND",
+"9": "GND",
+"10": "GND",
+"11": "USB0_D_P",
+"12": "USB0_D_N",
+"13": "GND",
+"14": "GND",
+"15": "STK_VESC_J2M",
+"16": "STK_VESC_M2J",
+"17": "DEBUG_TXD",
+"18": "DEBUG_RXD",
+"19": "I2C1_SCL",
+"20": "I2C1_SDA",
+"21": "STK_PWR_BTN_N",
+"22": "STK_OS_HALTED",
+"23": "STK_POWER_EN",
+"24": "STK_MCU_NRST",
+"25": "STK_MCU_BOOT0",
+"26": "STK_ESTOP_OK",
+"27": "STK_CHG_STAT",
+"28": "STK_LIDAR_EN",
+"29": "GND",
+"30": "GND",
+"31": "STK_SPARE1",
+"32": "STK_SPARE2",
+"33": "STK_CAN_TX",
+"34": "STK_CAN_RX",
+"35": "STK_3V3_DRV",
+"36": "GND",
+"37": "GND",
+"38": "GND",
+"39": "GND",
+"40": "GND"
+},
+"block": "BA_STACK",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "TSW-120-xx-G-D (post length for the 20 mm stack, see notes)",
+"Manufacturer": "Samtec",
+"Description": "2x20 2.54 mm header into the drive board socket, bottom side"
+},
+"path": "/335ecdb6-ec88-51e7-86c0-154a0e7b4f43/a62e44c1-bb05-56b8-9255-2d93cc1d57d8",
+"sheetfile": "atlas_brain_ba_stack.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"3": "passive",
+"4": "passive",
+"5": "passive",
+"6": "passive",
+"7": "passive",
+"8": "passive",
+"9": "passive",
+"10": "passive",
+"11": "passive",
+"12": "passive",
+"13": "passive",
+"14": "passive",
+"15": "passive",
+"16": "passive",
+"17": "passive",
+"18": "passive",
+"19": "passive",
+"20": "passive",
+"21": "passive",
+"22": "passive",
+"23": "passive",
+"24": "passive",
+"25": "passive",
+"26": "passive",
+"27": "passive",
+"28": "passive",
+"29": "passive",
+"30": "passive",
+"31": "passive",
+"32": "passive",
+"33": "passive",
+"34": "passive",
+"35": "passive",
+"36": "passive",
+"37": "passive",
+"38": "passive",
+"39": "passive",
+"40": "passive"
+},
+"pinnames": {
+"1": "P1",
+"2": "P2",
+"3": "P3",
+"4": "P4",
+"5": "P5",
+"6": "P6",
+"7": "P7",
+"8": "P8",
+"9": "P9",
+"10": "P10",
+"11": "P11",
+"12": "P12",
+"13": "P13",
+"14": "P14",
+"15": "P15",
+"16": "P16",
+"17": "P17",
+"18": "P18",
+"19": "P19",
+"20": "P20",
+"21": "P21",
+"22": "P22",
+"23": "P23",
+"24": "P24",
+"25": "P25",
+"26": "P26",
+"27": "P27",
+"28": "P28",
+"29": "P29",
+"30": "P30",
+"31": "P31",
+"32": "P32",
+"33": "P33",
+"34": "P34",
+"35": "P35",
+"36": "P36",
+"37": "P37",
+"38": "P38",
+"39": "P39",
+"40": "P40"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3",
+"4": "4",
+"5": "5",
+"6": "6",
+"7": "7",
+"8": "8",
+"9": "9",
+"10": "10",
+"11": "11",
+"12": "12",
+"13": "13",
+"14": "14",
+"15": "15",
+"16": "16",
+"17": "17",
+"18": "18",
+"19": "19",
+"20": "20",
+"21": "21",
+"22": "22",
+"23": "23",
+"24": "24",
+"25": "25",
+"26": "26",
+"27": "27",
+"28": "28",
+"29": "29",
+"30": "30",
+"31": "31",
+"32": "32",
+"33": "33",
+"34": "34",
+"35": "35",
+"36": "36",
+"37": "37",
+"38": "38",
+"39": "39",
+"40": "40"
+}
+},
+{
+"ref": "Q1001",
+"value": "SSM3J332R",
+"footprint": "antmicro-footprints:SOT-23-3",
+"pads": {
+"1": "STK_PWR_BTN_N",
+"2": "3V3_STDB",
+"3": "PWR_SOFT"
+},
+"block": "BA_STACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "SSM3J332R,LF",
+"Manufacturer": "Toshiba",
+"Description": "power button from the drive board: drives PWR_SOFT high (the drive board pulls the gate up)"
+},
+"path": "/335ecdb6-ec88-51e7-86c0-154a0e7b4f43/8fc52a04-beae-5c44-ad2e-ce127074a5a2",
+"sheetfile": "atlas_brain_ba_stack.kicad_sch",
+"pintypes": {
+"1": "input",
+"2": "passive",
+"3": "passive"
+},
+"pinnames": {
+"1": "G",
+"2": "S",
+"3": "D"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3"
+}
+},
+{
+"ref": "Q1002",
+"value": "PJE138K",
+"footprint": "antmicro-footprints:SOT-523",
+"pads": {
+"1": "POWER_EN",
+"3": "STK_OS_HALTED",
+"2": "GND"
+},
+"block": "BA_STACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "PJE138K_R1_00001",
+"Manufacturer": "PANJIT",
+"Description": "OS_HALTED: pulled low while the module is powered (drive board pull-up)"
+},
+"path": "/335ecdb6-ec88-51e7-86c0-154a0e7b4f43/e3dd2160-cac7-5298-bca2-1c0878e24905",
+"sheetfile": "atlas_brain_ba_stack.kicad_sch",
+"pintypes": {
+"1": "input",
+"3": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "G",
+"3": "D",
+"2": "S"
+},
+"pinprimary": {
+"1": "1",
+"3": "3",
+"2": "2"
+}
+},
+{
+"ref": "Q1003",
+"value": "PJE138K",
+"footprint": "antmicro-footprints:SOT-523",
+"pads": {
+"1": "MCU_RST_REQ",
+"3": "STK_MCU_NRST",
+"2": "GND"
+},
+"block": "BA_STACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "PJE138K_R1_00001",
+"Manufacturer": "PANJIT",
+"Description": "STM32 reset, open drain"
+},
+"path": "/335ecdb6-ec88-51e7-86c0-154a0e7b4f43/9f2df72c-6b80-5242-8190-f369cfbc35a3",
+"sheetfile": "atlas_brain_ba_stack.kicad_sch",
+"pintypes": {
+"1": "input",
+"3": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "G",
+"3": "D",
+"2": "S"
+},
+"pinprimary": {
+"1": "1",
+"3": "3",
+"2": "2"
+}
+},
+{
+"ref": "Q1004",
+"value": "PJE138K",
+"footprint": "antmicro-footprints:SOT-523",
+"pads": {
+"1": "PWR_SOFT",
+"3": "SLEEP_WAKE_N",
+"2": "GND"
+},
+"block": "BA_STACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "PJE138K_R1_00001",
+"Manufacturer": "PANJIT",
+"Description": "power-key event on module SLEEP/WAKE* while the button request is held"
+},
+"path": "/335ecdb6-ec88-51e7-86c0-154a0e7b4f43/e541262f-ee97-540f-b76f-f768709b621c",
+"sheetfile": "atlas_brain_ba_stack.kicad_sch",
+"pintypes": {
+"1": "input",
+"3": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "G",
+"3": "D",
+"2": "S"
+},
+"pinprimary": {
+"1": "1",
+"3": "3",
+"2": "2"
+}
+},
+{
+"ref": "R1001",
+"value": "100k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "MCU_RST_REQ",
+"2": "GND"
+},
+"block": "BA_STACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "reset FET off while the expander pins are inputs"
+},
+"path": "/335ecdb6-ec88-51e7-86c0-154a0e7b4f43/4f465af8-bca3-5a13-bd25-3d95434f8f82",
+"sheetfile": "atlas_brain_ba_stack.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1002",
+"value": "100k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "+3V3",
+"2": "STK_CHG_STAT"
+},
+"block": "BA_STACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "charge status pull-up (weak: the drive board has 10k in series with the charger STAT pin)"
+},
+"path": "/335ecdb6-ec88-51e7-86c0-154a0e7b4f43/186a84bc-dbee-5c5c-aea0-913e801f3b34",
+"sheetfile": "atlas_brain_ba_stack.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1003",
+"value": "33",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "CAN_TX",
+"2": "STK_CAN_TX"
+},
+"block": "BA_STACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "CAN TX to the drive board (3.3 V CMOS on the module)"
+},
+"path": "/335ecdb6-ec88-51e7-86c0-154a0e7b4f43/c3c0bade-57dc-50b6-9d7a-f5bdcbbfd65a",
+"sheetfile": "atlas_brain_ba_stack.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1004",
+"value": "33",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "STK_CAN_RX",
+"2": "CAN_RX"
+},
+"block": "BA_STACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "CAN RX from the drive board"
+},
+"path": "/335ecdb6-ec88-51e7-86c0-154a0e7b4f43/b7c573b6-9241-594d-906a-95d36dacb6d0",
+"sheetfile": "atlas_brain_ba_stack.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "U1001",
+"value": "NTS0102",
+"footprint": "antmicro-footprints:XSON-8_1x1.95mm_P0.5mm",
+"pads": {
+"3": "+1V8",
+"7": "STK_3V3_DRV",
+"6": "+1V8",
+"5": "UART1_TXD",
+"8": "STK_VESC_J2M",
+"4": "UART1_RXD",
+"1": "STK_VESC_M2J",
+"2": "GND"
+},
+"block": "BA_STACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "NTS0102GT",
+"Manufacturer": "NXP",
+"Description": "UART1 1.8 V <-> 3.3 V (drive board side powered by the drive board)"
+},
+"path": "/335ecdb6-ec88-51e7-86c0-154a0e7b4f43/b5198dfb-0109-5065-a9d5-400dcc0e2782",
+"sheetfile": "atlas_brain_ba_stack.kicad_sch",
+"pintypes": {
+"6": "input",
+"5": "bidirectional",
+"4": "bidirectional",
+"8": "bidirectional",
+"1": "bidirectional",
+"3": "power_in",
+"7": "power_in",
+"2": "power_in"
+},
+"pinnames": {
+"6": "OE",
+"5": "A1",
+"4": "A2",
+"8": "B1",
+"1": "B2",
+"3": "VCCA",
+"7": "VCCB",
+"2": "GND"
+},
+"pinprimary": {
+"6": "6",
+"5": "5",
+"4": "4",
+"8": "8",
+"1": "1",
+"3": "3",
+"7": "7",
+"2": "2"
+}
+},
+{
+"ref": "C1001",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "+1V8",
+"2": "GND"
+},
+"block": "BA_STACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "NTS0102 VCCA"
+},
+"path": "/335ecdb6-ec88-51e7-86c0-154a0e7b4f43/72df9e3f-61df-5e88-928c-848313b53ac8",
+"sheetfile": "atlas_brain_ba_stack.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1002",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "STK_3V3_DRV",
+"2": "GND"
+},
+"block": "BA_STACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "NTS0102 VCCB"
+},
+"path": "/335ecdb6-ec88-51e7-86c0-154a0e7b4f43/1a84a84d-260b-5593-80b8-8fe59271cd27",
+"sheetfile": "atlas_brain_ba_stack.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "H1001",
+"value": "M3",
+"footprint": "MountingHole:MountingHole_3.2mm_M3_Pad_Via",
+"pads": {
+"1": "GND"
+},
+"block": "BA_STACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "M3 mounting hole",
+"in_bom": "no"
+},
+"path": "/335ecdb6-ec88-51e7-86c0-154a0e7b4f43/b0bc4b8b-b133-5662-a21b-4c91145e4b13",
+"sheetfile": "atlas_brain_ba_stack.kicad_sch",
+"pintypes": {
+"1": "input"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "H1002",
+"value": "M3",
+"footprint": "MountingHole:MountingHole_3.2mm_M3_Pad_Via",
+"pads": {
+"1": "GND"
+},
+"block": "BA_STACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "M3 mounting hole",
+"in_bom": "no"
+},
+"path": "/335ecdb6-ec88-51e7-86c0-154a0e7b4f43/36b4f6c8-cbab-57e0-a844-0a51ce16eb2c",
+"sheetfile": "atlas_brain_ba_stack.kicad_sch",
+"pintypes": {
+"1": "input"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "U1101",
+"value": "TPS259474",
+"footprint": "antmicro-footprints:VQFN-HR-10_2x2mm",
+"pads": {
+"5": "STK_VSYS",
+"1": "STK_POWER_EN",
+"2": "EF_OVLO",
+"9": "EF_ILIM",
+"7": "EF_DVDT",
+"10": "EF_ITIMER",
+"6": "POE_OUTPUT",
+"3": null,
+"4": null,
+"8": "GND"
+},
+"block": "BB_EFUSE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "TPS259474ARPWR",
+"Manufacturer": "Texas Instruments",
+"Description": "2.7-23 V 5.5 A eFuse, adjustable OVLO, circuit breaker, auto-retry"
+},
+"path": "/0470469a-d5d7-5daf-a71c-1a9f3afcee56/4778a6d1-e4bb-56bc-8796-bd31eedf11e4",
+"sheetfile": "atlas_brain_bb_efuse.kicad_sch",
+"pintypes": {
+"5": "power_in",
+"1": "input",
+"2": "input",
+"9": "passive",
+"7": "passive",
+"10": "passive",
+"6": "power_out",
+"3": "open_collector",
+"4": "input",
+"8": "power_in"
+},
+"pinnames": {
+"5": "IN",
+"1": "EN/UVLO",
+"2": "OVLO",
+"9": "ILIM",
+"7": "DVDT",
+"10": "ITIMER",
+"6": "OUT",
+"3": "PG",
+"4": "PGTH",
+"8": "GND"
+},
+"pinprimary": {
+"5": "5",
+"1": "1",
+"2": "2",
+"9": "9",
+"7": "7",
+"10": "10",
+"6": "6",
+"3": "3",
+"4": "4",
+"8": "8"
+}
+},
+{
+"ref": "R1101",
+"value": "150k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "STK_VSYS",
+"2": "EF_OVLO"
+},
+"block": "BB_EFUSE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "OVLO divider top, 1%"
+},
+"path": "/0470469a-d5d7-5daf-a71c-1a9f3afcee56/b4165741-50f5-553c-a5bd-72a5617f5d8a",
+"sheetfile": "atlas_brain_bb_efuse.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1102",
+"value": "10k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "EF_OVLO",
+"2": "GND"
+},
+"block": "BB_EFUSE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "OVLO divider bottom, 1%"
+},
+"path": "/0470469a-d5d7-5daf-a71c-1a9f3afcee56/a9d3ba52-de7b-52bf-a58e-242e00eab257",
+"sheetfile": "atlas_brain_bb_efuse.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1103",
+"value": "665",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "EF_ILIM",
+"2": "GND"
+},
+"block": "BB_EFUSE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "current limit 5.0 A, 1%"
+},
+"path": "/0470469a-d5d7-5daf-a71c-1a9f3afcee56/ae08ed66-68c5-5fca-b77d-f106c2855f99",
+"sheetfile": "atlas_brain_bb_efuse.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1101",
+"value": "2.2n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "EF_DVDT",
+"2": "GND"
+},
+"block": "BB_EFUSE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "output slew rate"
+},
+"path": "/0470469a-d5d7-5daf-a71c-1a9f3afcee56/e17c980e-b8df-545f-89e0-5e0db14a00e0",
+"sheetfile": "atlas_brain_bb_efuse.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1102",
+"value": "4.7n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "EF_ITIMER",
+"2": "GND"
+},
+"block": "BB_EFUSE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "circuit breaker timer"
+},
+"path": "/0470469a-d5d7-5daf-a71c-1a9f3afcee56/9ac8788a-f7a1-5213-9904-52133d084ca5",
+"sheetfile": "atlas_brain_bb_efuse.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1103",
+"value": "10u 25V",
+"footprint": "Capacitor_SMD:C_1206_3216Metric",
+"pads": {
+"1": "STK_VSYS",
+"2": "GND"
+},
+"block": "BB_EFUSE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "GRM31CR71E106KA12L",
+"Manufacturer": "Murata",
+"Description": "eFuse input 10 uF 25 V X7R"
+},
+"path": "/0470469a-d5d7-5daf-a71c-1a9f3afcee56/91249c20-f0f8-56ba-bd2e-e3ed7ee01495",
+"sheetfile": "atlas_brain_bb_efuse.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1104",
+"value": "10u 25V",
+"footprint": "Capacitor_SMD:C_1206_3216Metric",
+"pads": {
+"1": "STK_VSYS",
+"2": "GND"
+},
+"block": "BB_EFUSE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "GRM31CR71E106KA12L",
+"Manufacturer": "Murata",
+"Description": "eFuse input 10 uF 25 V X7R"
+},
+"path": "/0470469a-d5d7-5daf-a71c-1a9f3afcee56/c7e27937-9df6-5916-8a81-c16bdd79fa54",
+"sheetfile": "atlas_brain_bb_efuse.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1105",
+"value": "100n 50V",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "STK_VSYS",
+"2": "GND"
+},
+"block": "BB_EFUSE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "eFuse input"
+},
+"path": "/0470469a-d5d7-5daf-a71c-1a9f3afcee56/16360c01-fda6-5fdb-b6b1-af8a5c97cd91",
+"sheetfile": "atlas_brain_bb_efuse.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1106",
+"value": "22u 25V",
+"footprint": "Capacitor_SMD:C_1210_3225Metric",
+"pads": {
+"1": "POE_OUTPUT",
+"2": "GND"
+},
+"block": "BB_EFUSE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "GRM32ER71E226KE15L",
+"Manufacturer": "Murata",
+"Description": "board input bulk 22 uF 25 V X7R (replaces Antmicro C84/C85, which were 16 V parts)"
+},
+"path": "/0470469a-d5d7-5daf-a71c-1a9f3afcee56/e33fd6e7-c151-551c-9c45-35a625b9a4c8",
+"sheetfile": "atlas_brain_bb_efuse.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1107",
+"value": "22u 25V",
+"footprint": "Capacitor_SMD:C_1210_3225Metric",
+"pads": {
+"1": "POE_OUTPUT",
+"2": "GND"
+},
+"block": "BB_EFUSE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "GRM32ER71E226KE15L",
+"Manufacturer": "Murata",
+"Description": "board input bulk 22 uF 25 V X7R (replaces Antmicro C84/C85, which were 16 V parts)"
+},
+"path": "/0470469a-d5d7-5daf-a71c-1a9f3afcee56/3887085f-c1b9-5e3b-8047-c81c5015173f",
+"sheetfile": "atlas_brain_bb_efuse.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1108",
+"value": "100n 50V",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "POE_OUTPUT",
+"2": "GND"
+},
+"block": "BB_EFUSE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "board input"
+},
+"path": "/0470469a-d5d7-5daf-a71c-1a9f3afcee56/d583eee1-191c-5b2a-84d9-ee4a4b934fd8",
+"sheetfile": "atlas_brain_bb_efuse.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "U1201",
+"value": "LM5155",
+"footprint": "Package_SON:WSON-12-1EP_3x2mm_P0.5mm_EP1x2.65",
+"pads": {
+"1": "POE_OUTPUT",
+"2": "BST_VCC",
+"12": "BST_UVLO",
+"8": "BST_FB",
+"6": "BST_COMP",
+"9": "BST_SS",
+"10": "BST_RT",
+"3": "BST_GATE",
+"5": "BST_CS",
+"11": "PSE_RESET_N",
+"4": "GND",
+"7": "GND",
+"13": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "LM5155DSSR",
+"Manufacturer": "Texas Instruments",
+"Description": "boost controller, 3.5-45 V, 100 mV current limit"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/e2e0a376-bdcc-539d-b55b-c18bf777eb5e",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"12": "input",
+"8": "input",
+"6": "passive",
+"9": "passive",
+"10": "passive",
+"3": "output",
+"5": "input",
+"11": "open_collector",
+"1": "power_in",
+"2": "power_out",
+"4": "power_in",
+"7": "power_in",
+"13": "power_in"
+},
+"pinnames": {
+"12": "UVLO/SYNC",
+"8": "FB",
+"6": "COMP",
+"9": "SS",
+"10": "RT",
+"3": "GATE",
+"5": "CS",
+"11": "PGOOD",
+"1": "BIAS",
+"2": "VCC",
+"4": "PGND",
+"7": "AGND",
+"13": "EP"
+},
+"pinprimary": {
+"12": "12",
+"8": "8",
+"6": "6",
+"9": "9",
+"10": "10",
+"3": "3",
+"5": "5",
+"11": "11",
+"1": "1",
+"2": "2",
+"4": "4",
+"7": "7",
+"13": "13"
+}
+},
+{
+"ref": "L1201",
+"value": "47u",
+"footprint": "Inductor_SMD:L_Coilcraft_XAL7070-XXX",
+"pads": {
+"1": "POE_OUTPUT",
+"2": "BST_SW"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "XAL7070-473MEC",
+"Manufacturer": "Coilcraft",
+"Description": "boost inductor 47 uH, Isat 4.2 A (30 %), DCR 84 mOhm"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/76725cfb-4b49-5681-9710-36e95a4078ad",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "1",
+"2": "2"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "Q1201",
+"value": "CSD19538Q3A",
+"footprint": "Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET",
+"pads": {
+"4": "BST_GATE",
+"5": "BST_SW",
+"1": "BST_RS",
+"2": "BST_RS",
+"3": "BST_RS"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "CSD19538Q3A",
+"Manufacturer": "Texas Instruments",
+"Description": "boost switch"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/867c8af5-d2d7-5cb0-b4cb-256ab74c4539",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"4": "input",
+"5": "passive",
+"1": "passive",
+"2": "passive",
+"3": "passive"
+},
+"pinnames": {
+"4": "G",
+"5": "D",
+"1": "S",
+"2": "S",
+"3": "S"
+},
+"pinprimary": {
+"4": "4",
+"5": "5",
+"1": "1",
+"2": "1",
+"3": "1"
+}
+},
+{
+"ref": "R1201",
+"value": "0.025",
+"footprint": "Resistor_SMD:R_1206_3216Metric",
+"pads": {
+"1": "BST_RS",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "boost current sense 25 mOhm 1% 0.5 W"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/c7b45f97-fdb3-56f5-a8b0-02fb8cc3c84f",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1202",
+"value": "634",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "BST_RS",
+"2": "BST_CS"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "slope compensation RSL, 1%"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/f16318cf-c94a-5ebf-826e-12adfbbb2c02",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1201",
+"value": "100p",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "BST_CS",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "CS filter, C0G"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/6069e08d-2c3f-5467-9b8f-f5113320af7b",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D1201",
+"value": "SS2H10",
+"footprint": "Diode_SMD:D_SMB",
+"pads": {
+"1": "POE_52V",
+"2": "BST_SW"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "SS2H10-E3/52T",
+"Manufacturer": "Vishay",
+"Description": "boost rectifier, Schottky 100 V 2 A"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/cde35f14-d467-54eb-8dcd-87b8ecd79d8c",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1202",
+"value": "2.2u 100V",
+"footprint": "Capacitor_SMD:C_1210_3225Metric",
+"pads": {
+"1": "POE_52V",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "GRM32ER72A225KA35L",
+"Manufacturer": "Murata",
+"Description": "52 V output, X7R"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/a0c92a91-e236-504d-8d28-2ba03115cb80",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1203",
+"value": "2.2u 100V",
+"footprint": "Capacitor_SMD:C_1210_3225Metric",
+"pads": {
+"1": "POE_52V",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "GRM32ER72A225KA35L",
+"Manufacturer": "Murata",
+"Description": "52 V output, X7R"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/94006cee-736c-5a4c-89ef-d27d9445de76",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1204",
+"value": "2.2u 100V",
+"footprint": "Capacitor_SMD:C_1210_3225Metric",
+"pads": {
+"1": "POE_52V",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "GRM32ER72A225KA35L",
+"Manufacturer": "Murata",
+"Description": "52 V output, X7R"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/34cc8ad7-546d-5dda-9252-4ca1c1e86efc",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1205",
+"value": "22u 100V",
+"footprint": "Capacitor_SMD:CP_Elec_8x10.5",
+"pads": {
+"1": "POE_52V",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "EEE-FK2A220P",
+"Manufacturer": "Panasonic",
+"Description": "52 V bulk (TI asks for bulk on the PSE supply), aluminium 100 V"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/97a701f4-8a92-5abf-99b0-8a138db7e8b4",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1206",
+"value": "10u 25V",
+"footprint": "Capacitor_SMD:C_1206_3216Metric",
+"pads": {
+"1": "POE_OUTPUT",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "GRM31CR71E106KA12L",
+"Manufacturer": "Murata",
+"Description": "boost input"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/784afb83-13fa-5aca-95c1-ca3296d632ac",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1207",
+"value": "10u 25V",
+"footprint": "Capacitor_SMD:C_1206_3216Metric",
+"pads": {
+"1": "POE_OUTPUT",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "GRM31CR71E106KA12L",
+"Manufacturer": "Murata",
+"Description": "boost input"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/82853e26-e2be-51cc-bcfc-3efab46e687d",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1208",
+"value": "100n 50V",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "POE_OUTPUT",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "BIAS pin"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/22a8f7ba-4122-5558-b544-0b995ad462f5",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1209",
+"value": "2.2u 16V",
+"footprint": "Capacitor_SMD:C_0603_1608Metric",
+"pads": {
+"1": "BST_VCC",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "VCC regulator (1-4.7 uF)"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/06f37dcd-2e3a-5485-8354-5ebf289e8432",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1203",
+"value": "73.2k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "BST_RT",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "RT: 2.21e10 / 300 kHz - 955, 1%"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/5fbcee16-c821-5af1-8df1-14f104ced949",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1204",
+"value": "510k",
+"footprint": "Resistor_SMD:R_0603_1608Metric",
+"pads": {
+"1": "POE_52V",
+"2": "BST_FB"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "FB top: 52 V with VREF 1.0 V, 1%"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/2570c969-aad4-553b-a854-9bc4de607f0b",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1205",
+"value": "10k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "BST_FB",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "FB bottom, 1%"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/744bee33-ec66-5c36-af49-9f8f2b0cad70",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1206",
+"value": "56k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "POE_OUTPUT",
+"2": "BST_UVLO"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "UVLO top: on at 9.9 V, 1%"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/47291e8b-6c40-5d40-b276-e43252ff2ab6",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1207",
+"value": "10k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "BST_UVLO",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "UVLO bottom, 1%"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/0db0b799-e8d3-5aa5-a392-5238de071285",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1210",
+"value": "47n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "BST_SS",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "soft start about 3.6 ms"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/4b2fec46-c859-5b84-8690-dba9338da572",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1208",
+"value": "15.8k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "BST_COMP",
+"2": "BST_COMPZ"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "RCOMP, 1%"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/4ea8a679-1588-5787-b3eb-d1b6489a50b8",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1211",
+"value": "10n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "BST_COMPZ",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "CCOMP"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/c8e0abac-b1fb-5517-be5d-fb2ec796f2c6",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1212",
+"value": "330p",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "BST_COMP",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "CHF, C0G"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/4678e110-ecbb-5622-834e-674e900623a4",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D1202",
+"value": "SMBJ58A",
+"footprint": "Diode_SMD:D_SMB",
+"pads": {
+"1": "POE_52V",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "SMBJ58A",
+"Manufacturer": "Littelfuse",
+"Description": "52 V system TVS: 58 V standoff, 93.6 V clamp"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/2de7b9bb-06c6-50a3-9305-b45645dfa6de",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "A1",
+"2": "A2"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "U1202",
+"value": "TPS23861",
+"footprint": "Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm",
+"pads": {
+"1": "+3V3",
+"28": "POE_52V",
+"2": "PSE_RESET_N",
+"3": "I2C1_SCL",
+"4": "I2C1_SDA",
+"5": "I2C1_SDA",
+"6": "PSE_INT_N",
+"23": null,
+"24": null,
+"25": null,
+"26": null,
+"27": null,
+"17": "PSE_G1",
+"16": "PSE_D1",
+"15": "PSE_S1",
+"18": "GND",
+"21": null,
+"20": "GND",
+"19": "GND",
+"10": null,
+"9": "GND",
+"8": "GND",
+"11": "GND",
+"14": null,
+"13": "GND",
+"12": "GND",
+"7": "GND",
+"22": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "TPS23861PWR",
+"Manufacturer": "Texas Instruments",
+"Description": "IEEE 802.3at quad-port PSE controller, auto mode as shipped"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/be84c0b6-fd82-5686-b139-777601e73ffc",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"2": "input",
+"3": "input",
+"4": "input",
+"5": "open_collector",
+"6": "open_collector",
+"23": "input",
+"24": "input",
+"25": "input",
+"26": "open_collector",
+"27": "no_connect",
+"17": "output",
+"16": "input",
+"15": "input",
+"18": "input",
+"21": "output",
+"20": "input",
+"19": "input",
+"10": "output",
+"9": "input",
+"8": "input",
+"11": "input",
+"14": "output",
+"13": "input",
+"12": "input",
+"1": "power_in",
+"28": "power_in",
+"7": "power_in",
+"22": "power_in"
+},
+"pinnames": {
+"2": "RESET",
+"3": "SCL",
+"4": "SDAI",
+"5": "SDAO",
+"6": "INT",
+"23": "A3",
+"24": "SHTDWN",
+"25": "AIN",
+"26": "AOUT",
+"27": "N/C",
+"17": "GATE1",
+"16": "DRAIN1",
+"15": "SEN1",
+"18": "KSENSA",
+"21": "GATE2",
+"20": "DRAIN2",
+"19": "SEN2",
+"10": "GATE3",
+"9": "DRAIN3",
+"8": "SEN3",
+"11": "KSENSB",
+"14": "GATE4",
+"13": "DRAIN4",
+"12": "SEN4",
+"1": "VDD",
+"28": "VPWR",
+"7": "DGND",
+"22": "AGND"
+},
+"pinprimary": {
+"2": "2",
+"3": "3",
+"4": "4",
+"5": "5",
+"6": "6",
+"23": "23",
+"24": "24",
+"25": "25",
+"26": "26",
+"27": "27",
+"17": "17",
+"16": "16",
+"15": "15",
+"18": "18",
+"21": "21",
+"20": "20",
+"19": "19",
+"10": "10",
+"9": "9",
+"8": "8",
+"11": "11",
+"14": "14",
+"13": "13",
+"12": "12",
+"1": "1",
+"28": "28",
+"7": "7",
+"22": "22"
+}
+},
+{
+"ref": "C1213",
+"value": "100n 50V",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "+3V3",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "TPS23861 VDD (50 V X7R per datasheet)"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/a524dc97-800d-5fc9-ae63-2119fb92ac0e",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1214",
+"value": "100n 100V",
+"footprint": "Capacitor_SMD:C_0805_2012Metric",
+"pads": {
+"1": "POE_52V",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "GRM21BR72A104KAC4L",
+"Manufacturer": "Murata",
+"Description": "TPS23861 VPWR, at pin 28"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/bc5dc19e-8129-5470-ba9f-fe90a990a311",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1215",
+"value": "10n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "PSE_RESET_N",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "RESET filter"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/d01e8c89-c2d1-520b-af1b-218ed6d6673a",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1209",
+"value": "10k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "+3V3",
+"2": "PSE_INT_N"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "INT pull-up (open drain, read by the I/O expander)"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/b8334865-c556-5a1f-8ed9-1008b60ebee1",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "Q1202",
+"value": "CSD19538Q3A",
+"footprint": "Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET",
+"pads": {
+"4": "PSE_G1",
+"5": "POE_PAIR_36",
+"1": "PSE_RS1",
+"2": "PSE_RS1",
+"3": "PSE_RS1"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "CSD19538Q3A",
+"Manufacturer": "Texas Instruments",
+"Description": "port 1 switch (low side)"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/14db8b39-1a9c-55f5-80f6-7740cce3aed3",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"4": "input",
+"5": "passive",
+"1": "passive",
+"2": "passive",
+"3": "passive"
+},
+"pinnames": {
+"4": "G",
+"5": "D",
+"1": "S",
+"2": "S",
+"3": "S"
+},
+"pinprimary": {
+"4": "4",
+"5": "5",
+"1": "1",
+"2": "1",
+"3": "1"
+}
+},
+{
+"ref": "R1210",
+"value": "0.51",
+"footprint": "Resistor_SMD:R_0805_2012Metric",
+"pads": {
+"1": "PSE_RS1",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "port 1 sense, two in parallel = 0.255 Ohm, 1% 0.25 W"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/ccb59060-201e-5906-b73f-6c1321f944a3",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1211",
+"value": "0.51",
+"footprint": "Resistor_SMD:R_0805_2012Metric",
+"pads": {
+"1": "PSE_RS1",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "port 1 sense, two in parallel = 0.255 Ohm, 1% 0.25 W"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/bb2fb584-f7a0-5e02-8ae0-073e075e4957",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1212",
+"value": "22.1",
+"footprint": "Resistor_SMD:R_0603_1608Metric",
+"pads": {
+"1": "PSE_RS1",
+"2": "PSE_S1"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "RSEN1, 1%"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/c4bbe8c2-a8c9-5d66-8384-fe262375c639",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1213",
+"value": "47",
+"footprint": "Resistor_SMD:R_0603_1608Metric",
+"pads": {
+"1": "POE_PAIR_36",
+"2": "PSE_D1"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "RDRN1, 5%"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/97cbae91-ca01-5445-bfe2-2d14e8c0d3df",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1216",
+"value": "100n 100V",
+"footprint": "Capacitor_SMD:C_0805_2012Metric",
+"pads": {
+"1": "POE_52V",
+"2": "POE_PAIR_36"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "GRM21BR72A104KAC4L",
+"Manufacturer": "Murata",
+"Description": "CP1, port bypass"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/a60e0468-08cb-5bd1-a665-421004e9ead9",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D1203",
+"value": "SMBJ58A",
+"footprint": "Diode_SMD:D_SMB",
+"pads": {
+"1": "POE_52V",
+"2": "POE_PAIR_36"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "SMBJ58A",
+"Manufacturer": "Littelfuse",
+"Description": "DP1A port TVS"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/3c265e7e-6049-5fd1-8fa9-ff4177ca10fc",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "A1",
+"2": "A2"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1214",
+"value": "0",
+"footprint": "Resistor_SMD:R_1206_3216Metric",
+"pads": {
+"1": "POE_52V",
+"2": "POE_PAIR_12"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "port 1 positive to the 1-2 centre tap (fuse site, 0R fitted)"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/716a0972-61c6-5843-9ad1-e763a366f95f",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1215",
+"value": "75",
+"footprint": "Resistor_SMD:R_0603_1608Metric",
+"pads": {
+"1": "POE_PAIR_78",
+"2": "BS_CAM"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "Bob Smith, camera jack pair 4-5"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/c74a56e8-9857-54c7-b5cd-97a4c93d397d",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1216",
+"value": "75",
+"footprint": "Resistor_SMD:R_0603_1608Metric",
+"pads": {
+"1": "POE_PAIR_910",
+"2": "BS_CAM"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "Bob Smith, camera jack pair 7-8"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/aa814616-b033-5896-9aaa-89c4c45b7b17",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1217",
+"value": "1n 2kV",
+"footprint": "Capacitor_SMD:C_1206_3216Metric",
+"pads": {
+"1": "BS_CAM",
+"2": "GND"
+},
+"block": "BC_POE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "GRM31BR73D102KW01L",
+"Manufacturer": "Murata",
+"Description": "Bob Smith, 2 kV"
+},
+"path": "/48f47219-cf05-525a-930b-1e2b792d7101/983b3e90-60cf-5447-9677-66ae4e1a215a",
+"sheetfile": "atlas_brain_bc_poe.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "U1301",
+"value": "LAN7800",
+"footprint": "Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.3x5.3mm_ThermalVias",
+"pads": {
+"14": "+3V3",
+"46": "+3V3",
+"38": "+3V3",
+"20": "+3V3",
+"36": "+3V3",
+"39": "+3V3",
+"45": "LAN_2V5",
+"3": "LAN_2V5",
+"6": "LAN_2V5",
+"9": "LAN_2V5",
+"12": "LAN_2V5",
+"13": "LAN_SW",
+"15": "LAN_1V2",
+"21": "LAN_1V2",
+"42": "LAN_1V2",
+"25": "LAN_1V2",
+"30": "LAN_1V2",
+"44": "LAN_1V2",
+"26": "USB2_D_P",
+"27": "USB2_D_N",
+"28": null,
+"29": null,
+"31": null,
+"32": null,
+"37": "LAN_RBIAS",
+"23": "+3V3",
+"35": "LAN_RST_N",
+"34": "GND",
+"40": "LAN_XI",
+"41": "LAN_XO",
+"43": "LAN_PME_MODE",
+"22": null,
+"24": null,
+"16": null,
+"17": "LAN_EEDI",
+"18": "LAN_LED0",
+"19": "LAN_LED1",
+"33": null,
+"1": "LAN_TR0P",
+"2": "LAN_TR0N",
+"4": "LAN_TR1P",
+"5": "LAN_TR1N",
+"7": "LAN_TR2P",
+"8": "LAN_TR2N",
+"10": "LAN_TR3P",
+"11": "LAN_TR3N",
+"47": "LAN_REXT",
+"48": "LAN_RFILT",
+"49": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "LAN7800-I/Y9X",
+"Manufacturer": "Microchip",
+"Description": "USB 3.1 Gen 1 / USB 2.0 to 10/100/1000 Ethernet bridge with PHY"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/0e81d4f9-6a19-5368-983f-081b2e2904e0",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"26": "bidirectional",
+"27": "bidirectional",
+"28": "output",
+"29": "output",
+"31": "input",
+"32": "input",
+"37": "passive",
+"23": "input",
+"35": "input",
+"34": "input",
+"40": "input",
+"41": "output",
+"43": "input",
+"22": "open_collector",
+"24": "output",
+"16": "output",
+"17": "input",
+"18": "output",
+"19": "output",
+"33": "output",
+"1": "bidirectional",
+"2": "bidirectional",
+"4": "bidirectional",
+"5": "bidirectional",
+"7": "bidirectional",
+"8": "bidirectional",
+"10": "bidirectional",
+"11": "bidirectional",
+"47": "passive",
+"48": "passive",
+"14": "power_in",
+"46": "power_in",
+"38": "power_in",
+"20": "power_in",
+"36": "power_in",
+"39": "power_in",
+"45": "power_out",
+"3": "power_in",
+"6": "power_in",
+"9": "power_in",
+"12": "power_in",
+"13": "power_out",
+"15": "input",
+"21": "power_in",
+"42": "power_in",
+"25": "power_in",
+"30": "power_in",
+"44": "power_in",
+"49": "power_in"
+},
+"pinnames": {
+"26": "USB2_DP",
+"27": "USB2_DM",
+"28": "USB3_TXDP",
+"29": "USB3_TXDM",
+"31": "USB3_RXDP",
+"32": "USB3_RXDM",
+"37": "USBRBIAS",
+"23": "VBUS_DET",
+"35": "RESET_N",
+"34": "TEST",
+"40": "XI",
+"41": "XO",
+"43": "PME_MODE",
+"22": "PME_N",
+"24": "SUSPEND_N",
+"16": "EECS",
+"17": "EEDI",
+"18": "EEDO/LED0",
+"19": "EECLK/LED1",
+"33": "LED3",
+"1": "TR0P",
+"2": "TR0N",
+"4": "TR1P",
+"5": "TR1N",
+"7": "TR2P",
+"8": "TR2N",
+"10": "TR3P",
+"11": "TR3N",
+"47": "REF_REXT",
+"48": "REF_FILT",
+"14": "VDD_SW_IN",
+"46": "VDD33_REG_IN",
+"38": "VDD33A",
+"20": "VDDVARIO",
+"36": "VDDVARIO",
+"39": "VDDVARIO",
+"45": "VDD25_REG_OUT",
+"3": "VDD25A",
+"6": "VDD25A",
+"9": "VDD25A",
+"12": "VDD25A",
+"13": "VDD12_SW_OUT",
+"15": "VDD12_SW_FB",
+"21": "VDD12CORE",
+"42": "VDD12CORE",
+"25": "VDD12A",
+"30": "VDD12A",
+"44": "VDD12A",
+"49": "VSS"
+},
+"pinprimary": {
+"26": "26",
+"27": "27",
+"28": "28",
+"29": "29",
+"31": "31",
+"32": "32",
+"37": "37",
+"23": "23",
+"35": "35",
+"34": "34",
+"40": "40",
+"41": "41",
+"43": "43",
+"22": "22",
+"24": "24",
+"16": "16",
+"17": "17",
+"18": "18",
+"19": "19",
+"33": "33",
+"1": "1",
+"2": "2",
+"4": "4",
+"5": "5",
+"7": "7",
+"8": "8",
+"10": "10",
+"11": "11",
+"47": "47",
+"48": "48",
+"14": "14",
+"46": "46",
+"38": "38",
+"20": "20",
+"36": "20",
+"39": "20",
+"45": "45",
+"3": "3",
+"6": "3",
+"9": "3",
+"12": "3",
+"13": "13",
+"15": "15",
+"21": "21",
+"42": "21",
+"25": "25",
+"30": "25",
+"44": "25",
+"49": "49"
+}
+},
+{
+"ref": "L1301",
+"value": "3.3u",
+"footprint": "Inductor_SMD:L_1008_2520Metric",
+"pads": {
+"1": "LAN_SW",
+"2": "LAN_1V2"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "LQM2HPN3R3MG0L",
+"Manufacturer": "Murata",
+"Description": "1.2 V switcher inductor, 1.2 A, 0.125 Ohm"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/7b0d8703-d9bc-5af2-9e90-1b4311ebcaec",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "1",
+"2": "2"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1301",
+"value": "10u 10V",
+"footprint": "Capacitor_SMD:C_0603_1608Metric",
+"pads": {
+"1": "LAN_1V2",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "1.2 V switcher output"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/95a19bad-5364-5cdf-9eff-6ea587822194",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1302",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "LAN_1V2",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "VDD12 pins 21, 25, 30, 42, 44"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/747e58b8-2eb1-53ca-a53d-d7ae4713febc",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1303",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "LAN_1V2",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "VDD12 pins 21, 25, 30, 42, 44"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/7a3f1e4f-5bac-5161-8ee7-02d311f1cc54",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1304",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "LAN_1V2",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "VDD12 pins 21, 25, 30, 42, 44"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/1abbbe00-382a-5556-9ae3-32086661aafa",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1305",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "LAN_1V2",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "VDD12 pins 21, 25, 30, 42, 44"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/c82b5744-bc6e-5a91-acef-937d361d3c4b",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1306",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "LAN_1V2",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "VDD12 pins 21, 25, 30, 42, 44"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/85ce0f4e-3245-5aa8-a516-4549398693f0",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1307",
+"value": "1u",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "LAN_2V5",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "2.5 V LDO output"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/8096ac4d-4a90-5e5d-ba78-02992e1fbd36",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1308",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "LAN_2V5",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "VDD25A pins 3, 6, 9, 12"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/e294e7bd-3016-5159-8b69-f5874bc24865",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1309",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "LAN_2V5",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "VDD25A pins 3, 6, 9, 12"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/5baa1fa7-093f-509e-8146-7c44c78099c7",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1310",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "LAN_2V5",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "VDD25A pins 3, 6, 9, 12"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/dfc87e19-64a2-5bb4-b371-9c43b7cfef9f",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1311",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "LAN_2V5",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "VDD25A pins 3, 6, 9, 12"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/a557a307-bb25-57c6-bc6c-6476441a5640",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1312",
+"value": "10u 10V",
+"footprint": "Capacitor_SMD:C_0603_1608Metric",
+"pads": {
+"1": "+3V3",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "LAN7800 3.3 V bulk"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/2f793dc4-a97f-50de-8ac5-e135f56a4bdd",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1313",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "+3V3",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "3.3 V pins 14, 20, 36, 38, 39, 46"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/913d2be0-b718-5f13-8402-cf378cdc00e1",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1314",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "+3V3",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "3.3 V pins 14, 20, 36, 38, 39, 46"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/b804b1ee-bbee-595e-af60-fddb573069fb",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1315",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "+3V3",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "3.3 V pins 14, 20, 36, 38, 39, 46"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/ecc19ff1-ce12-5eb3-9658-ca67fef4ea47",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1316",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "+3V3",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "3.3 V pins 14, 20, 36, 38, 39, 46"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/9ed7c26c-dfe7-5b3a-802c-b5b142c66c38",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1317",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "+3V3",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "3.3 V pins 14, 20, 36, 38, 39, 46"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/240e3ed3-7550-5b97-a689-e4fefbe15dab",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1301",
+"value": "12.0k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "LAN_RBIAS",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "USBRBIAS, 1%"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/9bbcd37c-fe5e-5db9-9be0-62e4135688ce",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1302",
+"value": "2.00k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "LAN_REXT",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "PHY reference, 1%"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/12a1fffe-f66e-5bbe-8bd7-eb3a8393358a",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1318",
+"value": "1u",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "LAN_RFILT",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "PHY reference filter"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/5542d85d-7e2f-502b-8ce3-830df62c21c7",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1303",
+"value": "10k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "+3V3",
+"2": "LAN_RST_N"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "reset pull-up"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/33d8aa61-e86f-5c2e-b329-6f689ca6afb6",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1319",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "LAN_RST_N",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "power-on reset delay"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/e03637dd-917f-5b0d-a453-64c4079f2e28",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1304",
+"value": "10k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "LAN_PME_MODE",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "PME mode input, unused"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/3f59f625-0e1d-51d7-9ede-9b0aa0a18884",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1305",
+"value": "10k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "LAN_EEDI",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "no EEPROM: EEDI reads 0"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/becfa21f-cfc5-50ec-befb-481c2f0dcbd6",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "Y1301",
+"value": "25MHz",
+"footprint": "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm",
+"pads": {
+"1": "LAN_XI",
+"3": "LAN_XO",
+"2": "GND",
+"4": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "ABM8-25.000MHZ-B2-T",
+"Manufacturer": "Abracon",
+"Description": "25 MHz crystal, 18 pF, 20 ppm"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/6034e39d-5189-5f99-9a75-67fccd5d4dab",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"3": "passive",
+"4": "passive"
+},
+"pinnames": {
+"1": "1",
+"2": "G",
+"3": "3",
+"4": "G"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3",
+"4": "2"
+}
+},
+{
+"ref": "C1320",
+"value": "27p",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "LAN_XI",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "crystal load, C0G"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/25d31552-a957-53f0-ab3d-6f50f6475380",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1321",
+"value": "27p",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "LAN_XO",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "crystal load, C0G"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/06e17d98-d87b-50ea-a6a8-1e2f940237d5",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "J1301",
+"value": "LIDAR",
+"footprint": "antmicro-footprints:RJ45_X-2337992-8_Horizontal",
+"pads": {
+"1": "LAN_TR0P",
+"2": "LAN_TR0N",
+"3": "LAN_TR1P",
+"6": "LAN_TR1N",
+"7": "LAN_TR2P",
+"8": "LAN_TR2N",
+"9": "LAN_TR3P",
+"10": "LAN_TR3N",
+"4": "LAN_CT",
+"5": "LAN_CT",
+"11": "LAN_VC1",
+"12": "LAN_VC2",
+"13": "LAN_VC3",
+"14": "LAN_VC4",
+"15": "+3V3",
+"16": "LAN_LEDG",
+"17": "+3V3",
+"18": "LAN_LEDY",
+"19": "LAN_SHLD",
+"20": "LAN_SHLD"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "5-2337992-8",
+"Manufacturer": "TE Connectivity",
+"Description": "RJ45 with magnetics and PoE centre taps (same jack as the camera port)"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/19e948d2-1454-5c46-b27a-259aa69407ef",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"3": "passive",
+"6": "passive",
+"7": "passive",
+"8": "passive",
+"9": "passive",
+"10": "passive",
+"4": "passive",
+"5": "passive",
+"11": "passive",
+"12": "passive",
+"13": "passive",
+"14": "passive",
+"15": "passive",
+"16": "passive",
+"17": "passive",
+"18": "passive",
+"19": "passive",
+"20": "passive"
+},
+"pinnames": {
+"1": "P1",
+"2": "P2",
+"3": "P3",
+"6": "P6",
+"7": "P7",
+"8": "P8",
+"9": "P9",
+"10": "P10",
+"4": "P4",
+"5": "P5",
+"11": "VC1",
+"12": "VC2",
+"13": "VC3",
+"14": "VC4",
+"15": "LED_GRN+",
+"16": "LED_GRN-",
+"17": "LED_YEL+",
+"18": "LED_YEL-",
+"19": "SHIELD",
+"20": "SHIELD"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3",
+"6": "6",
+"7": "7",
+"8": "8",
+"9": "9",
+"10": "10",
+"4": "4",
+"5": "5",
+"11": "11",
+"12": "12",
+"13": "13",
+"14": "14",
+"15": "15",
+"16": "16",
+"17": "17",
+"18": "18",
+"19": "19",
+"20": "19"
+}
+},
+{
+"ref": "C1322",
+"value": "10n",
+"footprint": "Capacitor_SMD:C_0603_1608Metric",
+"pads": {
+"1": "LAN_CT",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "PHY-side centre taps (as on the camera jack)"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/776f1220-256f-5f0a-899f-012c02058208",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1306",
+"value": "75",
+"footprint": "Resistor_SMD:R_0603_1608Metric",
+"pads": {
+"1": "LAN_VC1",
+"2": "BS_LID"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "Bob Smith termination"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/0ba7885c-499e-5233-a871-ca4b3811aadf",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1307",
+"value": "75",
+"footprint": "Resistor_SMD:R_0603_1608Metric",
+"pads": {
+"1": "LAN_VC2",
+"2": "BS_LID"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "Bob Smith termination"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/19a94863-7efe-5660-b8f0-ef69633e0e74",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1308",
+"value": "75",
+"footprint": "Resistor_SMD:R_0603_1608Metric",
+"pads": {
+"1": "LAN_VC3",
+"2": "BS_LID"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "Bob Smith termination"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/987a2f4c-0b04-5fbc-9eb1-d43bd8533e45",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1309",
+"value": "75",
+"footprint": "Resistor_SMD:R_0603_1608Metric",
+"pads": {
+"1": "LAN_VC4",
+"2": "BS_LID"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "Bob Smith termination"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/a5b232b7-2370-5067-bc8b-1fffd8af5bf9",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1323",
+"value": "1n 2kV",
+"footprint": "Capacitor_SMD:C_1206_3216Metric",
+"pads": {
+"1": "BS_LID",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "GRM31BR73D102KW01L",
+"Manufacturer": "Murata",
+"Description": "Bob Smith, 2 kV"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/3df83b2a-b5a6-5ddd-a17b-85d76392938e",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1310",
+"value": "200",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "LAN_LEDG",
+"2": "LAN_LED0"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "link LED"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/06aad8a9-61d0-51f6-b1e8-98f42a392f21",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1311",
+"value": "200",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "LAN_LEDY",
+"2": "LAN_LED1"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "activity LED"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/2681ed24-dc89-5320-9942-768108840721",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1312",
+"value": "200",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "LAN_SHLD",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "shield to ground (as on the camera jack)"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/dab35f9a-510b-5539-ace4-7e80e99f5f92",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1324",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_0402_1005Metric",
+"pads": {
+"1": "LAN_SHLD",
+"2": "GND"
+},
+"block": "BD_LAN",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "shield to ground"
+},
+"path": "/19a7b2f1-322c-5149-9762-7faa4b79567c/d2dfe1c2-6ced-51c0-8380-3f59442bd1b4",
+"sheetfile": "atlas_brain_bd_lan.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+}
+],
+"nets": [
+"+1V8",
+"+3V3",
+"3V3_STDB",
+"BST_COMP",
+"BST_COMPZ",
+"BST_CS",
+"BST_FB",
+"BST_GATE",
+"BST_RS",
+"BST_RT",
+"BST_SS",
+"BST_SW",
+"BST_UVLO",
+"BST_VCC",
+"BS_CAM",
+"BS_LID",
+"CAN_RX",
+"CAN_TX",
+"DEBUG_RXD",
+"DEBUG_TXD",
+"EF_DVDT",
+"EF_ILIM",
+"EF_ITIMER",
+"EF_OVLO",
+"GND",
+"I2C1_SCL",
+"I2C1_SDA",
+"LAN_1V2",
+"LAN_2V5",
+"LAN_CT",
+"LAN_EEDI",
+"LAN_LED0",
+"LAN_LED1",
+"LAN_LEDG",
+"LAN_LEDY",
+"LAN_PME_MODE",
+"LAN_RBIAS",
+"LAN_REXT",
+"LAN_RFILT",
+"LAN_RST_N",
+"LAN_SHLD",
+"LAN_SW",
+"LAN_TR0N",
+"LAN_TR0P",
+"LAN_TR1N",
+"LAN_TR1P",
+"LAN_TR2N",
+"LAN_TR2P",
+"LAN_TR3N",
+"LAN_TR3P",
+"LAN_VC1",
+"LAN_VC2",
+"LAN_VC3",
+"LAN_VC4",
+"LAN_XI",
+"LAN_XO",
+"MCU_RST_REQ",
+"POE_52V",
+"POE_OUTPUT",
+"POE_PAIR_12",
+"POE_PAIR_36",
+"POE_PAIR_78",
+"POE_PAIR_910",
+"POWER_EN",
+"PSE_D1",
+"PSE_G1",
+"PSE_INT_N",
+"PSE_RESET_N",
+"PSE_RS1",
+"PSE_S1",
+"PWR_SOFT",
+"SLEEP_WAKE_N",
+"STK_3V3_DRV",
+"STK_CAN_RX",
+"STK_CAN_TX",
+"STK_CHG_STAT",
+"STK_ESTOP_OK",
+"STK_LIDAR_EN",
+"STK_MCU_BOOT0",
+"STK_MCU_NRST",
+"STK_OS_HALTED",
+"STK_POWER_EN",
+"STK_PWR_BTN_N",
+"STK_SPARE1",
+"STK_SPARE2",
+"STK_VESC_J2M",
+"STK_VESC_M2J",
+"STK_VSYS",
+"UART1_RXD",
+"UART1_TXD",
+"USB0_D_N",
+"USB0_D_P",
+"USB2_D_N",
+"USB2_D_P"
+]
+}

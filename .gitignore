@@ -1,0 +1,35 @@
+# scratch space of the build and routing runs
+.work/
+__pycache__/
+*.pyc
+
+# vendor datasheets (downloaded by hand, not ours to publish)
+ref/
+
+# Antmicro's 36 MB board file: boards/brain/vendor/antmicro/fetch.sh downloads it
+boards/brain/vendor/antmicro/jetson-orin-baseboard.kicad_pcb
+
+# the boards' 3D models for share/make_renders.py (about 60 MB each): run_kicad.sh glb-drive glb-brain
+boards/*/out/render/*.glb
+
+# copies of KiCad's stock symbol libraries for running build_sch.py without KiCad (run_kicad.sh points
+# KICAD_STOCK_SYMBOLS at the installed ones)
+boards/lib/stock_symbols/
+
+# routing intermediates and board dumps
+boards/*/out/*.dsn
+boards/*/out/*.ses
+boards/*/out/*_dump.json
+boards/*/out/maze_*
+boards/*/out/freerouting*
+boards/*/out/*.svg
+
+# ngspice raw output (the plots and JSON summaries are kept)
+sim/out/*.txt
+
+# KiCad local state
+*.kicad_prl
+*-backups/
+fp-info-cache
+*.lck
+~*.lck

@@ -1,0 +1,21 @@
+* LM5155 boost power stage, 14.4 V in, 15.0 W out, D = 0.7300
+Vin in 0 DC 14.4
+Rdcr in l1 0.084
+L1 l1 sw 4.7e-05 IC=0
+Vil sw swm 0
+S1 swm rs g 0 SW1
+Rs rs 0 0.025
+D1 swm out DSCH
+Cc out 0 2.7u IC=49.4
+Ce out ce 2.2e-05 IC=49.4
+Rce ce 0 0.5
+Rl out 0 180.26666666666668
+Vg g 0 PULSE(0 5 0 5n 5n 2.423430989583334e-06 3.3333333333333333e-06)
+.model SW1 SW(Ron=0.06 Roff=1Meg Vt=2.5 Vh=0.1)
+.model DSCH D(Is=2e-6 N=1.2 Rs=0.08 Cjo=100p BV=100)
+.tran 20n 0.004 0 20n uic
+.control
+run
+wrdata /home/claude/carv2/sim/out/boost_4.txt v(out) i(Vil)
+.endc
+.end

@@ -1,0 +1,1193 @@
+(kicad_sch (version 20250114) (generator "eeschema") (generator_version "9.0")
+ (uuid "335ecdb6-ec88-51e7-86c0-154a0e7b4f43")
+ (paper "A2")
+ (title_block (title "ATLAS-BRN-1 brain board: Drive board connector, power button, level shifting") (date "2026-09-27") (rev "0.1") (company "Atlas Autoware (501c3), Fairfax VA") (comment 1 "Generated from design.py by tools/eda.py; edit the Python, not this file"))
+ (lib_symbols (symbol "atlas:STACK_2x20"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "STACK_2x20"
+			(at 0 -57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x20_P2.54mm_Vertical"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "2x20 2.54 mm header into the drive board socket, bottom side"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "STACK_2x20_0_1"
+			(rectangle
+				(start -5.08 53.34)
+				(end 5.08 -53.34)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "STACK_2x20_1_1"
+			(pin passive line
+				(at -7.62 50.80 0)
+				(length 2.54)
+				(name "P1"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 48.26 0)
+				(length 2.54)
+				(name "P2"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 45.72 0)
+				(length 2.54)
+				(name "P3"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 43.18 0)
+				(length 2.54)
+				(name "P4"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "4"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 40.64 0)
+				(length 2.54)
+				(name "P5"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "5"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 38.10 0)
+				(length 2.54)
+				(name "P6"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "6"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 35.56 0)
+				(length 2.54)
+				(name "P7"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "7"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 33.02 0)
+				(length 2.54)
+				(name "P8"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "8"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 30.48 0)
+				(length 2.54)
+				(name "P9"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "9"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 27.94 0)
+				(length 2.54)
+				(name "P10"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "10"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 25.40 0)
+				(length 2.54)
+				(name "P11"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "11"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 22.86 0)
+				(length 2.54)
+				(name "P12"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "12"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 20.32 0)
+				(length 2.54)
+				(name "P13"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "13"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 17.78 0)
+				(length 2.54)
+				(name "P14"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "14"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 15.24 0)
+				(length 2.54)
+				(name "P15"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "15"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 12.70 0)
+				(length 2.54)
+				(name "P16"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "16"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 10.16 0)
+				(length 2.54)
+				(name "P17"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "17"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 7.62 0)
+				(length 2.54)
+				(name "P18"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "18"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 5.08 0)
+				(length 2.54)
+				(name "P19"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "19"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 2.54 0)
+				(length 2.54)
+				(name "P20"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "20"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 0.00 0)
+				(length 2.54)
+				(name "P21"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "21"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -2.54 0)
+				(length 2.54)
+				(name "P22"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "22"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -5.08 0)
+				(length 2.54)
+				(name "P23"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "23"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -7.62 0)
+				(length 2.54)
+				(name "P24"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "24"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -10.16 0)
+				(length 2.54)
+				(name "P25"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "25"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -12.70 0)
+				(length 2.54)
+				(name "P26"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "26"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -15.24 0)
+				(length 2.54)
+				(name "P27"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "27"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -17.78 0)
+				(length 2.54)
+				(name "P28"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "28"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -20.32 0)
+				(length 2.54)
+				(name "P29"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "29"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -22.86 0)
+				(length 2.54)
+				(name "P30"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "30"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -25.40 0)
+				(length 2.54)
+				(name "P31"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "31"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -27.94 0)
+				(length 2.54)
+				(name "P32"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "32"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -30.48 0)
+				(length 2.54)
+				(name "P33"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "33"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -33.02 0)
+				(length 2.54)
+				(name "P34"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "34"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -35.56 0)
+				(length 2.54)
+				(name "P35"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "35"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -38.10 0)
+				(length 2.54)
+				(name "P36"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "36"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -40.64 0)
+				(length 2.54)
+				(name "P37"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "37"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -43.18 0)
+				(length 2.54)
+				(name "P38"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "38"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -45.72 0)
+				(length 2.54)
+				(name "P39"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "39"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -48.26 0)
+				(length 2.54)
+				(name "P40"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "40"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:SSM3J332R"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "Q"
+			(at 0 8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "SSM3J332R"
+			(at 0 -8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "antmicro-footprints:SOT-23-3"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "P-MOSFET -30 V, SOT-23 (Antmicro standard part)"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "SSM3J332R_0_1"
+			(rectangle
+				(start -3.81 2.54)
+				(end 3.81 -2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "SSM3J332R_1_1"
+			(pin input line
+				(at -6.35 0.00 0)
+				(length 2.54)
+				(name "G"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 5.08 270)
+				(length 2.54)
+				(name "S"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -5.08 90)
+				(length 2.54)
+				(name "D"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:PJE138K"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "Q"
+			(at 0 8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "PJE138K"
+			(at 0 -8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "antmicro-footprints:SOT-523"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "N-MOSFET 50 V, SOT-523 (Antmicro standard part)"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "PJE138K_0_1"
+			(rectangle
+				(start -3.81 2.54)
+				(end 3.81 -2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "PJE138K_1_1"
+			(pin input line
+				(at -6.35 0.00 0)
+				(length 2.54)
+				(name "G"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 5.08 270)
+				(length 2.54)
+				(name "D"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -5.08 90)
+				(length 2.54)
+				(name "S"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:NTS0102"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 11.43 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "NTS0102"
+			(at 0 -11.43 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "antmicro-footprints:XSON-8_1x1.95mm_P0.5mm"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "2-bit auto-direction level translator (same part as the debug UART)"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "NTS0102_0_1"
+			(rectangle
+				(start -6.35 5.08)
+				(end 6.35 -5.08)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "NTS0102_1_1"
+			(pin input line
+				(at -8.89 2.54 0)
+				(length 2.54)
+				(name "OE"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "6"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -8.89 0.00 0)
+				(length 2.54)
+				(name "A1"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "5"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -8.89 -2.54 0)
+				(length 2.54)
+				(name "A2"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "4"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at 8.89 2.54 180)
+				(length 2.54)
+				(name "B1"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "8"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at 8.89 0.00 180)
+				(length 2.54)
+				(name "B2"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at -1.27 7.62 270)
+				(length 2.54)
+				(name "VCCA"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 1.27 7.62 270)
+				(length 2.54)
+				(name "VCCB"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "7"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 0.00 -7.62 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "Device:R"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 0))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "R"
+			(at 2.032 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "R"
+			(at 0 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at -1.778 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Resistor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "R res resistor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_fp_filters" "R_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "R_0_1"
+			(rectangle
+				(start -1.016 -2.54)
+				(end 1.016 2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "R_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no))
+(symbol "Device:C"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 0.254))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Value" "C"
+			(at 0.635 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Footprint" ""
+			(at 0.9652 -3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Unpolarized capacitor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "cap capacitor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_fp_filters" "C_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "C_0_1"
+			(polyline
+				(pts
+					(xy -2.032 0.762)
+					(xy 2.032 0.762))
+				(stroke
+					(width 0.508)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -2.032 -0.762)
+					(xy 2.032 -0.762))
+				(stroke
+					(width 0.508)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "C_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 2.794)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no))
+(symbol "Mechanical:MountingHole_Pad"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 1.016)
+			(hide yes))
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "H"
+			(at 0 6.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "MountingHole_Pad"
+			(at 0 4.445 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Mounting Hole with connection"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "mounting hole"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_fp_filters" "MountingHole*Pad*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "MountingHole_Pad_0_1"
+			(circle
+				(center 0 1.27)
+				(radius 1.27)
+				(stroke
+					(width 1.27)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "MountingHole_Pad_1_1"
+			(pin input line
+				(at 0 -2.54 90)
+				(length 2.54)
+				(name "1"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no)))
+ (text "Drive board connector, power button, level shifting" (exclude_from_sim no) (at 25.4 25.4 0) (effects (font (size 3 3) (thickness 0.5) bold) (justify left)) (uuid "01ff0134-e572-5a32-9aba-9d84a54cac99"))
+(text "Pin map from boards/stack/stack.py (shared with the drive board). The header sits on the bottom side." (exclude_from_sim no) (at 25.4 33.02 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "d8efa3af-8c9a-5fbf-83b0-22bd5dfd524e"))
+(text "Mating post about 14 mm below the insulator for the 20 mm gap into the SSQ-120-03 socket (3.7-6.4 mm insertion)." (exclude_from_sim no) (at 25.4 38.1 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "65dcecbb-579f-5618-b383-e19e1929155b"))
+(text "Power button: STK_PWR_BTN_N low turns on the P-FET, which drives PWR_SOFT (Antmicro Q7: a button press," (exclude_from_sim no) (at 25.4 43.18000000000001 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "8c5fd8f1-1e37-56fa-8cb4-8cd3ca362363"))
+(text "powers the module on) and pulls SLEEP/WAKE* low through Q1004 (the OS sees a power-key event and shuts down)." (exclude_from_sim no) (at 25.4 48.260000000000005 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "ea0ab1f8-70ca-5252-913f-18e3260eadf8"))
+(text "STK_OS_HALTED: open drain, low while POWER_EN is high (module on). The drive board pulls it up." (exclude_from_sim no) (at 25.4 53.34 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "7514ef90-d81e-5541-a2f8-579d207177f4"))
+(text "STM32 reset: the Jetson sets the expander bit MCU_RST_REQ (old CSIA_PEN), Q1003 pulls NRST low (open drain," (exclude_from_sim no) (at 25.4 58.42 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "4777ecb4-1e9f-5917-ba50-12c92b5e2c39"))
+(text "so the STM32 can still reset itself). BOOT0, LIDAR_EN are expander outputs; ESTOP_OK, CHG_STAT inputs." (exclude_from_sim no) (at 25.4 63.5 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "b514a909-a26a-52eb-840f-1962311ef9a9"))
+(text "UART1 (1.8 V on the module) to the STM32 at 3.3 V through an NTS0102 powered from the drive board 3.3 V." (exclude_from_sim no) (at 25.4 68.58000000000001 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "a83512bf-4eda-585b-a174-eb097cf3d197"))
+(symbol (lib_id "atlas:STACK_2x20") (at 53.34 144.78 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "a62e44c1-bb05-56b8-9255-2d93cc1d57d8")
+ (property "Reference" "J1001" (at 53.34 90.48 0) (effects (font (size 1.27 1.27)) )) (property "Value" "STACK_2x20" (at 53.34 196.54 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x20_P2.54mm_Vertical" (at 53.34 144.78 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 53.34 144.78 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "TSW-120-xx-G-D (post length for the 20 mm stack, see notes)" (at 53.34 144.78 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Samtec" (at 53.34 144.78 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "2x20 2.54 mm header into the drive board socket, bottom side" (at 53.34 144.78 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "f3570973-9592-57ce-8b29-b1252a2a1112")) (pin "2" (uuid "beff67e9-3c47-5b4a-9d93-31b8143628ad")) (pin "3" (uuid "0b10b43f-7ad2-5c5f-99af-ca7791da9945")) (pin "4" (uuid "08242e9f-b35d-514a-86b3-aac1fd026d79")) (pin "5" (uuid "fa184609-6061-5d64-a0e5-0b1477810fcb")) (pin "6" (uuid "5be6f468-9748-5cec-b9c8-49940b9c13f9")) (pin "7" (uuid "0a033c9e-1001-5a4b-9b86-dca2d423cc4e")) (pin "8" (uuid "bd177d3f-0ba4-5aea-b5fa-6eb9d2d4e808")) (pin "9" (uuid "b403f495-bca7-55c6-a886-1d8409e8edc1")) (pin "10" (uuid "2c7d0260-fed8-5b0d-a7e3-9191c7e67819")) (pin "11" (uuid "f093620e-d942-5f1a-b757-692390bb0fb7")) (pin "12" (uuid "39723b76-c4d4-5bac-8039-d1714df94642")) (pin "13" (uuid "2adb2a91-cb03-5af2-b610-8c883d342373")) (pin "14" (uuid "667e638b-bd63-5fcc-8e84-a1f8c96aca9f")) (pin "15" (uuid "70a60cab-aa41-5dcc-9005-e7a9d56a3690")) (pin "16" (uuid "069dd6c4-0107-5f45-94dc-8669a08b55a2")) (pin "17" (uuid "c324ada4-3af8-5a41-ad62-40a662b83aa8")) (pin "18" (uuid "eb4eb0c7-cc08-598e-8298-5eed3527001b")) (pin "19" (uuid "ff817e7a-ea5b-53bf-b113-7c27aefd118b")) (pin "20" (uuid "ffe8df98-7625-5ea0-9bf5-c67fa2e869af")) (pin "21" (uuid "0b5ac77b-e156-527d-b5f6-a993a3cb0762")) (pin "22" (uuid "ed041d32-30e2-5b6a-b7be-5eb93e7fd0bf")) (pin "23" (uuid "93f1340d-bbe3-5ffb-bf90-ace2b2e28999")) (pin "24" (uuid "2d8eff8b-8cbd-5ebd-a806-b20b7847a7de")) (pin "25" (uuid "476281d6-c48e-5b9e-a271-4c4f669c24a0")) (pin "26" (uuid "7f691d63-3bd4-5d73-bd79-d25a3c44da40")) (pin "27" (uuid "2285fc3d-c7ee-5011-a9f1-acfce20bb77a")) (pin "28" (uuid "5adcf6b4-6764-55a7-8bd3-01a8e9ba5b69")) (pin "29" (uuid "2031f871-d00a-5821-bbb7-d96e512f1598")) (pin "30" (uuid "1976c727-e22f-5621-8222-638fde6aa7ff")) (pin "31" (uuid "4caff0ac-dbb8-5d76-8f5b-949208b2b419")) (pin "32" (uuid "05c8d64c-0b96-5fc7-9daa-4afbb8d0a83e")) (pin "33" (uuid "48be09a9-b7dd-5d76-8081-4c1be8edc57c")) (pin "34" (uuid "dffae9df-78b7-5ebc-a387-1036b3856725")) (pin "35" (uuid "99d3ea33-6a89-5125-acf8-400e314a1e5d")) (pin "36" (uuid "daf64915-e249-51a8-aea2-c07e1e04e749")) (pin "37" (uuid "66f32e71-c48d-5b29-810b-5a3be5cbbbcf")) (pin "38" (uuid "865ebcdb-8f42-5f8e-a587-611ca34f0622")) (pin "39" (uuid "6254d554-1d80-5bd1-aeac-90e3015cbbac")) (pin "40" (uuid "c3761e69-d04f-5164-bb6d-b78527555a51"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/335ecdb6-ec88-51e7-86c0-154a0e7b4f43" (reference "J1001") (unit 1)))))
+(global_label "STK_VSYS" (shape passive) (at 45.72 93.98 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "f71aa96b-020d-5850-bb7b-4788811218c7") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_VSYS" (shape passive) (at 45.72 96.52 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "b2a718d8-d6a9-5988-90c8-e36cbf76db18") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 96.52 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_VSYS" (shape passive) (at 45.72 99.06 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0fa93b59-9101-57d4-896f-8fb49d7c08ce") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_VSYS" (shape passive) (at 45.72 101.6 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "45baf740-95d0-5ac4-8fd5-cd9f3e5d5922") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_VSYS" (shape passive) (at 45.72 104.14 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "3161606f-0d96-5892-a31d-87216e40b107") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 104.14 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_VSYS" (shape passive) (at 45.72 106.68 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e46301e2-ef51-5d56-aa27-e4629590cb98") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 106.68 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 45.72 109.22 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ad2b3680-f9e7-5cae-9055-b1338a4a8db7") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 45.72 111.76 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "15aaf469-110b-5585-b00d-27ce185de25e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 45.72 114.3 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "2226c755-1441-50f5-8c05-e892f76428b2") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 114.3 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 45.72 116.84 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "fad70608-9a41-51f0-9987-e12a08717fcb") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 116.84 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "USB0_D_P" (shape passive) (at 45.72 119.38 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "3bfe763e-20ad-50fb-bf56-94291fbab86d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 119.38 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "USB0_D_N" (shape passive) (at 45.72 121.92 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "eb140ecf-aa53-5919-ac13-f028f899797c") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 45.72 124.46 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ae529801-bbeb-51ef-89cb-fb145291b89e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 45.72 127.0 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "57e37824-fc2f-51c8-ad46-1a3941d8f1ed") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 127.0 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_VESC_J2M" (shape passive) (at 45.72 129.54 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "7a2c0251-10a5-5c24-b683-89cafadaa102") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 129.54 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_VESC_M2J" (shape passive) (at 45.72 132.08 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0110d16d-918c-5b9f-adc8-ffc27a88fb07") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 132.08 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "DEBUG_TXD" (shape passive) (at 45.72 134.62 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "671fd85a-e7e2-59e3-ab37-7615e036e56d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "DEBUG_RXD" (shape passive) (at 45.72 137.16 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "041b7933-4cb1-5970-9092-bff290767678") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "I2C1_SCL" (shape passive) (at 45.72 139.7 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "04031b5d-e9da-554e-82fe-ec4abb2be584") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 139.7 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "I2C1_SDA" (shape passive) (at 45.72 142.24 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "d14b36a1-32ac-521a-a621-1656e740c162") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_PWR_BTN_N" (shape passive) (at 45.72 144.78 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c62b350d-9ad2-574c-a008-02203c168bf6") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 144.78 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_OS_HALTED" (shape passive) (at 45.72 147.32 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "98a05064-59e4-5c17-9b01-a981dc7b3be7") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 147.32 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_POWER_EN" (shape passive) (at 45.72 149.86 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "b4fb4408-719d-5693-8840-0105923d17ab") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_MCU_NRST" (shape passive) (at 45.72 152.4 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c420ab64-16bb-5944-a659-8367e9749aa4") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 152.4 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_MCU_BOOT0" (shape passive) (at 45.72 154.94 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "89197129-1669-56eb-b05a-3da4724bb0e6") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_ESTOP_OK" (shape passive) (at 45.72 157.48 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "1a16dda4-f08c-5ffd-a99e-b9e47ddae64d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 157.48 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_CHG_STAT" (shape passive) (at 45.72 160.02 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "17f02513-66af-5352-ab7e-9537a2c60067") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 160.02 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_LIDAR_EN" (shape passive) (at 45.72 162.56 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "5326e1c9-d27b-507a-908a-c12e3c17b503") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 162.56 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 45.72 165.1 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "22cc4d81-9739-55be-af3c-f2c643a574a3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 45.72 167.64 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "537f481e-6775-5945-a068-be1e45c75670") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 167.64 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_SPARE1" (shape passive) (at 45.72 170.18 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "023c9250-aec9-53c0-8811-25e9f18de48e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 170.18 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_SPARE2" (shape passive) (at 45.72 172.72 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "569a8fa6-4370-5115-8d59-7b0085da6653") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 172.72 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_CAN_TX" (shape passive) (at 45.72 175.26 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c3cd5940-223e-5025-ac56-e6cdcb0a7ce3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 175.26 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_CAN_RX" (shape passive) (at 45.72 177.8 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "758e06ea-e835-5dba-98d0-8283b3ea70e0") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 177.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_3V3_DRV" (shape passive) (at 45.72 180.34 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "5f220edf-9e4f-5466-b952-5c2581abe426") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 180.34 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 45.72 182.88 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "9c7408f3-3fe7-54fd-88d6-dae156e4b4c0") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 182.88 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 45.72 185.42 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "23214f8d-9c8a-5c97-881e-ef814a016363") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 185.42 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 45.72 187.96 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "d538e54c-f97b-5d34-a69e-284714770a82") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 187.96 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 45.72 190.5 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "954a7274-ba77-58dd-b187-37ea86afe9b4") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 190.5 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 45.72 193.04 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "9e34861b-ddea-5f32-9d7d-68dd5db09dd3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 193.04 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:SSM3J332R") (at 96.52 99.06 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "8fc52a04-beae-5c44-ad2e-ce127074a5a2")
+ (property "Reference" "Q1001" (at 96.52 90.48 0) (effects (font (size 1.27 1.27)) )) (property "Value" "SSM3J332R" (at 96.52 107.64 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "antmicro-footprints:SOT-23-3" (at 96.52 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 96.52 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "SSM3J332R,LF" (at 96.52 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Toshiba" (at 96.52 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "power button from the drive board: drives PWR_SOFT high (the drive board pulls the gate up)" (at 96.52 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "c7b960aa-a186-526a-9c98-9a6aada708e5")) (pin "2" (uuid "808f068d-26d7-5d43-872a-a3e36205fc0f")) (pin "3" (uuid "a8fb50f8-8416-5150-9971-2e08afd5ac6a"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/335ecdb6-ec88-51e7-86c0-154a0e7b4f43" (reference "Q1001") (unit 1)))))
+(global_label "STK_PWR_BTN_N" (shape passive) (at 90.17 99.06 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "46004e20-4f51-5041-b9e0-00be0dca4189") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 90.17 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "3V3_STDB" (shape passive) (at 96.52 93.98 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2fe66bd2-f78b-5f63-aec6-60c74f36589b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 96.52 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "PWR_SOFT" (shape passive) (at 96.52 104.14 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ff0daa48-2c5f-514e-bbf8-b23675782f8f") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 96.52 104.14 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:PJE138K") (at 147.32 99.06 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "e3dd2160-cac7-5298-bca2-1c0878e24905")
+ (property "Reference" "Q1002" (at 147.32 90.48 0) (effects (font (size 1.27 1.27)) )) (property "Value" "PJE138K" (at 147.32 107.64 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "antmicro-footprints:SOT-523" (at 147.32 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 147.32 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "PJE138K_R1_00001" (at 147.32 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "PANJIT" (at 147.32 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "OS_HALTED: pulled low while the module is powered (drive board pull-up)" (at 147.32 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "388e0965-6ebd-542e-be82-ed246518547a")) (pin "3" (uuid "905eddc6-2b5b-5994-b4ea-52bfebaa64af")) (pin "2" (uuid "b7ebc33b-2971-5c91-9257-16962dea4e68"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/335ecdb6-ec88-51e7-86c0-154a0e7b4f43" (reference "Q1002") (unit 1)))))
+(global_label "POWER_EN" (shape passive) (at 140.97 99.06 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "fdc4782c-82ee-556a-a463-23eb54d23652") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 140.97 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_OS_HALTED" (shape passive) (at 147.32 93.98 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2aa46697-c4b3-5a0b-9082-0ddf86365b2f") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 147.32 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 147.32 104.14 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0ec74296-cce2-5b52-afa9-f9ea94dbfa23") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 147.32 104.14 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:PJE138K") (at 198.12 99.06 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "9f2df72c-6b80-5242-8190-f369cfbc35a3")
+ (property "Reference" "Q1003" (at 198.12 90.48 0) (effects (font (size 1.27 1.27)) )) (property "Value" "PJE138K" (at 198.12 107.64 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "antmicro-footprints:SOT-523" (at 198.12 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 198.12 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "PJE138K_R1_00001" (at 198.12 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "PANJIT" (at 198.12 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "STM32 reset, open drain" (at 198.12 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "09a173c5-757c-54c0-8298-a9e13fef3c1f")) (pin "3" (uuid "e2999623-94fe-5bee-9b34-8f3c3b972eba")) (pin "2" (uuid "6288b9cc-208f-5a68-b0ea-9ef2ee08a1b3"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/335ecdb6-ec88-51e7-86c0-154a0e7b4f43" (reference "Q1003") (unit 1)))))
+(global_label "MCU_RST_REQ" (shape passive) (at 191.77 99.06 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "b11d7cf9-5cb8-5386-b053-ba55728786aa") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 191.77 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_MCU_NRST" (shape passive) (at 198.12 93.98 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "1f62a578-e128-593a-977b-8105c4722231") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 198.12 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 198.12 104.14 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a0941ba9-559e-5482-8e75-a043939312fe") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 198.12 104.14 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:PJE138K") (at 246.38 99.06 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "e541262f-ee97-540f-b76f-f768709b621c")
+ (property "Reference" "Q1004" (at 246.38 90.48 0) (effects (font (size 1.27 1.27)) )) (property "Value" "PJE138K" (at 246.38 107.64 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "antmicro-footprints:SOT-523" (at 246.38 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 246.38 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "PJE138K_R1_00001" (at 246.38 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "PANJIT" (at 246.38 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "power-key event on module SLEEP/WAKE* while the button request is held" (at 246.38 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "dc46772f-d980-5489-b0b6-af475cb19fc9")) (pin "3" (uuid "600ddeb8-3cda-5832-94e9-5790f2ef166d")) (pin "2" (uuid "c8ba380e-b622-5f1f-9c0e-061e332ba2dd"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/335ecdb6-ec88-51e7-86c0-154a0e7b4f43" (reference "Q1004") (unit 1)))))
+(global_label "PWR_SOFT" (shape passive) (at 240.03 99.06 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "4a06e0fd-730a-5e3d-9322-dca8bb2b783b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 240.03 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "SLEEP_WAKE_N" (shape passive) (at 246.38 93.98 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "c8b4f51d-16bd-5cdd-b685-7a5929df9b9b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 246.38 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 246.38 104.14 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e83ca331-f800-5fca-8991-348549d07e90") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 246.38 104.14 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:NTS0102") (at 299.72 101.60 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "b5198dfb-0109-5065-a9d5-400dcc0e2782")
+ (property "Reference" "U1001" (at 299.72 90.48 0) (effects (font (size 1.27 1.27)) )) (property "Value" "NTS0102" (at 299.72 112.72 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "antmicro-footprints:XSON-8_1x1.95mm_P0.5mm" (at 299.72 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 299.72 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "NTS0102GT" (at 299.72 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "NXP" (at 299.72 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "UART1 1.8 V <-> 3.3 V (drive board side powered by the drive board)" (at 299.72 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "6" (uuid "03546e38-6bad-536a-a036-4c896a10e795")) (pin "5" (uuid "89cff93c-1767-5231-8ba0-afdf2f0f8771")) (pin "4" (uuid "5fe95c3c-c1fb-5be5-a66f-fefbc13a08cb")) (pin "8" (uuid "39b80c01-1cf3-5f6f-9a57-a322baa44124")) (pin "1" (uuid "4578de07-2f1a-5c84-8042-e04a1bab1764")) (pin "3" (uuid "cd428a9e-20ed-5f99-9479-1b63062b86f3")) (pin "7" (uuid "234af315-6b48-5b3d-8745-880458e317c4")) (pin "2" (uuid "34f9fee5-9784-579b-991f-b4fe18be350f"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/335ecdb6-ec88-51e7-86c0-154a0e7b4f43" (reference "U1001") (unit 1)))))
+(global_label "+1V8" (shape passive) (at 290.83 99.06 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "b70f8229-5844-58eb-b6f5-fe9f1ab16839") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 290.83 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "UART1_TXD" (shape passive) (at 290.83 101.6 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c3be799c-b101-5f9f-ba53-f0ecc5950bc9") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 290.83 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "UART1_RXD" (shape passive) (at 290.83 104.14 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "44d62995-7848-52b8-bc7b-fc0246f5cef7") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 290.83 104.14 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_VESC_J2M" (shape passive) (at 308.61 99.06 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "b8b84d46-8b96-5590-af5d-0951cbaa5ccf") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 308.61 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_VESC_M2J" (shape passive) (at 308.61 101.6 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "ba02c31d-a9dc-5448-9388-e416676fd21d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 308.61 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "+1V8" (shape passive) (at 298.45 93.98 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2420abf6-a888-5f6e-b435-ac0917bd3f9d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 298.45 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_3V3_DRV" (shape passive) (at 300.99 93.98 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "7172a467-2d5c-553a-99a2-ad21d3ca52a1") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 300.99 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 299.72 109.22 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "4a24343d-c4b5-5341-8752-5bafc060db33") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 299.72 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 55.88 210.82 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "4f465af8-bca3-5a13-bd25-3d95434f8f82")
+ (property "Reference" "R1001" (at 55.88 208.28 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100k" (at 55.88 213.36 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 55.88 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 55.88 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 55.88 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "reset FET off while the expander pins are inputs" (at 55.88 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "b09535ae-f81c-5a80-bc95-d8dd3006765f")) (pin "2" (uuid "f5093629-3050-5c01-981b-4cfae97e61db"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/335ecdb6-ec88-51e7-86c0-154a0e7b4f43" (reference "R1001") (unit 1)))))
+(global_label "MCU_RST_REQ" (shape passive) (at 52.07 210.82 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "1c1aacee-c94f-5e91-a4ea-22ab00c394fd") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 59.69 210.82 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "dc7114e1-98d5-5257-83b2-4beae0e27359") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 132.08 210.82 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "186a84bc-dbee-5c5c-aea0-913e801f3b34")
+ (property "Reference" "R1002" (at 132.08 208.28 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100k" (at 132.08 213.36 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 132.08 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 132.08 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 132.08 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "charge status pull-up (weak: the drive board has 10k in series with the charger STAT pin)" (at 132.08 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "f498fa89-732f-547b-8dfb-f01131d4ebac")) (pin "2" (uuid "68b054c7-bf1f-5222-ae91-98f783323fff"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/335ecdb6-ec88-51e7-86c0-154a0e7b4f43" (reference "R1002") (unit 1)))))
+(global_label "+3V3" (shape passive) (at 128.27 210.82 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6d89afb7-a82b-5a99-af24-b51900e00b6b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_CHG_STAT" (shape passive) (at 135.89 210.82 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "330aef59-6594-58b7-8663-bcdb3879887b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 208.28 210.82 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "c3c0bade-57dc-50b6-9d7a-f5bdcbbfd65a")
+ (property "Reference" "R1003" (at 208.28 208.28 0) (effects (font (size 1.27 1.27)) )) (property "Value" "33" (at 208.28 213.36 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 208.28 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 208.28 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 208.28 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "CAN TX to the drive board (3.3 V CMOS on the module)" (at 208.28 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "28eedabc-8cd0-5a28-9604-cce5135bc490")) (pin "2" (uuid "9726ae29-a588-51b4-9106-6554b3a3defc"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/335ecdb6-ec88-51e7-86c0-154a0e7b4f43" (reference "R1003") (unit 1)))))
+(global_label "CAN_TX" (shape passive) (at 204.47 210.82 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "bcf20382-23d4-5bb4-85eb-7d05809ae121") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 204.47 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "STK_CAN_TX" (shape passive) (at 212.09 210.82 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "52aeea4d-b6e1-562f-abc4-b4a84cb1edfc") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 212.09 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 284.48 210.82 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "b7c573b6-9241-594d-906a-95d36dacb6d0")
+ (property "Reference" "R1004" (at 284.48 208.28 0) (effects (font (size 1.27 1.27)) )) (property "Value" "33" (at 284.48 213.36 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 284.48 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 284.48 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 284.48 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "CAN RX from the drive board" (at 284.48 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "f8aa4994-f1ba-519c-b1c4-07ce370cb439")) (pin "2" (uuid "8e31f520-5e1b-5c2c-8986-7ce85d78279d"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/335ecdb6-ec88-51e7-86c0-154a0e7b4f43" (reference "R1004") (unit 1)))))
+(global_label "STK_CAN_RX" (shape passive) (at 280.67 210.82 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ed9a1e58-b487-5bee-9244-646797fe17bf") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.67 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CAN_RX" (shape passive) (at 288.29 210.82 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "a6c80d89-436b-54fa-95cf-61b4090c32b7") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 360.68 210.82 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "72df9e3f-61df-5e88-928c-848313b53ac8")
+ (property "Reference" "C1001" (at 360.68 208.28 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100n" (at 360.68 213.36 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 360.68 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 360.68 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 360.68 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "NTS0102 VCCA" (at 360.68 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "bc654e2e-4e77-5a57-ade8-4c603dcc61e4")) (pin "2" (uuid "b0dbe00f-664f-5bf5-a186-dcff8eb04a44"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/335ecdb6-ec88-51e7-86c0-154a0e7b4f43" (reference "C1001") (unit 1)))))
+(global_label "+1V8" (shape passive) (at 356.87 210.82 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "cef2f543-092d-50c6-b1cc-600e8ad9d7cd") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 356.87 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 364.49 210.82 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "e3148aed-13f6-5242-921d-43b8d7e10f11") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 364.49 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 436.88 210.82 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "1a84a84d-260b-5593-80b8-8fe59271cd27")
+ (property "Reference" "C1002" (at 436.88 208.28 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100n" (at 436.88 213.36 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 436.88 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 436.88 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 436.88 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 436.88 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "NTS0102 VCCB" (at 436.88 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "4ea4e098-f4e6-5e4f-9533-30b0917e4faa")) (pin "2" (uuid "cf96c62b-a605-599d-9a6f-e4e2b9e33acd"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/335ecdb6-ec88-51e7-86c0-154a0e7b4f43" (reference "C1002") (unit 1)))))
+(global_label "STK_3V3_DRV" (shape passive) (at 433.07 210.82 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0fe8a6bc-a46b-56c2-a2fa-96e0c725d88c") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 433.07 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 440.69 210.82 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "14ecd9c8-6496-5d88-b032-8e4af5d7cc9e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 440.69 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Mechanical:MountingHole_Pad") (at 513.08 210.82 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "b0bc4b8b-b133-5662-a21b-4c91145e4b13")
+ (property "Reference" "H1001" (at 513.08 209.86 0) (effects (font (size 1.27 1.27)) )) (property "Value" "M3" (at 513.08 216.86 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via" (at 513.08 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 513.08 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 513.08 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 513.08 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "M3 mounting hole" (at 513.08 210.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "0feeae2f-9558-52ae-9543-a021ff52b876"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/335ecdb6-ec88-51e7-86c0-154a0e7b4f43" (reference "H1001") (unit 1)))))
+(global_label "GND" (shape passive) (at 513.08 213.36 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6df6c5f5-7982-5ec3-a313-56d68a924da4") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 513.08 213.36 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Mechanical:MountingHole_Pad") (at 55.88 223.52 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "36b4f6c8-cbab-57e0-a844-0a51ce16eb2c")
+ (property "Reference" "H1002" (at 55.88 222.56 0) (effects (font (size 1.27 1.27)) )) (property "Value" "M3" (at 55.88 229.56 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via" (at 55.88 223.52 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 223.52 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 55.88 223.52 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 55.88 223.52 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "M3 mounting hole" (at 55.88 223.52 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "acb55320-2ce7-5c5c-97c7-cefb91da96e7"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/335ecdb6-ec88-51e7-86c0-154a0e7b4f43" (reference "H1002") (unit 1)))))
+(global_label "GND" (shape passive) (at 55.88 226.06 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "57e8f740-d6dc-5057-a7c7-f72d1c37f1c6") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 55.88 226.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+ (embedded_fonts no))

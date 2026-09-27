@@ -1,0 +1,830 @@
+** Drc report for atlas_brain.kicad_pcb **
+** Created on 2026-09-27T15:13:25 **
+** Report includes: Errors, Warnings, Exclusions **
+
+** Found 253 DRC violations **
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(29.7500 mm, 39.7500 mm): Segment on Edge.Cuts
+    @(30.9000 mm, 102.8000 mm): PCB text 'PoE' on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(30.7500 mm, 128.7500 mm): Segment on Edge.Cuts
+    @(118.8500 mm, 126.2500 mm): PCB text 'USB-C 1' on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(30.7500 mm, 128.7500 mm): Segment on Edge.Cuts
+    @(59.3500 mm, 125.2000 mm): PCB text 'USB-C 3 DBG' on B.Silkscreen
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(32.0000 mm, 56.7500 mm): Footprint C1215
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(57.3000 mm, 87.5000 mm): Footprint R287
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(118.0000 mm, 58.3500 mm): Footprint C1318
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(34.2500 mm, 57.2500 mm): Footprint R1206
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(99.7500 mm, 60.7500 mm): Footprint Q1003
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(81.2300 mm, 89.1300 mm): Footprint R240
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(51.7500 mm, 51.9500 mm): Footprint C1202
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Inductor_SMD'
+    Local override; warning
+    @(118.6500 mm, 45.3500 mm): Footprint L1301
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(134.7000 mm, 121.1000 mm): Footprint R223
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(73.2500 mm, 61.4500 mm): Footprint C1103
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(87.3000 mm, 127.0500 mm): Footprint D61
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(56.6400 mm, 94.6300 mm): Footprint C120
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(43.9500 mm, 47.8500 mm): Footprint R1201
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(136.9000 mm, 58.9495 mm): Footprint J1301
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(115.3500 mm, 45.8500 mm): Footprint C1312
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(100.0500 mm, 114.6500 mm): Footprint R232
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(110.7000 mm, 58.3500 mm): Footprint R1301
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(56.8750 mm, 99.4850 mm): Footprint L4
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(75.4200 mm, 84.3400 mm): Footprint R173
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(62.6800 mm, 92.9500 mm): Footprint C152
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(99.0500 mm, 114.6500 mm): Footprint R242
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(65.7500 mm, 95.8200 mm): Footprint C102
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(68.6500 mm, 61.5000 mm): Footprint C1105
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(59.3000 mm, 123.4000 mm): Footprint D53
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(108.1500 mm, 55.6000 mm): Footprint C1315
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(44.3500 mm, 102.4900 mm): Footprint C1217
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(124.5250 mm, 118.1125 mm): Footprint H2
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(92.7420 mm, 98.5880 mm): Footprint M1
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(104.1000 mm, 82.2500 mm): Footprint TP35
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(130.1900 mm, 123.3400 mm): Footprint D56
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(33.7500 mm, 53.2500 mm): Footprint C1207
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(79.2300 mm, 85.8800 mm): Footprint R177
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(65.0000 mm, 58.5000 mm): Footprint R1103
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(121.6500 mm, 44.3500 mm): Footprint R1310
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(127.0500 mm, 94.2000 mm): Footprint C9
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(37.0000 mm, 100.2500 mm): Footprint C1213
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(74.0700 mm, 89.4400 mm): Footprint C121
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(122.9000 mm, 125.9000 mm): Footprint S2
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(127.9000 mm, 107.9000 mm): Footprint R186
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(60.3500 mm, 44.2500 mm): Footprint C1205
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(148.2500 mm, 127.2500 mm): Footprint FID4
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(92.7060 mm, 84.0225 mm): Footprint J15
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(96.9500 mm, 83.1000 mm): Footprint TP5
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(65.9100 mm, 94.3500 mm): Footprint R237
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(79.2500 mm, 95.1500 mm): Footprint SP7
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(75.4200 mm, 86.3400 mm): Footprint C125
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(71.2500 mm, 91.6700 mm): Footprint C126
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(55.1500 mm, 65.5500 mm): Footprint C1107
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(31.6000 mm, 70.3500 mm): Footprint FID2
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(65.0000 mm, 64.0000 mm): Footprint R1101
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(46.2500 mm, 47.2500 mm): Footprint C1212
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(129.9000 mm, 107.9000 mm): Footprint R39
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(121.9500 mm, 50.1500 mm): Footprint C1324
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(34.2500 mm, 88.7500 mm): Footprint C1216
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(115.9000 mm, 58.3500 mm): Footprint C1314
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(72.5750 mm, 91.6700 mm): Footprint C128
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(119.3500 mm, 42.7500 mm): Footprint C1301
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(127.0500 mm, 99.5500 mm): Footprint R14
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(129.3000 mm, 92.2000 mm): Footprint R52
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(81.7500 mm, 60.7500 mm): Footprint U1001
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(129.3000 mm, 91.2500 mm): Footprint R20
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(114.4000 mm, 98.0000 mm): Footprint R27
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(112.9500 mm, 60.7500 mm): Footprint R1004
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(114.4000 mm, 100.8000 mm): Footprint R31
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(121.6500 mm, 45.4500 mm): Footprint R1311
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(131.7000 mm, 108.6500 mm): Footprint U30
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(80.2300 mm, 91.0400 mm): Footprint C155
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(68.6700 mm, 99.4200 mm): Footprint C157
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(113.9500 mm, 86.6500 mm): Footprint C11
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(37.0000 mm, 56.0000 mm): Footprint C1206
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(32.5000 mm, 96.0000 mm): Footprint R1210
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(68.2500 mm, 59.2500 mm): Footprint C1101
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(31.7500 mm, 49.7500 mm): Footprint R1205
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(128.9000 mm, 125.9000 mm): Footprint S3
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(127.9050 mm, 113.2200 mm): Footprint TP8
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(78.1700 mm, 85.8800 mm): Footprint R264
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(143.5000 mm, 53.5000 mm): Footprint C1323
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(120.3468 mm, 112.2000 mm): Footprint R21
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(58.1800 mm, 105.2100 mm): Footprint C44
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(66.2100 mm, 99.9900 mm): Footprint R269
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(114.4000 mm, 90.4000 mm): Footprint R32
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(113.8000 mm, 58.3500 mm): Footprint C1305
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(116.9500 mm, 58.3500 mm): Footprint R1302
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(132.0000 mm, 101.9500 mm): Footprint D1
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(73.2500 mm, 59.0500 mm): Footprint C1104
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(104.0000 mm, 125.9000 mm): Footprint S1
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(83.9000 mm, 125.9000 mm): Footprint S5
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(63.3100 mm, 100.5200 mm): Footprint C93
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(130.5500 mm, 101.9500 mm): Footprint D52
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(62.6700 mm, 97.4350 mm): Footprint U1
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Diode_SMD'
+    Local override; warning
+    @(58.7500 mm, 52.7500 mm): Footprint D1202
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(138.6000 mm, 125.3000 mm): Footprint REF**
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(67.0000 mm, 64.7500 mm): Footprint R1102
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(32.0000 mm, 92.5000 mm): Footprint R1211
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(43.2500 mm, 91.5000 mm): Footprint R1213
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(46.0000 mm, 44.0000 mm): Footprint C1211
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Diode_SMD'
+    Local override; warning
+    @(34.7500 mm, 104.3500 mm): Footprint D1203
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(58.0000 mm, 94.6300 mm): Footprint C129
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(31.7500 mm, 47.5000 mm): Footprint C1210
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(60.9250 mm, 118.1000 mm): Footprint H1
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(40.5000 mm, 48.2500 mm): Footprint R1202
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(36.5000 mm, 94.2500 mm): Footprint C1214
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(44.0000 mm, 44.5000 mm): Footprint R1208
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(81.2500 mm, 58.7500 mm): Footprint C1002
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(62.3200 mm, 101.5200 mm): Footprint R159
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(43.3500 mm, 105.2300 mm): Footprint R1215
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(80.2300 mm, 89.1300 mm): Footprint C123
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(55.3400 mm, 92.5900 mm): Footprint R172
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(56.9000 mm, 105.1000 mm): Footprint U33
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(132.8000 mm, 127.2000 mm): Footprint D27
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(63.5050 mm, 88.4300 mm): Footprint C2
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(51.7500 mm, 48.4500 mm): Footprint C1203
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Package_SON'
+    Local override; warning
+    @(43.2500 mm, 52.4500 mm): Footprint Q1201
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(60.7500 mm, 65.5500 mm): Footprint C1106
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(116.6500 mm, 42.7500 mm): Footprint C1306
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(127.9050 mm, 112.2100 mm): Footprint TP9
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Inductor_SMD'
+    Local override; warning
+    @(43.2500 mm, 58.7500 mm): Footprint L1201
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(114.4000 mm, 97.0000 mm): Footprint R29
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(108.1500 mm, 48.6500 mm): Footprint C1303
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(129.1000 mm, 101.9500 mm): Footprint D51
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(55.2800 mm, 94.6300 mm): Footprint C103
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(59.0900 mm, 91.2000 mm): Footprint R182
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(110.5500 mm, 60.7500 mm): Footprint R1003
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(68.9000 mm, 87.9250 mm): Footprint D33
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(33.4350 mm, 108.6164 mm): Footprint J6
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(108.1500 mm, 52.0000 mm): Footprint C1304
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(45.1500 mm, 105.2300 mm): Footprint R1216
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(71.5800 mm, 86.8200 mm): Footprint C122
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(104.1500 mm, 60.7500 mm): Footprint R1002
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Package_SON'
+    Local override; warning
+    @(33.7500 mm, 99.8500 mm): Footprint Q1202
+[lib_footprint_issues]: The current configuration does not include the footprint library 'MountingHole'
+    Local override; warning
+    @(35.7500 mm, 44.7500 mm): Footprint H1001
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(50.7500 mm, 100.7500 mm): Footprint R1209
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(137.8000 mm, 76.8000 mm): Footprint REF**
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Package_SON'
+    Local override; warning
+    @(38.7500 mm, 51.2500 mm): Footprint U1201
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(75.4200 mm, 85.3400 mm): Footprint R176
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(62.7500 mm, 62.4500 mm): Footprint C1108
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(63.0000 mm, 59.7500 mm): Footprint C1102
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(47.0000 mm, 105.0250 mm): Footprint D62
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(127.9050 mm, 115.2350 mm): Footprint TP6
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(39.8500 mm, 104.2500 mm): Footprint R1214
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(67.6700 mm, 99.4200 mm): Footprint R169
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(79.2500 mm, 95.1500 mm): Footprint A2
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(112.0000 mm, 46.1500 mm): Footprint C1302
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(132.7500 mm, 62.5000 mm): Footprint C1322
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(132.1000 mm, 121.3400 mm): Footprint Q10
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(51.7500 mm, 44.9500 mm): Footprint C1204
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(131.4000 mm, 123.3400 mm): Footprint D57
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(138.6050 mm, 125.3000 mm): Footprint REF**
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(108.1500 mm, 54.5000 mm): Footprint R1303
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(68.5250 mm, 91.6750 mm): Footprint R178
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(63.5050 mm, 83.5900 mm): Footprint C1
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(136.3000 mm, 121.3400 mm): Footprint Q9
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(51.9300 mm, 109.9500 mm): Footprint J10
+[lib_footprint_issues]: The current configuration does not include the footprint library 'MountingHole'
+    Local override; warning
+    @(143.7500 mm, 44.7500 mm): Footprint H1002
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(80.2300 mm, 87.2200 mm): Footprint R238
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(114.7000 mm, 102.8500 mm): Footprint C12
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(60.9250 mm, 91.4000 mm): Footprint D32
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(61.3900 mm, 100.5200 mm): Footprint C156
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(141.7500 mm, 49.7500 mm): Footprint R1307
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(84.0000 mm, 61.2500 mm): Footprint C1001
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(59.3600 mm, 94.6300 mm): Footprint C153
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(148.6000 mm, 69.9000 mm): Footprint FID3
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(114.8500 mm, 58.3500 mm): Footprint C1307
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(73.8900 mm, 91.6700 mm): Footprint C154
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(66.2100 mm, 98.9300 mm): Footprint R170
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(64.2000 mm, 125.9000 mm): Footprint S4
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(48.3000 mm, 105.3000 mm): Footprint R286
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(140.7500 mm, 56.7500 mm): Footprint R1312
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(40.5000 mm, 46.5000 mm): Footprint C1208
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(40.7500 mm, 43.5000 mm): Footprint R1204
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(55.5400 mm, 104.8700 mm): Footprint C48
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(108.1500 mm, 53.4000 mm): Footprint C1319
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(113.0500 mm, 46.1500 mm): Footprint C1316
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(57.5100 mm, 92.7700 mm): Footprint R272
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(132.0850 mm, 119.7000 mm): Footprint R230
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(32.3000 mm, 127.1500 mm): Footprint FID1
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(110.9500 mm, 46.1500 mm): Footprint C1317
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(134.7000 mm, 127.2000 mm): Footprint D26
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(65.7500 mm, 61.2500 mm): Footprint U1101
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(95.1500 mm, 60.7500 mm): Footprint Q1002
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(54.8100 mm, 89.6250 mm): Footprint C161
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(67.6000 mm, 125.9500 mm): Footprint D60
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(97.5000 mm, 60.7500 mm): Footprint R1001
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Package_SO'
+    Local override; warning
+    @(43.7500 mm, 97.2500 mm): Footprint U1202
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(114.5500 mm, 94.2500 mm): Footprint R22
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(77.1500 mm, 89.4150 mm): Footprint U40
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(73.2450 mm, 95.9700 mm): Footprint L1
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Package_DFN_QFN'
+    Local override; warning
+    @(113.7500 mm, 52.2500 mm): Footprint U1301
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(128.9000 mm, 107.9000 mm): Footprint R187
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(127.0500 mm, 98.6000 mm): Footprint R28
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(114.4000 mm, 99.8000 mm): Footprint R30
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    Local override; warning
+    @(39.7500 mm, 53.8250 mm): Footprint C1209
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(95.5500 mm, 82.2000 mm): Footprint TP4
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Diode_SMD'
+    Local override; warning
+    @(51.3500 mm, 56.1500 mm): Footprint D1201
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(65.9100 mm, 93.3500 mm): Footprint R239
+[lib_footprint_issues]: The current configuration does not include the footprint library 'Resistor_SMD'
+    Local override; warning
+    @(47.7500 mm, 91.5000 mm): Footprint R1212
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(62.6900 mm, 94.3500 mm): Footprint C6
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(69.9250 mm, 91.6700 mm): Footprint C127
+[lib_footprint_issues]: The current configuration does not include the footprint library 'antmicro-footprints'
+    Local override; warning
+    @(127.0500 mm, 95.2000 mm): Footprint C10
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(133.1190 mm, 126.0200 mm): Segment of D27 on F.Silkscreen
+    @(132.9000 mm, 124.2500 mm): PCB text 'LED 1' on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(135.0190 mm, 126.0200 mm): Segment of D26 on F.Silkscreen
+    @(134.8000 mm, 124.2500 mm): PCB text 'LED 0' on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(129.7300 mm, 113.2200 mm): Reference field of TP8
+    @(130.6000 mm, 111.1500 mm): Rectangle on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(131.7000 mm, 105.7167 mm): Reference field of U30
+    @(132.0500 mm, 104.7500 mm): PCB text 'DRV' on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(129.1000 mm, 104.6167 mm): Reference field of D51
+    @(129.1500 mm, 105.2000 mm): PCB text 'WLAN' on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(130.6000 mm, 104.2500 mm): PCB text 'BT' on F.Silkscreen
+    @(131.7000 mm, 105.7167 mm): Reference field of U30
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(55.0100 mm, 58.3000 mm): Segment of D1201 on F.Silkscreen
+    @(55.0900 mm, 54.9000 mm): Segment of D1202 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(69.3383 mm, 83.5900 mm): Reference field of C1
+    @(70.7600 mm, 81.5600 mm): Segment on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(68.6700 mm, 102.0950 mm): Reference field of C157
+    @(68.9500 mm, 103.0500 mm): Segment on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(55.0100 mm, 54.0000 mm): Segment of D1201 on F.Silkscreen
+    @(55.0900 mm, 50.6000 mm): Segment of D1202 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(55.0100 mm, 58.3000 mm): Segment of D1201 on F.Silkscreen
+    @(55.0900 mm, 50.6000 mm): Segment of D1202 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(30.9000 mm, 102.8000 mm): PCB text 'PoE' on F.Silkscreen
+    @(31.0900 mm, 102.2000 mm): Segment of D1203 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(31.0900 mm, 102.2000 mm): Segment of D1203 on F.Silkscreen
+    @(30.9000 mm, 102.8000 mm): PCB text 'PoE' on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(48.0500 mm, 107.8000 mm): PCB text 'ETH' on F.Silkscreen
+    @(48.4000 mm, 110.2000 mm): Reference field of J6
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(129.1500 mm, 105.2000 mm): PCB text 'WLAN' on F.Silkscreen
+    @(128.9000 mm, 107.4200 mm): Pad 1 [Net-(D52-A)] of R187 on F.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(47.0000 mm, 102.8000 mm): PCB text 'HPM' on F.Silkscreen
+    @(45.8250 mm, 102.4900 mm): Pad 2 [GND] of C1217 on F.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(30.9000 mm, 102.8000 mm): PCB text 'PoE' on F.Silkscreen
+    @(32.6000 mm, 104.3500 mm): Pad 1 [POE_52V] of D1203 on F.Cu
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(75.7800 mm, 122.7100 mm): PCB text 'SPI' on B.Silkscreen
+    @(71.5500 mm, 121.6500 mm): Rectangle on B.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(87.0000 mm, 115.2750 mm): Reference field of R215
+    @(87.5100 mm, 120.1150 mm): PCB text 'R204  SPI
+R112  I2C' on B.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(84.3350 mm, 117.0400 mm): PCB text 'J9 SELECT ONE' on B.Silkscreen
+    @(79.6850 mm, 116.3900 mm): Rectangle on B.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(87.0000 mm, 115.2750 mm): Reference field of R215
+    @(79.6850 mm, 116.3900 mm): Rectangle on B.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(84.3350 mm, 117.0400 mm): PCB text 'J9 SELECT ONE' on B.Silkscreen
+    @(87.0000 mm, 115.2750 mm): Reference field of R215
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(89.4000 mm, 115.2000 mm): Segment on B.Silkscreen
+    @(90.0000 mm, 114.6083 mm): Reference field of R1
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(91.8000 mm, 115.2000 mm): Segment on B.Silkscreen
+    @(90.0000 mm, 114.6083 mm): Reference field of R1
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(75.7800 mm, 122.7100 mm): PCB text 'SPI' on B.Silkscreen
+    @(75.6900 mm, 121.6500 mm): Rectangle on B.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(71.5500 mm, 122.7570 mm): Rectangle on B.Silkscreen
+    @(75.7800 mm, 122.7100 mm): PCB text 'SPI' on B.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(129.7500 mm, 122.6000 mm): PCB text 'SCL' on B.Silkscreen
+    @(131.6500 mm, 121.5932 mm): Reference field of J14
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(130.7250 mm, 122.6000 mm): PCB text 'SDA' on B.Silkscreen
+    @(131.6500 mm, 121.5932 mm): Reference field of J14
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(44.9123 mm, 80.1000 mm): Reference field of R164
+    @(47.3750 mm, 82.1500 mm): Segment on B.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(44.9123 mm, 80.1000 mm): Reference field of R164
+    @(44.1500 mm, 82.1500 mm): Segment on B.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(75.2812 mm, 73.9999 mm): Reference field of TP44
+    @(72.9000 mm, 77.3000 mm): Segment on B.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(74.0750 mm, 84.2500 mm): Segment on B.Silkscreen
+    @(76.2600 mm, 82.5500 mm): Reference field of C134
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(136.0713 mm, 67.5288 mm): Reference field of BT1
+    @(137.3372 mm, 72.7700 mm): Arc of BT1 on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(123.1500 mm, 98.6500 mm): PCB text 'M.2 KEY M' on B.Silkscreen
+    @(119.5600 mm, 99.2900 mm): Pad 1 [/M.2/3V3_M2] of R143 on B.Cu
+[missing_courtyard]: Footprint has no courtyard defined
+    Local override; warning (excluded)
+    @(92.7420 mm, 98.5880 mm): Footprint M1
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; error (excluded)
+    @(134.7000 mm, 121.1000 mm): Footprint R223
+    @(138.6000 mm, 125.3000 mm): Footprint REF**
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; error (excluded)
+    @(56.8750 mm, 99.4850 mm): Footprint L4
+    @(62.6700 mm, 97.4350 mm): Footprint U1
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning (excluded)
+    @(56.8885 mm, 72.7470 mm): NPTH pad of SW1
+    @(92.7060 mm, 84.0225 mm): Footprint J15
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; error (excluded)
+    @(92.7060 mm, 84.0225 mm): Footprint J15
+    @(137.8000 mm, 76.8000 mm): Footprint REF**
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning (excluded)
+    @(119.0920 mm, 76.7540 mm): NPTH pad of J2
+    @(92.7060 mm, 84.0225 mm): Footprint J15
+[pth_inside_courtyard]: PTH inside courtyard
+    Local override; warning (excluded)
+    @(39.7500 mm, 123.7500 mm): PTH pad 1 [GND] of H4
+    @(33.4350 mm, 108.6164 mm): Footprint J6
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; error (excluded)
+    @(138.6000 mm, 125.3000 mm): Footprint REF**
+    @(136.3000 mm, 121.3400 mm): Footprint Q9
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; error (excluded)
+    @(138.6000 mm, 125.3000 mm): Footprint REF**
+    @(134.7000 mm, 127.2000 mm): Footprint D26
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; error (excluded)
+    @(33.4350 mm, 108.6164 mm): Footprint J6
+    @(32.3000 mm, 127.1500 mm): Footprint FID1
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning (excluded)
+    @(119.2310 mm, 85.1210 mm): NPTH pad of J1
+    @(120.5910 mm, 86.7510 mm): Footprint J2
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; warning (excluded)
+    @(119.0920 mm, 96.7510 mm): NPTH pad of J2
+    @(120.7300 mm, 95.1200 mm): Footprint J1
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning (excluded)
+    @(89.7150 mm, 121.6600 mm): Rectangle on B.Silkscreen
+    @(93.9450 mm, 122.7200 mm): PCB text 'I2C' on B.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning (excluded)
+    @(73.7100 mm, 121.6500 mm): Segment on B.Silkscreen
+    @(75.7800 mm, 122.7100 mm): PCB text 'SPI' on B.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning (excluded)
+    @(93.9450 mm, 122.7200 mm): PCB text 'I2C' on B.Silkscreen
+    @(89.7150 mm, 122.7670 mm): Rectangle on B.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning (excluded)
+    @(91.8750 mm, 121.6600 mm): Segment on B.Silkscreen
+    @(93.9450 mm, 122.7200 mm): PCB text 'I2C' on B.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning (excluded)
+    @(93.8550 mm, 121.6600 mm): Rectangle on B.Silkscreen
+    @(93.9450 mm, 122.7200 mm): PCB text 'I2C' on B.Silkscreen
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

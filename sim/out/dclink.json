@@ -1,0 +1,82 @@
+{
+ "assumptions": {
+  "vdc": 14.4,
+  "fsw": 30000.0,
+  "fe": 400.0,
+  "r_ph": 0.01,
+  "l_ph": 2e-05,
+  "n_bulk": 4,
+  "c_bulk": 0.00033,
+  "esr_bulk": 0.011,
+  "n_cer": 12,
+  "c_cer_eff": 6e-06,
+  "r_pack": 0.024,
+  "l_pack": 1.5e-07
+ },
+ "results": [
+  {
+   "i_phase_peak": 30,
+   "emf_peak": 5.26,
+   "i_phase_rms": 20.3,
+   "i_battery_avg": 17.0,
+   "i_battery_ripple_rms": 0.8,
+   "i_bulk_rms_each": [
+    3.52,
+    3.52,
+    3.52,
+    3.52
+   ],
+   "i_ceramics_rms_total": 7.85,
+   "v_bus_ripple_pp": 0.408,
+   "bulk_rating_a": 4.8
+  },
+  {
+   "i_phase_peak": 50,
+   "emf_peak": 4.68,
+   "i_phase_rms": 33.3,
+   "i_battery_avg": 26.4,
+   "i_battery_ripple_rms": 1.3,
+   "i_bulk_rms_each": [
+    5.67,
+    5.67,
+    5.67,
+    5.67
+   ],
+   "i_ceramics_rms_total": 12.94,
+   "v_bus_ripple_pp": 0.695,
+   "bulk_rating_a": 4.8
+  },
+  {
+   "i_phase_peak": 70,
+   "emf_peak": 3.86,
+   "i_phase_rms": 46.2,
+   "i_battery_avg": 32.6,
+   "i_battery_ripple_rms": 1.7,
+   "i_bulk_rms_each": [
+    7.61,
+    7.61,
+    7.61,
+    7.61
+   ],
+   "i_ceramics_rms_total": 18.13,
+   "v_bus_ripple_pp": 1.011,
+   "bulk_rating_a": 4.8
+  },
+  {
+   "i_phase_peak": 100,
+   "emf_peak": 1.81,
+   "i_phase_rms": 66.9,
+   "i_battery_avg": 28.9,
+   "i_battery_ripple_rms": 2.3,
+   "i_bulk_rms_each": [
+    10.08,
+    10.08,
+    10.08,
+    10.08
+   ],
+   "i_ceramics_rms_total": 26.76,
+   "v_bus_ripple_pp": 1.588,
+   "bulk_rating_a": 4.8
+  }
+ ]
+}

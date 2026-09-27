@@ -1,0 +1,1599 @@
+(kicad_sch (version 20250114) (generator "eeschema") (generator_version "9.0")
+ (uuid "48f47219-cf05-525a-930b-1e2b792d7101")
+ (paper "A2")
+ (title_block (title "ATLAS-BRN-1 brain board: Camera PoE: 52 V boost (LM5155) and 802.3at PSE (TPS23861, port 1 on the camera jack)") (date "2026-09-27") (rev "0.1") (company "Atlas Autoware (501c3), Fairfax VA") (comment 1 "Generated from design.py by tools/eda.py; edit the Python, not this file"))
+ (lib_symbols (symbol "atlas:LM5155"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 13.97 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "LM5155"
+			(at 0 -13.97 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Package_SON:WSON-12-1EP_3x2mm_P0.5mm_EP1x2.65"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "boost controller, 3.5-45 V, 100 mV current limit"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "LM5155_0_1"
+			(rectangle
+				(start -8.89 7.62)
+				(end 8.89 -7.62)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "LM5155_1_1"
+			(pin input line
+				(at -11.43 5.08 0)
+				(length 2.54)
+				(name "UVLO/SYNC"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "12"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at -11.43 2.54 0)
+				(length 2.54)
+				(name "FB"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "8"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -11.43 0.00 0)
+				(length 2.54)
+				(name "COMP"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "6"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -11.43 -2.54 0)
+				(length 2.54)
+				(name "SS"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "9"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -11.43 -5.08 0)
+				(length 2.54)
+				(name "RT"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "10"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin output line
+				(at 11.43 5.08 180)
+				(length 2.54)
+				(name "GATE"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at 11.43 2.54 180)
+				(length 2.54)
+				(name "CS"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "5"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin open_collector line
+				(at 11.43 0.00 180)
+				(length 2.54)
+				(name "PGOOD"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "11"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at -1.27 10.16 270)
+				(length 2.54)
+				(name "BIAS"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_out line
+				(at 1.27 10.16 270)
+				(length 2.54)
+				(name "VCC"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at -2.54 -10.16 90)
+				(length 2.54)
+				(name "PGND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "4"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 0.00 -10.16 90)
+				(length 2.54)
+				(name "AGND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "7"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 2.54 -10.16 90)
+				(length 2.54)
+				(name "EP"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "13"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:CSD19538Q3A"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "Q"
+			(at 0 8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "CSD19538Q3A"
+			(at 0 -8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "N-MOSFET 100 V, 49 mOhm at 10 V (58 at 6 V), Qg 4.3 nC, SON 3.3 x 3.3"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "CSD19538Q3A_0_1"
+			(rectangle
+				(start -3.81 2.54)
+				(end 3.81 -2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "CSD19538Q3A_1_1"
+			(pin input line
+				(at -6.35 0.00 0)
+				(length 2.54)
+				(name "G"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "4"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 5.08 270)
+				(length 2.54)
+				(name "D"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "5"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -5.08 90)
+				(length 2.54)
+				(name "S"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -5.08 90)
+				(length 2.54)
+				(hide yes)
+				(name "S"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -5.08 90)
+				(length 2.54)
+				(hide yes)
+				(name "S"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:TPS23861"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "TPS23861"
+			(at 0 -26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "IEEE 802.3at quad-port PSE controller, auto mode as shipped"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "TPS23861_0_1"
+			(rectangle
+				(start -10.16 20.32)
+				(end 10.16 -20.32)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "TPS23861_1_1"
+			(pin input line
+				(at -12.70 17.78 0)
+				(length 2.54)
+				(name "RESET"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at -12.70 15.24 0)
+				(length 2.54)
+				(name "SCL"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at -12.70 12.70 0)
+				(length 2.54)
+				(name "SDAI"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "4"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin open_collector line
+				(at -12.70 10.16 0)
+				(length 2.54)
+				(name "SDAO"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "5"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin open_collector line
+				(at -12.70 7.62 0)
+				(length 2.54)
+				(name "INT"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "6"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at -12.70 5.08 0)
+				(length 2.54)
+				(name "A3"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "23"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at -12.70 2.54 0)
+				(length 2.54)
+				(name "SHTDWN"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "24"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at -12.70 0.00 0)
+				(length 2.54)
+				(name "AIN"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "25"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin open_collector line
+				(at -12.70 -2.54 0)
+				(length 2.54)
+				(name "AOUT"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "26"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin no_connect line
+				(at -12.70 -5.08 0)
+				(length 2.54)
+				(name "N/C"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "27"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin output line
+				(at 12.70 17.78 180)
+				(length 2.54)
+				(name "GATE1"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "17"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at 12.70 15.24 180)
+				(length 2.54)
+				(name "DRAIN1"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "16"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at 12.70 12.70 180)
+				(length 2.54)
+				(name "SEN1"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "15"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at 12.70 10.16 180)
+				(length 2.54)
+				(name "KSENSA"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "18"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin output line
+				(at 12.70 7.62 180)
+				(length 2.54)
+				(name "GATE2"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "21"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at 12.70 5.08 180)
+				(length 2.54)
+				(name "DRAIN2"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "20"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at 12.70 2.54 180)
+				(length 2.54)
+				(name "SEN2"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "19"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin output line
+				(at 12.70 0.00 180)
+				(length 2.54)
+				(name "GATE3"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "10"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at 12.70 -2.54 180)
+				(length 2.54)
+				(name "DRAIN3"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "9"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at 12.70 -5.08 180)
+				(length 2.54)
+				(name "SEN3"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "8"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at 12.70 -7.62 180)
+				(length 2.54)
+				(name "KSENSB"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "11"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin output line
+				(at 12.70 -10.16 180)
+				(length 2.54)
+				(name "GATE4"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "14"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at 12.70 -12.70 180)
+				(length 2.54)
+				(name "DRAIN4"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "13"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at 12.70 -15.24 180)
+				(length 2.54)
+				(name "SEN4"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "12"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at -1.27 22.86 270)
+				(length 2.54)
+				(name "VDD"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 1.27 22.86 270)
+				(length 2.54)
+				(name "VPWR"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "28"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at -1.27 -22.86 90)
+				(length 2.54)
+				(name "DGND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "7"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 1.27 -22.86 90)
+				(length 2.54)
+				(name "AGND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "22"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "Device:L"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 1.016)
+			(hide yes))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "L"
+			(at -1.27 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "L"
+			(at 1.905 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Inductor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "inductor choke coil reactor magnetic"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_fp_filters" "Choke_* *Coil* Inductor_* L_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "L_0_1"
+			(arc
+				(start 0 2.54)
+				(mid 0.6323 1.905)
+				(end 0 1.27)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(arc
+				(start 0 1.27)
+				(mid 0.6323 0.635)
+				(end 0 0)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(arc
+				(start 0 0)
+				(mid 0.6323 -0.635)
+				(end 0 -1.27)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(arc
+				(start 0 -1.27)
+				(mid 0.6323 -1.905)
+				(end 0 -2.54)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "L_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name "1"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name "2"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no))
+(symbol "Device:R"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 0))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "R"
+			(at 2.032 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "R"
+			(at 0 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at -1.778 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Resistor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "R res resistor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_fp_filters" "R_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "R_0_1"
+			(rectangle
+				(start -1.016 -2.54)
+				(end 1.016 2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "R_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no))
+(symbol "Device:C"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 0.254))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Value" "C"
+			(at 0.635 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Footprint" ""
+			(at 0.9652 -3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Unpolarized capacitor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "cap capacitor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_fp_filters" "C_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "C_0_1"
+			(polyline
+				(pts
+					(xy -2.032 0.762)
+					(xy 2.032 0.762))
+				(stroke
+					(width 0.508)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -2.032 -0.762)
+					(xy 2.032 -0.762))
+				(stroke
+					(width 0.508)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "C_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 2.794)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no))
+(symbol "Device:D_Schottky"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 1.016)
+			(hide yes))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "D"
+			(at 0 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "D_Schottky"
+			(at 0 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Schottky diode"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "diode Schottky"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "D_Schottky_0_1"
+			(polyline
+				(pts
+					(xy -1.905 0.635)
+					(xy -1.905 1.27)
+					(xy -1.27 1.27)
+					(xy -1.27 -1.27)
+					(xy -0.635 -1.27)
+					(xy -0.635 -0.635))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy 1.27 1.27)
+					(xy 1.27 -1.27)
+					(xy -1.27 0)
+					(xy 1.27 1.27))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy 1.27 0)
+					(xy -1.27 0))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "D_Schottky_1_1"
+			(pin passive line
+				(at -3.81 0 0)
+				(length 2.54)
+				(name "K"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 3.81 0 180)
+				(length 2.54)
+				(name "A"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no))
+(symbol "Device:C_Polarized"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 0.254))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Value" "C_Polarized"
+			(at 0.635 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Footprint" ""
+			(at 0.9652 -3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Polarized capacitor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "cap capacitor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_fp_filters" "CP_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "C_Polarized_0_1"
+			(rectangle
+				(start -2.286 0.508)
+				(end 2.286 1.016)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -1.778 2.286)
+					(xy -0.762 2.286))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -1.27 2.794)
+					(xy -1.27 1.778))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(rectangle
+				(start 2.286 -0.508)
+				(end -2.286 -1.016)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type outline))))
+		(symbol "C_Polarized_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 2.794)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no))
+(symbol "Device:D_TVS"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 1.016)
+			(hide yes))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "D"
+			(at 0 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "D_TVS"
+			(at 0 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Bidirectional transient-voltage-suppression diode"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "diode TVS thyrector"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "D_TVS_0_1"
+			(polyline
+				(pts
+					(xy -2.54 1.27)
+					(xy -2.54 -1.27)
+					(xy 2.54 1.27)
+					(xy 2.54 -1.27)
+					(xy -2.54 1.27))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy 0.508 1.27)
+					(xy 0 1.27)
+					(xy 0 -1.27)
+					(xy -0.508 -1.27))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy 1.27 0)
+					(xy -1.27 0))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "D_TVS_1_1"
+			(pin passive line
+				(at -3.81 0 0)
+				(length 2.54)
+				(name "A1"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 3.81 0 180)
+				(length 2.54)
+				(name "A2"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no)))
+ (text "Camera PoE: 52 V boost (LM5155) and 802.3at PSE (TPS23861, port 1 on the camera jack)" (exclude_from_sim no) (at 25.4 25.4 0) (effects (font (size 3 3) (thickness 0.5) bold) (justify left)) (uuid "cbc20b9a-d333-5846-a1ed-ace030e7f859"))
+(text "Boost 12-16.8 V -> 52 V, 300 kHz (RT 73.2k), 47 uH XAL7070 (Isat 4.2 A), RS 25 mOhm, RSL 634 Ohm (82 % slope)." (exclude_from_sim no) (at 25.4 33.02 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "747adac2-10af-54ba-a2c5-7fa862107b0d"))
+(text "Current limit about 2.2 A at 12 V in (15 W out with margin); the camera (802.3af) draws about 4 W." (exclude_from_sim no) (at 25.4 38.1 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "2193c0fd-fd1e-59bc-9d54-9faf44ae0c1b"))
+(text "Loop: crossover about 5 kHz (RHP zero 32 kHz at 15 W), RCOMP 15.8k, CCOMP 10n (zero 1 kHz), CHF 330p." (exclude_from_sim no) (at 25.4 43.18000000000001 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "ab0de63d-b86e-5b45-bcdc-05052a2e95b4"))
+(text "UVLO 56k / 10k: starts at 9.9 V. PGOOD holds the PSE in reset until 52 V is up (TPS23861 VPWR before RESET)." (exclude_from_sim no) (at 25.4 48.260000000000005 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "baffc65e-ef07-5a21-a1ef-f3de138cb76d"))
+(text "TPS23861 as shipped: auto mode, I2C 0x28 with A3 open (Jetson I2C1). SDAI and SDAO tied. INT to the expander." (exclude_from_sim no) (at 25.4 53.34 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "1ec9a0d4-31bd-5f83-be7f-e696bbcd71ab"))
+(text "Port 1 (Alternative A): VPWR on the 1-2 centre tap, switched return on the 3-6 centre tap of J6." (exclude_from_sim no) (at 25.4 58.42 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "8328400c-3a81-589c-82fa-5559dc078fe8"))
+(text "Ports 2-4 unused: SEN and DRAIN to GND, GATE open (datasheet 8.2.2). Unused camera pairs 4-5, 7-8: Bob Smith." (exclude_from_sim no) (at 25.4 63.5 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "e19585f9-d563-5120-a850-090a98ae3dc4"))
+(symbol (lib_id "atlas:LM5155") (at 55.88 99.06 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "e2e0a376-bdcc-539d-b55b-c18bf777eb5e")
+ (property "Reference" "U1201" (at 55.88 85.40 0) (effects (font (size 1.27 1.27)) )) (property "Value" "LM5155" (at 55.88 112.72 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Package_SON:WSON-12-1EP_3x2mm_P0.5mm_EP1x2.65" (at 55.88 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "LM5155DSSR" (at 55.88 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Texas Instruments" (at 55.88 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "boost controller, 3.5-45 V, 100 mV current limit" (at 55.88 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "12" (uuid "e3d832e8-0502-59db-87d8-89e2baf4eac4")) (pin "8" (uuid "91130005-c914-575c-8db5-0ca50ad6fd79")) (pin "6" (uuid "d1340fe0-7448-5cef-a656-03b7ef310fbd")) (pin "9" (uuid "b3a80986-c119-51af-8bf8-97a736a9e633")) (pin "10" (uuid "40403b37-831d-572f-8aeb-237de883f6b9")) (pin "3" (uuid "edbdb756-6d4c-56db-8bf8-859a3d9ca3c2")) (pin "5" (uuid "98c7d409-63c4-5f6b-b00b-d8ac1d084ea3")) (pin "11" (uuid "04b67594-caf3-541f-894e-b1bb49d48f6b")) (pin "1" (uuid "c42ac3e1-4eb7-50a8-8912-5330080b854c")) (pin "2" (uuid "4a5cf212-b74e-562d-a062-aeca0d964e76")) (pin "4" (uuid "872034d8-1eca-5c64-868d-e5ba1e04684c")) (pin "7" (uuid "485f7e9b-3e8d-52e3-8342-b2df0f4604fb")) (pin "13" (uuid "f75ea9a8-73e3-5c04-851d-f22620a90eb3"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "U1201") (unit 1)))))
+(global_label "BST_UVLO" (shape passive) (at 44.45 93.98 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "910408ec-d686-5f92-8977-c176a145df98") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 44.45 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BST_FB" (shape passive) (at 44.45 96.52 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "52af442c-d4e6-58d8-8ae1-dd6e99c4f6e8") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 44.45 96.52 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BST_COMP" (shape passive) (at 44.45 99.06 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0416cd7d-3eec-5122-be8b-767071f0393c") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 44.45 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BST_SS" (shape passive) (at 44.45 101.6 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "db3d571c-d64e-54a4-b560-0fefcff29442") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 44.45 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BST_RT" (shape passive) (at 44.45 104.14 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "2b5bed91-f3ab-5f7e-a8c2-2f17be3a4ef0") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 44.45 104.14 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BST_GATE" (shape passive) (at 67.31 93.98 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "d14772e7-9d1c-509b-bc3c-0e0ee548fad2") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 67.31 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BST_CS" (shape passive) (at 67.31 96.52 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "72790a89-5a1b-5644-a122-b2e28533aaa0") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 67.31 96.52 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "PSE_RESET_N" (shape passive) (at 67.31 99.06 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "01a2be1f-87f8-5026-80a0-7b4e6371dd2f") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 67.31 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "POE_OUTPUT" (shape passive) (at 54.61 88.9 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "a60dedb6-7839-5ad2-97a8-98e4911995d4") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 54.61 88.9 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BST_VCC" (shape passive) (at 57.15 88.9 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "880a669b-0f2e-58c5-8656-c889153ee9c3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 57.15 88.9 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 53.34 109.22 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a1a2e1ec-3ffc-5822-9c2b-404801262d41") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 55.88 109.22 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a8c2e53a-4e1e-50a5-8dd6-60477fdd02e4") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 55.88 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 58.42 109.22 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "23afa793-fd81-5a43-99fd-1177758e70b4") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 58.42 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:CSD19538Q3A") (at 111.76 93.98 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "867c8af5-d2d7-5cb0-b4cb-256ab74c4539")
+ (property "Reference" "Q1201" (at 111.76 85.40 0) (effects (font (size 1.27 1.27)) )) (property "Value" "CSD19538Q3A" (at 111.76 102.56 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET" (at 111.76 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 111.76 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "CSD19538Q3A" (at 111.76 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Texas Instruments" (at 111.76 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "boost switch" (at 111.76 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "4" (uuid "cf5cec46-2910-5cb4-bf8d-c320ba3cfb16")) (pin "5" (uuid "d733340c-cd71-5c42-81f8-ad492e449a19")) (pin "1" (uuid "5a097cfc-2621-5dd4-8fc4-1a11d0411955")) (pin "2" (uuid "f283ec8a-bade-5edb-ac41-056141ce6a05")) (pin "3" (uuid "13f42c92-0780-51f2-b75b-21990a655a1f"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "Q1201") (unit 1)))))
+(global_label "BST_GATE" (shape passive) (at 105.41 93.98 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "f5bc5459-d010-5b55-83cc-4a2a6d63e7f6") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 105.41 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BST_SW" (shape passive) (at 111.76 88.9 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2a1796d1-852c-558a-8e1c-bd671a97d3fd") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 111.76 88.9 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BST_RS" (shape passive) (at 111.76 99.06 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0dffb12a-2987-5b40-a86a-067a4a442917") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 111.76 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:TPS23861") (at 162.56 111.76 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "be84c0b6-fd82-5686-b139-777601e73ffc")
+ (property "Reference" "U1202" (at 162.56 85.40 0) (effects (font (size 1.27 1.27)) )) (property "Value" "TPS23861" (at 162.56 138.12 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm" (at 162.56 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 162.56 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "TPS23861PWR" (at 162.56 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Texas Instruments" (at 162.56 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "IEEE 802.3at quad-port PSE controller, auto mode as shipped" (at 162.56 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "2" (uuid "073026ee-431d-5a20-ae4e-578adbff24d3")) (pin "3" (uuid "75149318-f110-5591-85f0-b775b19179c3")) (pin "4" (uuid "5c09c734-69a6-5626-8800-c8c55a016b0e")) (pin "5" (uuid "6774c7dc-9b05-5074-b108-2b3bf60ed26c")) (pin "6" (uuid "4f257c5b-afad-5270-a60f-395de317bd09")) (pin "23" (uuid "6e69bc35-5d31-5a95-9f87-6818238ace5a")) (pin "24" (uuid "1be819a0-ef98-507c-895a-9de218e6bb43")) (pin "25" (uuid "2f9233cc-d93b-546d-8d95-541d6be55798")) (pin "26" (uuid "ab6760a7-6cd9-5749-8ad6-0eaf6e98353c")) (pin "27" (uuid "6f1f5995-c64e-5e9e-b79c-e3f45958e5b2")) (pin "17" (uuid "1aaab459-a817-5fcd-bce4-89b24967173c")) (pin "16" (uuid "50a8044d-8613-5678-b027-e6b516bc3562")) (pin "15" (uuid "1ca03b0d-8a70-5c89-89d8-c709a1926a1e")) (pin "18" (uuid "22a3ea80-d14e-59bf-8e15-bcdc632a7eab")) (pin "21" (uuid "023349fc-d151-550b-a144-6f0065a358f4")) (pin "20" (uuid "05ff95f1-d35f-59a8-a6c1-814b2acc125a")) (pin "19" (uuid "cef8de2a-9145-5a39-9c64-add661e52a90")) (pin "10" (uuid "774ae25b-5325-5bb3-97e7-f9dad81ba1b1")) (pin "9" (uuid "945753b9-35b2-5c32-83c8-cdabe242b7e7")) (pin "8" (uuid "7b98e11c-b4ea-5169-a9ca-435891e0b409")) (pin "11" (uuid "966d6d89-069a-5c4b-ab10-c155fedc7abd")) (pin "14" (uuid "62a45e21-7a58-5807-b264-9a25c56ebfe2")) (pin "13" (uuid "a3bc4123-6934-5c06-bea9-730cef744b1b")) (pin "12" (uuid "d2d24f37-75ee-5eac-8e84-fdb5396b0dd1")) (pin "1" (uuid "4836f83c-f39e-5b86-813f-7f844fce66e1")) (pin "28" (uuid "a894e3ac-86cf-5b89-b015-f23e9b481a20")) (pin "7" (uuid "0169639f-03bd-53b6-95d8-0a906c87b90f")) (pin "22" (uuid "4c572c8d-a915-552a-acac-abc79900514a"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "U1202") (unit 1)))))
+(global_label "PSE_RESET_N" (shape passive) (at 149.86 93.98 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "8059f1d6-1e84-54d6-b476-9947755d0c81") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 149.86 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "I2C1_SCL" (shape passive) (at 149.86 96.52 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ff125773-67d9-5dbd-be1c-4c96dc914b7c") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 149.86 96.52 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "I2C1_SDA" (shape passive) (at 149.86 99.06 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a4d7f010-0b80-58cc-b295-8665b1473633") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 149.86 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "I2C1_SDA" (shape passive) (at 149.86 101.6 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "d5499549-12e8-5fe2-9857-a40f73fbaf79") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 149.86 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "PSE_INT_N" (shape passive) (at 149.86 104.14 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "aa723847-7527-5817-a819-a41f09c571a8") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 149.86 104.14 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(no_connect (at 149.86 106.68) (uuid "f6918404-8500-5f2f-b3a0-a127c5e1d482"))
+(no_connect (at 149.86 109.22) (uuid "6b085fe9-79cf-5a04-b27b-78fa46876610"))
+(no_connect (at 149.86 111.76) (uuid "0dae2ff7-4df4-541e-a053-2280f8ab8a01"))
+(no_connect (at 149.86 114.3) (uuid "f21480d9-f633-5e12-b70c-2e3daab67620"))
+(no_connect (at 149.86 116.84) (uuid "084c877e-b521-5112-90ec-3ada0a436e8a"))
+(global_label "PSE_G1" (shape passive) (at 175.26 93.98 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "c88be089-43cf-5ca0-be89-193829301508") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 175.26 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "PSE_D1" (shape passive) (at 175.26 96.52 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "c3e78f64-5957-5bcc-8c4f-34276dadce8f") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 175.26 96.52 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "PSE_S1" (shape passive) (at 175.26 99.06 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "c67057ac-2fd0-538a-9baf-6df95f8781d1") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 175.26 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 175.26 101.6 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "368a3ab0-35d4-5952-8210-e681deb13643") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 175.26 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(no_connect (at 175.26 104.14) (uuid "ce8552e1-cb35-55cc-bbb8-95367d58f2aa"))
+(global_label "GND" (shape passive) (at 175.26 106.68 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "d7f85ebf-58c5-5049-8830-8818852a66b4") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 175.26 106.68 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 175.26 109.22 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "a05d9288-6b42-5890-823b-82326d50ccc3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 175.26 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(no_connect (at 175.26 111.76) (uuid "888bccc1-19b4-5955-9317-5db08147e536"))
+(global_label "GND" (shape passive) (at 175.26 114.3 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "954a1ccf-c036-5941-bc1c-1ee38db701f0") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 175.26 114.3 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 175.26 116.84 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "64a35bd1-8785-5921-abf7-1a9d8e22b08e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 175.26 116.84 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 175.26 119.38 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "e6fc3550-d02e-5cbd-aab5-f853962c8179") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 175.26 119.38 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(no_connect (at 175.26 121.92) (uuid "2ba50282-0f25-5da7-88bd-0d97001a4ec8"))
+(global_label "GND" (shape passive) (at 175.26 124.46 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "11ba09ec-23ca-53eb-8d10-c5ee54bc2fcd") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 175.26 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 175.26 127.0 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "ae769088-97e9-51fd-9218-afb788d581da") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 175.26 127.0 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "+3V3" (shape passive) (at 161.29 88.9 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "f2fd6773-3182-58a4-b47b-4f2b64a0acce") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 161.29 88.9 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "POE_52V" (shape passive) (at 163.83 88.9 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "de1a2975-d4dc-535e-9f88-43255de82ca2") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 163.83 88.9 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 161.29 134.62 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "37dc7a16-3b5e-52c5-85a3-bf16e97e0299") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 161.29 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 163.83 134.62 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e017253c-1ecd-56ad-9d28-710953b2d46b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 163.83 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:CSD19538Q3A") (at 220.98 93.98 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "14db8b39-1a9c-55f5-80f6-7740cce3aed3")
+ (property "Reference" "Q1202" (at 220.98 85.40 0) (effects (font (size 1.27 1.27)) )) (property "Value" "CSD19538Q3A" (at 220.98 102.56 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET" (at 220.98 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 220.98 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "CSD19538Q3A" (at 220.98 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Texas Instruments" (at 220.98 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "port 1 switch (low side)" (at 220.98 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "4" (uuid "3862418c-2e81-547c-a882-a30c9af52214")) (pin "5" (uuid "46f0b2d7-9e66-5e89-a132-2ed2a436cc7e")) (pin "1" (uuid "87304a93-1b4a-54e0-b21e-8343f54e646b")) (pin "2" (uuid "75c544ba-fb5c-53f3-8db4-64c36ab3a20f")) (pin "3" (uuid "bc39dce7-0db2-5fc4-b6a4-0214deaafcea"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "Q1202") (unit 1)))))
+(global_label "PSE_G1" (shape passive) (at 214.63 93.98 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "51999e07-0ae0-5562-ab4c-66ae55fb9e5b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 214.63 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "POE_PAIR_36" (shape passive) (at 220.98 88.9 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2e3e81ab-866a-5b15-b231-a387db625d78") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 220.98 88.9 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "PSE_RS1" (shape passive) (at 220.98 99.06 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0538b7eb-0ed7-56f8-8c56-ace2c60f1adc") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 220.98 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:L") (at 55.88 152.40 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "76725cfb-4b49-5681-9710-36e95a4078ad")
+ (property "Reference" "L1201" (at 55.88 149.86 0) (effects (font (size 1.27 1.27)) )) (property "Value" "47u" (at 55.88 154.94 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Inductor_SMD:L_Coilcraft_XAL7070-XXX" (at 55.88 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "XAL7070-473MEC" (at 55.88 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Coilcraft" (at 55.88 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "boost inductor 47 uH, Isat 4.2 A (30 %), DCR 84 mOhm" (at 55.88 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "c25dce70-c66f-547c-a858-f7b1d29f6ac7")) (pin "2" (uuid "118847c6-8ece-5c82-af56-6ca2dc31d99f"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "L1201") (unit 1)))))
+(global_label "POE_OUTPUT" (shape passive) (at 52.07 152.4 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "3d8bfef0-66e8-5234-8613-862d085d23e7") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 152.4 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BST_SW" (shape passive) (at 59.69 152.4 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "6e125354-0b6f-5fc1-ba93-5cc69328c999") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 152.4 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 132.08 152.40 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "c7b45f97-fdb3-56f5-a8b0-02fb8cc3c84f")
+ (property "Reference" "R1201" (at 132.08 149.86 0) (effects (font (size 1.27 1.27)) )) (property "Value" "0.025" (at 132.08 154.94 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric" (at 132.08 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 132.08 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 132.08 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "boost current sense 25 mOhm 1% 0.5 W" (at 132.08 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "6d245aac-3c43-57de-bcbd-8cbfec5853bd")) (pin "2" (uuid "b6dffb53-4701-56cc-a70a-b68e834d81eb"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1201") (unit 1)))))
+(global_label "BST_RS" (shape passive) (at 128.27 152.4 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0d043941-0b1b-5017-9cf2-698b0abf863a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 152.4 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 135.89 152.4 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "192859ea-918a-5a98-9cc8-a7bc7db51dce") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 152.4 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 208.28 152.40 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "f16318cf-c94a-5ebf-826e-12adfbbb2c02")
+ (property "Reference" "R1202" (at 208.28 149.86 0) (effects (font (size 1.27 1.27)) )) (property "Value" "634" (at 208.28 154.94 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 208.28 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 208.28 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 208.28 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "slope compensation RSL, 1%" (at 208.28 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "b52e6188-f793-5707-8b4e-acbd55b71dde")) (pin "2" (uuid "7da9041f-4b86-5523-9c71-66b0cf303630"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1202") (unit 1)))))
+(global_label "BST_RS" (shape passive) (at 204.47 152.4 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ce14a4bb-0bd3-542d-9fe8-2e7d7c038ea7") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 204.47 152.4 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BST_CS" (shape passive) (at 212.09 152.4 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "d6a26392-5902-54e5-8435-9b46c87b6376") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 212.09 152.4 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 284.48 152.40 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "6069e08d-2c3f-5467-9b8f-f5113320af7b")
+ (property "Reference" "C1201" (at 284.48 149.86 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100p" (at 284.48 154.94 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 284.48 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 284.48 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 284.48 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "CS filter, C0G" (at 284.48 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "6a267340-18e2-5c97-aa0f-c89d4f48af16")) (pin "2" (uuid "a0862652-51e3-553c-b6bc-8f61eb17a95a"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1201") (unit 1)))))
+(global_label "BST_CS" (shape passive) (at 280.67 152.4 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "f7c39b01-a59b-5d6b-b5d1-27a78dddd970") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.67 152.4 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 288.29 152.4 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "73922b97-c137-5c8f-910b-35ff724252bc") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 152.4 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:D_Schottky") (at 360.68 152.40 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "cde35f14-d467-54eb-8dcd-87b8ecd79d8c")
+ (property "Reference" "D1201" (at 360.68 149.86 0) (effects (font (size 1.27 1.27)) )) (property "Value" "SS2H10" (at 360.68 154.94 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Diode_SMD:D_SMB" (at 360.68 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "SS2H10-E3/52T" (at 360.68 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Vishay" (at 360.68 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "boost rectifier, Schottky 100 V 2 A" (at 360.68 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "807eec8d-1883-5d4b-8fdb-ae6d6f4142e8")) (pin "2" (uuid "2c4a108f-6085-5b7c-8735-03267c22f50d"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "D1201") (unit 1)))))
+(global_label "POE_52V" (shape passive) (at 360.68 156.21 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c7d15e36-2f68-53b2-a363-de5a90010c6b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 360.68 156.21 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BST_SW" (shape passive) (at 360.68 148.59 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "58fce19f-f842-5e15-a4ea-b8ac5f9d2603") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 360.68 148.59 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 436.88 152.40 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "a0c92a91-e236-504d-8d28-2ba03115cb80")
+ (property "Reference" "C1202" (at 436.88 149.86 0) (effects (font (size 1.27 1.27)) )) (property "Value" "2.2u 100V" (at 436.88 154.94 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_1210_3225Metric" (at 436.88 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 436.88 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "GRM32ER72A225KA35L" (at 436.88 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Murata" (at 436.88 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "52 V output, X7R" (at 436.88 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "50e2f39a-151b-55d3-800a-abf65c649d8c")) (pin "2" (uuid "64f36c66-5db0-5de9-a2d2-76787bc84c8c"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1202") (unit 1)))))
+(global_label "POE_52V" (shape passive) (at 433.07 152.4 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "3fb740e7-b889-5650-8341-c35e774516fe") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 433.07 152.4 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 440.69 152.4 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "d3b6515f-7af2-5d74-b8a8-d8b647d9aca6") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 440.69 152.4 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 513.08 152.40 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "94006cee-736c-5a4c-89ef-d27d9445de76")
+ (property "Reference" "C1203" (at 513.08 149.86 0) (effects (font (size 1.27 1.27)) )) (property "Value" "2.2u 100V" (at 513.08 154.94 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_1210_3225Metric" (at 513.08 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 513.08 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "GRM32ER72A225KA35L" (at 513.08 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Murata" (at 513.08 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "52 V output, X7R" (at 513.08 152.40 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "2cf685d4-c5ce-5aa1-aec9-213696b5f3f4")) (pin "2" (uuid "65d70c31-ba99-59e2-8b41-54067d4e8c07"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1203") (unit 1)))))
+(global_label "POE_52V" (shape passive) (at 509.27 152.4 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "1e97f93d-b3ec-5d5b-bd10-305365946a3e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 509.27 152.4 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 516.89 152.4 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "6203a355-532d-5b6f-87c3-24ee78121958") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 516.89 152.4 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 55.88 165.10 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "34cc8ad7-546d-5dda-9252-4ca1c1e86efc")
+ (property "Reference" "C1204" (at 55.88 162.56 0) (effects (font (size 1.27 1.27)) )) (property "Value" "2.2u 100V" (at 55.88 167.64 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_1210_3225Metric" (at 55.88 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "GRM32ER72A225KA35L" (at 55.88 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Murata" (at 55.88 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "52 V output, X7R" (at 55.88 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "a649d124-b8a2-5aeb-ae2f-7d4bee5f606f")) (pin "2" (uuid "bc24b891-bca4-5d6d-9c6a-30c134dc1b46"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1204") (unit 1)))))
+(global_label "POE_52V" (shape passive) (at 52.07 165.1 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "65dd2157-4440-518a-b99a-2a3006a956a3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 59.69 165.1 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "6d5aad4f-b2e3-528a-b805-695d003c6b03") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C_Polarized") (at 132.08 165.10 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "97a701f4-8a92-5abf-99b0-8a138db7e8b4")
+ (property "Reference" "C1205" (at 132.08 162.56 0) (effects (font (size 1.27 1.27)) )) (property "Value" "22u 100V" (at 132.08 167.64 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:CP_Elec_8x10.5" (at 132.08 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "EEE-FK2A220P" (at 132.08 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Panasonic" (at 132.08 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "52 V bulk (TI asks for bulk on the PSE supply), aluminium 100 V" (at 132.08 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "95b44275-5350-54b8-9023-808552191269")) (pin "2" (uuid "64246a71-d03c-59c7-b644-fff676decdeb"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1205") (unit 1)))))
+(global_label "POE_52V" (shape passive) (at 128.27 165.1 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "16f2b078-d51e-5717-8bf5-f0758a04ec36") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 135.89 165.1 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "8d1a687f-5baa-5ab8-9527-57401d597cc2") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 208.28 165.10 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "784afb83-13fa-5aca-95c1-ca3296d632ac")
+ (property "Reference" "C1206" (at 208.28 162.56 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10u 25V" (at 208.28 167.64 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_1206_3216Metric" (at 208.28 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "GRM31CR71E106KA12L" (at 208.28 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Murata" (at 208.28 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "boost input" (at 208.28 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "a4a7b7ae-12cd-5626-9607-a3d7897df670")) (pin "2" (uuid "0c2d35b9-82c3-5e19-8e30-d1172b61e923"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1206") (unit 1)))))
+(global_label "POE_OUTPUT" (shape passive) (at 204.47 165.1 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "79fb7ec0-c479-5f07-bd38-32b676456265") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 204.47 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 212.09 165.1 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "c4ec1fab-ff84-5ac4-80d6-b997b41833b9") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 212.09 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 284.48 165.10 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "82853e26-e2be-51cc-bcfc-3efab46e687d")
+ (property "Reference" "C1207" (at 284.48 162.56 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10u 25V" (at 284.48 167.64 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_1206_3216Metric" (at 284.48 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "GRM31CR71E106KA12L" (at 284.48 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Murata" (at 284.48 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "boost input" (at 284.48 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "1565d437-4a6e-50f7-8f73-d3474dc461a0")) (pin "2" (uuid "c9887339-7e58-580c-9069-eb9c43ecc054"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1207") (unit 1)))))
+(global_label "POE_OUTPUT" (shape passive) (at 280.67 165.1 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "9556aaa7-a66f-5ca4-a46f-33c29f9d0107") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.67 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 288.29 165.1 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "0025f779-1f1d-597e-87fa-f4cb783b5723") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 360.68 165.10 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "22a8f7ba-4122-5558-b544-0b995ad462f5")
+ (property "Reference" "C1208" (at 360.68 162.56 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100n 50V" (at 360.68 167.64 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 360.68 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 360.68 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 360.68 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "BIAS pin" (at 360.68 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "83629cb3-9b79-57ad-9ad5-552bb1f4885e")) (pin "2" (uuid "c29bef30-71d2-59a7-94a6-9ce35509e9c2"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1208") (unit 1)))))
+(global_label "POE_OUTPUT" (shape passive) (at 356.87 165.1 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "1b5585f8-c097-57b7-97d1-c7d20a2e1764") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 356.87 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 364.49 165.1 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2adc6262-b746-5b24-a80e-f5169d765ec3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 364.49 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 436.88 165.10 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "06f37dcd-2e3a-5485-8354-5ebf289e8432")
+ (property "Reference" "C1209" (at 436.88 162.56 0) (effects (font (size 1.27 1.27)) )) (property "Value" "2.2u 16V" (at 436.88 167.64 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 436.88 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 436.88 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 436.88 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 436.88 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "VCC regulator (1-4.7 uF)" (at 436.88 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "05916762-4ed1-53ee-8544-622f952b9d09")) (pin "2" (uuid "8d9a0457-1515-5745-ba9c-8db7c8b0de03"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1209") (unit 1)))))
+(global_label "BST_VCC" (shape passive) (at 433.07 165.1 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "fb7d7c40-4a9f-55df-b136-3dbdf63ade3b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 433.07 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 440.69 165.1 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "a0ce5d84-5e0b-5aa1-a116-a7029e0dd7c2") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 440.69 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 513.08 165.10 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "5fbcee16-c821-5af1-8df1-14f104ced949")
+ (property "Reference" "R1203" (at 513.08 162.56 0) (effects (font (size 1.27 1.27)) )) (property "Value" "73.2k" (at 513.08 167.64 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 513.08 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 513.08 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 513.08 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 513.08 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "RT: 2.21e10 / 300 kHz - 955, 1%" (at 513.08 165.10 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "6d5b5a71-0677-54f3-b1a2-7a6906eb3449")) (pin "2" (uuid "66f6dc68-21e0-5ab7-95b3-91f731396614"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1203") (unit 1)))))
+(global_label "BST_RT" (shape passive) (at 509.27 165.1 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "083479cd-e48b-575e-a148-6519cbbcdafa") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 509.27 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 516.89 165.1 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "43c44305-165c-58cc-a93d-91318b323e9a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 516.89 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 55.88 177.80 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "2570c969-aad4-553b-a854-9bc4de607f0b")
+ (property "Reference" "R1204" (at 55.88 175.26 0) (effects (font (size 1.27 1.27)) )) (property "Value" "510k" (at 55.88 180.34 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 55.88 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 55.88 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 55.88 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "FB top: 52 V with VREF 1.0 V, 1%" (at 55.88 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "be87c2bc-4e54-5af6-9ed3-8b8b19c4e423")) (pin "2" (uuid "e6aba1f8-44d0-514c-b5fd-683099cbea52"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1204") (unit 1)))))
+(global_label "POE_52V" (shape passive) (at 52.07 177.8 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "4827c2f1-bee7-5bce-8aad-5055665e071f") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 177.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BST_FB" (shape passive) (at 59.69 177.8 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "f124592e-9276-5044-86d8-fadc261b3609") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 177.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 132.08 177.80 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "744bee33-ec66-5c36-af49-9f8f2b0cad70")
+ (property "Reference" "R1205" (at 132.08 175.26 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10k" (at 132.08 180.34 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 132.08 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 132.08 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 132.08 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "FB bottom, 1%" (at 132.08 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "2a1d08b4-ad73-5db7-9596-c08800fe7141")) (pin "2" (uuid "b5065752-20fc-5cb1-8ab0-fa9d673410c3"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1205") (unit 1)))))
+(global_label "BST_FB" (shape passive) (at 128.27 177.8 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "cbf48cc9-0c6c-5fb4-afa4-05dba2fa8668") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 177.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 135.89 177.8 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "d62e89e6-89ac-5a1c-9c0f-4cb42e2dff03") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 177.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 208.28 177.80 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "47291e8b-6c40-5d40-b276-e43252ff2ab6")
+ (property "Reference" "R1206" (at 208.28 175.26 0) (effects (font (size 1.27 1.27)) )) (property "Value" "56k" (at 208.28 180.34 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 208.28 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 208.28 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 208.28 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "UVLO top: on at 9.9 V, 1%" (at 208.28 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "a60698c6-0ebc-5686-863c-eb46fa1e898e")) (pin "2" (uuid "24fdcdf2-4433-5911-a284-68c34cfb55d9"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1206") (unit 1)))))
+(global_label "POE_OUTPUT" (shape passive) (at 204.47 177.8 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "627e5538-0882-5022-8963-7e26820b274a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 204.47 177.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BST_UVLO" (shape passive) (at 212.09 177.8 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "6c204fcf-2ba6-5a80-a10d-ce760fa9f159") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 212.09 177.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 284.48 177.80 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "0db0b799-e8d3-5aa5-a392-5238de071285")
+ (property "Reference" "R1207" (at 284.48 175.26 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10k" (at 284.48 180.34 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 284.48 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 284.48 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 284.48 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "UVLO bottom, 1%" (at 284.48 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "a184e872-8c81-5220-8ee7-54f18e641887")) (pin "2" (uuid "ce8b2ef7-a345-5553-96ec-ad1c31fa8300"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1207") (unit 1)))))
+(global_label "BST_UVLO" (shape passive) (at 280.67 177.8 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ad61edb4-9c97-5e37-832a-47110d5cc39f") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.67 177.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 288.29 177.8 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "36bd1dca-157b-5dc5-8b5d-c2e2814a5285") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 177.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 360.68 177.80 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "4b2fec46-c859-5b84-8690-dba9338da572")
+ (property "Reference" "C1210" (at 360.68 175.26 0) (effects (font (size 1.27 1.27)) )) (property "Value" "47n" (at 360.68 180.34 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 360.68 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 360.68 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 360.68 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "soft start about 3.6 ms" (at 360.68 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "037044f2-5919-5b36-b4c8-60926ace7a66")) (pin "2" (uuid "c05eb6f3-ee7f-566c-9dd8-1c6a905889cb"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1210") (unit 1)))))
+(global_label "BST_SS" (shape passive) (at 356.87 177.8 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a2606400-cb00-5d9c-8a86-d4033e31f6e8") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 356.87 177.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 364.49 177.8 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "01fbd6cd-8450-5671-9417-952e70cc72c9") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 364.49 177.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 436.88 177.80 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "4ea8a679-1588-5787-b3eb-d1b6489a50b8")
+ (property "Reference" "R1208" (at 436.88 175.26 0) (effects (font (size 1.27 1.27)) )) (property "Value" "15.8k" (at 436.88 180.34 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 436.88 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 436.88 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 436.88 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 436.88 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "RCOMP, 1%" (at 436.88 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "5eb0a4b3-62bd-50fd-81d5-c4376bb0aed0")) (pin "2" (uuid "34a4f9d4-6b66-5e33-bec3-a0c28ce3eeeb"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1208") (unit 1)))))
+(global_label "BST_COMP" (shape passive) (at 433.07 177.8 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "7aadcd59-8d88-5cf6-b02e-8c718adf379c") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 433.07 177.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BST_COMPZ" (shape passive) (at 440.69 177.8 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "40e902c5-380c-5d62-ac1d-d00d80d50425") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 440.69 177.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 513.08 177.80 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "c8e0abac-b1fb-5517-be5d-fb2ec796f2c6")
+ (property "Reference" "C1211" (at 513.08 175.26 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10n" (at 513.08 180.34 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 513.08 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 513.08 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 513.08 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 513.08 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "CCOMP" (at 513.08 177.80 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "ac7ec45b-ae5a-5bab-8397-1a81fce01c00")) (pin "2" (uuid "39f081f4-b9a9-5b1b-9e75-fe9a5ef9a981"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1211") (unit 1)))))
+(global_label "BST_COMPZ" (shape passive) (at 509.27 177.8 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c9f8c8c9-bc7e-5199-8997-89597ecbcb45") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 509.27 177.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 516.89 177.8 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "b7f95d84-984b-56c2-9fe4-fda344ac7ded") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 516.89 177.8 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 55.88 190.50 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "4678e110-ecbb-5622-834e-674e900623a4")
+ (property "Reference" "C1212" (at 55.88 187.96 0) (effects (font (size 1.27 1.27)) )) (property "Value" "330p" (at 55.88 193.04 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 55.88 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 55.88 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 55.88 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "CHF, C0G" (at 55.88 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "677fd135-eae3-5658-b3ba-456880471299")) (pin "2" (uuid "924cb912-a4d9-5614-88d5-53f21b56638f"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1212") (unit 1)))))
+(global_label "BST_COMP" (shape passive) (at 52.07 190.5 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "745cd4a6-9018-5767-bc61-1b720c1594a7") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 190.5 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 59.69 190.5 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "07b599ef-d515-57b7-adee-79ce1f7617f3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 190.5 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:D_TVS") (at 132.08 190.50 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "2de7b9bb-06c6-50a3-9305-b45645dfa6de")
+ (property "Reference" "D1202" (at 132.08 187.96 0) (effects (font (size 1.27 1.27)) )) (property "Value" "SMBJ58A" (at 132.08 193.04 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Diode_SMD:D_SMB" (at 132.08 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "SMBJ58A" (at 132.08 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Littelfuse" (at 132.08 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "52 V system TVS: 58 V standoff, 93.6 V clamp" (at 132.08 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "40d98603-3176-5cfc-bd9e-1b4b93b7c4e4")) (pin "2" (uuid "bdc42967-85d1-508c-b2f3-2765b9715b42"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "D1202") (unit 1)))))
+(global_label "POE_52V" (shape passive) (at 132.08 194.31 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "800beb0e-f5c4-5bd1-aafe-2cdb78e951cb") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 132.08 194.31 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 132.08 186.69 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "ca1b4f26-581d-5d5d-a73c-7c8f398af3ba") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 132.08 186.69 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 208.28 190.50 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "a524dc97-800d-5fc9-ae63-2119fb92ac0e")
+ (property "Reference" "C1213" (at 208.28 187.96 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100n 50V" (at 208.28 193.04 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 208.28 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 208.28 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 208.28 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "TPS23861 VDD (50 V X7R per datasheet)" (at 208.28 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "6f9a919f-35ee-5527-b218-acba35e38b92")) (pin "2" (uuid "302df690-90b2-54e8-b88f-62d8fe238db3"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1213") (unit 1)))))
+(global_label "+3V3" (shape passive) (at 204.47 190.5 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "95a7a462-99dd-50e7-b4c1-c3973699f61b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 204.47 190.5 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 212.09 190.5 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "37f8190b-e0cb-5892-bcec-8a1018573d83") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 212.09 190.5 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 284.48 190.50 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "bc5dc19e-8129-5470-ba9f-fe90a990a311")
+ (property "Reference" "C1214" (at 284.48 187.96 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100n 100V" (at 284.48 193.04 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0805_2012Metric" (at 284.48 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "GRM21BR72A104KAC4L" (at 284.48 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Murata" (at 284.48 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "TPS23861 VPWR, at pin 28" (at 284.48 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "0ccf3cd1-19de-53e4-8f46-4354e6bdd1fa")) (pin "2" (uuid "195cd598-0679-5153-9ff5-c8e7782a786d"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1214") (unit 1)))))
+(global_label "POE_52V" (shape passive) (at 280.67 190.5 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ea05aa28-0795-5d24-bd03-335e8e408d42") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.67 190.5 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 288.29 190.5 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "59ee6c63-f607-50bc-9ecd-c044f5419358") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 190.5 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 360.68 190.50 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "d01e8c89-c2d1-520b-af1b-218ed6d6673a")
+ (property "Reference" "C1215" (at 360.68 187.96 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10n" (at 360.68 193.04 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 360.68 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 360.68 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 360.68 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "RESET filter" (at 360.68 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "e90f894a-1027-59a5-a655-83a2f7425ef1")) (pin "2" (uuid "a52548da-326c-501a-8faa-18b27a494e3a"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1215") (unit 1)))))
+(global_label "PSE_RESET_N" (shape passive) (at 356.87 190.5 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "7fd215bd-7aa3-58c2-890d-f234e00cd078") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 356.87 190.5 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 364.49 190.5 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "33899576-eb4e-5cb2-9429-3a10c63cfa14") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 364.49 190.5 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 436.88 190.50 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "b8334865-c556-5a1f-8ed9-1008b60ebee1")
+ (property "Reference" "R1209" (at 436.88 187.96 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10k" (at 436.88 193.04 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 436.88 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 436.88 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 436.88 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 436.88 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "INT pull-up (open drain, read by the I/O expander)" (at 436.88 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "05885d6d-f276-54f8-a982-1cbded19b8c1")) (pin "2" (uuid "6b641390-3890-5dae-be0b-41f9969a70ff"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1209") (unit 1)))))
+(global_label "+3V3" (shape passive) (at 433.07 190.5 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e6ee59b6-17a4-5b33-aaa4-8efe6d8cc891") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 433.07 190.5 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "PSE_INT_N" (shape passive) (at 440.69 190.5 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "0e8331a5-5abe-5268-a76b-8dd4caea168e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 440.69 190.5 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 513.08 190.50 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "ccb59060-201e-5906-b73f-6c1321f944a3")
+ (property "Reference" "R1210" (at 513.08 187.96 0) (effects (font (size 1.27 1.27)) )) (property "Value" "0.51" (at 513.08 193.04 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0805_2012Metric" (at 513.08 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 513.08 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 513.08 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 513.08 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "port 1 sense, two in parallel = 0.255 Ohm, 1% 0.25 W" (at 513.08 190.50 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "bcb1fbd0-7189-5c69-9112-17f2244e21eb")) (pin "2" (uuid "1ea50996-ca26-5807-86bf-4767efad1f53"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1210") (unit 1)))))
+(global_label "PSE_RS1" (shape passive) (at 509.27 190.5 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0cdcf8e7-ed68-5ac0-9acd-8545d91dd2a6") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 509.27 190.5 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 516.89 190.5 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "75d8803a-f0c8-5195-8f85-6ce7f3c4e64e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 516.89 190.5 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 55.88 203.20 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "bb2fb584-f7a0-5e02-8ae0-073e075e4957")
+ (property "Reference" "R1211" (at 55.88 200.66 0) (effects (font (size 1.27 1.27)) )) (property "Value" "0.51" (at 55.88 205.74 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0805_2012Metric" (at 55.88 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 55.88 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 55.88 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "port 1 sense, two in parallel = 0.255 Ohm, 1% 0.25 W" (at 55.88 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "d5a71649-8fbe-545d-bd0f-c97d1905c34c")) (pin "2" (uuid "aa7ba373-1e88-584b-8978-3ed79efbe530"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1211") (unit 1)))))
+(global_label "PSE_RS1" (shape passive) (at 52.07 203.2 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "08f31bfc-dd5d-5bd4-afe0-bc683605097d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 203.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 59.69 203.2 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "55f8d35e-e1fa-5d94-99b8-d58c76a1a261") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 203.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 132.08 203.20 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "c4bbe8c2-a8c9-5d66-8384-fe262375c639")
+ (property "Reference" "R1212" (at 132.08 200.66 0) (effects (font (size 1.27 1.27)) )) (property "Value" "22.1" (at 132.08 205.74 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 132.08 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 132.08 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 132.08 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "RSEN1, 1%" (at 132.08 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "7c1ff0d8-d712-545d-a310-768034fd3498")) (pin "2" (uuid "8315dd33-f812-5341-81ee-53d472f5ccd8"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1212") (unit 1)))))
+(global_label "PSE_RS1" (shape passive) (at 128.27 203.2 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "5b78c8f8-c788-5506-a8c1-329e4c27069a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 203.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "PSE_S1" (shape passive) (at 135.89 203.2 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "cb631631-d08c-5f33-b7a1-60591074d047") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 203.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 208.28 203.20 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "97cbae91-ca01-5445-bfe2-2d14e8c0d3df")
+ (property "Reference" "R1213" (at 208.28 200.66 0) (effects (font (size 1.27 1.27)) )) (property "Value" "47" (at 208.28 205.74 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 208.28 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 208.28 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 208.28 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "RDRN1, 5%" (at 208.28 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "c77cab61-6cd7-541b-a071-35ef56dd5489")) (pin "2" (uuid "d42809cf-5009-534a-ad8e-62d3d36c0330"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1213") (unit 1)))))
+(global_label "POE_PAIR_36" (shape passive) (at 204.47 203.2 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6ad4974c-f26c-5989-881f-48a0825acb6b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 204.47 203.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "PSE_D1" (shape passive) (at 212.09 203.2 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "cfacddda-a1b2-5671-be32-8016419787c6") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 212.09 203.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 284.48 203.20 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "a60e0468-08cb-5bd1-a665-421004e9ead9")
+ (property "Reference" "C1216" (at 284.48 200.66 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100n 100V" (at 284.48 205.74 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0805_2012Metric" (at 284.48 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "GRM21BR72A104KAC4L" (at 284.48 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Murata" (at 284.48 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "CP1, port bypass" (at 284.48 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "a7f95ac2-6e54-5325-8aae-a99710b0c900")) (pin "2" (uuid "0c7f6006-2c69-5368-a68b-3ba1bcf44d63"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1216") (unit 1)))))
+(global_label "POE_52V" (shape passive) (at 280.67 203.2 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "1109ca36-09c3-5d7f-97b2-dbd58a21e36c") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.67 203.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "POE_PAIR_36" (shape passive) (at 288.29 203.2 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "f9928750-ff14-5189-9bf1-e788907f8e9b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 203.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:D_TVS") (at 360.68 203.20 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "3c265e7e-6049-5fd1-8fa9-ff4177ca10fc")
+ (property "Reference" "D1203" (at 360.68 200.66 0) (effects (font (size 1.27 1.27)) )) (property "Value" "SMBJ58A" (at 360.68 205.74 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Diode_SMD:D_SMB" (at 360.68 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "SMBJ58A" (at 360.68 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Littelfuse" (at 360.68 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "DP1A port TVS" (at 360.68 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "1a2612bc-9a24-5f27-94c7-5844eef3fe43")) (pin "2" (uuid "7d664fe0-b768-53fb-a1c3-6ba5dcb74cc0"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "D1203") (unit 1)))))
+(global_label "POE_52V" (shape passive) (at 360.68 207.01 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "64cf5d12-2adc-56f7-bef3-3e215c0ce0eb") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 360.68 207.01 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "POE_PAIR_36" (shape passive) (at 360.68 199.39 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "72d0a08c-0e1e-5333-a09b-9d54f8fcf56b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 360.68 199.39 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 436.88 203.20 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "716a0972-61c6-5843-9ad1-e763a366f95f")
+ (property "Reference" "R1214" (at 436.88 200.66 0) (effects (font (size 1.27 1.27)) )) (property "Value" "0" (at 436.88 205.74 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric" (at 436.88 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 436.88 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 436.88 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 436.88 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "port 1 positive to the 1-2 centre tap (fuse site, 0R fitted)" (at 436.88 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "b7440395-0705-5345-85a5-12a0cd9457da")) (pin "2" (uuid "68ffd4ac-747d-59ff-a812-48e5010729f6"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1214") (unit 1)))))
+(global_label "POE_52V" (shape passive) (at 433.07 203.2 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e4fa788f-a726-5fce-8d46-5dda18b432bc") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 433.07 203.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "POE_PAIR_12" (shape passive) (at 440.69 203.2 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "d7079e69-c7be-5198-b299-f74d98b62fee") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 440.69 203.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 513.08 203.20 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "c74a56e8-9857-54c7-b5cd-97a4c93d397d")
+ (property "Reference" "R1215" (at 513.08 200.66 0) (effects (font (size 1.27 1.27)) )) (property "Value" "75" (at 513.08 205.74 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 513.08 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 513.08 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 513.08 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 513.08 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "Bob Smith, camera jack pair 4-5" (at 513.08 203.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "bf2670c6-d9f3-563b-b028-1e6a174be25e")) (pin "2" (uuid "7ae41168-d9ae-51da-a648-f53b4b0f6f9a"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1215") (unit 1)))))
+(global_label "POE_PAIR_78" (shape passive) (at 509.27 203.2 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ef4ca5b2-d553-587d-b633-7d346289793e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 509.27 203.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BS_CAM" (shape passive) (at 516.89 203.2 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "b4eb3e85-8b84-5689-915f-ed56175759b2") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 516.89 203.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 55.88 215.90 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "aa814616-b033-5896-9aaa-89c4c45b7b17")
+ (property "Reference" "R1216" (at 55.88 213.36 0) (effects (font (size 1.27 1.27)) )) (property "Value" "75" (at 55.88 218.44 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 55.88 215.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 215.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 55.88 215.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 55.88 215.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "Bob Smith, camera jack pair 7-8" (at 55.88 215.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "6e7c5103-c328-5db6-a59b-a3767e8830a4")) (pin "2" (uuid "7a46c2ca-0792-5a7c-81ce-ec10550745f5"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "R1216") (unit 1)))))
+(global_label "POE_PAIR_910" (shape passive) (at 52.07 215.9 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "bee2569b-d160-5f12-9b75-a9d2585a6aaa") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 215.9 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BS_CAM" (shape passive) (at 59.69 215.9 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "89ce11d1-4c49-5374-b7aa-34a0acbca3c8") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 215.9 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 132.08 215.90 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "983b3e90-60cf-5447-9677-66ae4e1a215a")
+ (property "Reference" "C1217" (at 132.08 213.36 0) (effects (font (size 1.27 1.27)) )) (property "Value" "1n 2kV" (at 132.08 218.44 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_1206_3216Metric" (at 132.08 215.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 215.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "GRM31BR73D102KW01L" (at 132.08 215.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Murata" (at 132.08 215.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "Bob Smith, 2 kV" (at 132.08 215.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "8ece4b3f-23c1-56a3-bb44-692a950abc10")) (pin "2" (uuid "2b4d2c4d-c379-5468-8d10-9212449e0661"))
+ (instances (project "atlas_brain" (path "/4b393452-b11e-416e-bc83-918ae3cab2f1/48f47219-cf05-525a-930b-1e2b792d7101" (reference "C1217") (unit 1)))))
+(global_label "BS_CAM" (shape passive) (at 128.27 215.9 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ae1873d2-3006-51ae-8e6a-1ae5a1613c0d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 215.9 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 135.89 215.9 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "6077670c-089c-5214-aad3-b522f4a483df") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 215.9 0) (effects (font (size 1.27 1.27)) (hide yes))))
+ (embedded_fonts no))

@@ -1,0 +1,1611 @@
+(kicad_sch (version 20250114) (generator "eeschema") (generator_version "9.0")
+ (uuid "8e49a0e2-23e7-59be-bc14-f2aebbb71891")
+ (paper "A2")
+ (title_block (title "ATLAS-DRV-1 drive board: Power button latch and logic supplies") (date "2026-09-27") (rev "0.1") (company "Atlas Autoware (501c3), Fairfax VA") (comment 1 "Generated from design.py by tools/eda.py; edit the Python, not this file"))
+ (lib_symbols (symbol "atlas:TPS70933"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "TPS70933"
+			(at 0 -11.43 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "30 V 150 mA LDO, 1 uA quiescent (always-on 3.3 V)"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "TPS70933_0_1"
+			(rectangle
+				(start -5.08 5.08)
+				(end 5.08 -5.08)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "TPS70933_1_1"
+			(pin power_in line
+				(at -7.62 2.54 0)
+				(length 2.54)
+				(name "IN"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at -7.62 0.00 0)
+				(length 2.54)
+				(name "EN"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_out line
+				(at 7.62 2.54 180)
+				(length 2.54)
+				(name "OUT"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "5"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin no_connect line
+				(at 7.62 0.00 180)
+				(length 2.54)
+				(name "NC"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "4"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 0.00 -7.62 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:SN74LVC1G74"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 13.97 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "SN74LVC1G74"
+			(at 0 -13.97 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Package_SO:VSSOP-8_2.3x2mm_P0.5mm"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "D flip-flop with preset and clear (power latch)"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "SN74LVC1G74_0_1"
+			(rectangle
+				(start -6.35 7.62)
+				(end 6.35 -7.62)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "SN74LVC1G74_1_1"
+			(pin input line
+				(at -8.89 5.08 0)
+				(length 2.54)
+				(name "CLK"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at -8.89 2.54 0)
+				(length 2.54)
+				(name "D"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at -8.89 0.00 0)
+				(length 2.54)
+				(name "~{PRE}"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "7"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at -8.89 -2.54 0)
+				(length 2.54)
+				(name "~{CLR}"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "6"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin output line
+				(at 8.89 5.08 180)
+				(length 2.54)
+				(name "Q"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "5"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin output line
+				(at 8.89 2.54 180)
+				(length 2.54)
+				(name "~{Q}"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 0.00 10.16 270)
+				(length 2.54)
+				(name "VCC"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "8"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 0.00 -10.16 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "4"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:2N7002K"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "Q"
+			(at 0 8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "2N7002K"
+			(at 0 -8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "N-MOSFET 60 V 300 mA logic level, SOT-23"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "2N7002K_0_1"
+			(rectangle
+				(start -3.81 2.54)
+				(end 3.81 -2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "2N7002K_1_1"
+			(pin input line
+				(at -6.35 0.00 0)
+				(length 2.54)
+				(name "G"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 5.08 270)
+				(length 2.54)
+				(name "D"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -5.08 90)
+				(length 2.54)
+				(name "S"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:BTN_EXT"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "BTN_EXT"
+			(at 0 -8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "remote power button (parallel to SW1)"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "BTN_EXT_0_1"
+			(rectangle
+				(start -5.08 5.08)
+				(end 5.08 -5.08)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "BTN_EXT_1_1"
+			(pin passive line
+				(at -7.62 2.54 0)
+				(length 2.54)
+				(name "1"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 0.00 0)
+				(length 2.54)
+				(name "2"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:74LVC1G34"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 11.43 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "74LVC1G34"
+			(at 0 -11.43 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-353_SC-70-5"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "single buffer, 5.5 V tolerant input"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "74LVC1G34_0_1"
+			(rectangle
+				(start -5.08 5.08)
+				(end 5.08 -5.08)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "74LVC1G34_1_1"
+			(pin input line
+				(at -7.62 2.54 0)
+				(length 2.54)
+				(name "A"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin no_connect line
+				(at -7.62 0.00 0)
+				(length 2.54)
+				(name "NC"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin output line
+				(at 7.62 2.54 180)
+				(length 2.54)
+				(name "Y"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "4"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 0.00 7.62 270)
+				(length 2.54)
+				(name "VCC"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "5"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 0.00 -7.62 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:TLV75533P"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "TLV75533P"
+			(at 0 -11.43 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Package_SON:WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "500 mA LDO 3.3 V, WSON-6 with thermal pad"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "TLV75533P_0_1"
+			(rectangle
+				(start -5.08 5.08)
+				(end 5.08 -5.08)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "TLV75533P_1_1"
+			(pin power_in line
+				(at -7.62 2.54 0)
+				(length 2.54)
+				(name "IN"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "6"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at -7.62 0.00 0)
+				(length 2.54)
+				(name "EN"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "4"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_out line
+				(at 7.62 2.54 180)
+				(length 2.54)
+				(name "OUT"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin no_connect line
+				(at 7.62 0.00 180)
+				(length 2.54)
+				(name "NC"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin no_connect line
+				(at 7.62 0.00 180)
+				(length 2.54)
+				(hide yes)
+				(name "NC"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "5"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 0.00 -7.62 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -7.62 90)
+				(length 2.54)
+				(hide yes)
+				(name "GND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "7"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "Device:C"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 0.254))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Value" "C"
+			(at 0.635 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Footprint" ""
+			(at 0.9652 -3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Unpolarized capacitor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "cap capacitor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_fp_filters" "C_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "C_0_1"
+			(polyline
+				(pts
+					(xy -2.032 0.762)
+					(xy 2.032 0.762))
+				(stroke
+					(width 0.508)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -2.032 -0.762)
+					(xy 2.032 -0.762))
+				(stroke
+					(width 0.508)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "C_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 2.794)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no))
+(symbol "Device:R"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 0))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "R"
+			(at 2.032 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "R"
+			(at 0 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at -1.778 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Resistor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "R res resistor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_fp_filters" "R_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "R_0_1"
+			(rectangle
+				(start -1.016 -2.54)
+				(end 1.016 2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "R_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no))
+(symbol "Switch:SW_Push"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 1.016)
+			(hide yes))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "SW"
+			(at 1.27 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Value" "SW_Push"
+			(at 0 -1.524 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 0 5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Push button switch, generic, two pins"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "switch normally-open pushbutton push-button"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "SW_Push_0_1"
+			(circle
+				(center -2.032 0)
+				(radius 0.508)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy 0 1.27)
+					(xy 0 3.048))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(circle
+				(center 2.032 0)
+				(radius 0.508)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy 2.54 1.27)
+					(xy -2.54 1.27))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(pin passive line
+				(at -5.08 0 0)
+				(length 2.54)
+				(name "1"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 5.08 0 180)
+				(length 2.54)
+				(name "2"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no))
+(symbol "Device:D_Schottky"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 1.016)
+			(hide yes))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "D"
+			(at 0 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "D_Schottky"
+			(at 0 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Schottky diode"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "diode Schottky"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "D_Schottky_0_1"
+			(polyline
+				(pts
+					(xy -1.905 0.635)
+					(xy -1.905 1.27)
+					(xy -1.27 1.27)
+					(xy -1.27 -1.27)
+					(xy -0.635 -1.27)
+					(xy -0.635 -0.635))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy 1.27 1.27)
+					(xy 1.27 -1.27)
+					(xy -1.27 0)
+					(xy 1.27 1.27))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy 1.27 0)
+					(xy -1.27 0))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "D_Schottky_1_1"
+			(pin passive line
+				(at -3.81 0 0)
+				(length 2.54)
+				(name "K"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 3.81 0 180)
+				(length 2.54)
+				(name "A"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no))
+(symbol "Device:L"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 1.016)
+			(hide yes))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "L"
+			(at -1.27 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "L"
+			(at 1.905 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Inductor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "inductor choke coil reactor magnetic"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_fp_filters" "Choke_* *Coil* Inductor_* L_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "L_0_1"
+			(arc
+				(start 0 2.54)
+				(mid 0.6323 1.905)
+				(end 0 1.27)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(arc
+				(start 0 1.27)
+				(mid 0.6323 0.635)
+				(end 0 0)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(arc
+				(start 0 0)
+				(mid 0.6323 -0.635)
+				(end 0 -1.27)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(arc
+				(start 0 -1.27)
+				(mid 0.6323 -1.905)
+				(end 0 -2.54)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "L_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name "1"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name "2"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no))
+(symbol "Device:LED"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 1.016)
+			(hide yes))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "D"
+			(at 0 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "LED"
+			(at 0 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Light emitting diode"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Sim.Pins" "1=K 2=A"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "LED diode"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_fp_filters" "LED* LED_SMD:* LED_THT:*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "LED_0_1"
+			(polyline
+				(pts
+					(xy -3.048 -0.762)
+					(xy -4.572 -2.286)
+					(xy -3.81 -2.286)
+					(xy -4.572 -2.286)
+					(xy -4.572 -1.524))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -1.778 -0.762)
+					(xy -3.302 -2.286)
+					(xy -2.54 -2.286)
+					(xy -3.302 -2.286)
+					(xy -3.302 -1.524))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -1.27 0)
+					(xy 1.27 0))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -1.27 -1.27)
+					(xy -1.27 1.27))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy 1.27 -1.27)
+					(xy 1.27 1.27)
+					(xy -1.27 0)
+					(xy 1.27 -1.27))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "LED_1_1"
+			(pin passive line
+				(at -3.81 0 0)
+				(length 2.54)
+				(name "K"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 3.81 0 180)
+				(length 2.54)
+				(name "A"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no))
+(symbol "power:PWR_FLAG"
+		(power global)
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 0)
+			(hide yes))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "#FLG"
+			(at 0 1.905 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "PWR_FLAG"
+			(at 0 3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "flag power"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "PWR_FLAG_0_0"
+			(pin power_out line
+				(at 0 0 90)
+				(length 0)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(symbol "PWR_FLAG_0_1"
+			(polyline
+				(pts
+					(xy 0 0)
+					(xy 0 1.27)
+					(xy -1.016 1.905)
+					(xy 0 2.54)
+					(xy 1.016 1.905)
+					(xy 0 1.27))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none))))
+		(embedded_fonts no)))
+ (text "Power button latch and logic supplies" (exclude_from_sim no) (at 25.4 25.4 0) (effects (font (size 3 3) (thickness 0.5) bold) (justify left)) (uuid "eaca0dc7-c0b5-5a18-aafb-7106bf58cbb8"))
+(text "TPS70933 makes 3V3_AON from B+ (1 uA). SN74LVC1G74 is the on/off latch: button -> PRE, MCU KILL -> CLR." (exclude_from_sim no) (at 25.4 33.02 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "7438aeee-85cd-5bf4-b947-16e8c1b18d09"))
+(text "A reset or crash of the MCU does not turn the car off; only KILL (PB12 high) or pulling the pack does." (exclude_from_sim no) (at 25.4 38.1 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "42997831-0ae0-51ef-8f1d-62a4c811fa22"))
+(text "LATCH_Q enables the TPS48111 and the DRV8323R buck (nSHDN). Buck: VIN from B+, 5.0 V (54.9k / 10k, 0.765 V FB)." (exclude_from_sim no) (at 25.4 43.18000000000001 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "919cddb4-1bf6-5283-875d-23ff702760ba"))
+(text "TLV75533P makes +3V3 from +5V. The button also pulls the charger QON low (exits ship mode)." (exclude_from_sim no) (at 25.4 48.260000000000005 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "f99a446d-e8e4-5bbd-b14f-87d4ccd70770"))
+(symbol (lib_id "atlas:TPS70933") (at 48.26 76.20 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "0ece7688-700c-58e1-a8ee-897559395712")
+ (property "Reference" "U401" (at 48.26 70.16 0) (effects (font (size 1.27 1.27)) )) (property "Value" "TPS70933" (at 48.26 87.32 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Package_TO_SOT_SMD:SOT-23-5" (at 48.26 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 48.26 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "TPS70933DBVR" (at 48.26 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Texas Instruments" (at 48.26 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "30 V 150 mA LDO, 1 uA quiescent (always-on 3.3 V)" (at 48.26 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "f552c0c1-7aa7-5c4f-83ef-28450a041d7b")) (pin "3" (uuid "6f911d09-c188-5e2c-91c4-64121210ea57")) (pin "5" (uuid "1045ccd3-85a8-5fad-9267-6e622cb454c6")) (pin "4" (uuid "c9640790-3114-5764-9342-ec3c80d49e38")) (pin "2" (uuid "f56521b4-1cc8-5f20-97bf-b808f44ba5b4"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "U401") (unit 1)))))
+(global_label "BATP" (shape passive) (at 40.64 73.66 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e9e39037-fd1b-5dc4-b7aa-3bcae2c08b8b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 40.64 73.66 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BATP" (shape passive) (at 40.64 76.2 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "2316803b-48de-576b-a2cd-843b41c54f43") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 40.64 76.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "3V3_AON" (shape passive) (at 55.88 73.66 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "bfa9086a-22b4-5122-9519-d81855135ad0") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 55.88 73.66 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(no_connect (at 55.88 76.2) (uuid "40f42f9a-4215-5119-84af-fbb6c3bf21e0"))
+(global_label "GND" (shape passive) (at 48.26 83.82 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "48f3fe69-dbb2-50dc-9adf-9d5e892f1b76") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 48.26 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:SN74LVC1G74") (at 101.60 83.82 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "c84669d7-1627-51e4-8652-21a3decc980e")
+ (property "Reference" "U402" (at 101.60 70.16 0) (effects (font (size 1.27 1.27)) )) (property "Value" "SN74LVC1G74" (at 101.60 97.48 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Package_SO:VSSOP-8_2.3x2mm_P0.5mm" (at 101.60 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 101.60 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "SN74LVC1G74DCUR" (at 101.60 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Texas Instruments" (at 101.60 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "D flip-flop with preset and clear (power latch)" (at 101.60 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "4c205cd9-f3e5-5127-ab46-a917db231580")) (pin "2" (uuid "05ce4854-dafa-5807-b7cf-7a9f7dda9f32")) (pin "7" (uuid "f266f8ea-7683-5b1e-b20c-c4943cfdbfaf")) (pin "6" (uuid "13fb7102-8f9d-5c51-9273-8c9d5e233fa5")) (pin "5" (uuid "c8c03e8d-fcb6-5479-ad07-a224177b691a")) (pin "3" (uuid "e5dd4151-eb18-5371-b17c-ecfe3cdb7fce")) (pin "8" (uuid "4b8087b4-5c2d-5b57-9294-ad6f086fa925")) (pin "4" (uuid "027f9236-0bef-5d29-9a1f-42bdee66c9ae"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "U402") (unit 1)))))
+(global_label "GND" (shape passive) (at 92.71 78.74 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "43e94289-848d-5dbd-a35f-932900dd362b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 92.71 78.74 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 92.71 81.28 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e415f251-432d-5db6-ba06-5ef8c4b69770") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 92.71 81.28 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BTN_N" (shape passive) (at 92.71 83.82 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0d5bbbdf-54ba-5337-b6b0-f239783c698d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 92.71 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "LATCH_CLR_N" (shape passive) (at 92.71 86.36 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "cdb0c31e-0dab-50fa-aad0-44471f325f7d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 92.71 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "LATCH_Q" (shape passive) (at 110.49 78.74 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "7c83eede-a81d-5693-ab57-346846f1ecea") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 110.49 78.74 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(no_connect (at 110.49 81.28) (uuid "c750d1e3-bcd3-5a81-bce6-3198834003a1"))
+(global_label "3V3_AON" (shape passive) (at 101.6 73.66 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "3b7a19a3-6b0f-5360-8986-5acfc7a972dc") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 101.6 73.66 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 101.6 93.98 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "4235f896-ffcf-5644-bed8-4642ec24f288") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 101.6 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:2N7002K") (at 157.48 78.74 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "c1d759f8-1ffe-5447-b873-536f43fbf5fb")
+ (property "Reference" "Q401" (at 157.48 70.16 0) (effects (font (size 1.27 1.27)) )) (property "Value" "2N7002K" (at 157.48 87.32 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Package_TO_SOT_SMD:SOT-23" (at 157.48 78.74 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 157.48 78.74 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "2N7002K" (at 157.48 78.74 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "onsemi / Nexperia" (at 157.48 78.74 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "MCU kill: clears the latch" (at 157.48 78.74 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "b7917138-77c6-5eec-9b03-7b87efcf9731")) (pin "3" (uuid "c10abf15-243e-56a4-a0c5-1ff9a7ee2e9a")) (pin "2" (uuid "67875314-ed3b-5ef3-8f47-efaafe2fd608"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "Q401") (unit 1)))))
+(global_label "KILL_G" (shape passive) (at 151.13 78.74 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ce45d4b7-e0b8-5ad4-92c6-1bd28c602925") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 151.13 78.74 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "LATCH_CLR_N" (shape passive) (at 157.48 73.66 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "8512f9df-fdc7-59ec-a305-c9d9034c1f21") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 157.48 73.66 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 157.48 83.82 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a3a2b2ef-33b1-5385-8437-671f2680a773") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 157.48 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:BTN_EXT") (at 200.66 76.20 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "9d0fa492-b1c3-517b-ba61-3bba39499dc4")
+ (property "Reference" "J401" (at 200.66 70.16 0) (effects (font (size 1.27 1.27)) )) (property "Value" "BTN_EXT" (at 200.66 79.70 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal" (at 200.66 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 200.66 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "S2B-PH-K-S(LF)(SN)" (at 200.66 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "JST" (at 200.66 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "remote power button (parallel to SW1)" (at 200.66 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "51a13f8f-fc9d-5409-a441-7558d2d175e5")) (pin "2" (uuid "67aa964e-a8ce-5471-8eac-f35256d7576c"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "J401") (unit 1)))))
+(global_label "BTN_N" (shape passive) (at 193.04 73.66 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "b33e9592-a34e-5a81-8e5d-4871788c9bcd") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 193.04 73.66 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 193.04 76.2 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "66d85fc1-1a3b-526d-977d-29c2686998a8") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 193.04 76.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:74LVC1G34") (at 233.68 81.28 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "c31a8d70-805e-543b-af26-9beecbfa59df")
+ (property "Reference" "U403" (at 233.68 70.16 0) (effects (font (size 1.27 1.27)) )) (property "Value" "74LVC1G34" (at 233.68 92.40 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Package_TO_SOT_SMD:SOT-353_SC-70-5" (at 233.68 81.28 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 233.68 81.28 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "SN74LVC1G34DCKR" (at 233.68 81.28 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Texas Instruments" (at 233.68 81.28 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "single buffer, 5.5 V tolerant input" (at 233.68 81.28 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "2" (uuid "8e938636-3f02-5a0d-9e59-12037e156ef3")) (pin "1" (uuid "878e5211-665a-59d5-8ff3-d72dc2ce352b")) (pin "4" (uuid "a8ae37e3-7b3a-56ce-a876-ec731e7aa6d7")) (pin "5" (uuid "a856393b-5352-5d28-8b8f-862b26b1c2d2")) (pin "3" (uuid "a1484145-e86c-5d99-9f8a-a5650fd5b920"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "U403") (unit 1)))))
+(global_label "BTN_N" (shape passive) (at 226.06 78.74 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e6646fcf-44aa-5c5e-a909-a4ccc36f15c7") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 226.06 78.74 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(no_connect (at 226.06 81.28) (uuid "f12c3139-fdb3-518b-9c11-af63edd65e09"))
+(global_label "BTN_SENSE" (shape passive) (at 241.3 78.74 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "fe033365-a568-57b7-8923-614887ade6f3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 241.3 78.74 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "+3V3" (shape passive) (at 233.68 73.66 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "6fc61082-073d-5868-b3ea-b9f21989bdfa") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 233.68 73.66 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 233.68 88.9 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c32f302f-8615-5652-a2a2-8d9a45ae77b8") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 233.68 88.9 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:TLV75533P") (at 281.94 76.20 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "ff1081b4-03e7-5776-bf20-3820ae05a03b")
+ (property "Reference" "U404" (at 281.94 70.16 0) (effects (font (size 1.27 1.27)) )) (property "Value" "TLV75533P" (at 281.94 87.32 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Package_SON:WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm" (at 281.94 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 281.94 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "TLV75533PDRVR" (at 281.94 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Texas Instruments" (at 281.94 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "500 mA LDO 3.3 V, WSON-6 with thermal pad" (at 281.94 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "6" (uuid "0e07bf04-2b2d-5cdc-8133-b6f9fd3d7951")) (pin "4" (uuid "4ff3059b-d5d1-58b1-ad94-8bac43547387")) (pin "1" (uuid "7ee8aff7-68b1-50ae-940a-214775b64266")) (pin "2" (uuid "46a063d7-37e4-57b6-a9b9-79a1d359d05b")) (pin "5" (uuid "a477f0d8-d18c-5d36-ba5e-8545bac460d8")) (pin "3" (uuid "cd2649ad-646f-5db3-a7e0-a2da5223a0db")) (pin "7" (uuid "12c460d2-280b-533e-b23a-36fed0db9817"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "U404") (unit 1)))))
+(global_label "+5V" (shape passive) (at 274.32 73.66 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6a816fcf-a814-55a5-915f-d57435b3379a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 274.32 73.66 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "+5V" (shape passive) (at 274.32 76.2 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "50408daf-b174-5972-a37c-e407a1ece2b5") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 274.32 76.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "+3V3" (shape passive) (at 289.56 73.66 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "9ff7e998-7fa0-5f4b-92f8-2c46ad0b83fb") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 289.56 73.66 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(no_connect (at 289.56 76.2) (uuid "f53b586a-9854-5775-8fdf-69a167e2ce34"))
+(global_label "GND" (shape passive) (at 281.94 83.82 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "84c5a35e-6d7b-5273-8932-4c53994c481a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 281.94 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 55.88 111.76 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "58615658-ac52-5756-9034-0f232edf35bf")
+ (property "Reference" "C401" (at 55.88 109.22 0) (effects (font (size 1.27 1.27)) )) (property "Value" "1u 50V" (at 55.88 114.30 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 55.88 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 55.88 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 55.88 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "LDO input" (at 55.88 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "a1119fc4-de38-53f9-b564-aac9077ffc93")) (pin "2" (uuid "f302215d-b274-5568-b901-a8d4fe088a2d"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "C401") (unit 1)))))
+(global_label "BATP" (shape passive) (at 52.07 111.76 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ab326c88-cfef-5efc-997c-c72caa1a4a43") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 59.69 111.76 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "3930be72-69c8-5ed1-959f-eb6b2d984b6a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 132.08 111.76 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "7f754a22-399d-5387-9514-f8ca17ccf213")
+ (property "Reference" "C402" (at 132.08 109.22 0) (effects (font (size 1.27 1.27)) )) (property "Value" "2.2u" (at 132.08 114.30 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 132.08 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 132.08 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 132.08 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "LDO output" (at 132.08 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "dcec36c5-f002-5f29-a156-2b6e27ae885e")) (pin "2" (uuid "bd8783da-8232-5fea-b84d-b04c32112535"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "C402") (unit 1)))))
+(global_label "3V3_AON" (shape passive) (at 128.27 111.76 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "69ef0edc-9829-52c4-b62f-6d2486cab531") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 135.89 111.76 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2a0ac90d-d361-5393-b69e-d339cb719b0e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 208.28 111.76 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "6e3145db-2805-5f56-9bc1-fdd0dd47ca7f")
+ (property "Reference" "C403" (at 208.28 109.22 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100n" (at 208.28 114.30 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 208.28 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 208.28 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 208.28 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "latch decoupling" (at 208.28 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "7ec85db4-7ff0-52a7-ad6d-ec2c6554f952")) (pin "2" (uuid "bb8757fd-67cd-5b9e-9367-91afc385001e"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "C403") (unit 1)))))
+(global_label "3V3_AON" (shape passive) (at 204.47 111.76 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "fb27eba3-1d73-584d-9714-0eba6c9ebfa7") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 204.47 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 212.09 111.76 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "8e425989-f552-5e41-b9c1-59e5dc81f468") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 212.09 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 284.48 111.76 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "feaa34c2-cc4c-5253-807e-75d44c555c34")
+ (property "Reference" "R401" (at 284.48 109.22 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100k" (at 284.48 114.30 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 284.48 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 284.48 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 284.48 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "button pull-up" (at 284.48 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "92881f92-1401-5690-bbd4-36aeb7b23d75")) (pin "2" (uuid "87ea2557-24d2-594c-b0e2-3c68b2be4052"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "R401") (unit 1)))))
+(global_label "3V3_AON" (shape passive) (at 280.67 111.76 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "3537794d-9043-5bfe-bbd7-e89082ade106") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.67 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BTN_N" (shape passive) (at 288.29 111.76 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "86001025-2bed-5d01-89ca-056efea948af") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 360.68 111.76 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "faed7246-19ef-5a78-9a4c-ded48a3fb55b")
+ (property "Reference" "C404" (at 360.68 109.22 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10n" (at 360.68 114.30 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 360.68 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 360.68 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 360.68 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "button debounce" (at 360.68 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "de28513d-d344-54a9-9fc5-fa7d95382ee4")) (pin "2" (uuid "a510ffd8-7ff9-594b-bb77-d7a0d0c41539"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "C404") (unit 1)))))
+(global_label "BTN_N" (shape passive) (at 356.87 111.76 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "21333002-e817-5002-b89d-82a5f64024cf") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 356.87 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 364.49 111.76 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "8a61b986-59c7-563f-ad02-643d5d7ca42e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 364.49 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 436.88 111.76 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "ba905c9e-88a5-593f-8b5e-99110e5dc158")
+ (property "Reference" "R402" (at 436.88 109.22 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100k" (at 436.88 114.30 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 436.88 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 436.88 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 436.88 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 436.88 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "CLR pull-up" (at 436.88 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "ce796c85-02c1-5cf2-98df-606c831de594")) (pin "2" (uuid "bc1abc0f-d8df-5fb5-8724-085fe7a204eb"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "R402") (unit 1)))))
+(global_label "3V3_AON" (shape passive) (at 433.07 111.76 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e1bc6dc1-86e3-5b61-a58b-0095d562e16e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 433.07 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "LATCH_CLR_N" (shape passive) (at 440.69 111.76 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "89780b11-bc13-5bec-b226-36f8d1e153ec") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 440.69 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 513.08 111.76 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "db7cd7e6-a941-57d2-868c-5da1f46bb5fd")
+ (property "Reference" "C405" (at 513.08 109.22 0) (effects (font (size 1.27 1.27)) )) (property "Value" "1u" (at 513.08 114.30 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 513.08 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 513.08 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 513.08 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 513.08 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "power-on clear: latch starts off when the pack is connected" (at 513.08 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "0edab5f8-7296-569f-902f-b317ee168294")) (pin "2" (uuid "31d5d45c-8b96-53ce-8bb3-ce4bf7c4ad38"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "C405") (unit 1)))))
+(global_label "LATCH_CLR_N" (shape passive) (at 509.27 111.76 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "b5b4fa0a-0303-5c78-8140-3004d746f474") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 509.27 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 516.89 111.76 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "603702c6-97fa-5a5e-8275-eac2bd8ba354") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 516.89 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 55.88 124.46 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "cbd9eeb1-a047-58fe-9aea-1a83cf472b75")
+ (property "Reference" "R403" (at 55.88 121.92 0) (effects (font (size 1.27 1.27)) )) (property "Value" "1k" (at 55.88 127.00 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 55.88 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 55.88 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 55.88 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "from PB12" (at 55.88 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "244452c3-7b81-5a5b-ae56-df63cc78dde1")) (pin "2" (uuid "01308db4-83bb-5430-9443-6762f1782170"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "R403") (unit 1)))))
+(global_label "KILL" (shape passive) (at 52.07 124.46 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "95362d99-ecb6-50c8-a2d4-aa49eaac359f") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "KILL_G" (shape passive) (at 59.69 124.46 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "66d3940d-518f-5250-be65-128e9829f805") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 132.08 124.46 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "8833b3b7-a953-5dd6-93cc-b9f7c677613b")
+ (property "Reference" "R404" (at 132.08 121.92 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100k" (at 132.08 127.00 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 132.08 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 132.08 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 132.08 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "kill off while the MCU is in reset" (at 132.08 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "995e39a0-50c9-58a6-a02a-c966610d490a")) (pin "2" (uuid "1a4fb949-e9de-5832-804e-01b379c6fb9d"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "R404") (unit 1)))))
+(global_label "KILL_G" (shape passive) (at 128.27 124.46 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "8601f24c-7a42-5f90-ad09-c997416b1b23") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 135.89 124.46 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "f7b1f2d6-5f0e-5214-9e9e-c4e0945e2d8a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Switch:SW_Push") (at 208.28 124.46 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "d8b4b04f-dd33-52bc-888a-8e5ebbd52f63")
+ (property "Reference" "SW401" (at 208.28 121.92 0) (effects (font (size 1.27 1.27)) )) (property "Value" "POWER" (at 208.28 127.00 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2" (at 208.28 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "KMR211NG LFS" (at 208.28 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "C&K" (at 208.28 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "on-board power button" (at 208.28 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "c8de1c8e-6bef-5b81-872b-76bffa6f23f4")) (pin "2" (uuid "484a9c97-1203-55ec-bbb8-594861be74ef"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "SW401") (unit 1)))))
+(global_label "BTN_N" (shape passive) (at 208.28 129.54 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "86818a94-2c6d-502b-95b6-f9d888745f35") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 208.28 129.54 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 208.28 119.38 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "e2088dae-6904-5fe8-94e1-38681189546c") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 208.28 119.38 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 284.48 124.46 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "b87f3ded-8188-5cd7-9f70-4df6c330ef53")
+ (property "Reference" "C406" (at 284.48 121.92 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100n" (at 284.48 127.00 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 284.48 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 284.48 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 284.48 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "button buffer decoupling" (at 284.48 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "0c014be1-b8bc-5e83-bed9-3278c5aac2a2")) (pin "2" (uuid "b14673b8-2b3c-5d57-a4fe-f52f65a1d864"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "C406") (unit 1)))))
+(global_label "+3V3" (shape passive) (at 280.67 124.46 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "11ba88de-76dc-5e8d-b336-9bdbe071cbb1") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.67 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 288.29 124.46 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "886e4c5b-1802-5a64-9fde-f2baa72e8fa9") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:D_Schottky") (at 360.68 124.46 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "deffd187-bfa7-54c1-8e8f-84fd75ed98e9")
+ (property "Reference" "D401" (at 360.68 121.92 0) (effects (font (size 1.27 1.27)) )) (property "Value" "BAT54WS" (at 360.68 127.00 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Diode_SMD:D_SOD-323" (at 360.68 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "BAT54WS" (at 360.68 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Nexperia" (at 360.68 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "button also pulls charger QON low (ship-mode exit)" (at 360.68 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "e5003cd8-2190-5735-ab79-73f5c6fa8707")) (pin "2" (uuid "06a30e71-db2b-5b90-8f02-00dec6a055fb"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "D401") (unit 1)))))
+(global_label "BTN_N" (shape passive) (at 360.68 128.27 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "79de0479-6c49-57e9-b3d3-fef5615ba88d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 360.68 128.27 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CHG_QON_N" (shape passive) (at 360.68 120.65 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "a3de4106-0f4d-57c2-9009-61aa1a1138ca") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 360.68 120.65 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 436.88 124.46 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "fcc08825-ecd1-546f-a524-f6e50cdb654a")
+ (property "Reference" "R405" (at 436.88 121.92 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10k" (at 436.88 127.00 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 436.88 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 436.88 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 436.88 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 436.88 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "buck enable from the latch" (at 436.88 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "0593c7ba-b3cd-5ce4-93c1-aa1b86ff32d6")) (pin "2" (uuid "3d0f0b4b-d638-5351-8ee4-88072ae9ab19"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "R405") (unit 1)))))
+(global_label "LATCH_Q" (shape passive) (at 433.07 124.46 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a5874f77-b4e9-57c8-8e7b-7680b409bcdf") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 433.07 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BUCK_EN" (shape passive) (at 440.69 124.46 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "04367e04-1c49-5c71-a4e0-8bdb7789a6b1") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 440.69 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 513.08 124.46 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "758ad5ee-ba8d-56dd-99a3-fa253ecadb40")
+ (property "Reference" "R406" (at 513.08 121.92 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10" (at 513.08 127.00 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 513.08 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 513.08 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 513.08 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 513.08 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "buck input filter" (at 513.08 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "ce9c5640-ab38-5e69-a5bd-ea718a42ad7e")) (pin "2" (uuid "81966ec3-e399-5822-8897-381376736aca"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "R406") (unit 1)))))
+(global_label "BATP" (shape passive) (at 509.27 124.46 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "2aae6878-6227-5b89-b151-df6392bee081") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 509.27 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BUCK_VIN" (shape passive) (at 516.89 124.46 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "69ba5118-de28-57d6-a538-039ed68a9b6a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 516.89 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 55.88 137.16 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "a3954329-9d53-5829-a86f-5bc3be002004")
+ (property "Reference" "C407" (at 55.88 134.62 0) (effects (font (size 1.27 1.27)) )) (property "Value" "4.7u 50V" (at 55.88 139.70 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_1206_3216Metric" (at 55.88 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 55.88 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 55.88 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "buck input (CVIN)" (at 55.88 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "0f02dfb8-9bc6-5e5d-9008-207c85abbb4a")) (pin "2" (uuid "36e6af5d-51af-5e49-a739-cd5d74d86815"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "C407") (unit 1)))))
+(global_label "BUCK_VIN" (shape passive) (at 52.07 137.16 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ae71cf7b-f046-56e1-a4ab-4e30ab6d3b6e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 59.69 137.16 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "37833916-f670-5ddf-8ab1-437e1d372db9") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 132.08 137.16 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "2291526a-6004-5258-8b76-bf42dc01e9c9")
+ (property "Reference" "C408" (at 132.08 134.62 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100n 50V" (at 132.08 139.70 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 132.08 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 132.08 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 132.08 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "buck input HF" (at 132.08 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "0b350ff1-f629-5d21-9b9e-dfaf823466a6")) (pin "2" (uuid "83835f10-8c1a-5867-8a51-5c6e986c718b"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "C408") (unit 1)))))
+(global_label "BUCK_VIN" (shape passive) (at 128.27 137.16 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0b27fa42-0075-555d-a338-4a42692fd783") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 135.89 137.16 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "b5a2716c-3ba9-517c-8921-508a2176c70b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 208.28 137.16 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "0375c071-9c11-5462-b6b9-2f813d7e817a")
+ (property "Reference" "C409" (at 208.28 134.62 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100n 16V" (at 208.28 139.70 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 208.28 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 208.28 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 208.28 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "buck bootstrap (CBOOT)" (at 208.28 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "ecd1011d-8dc4-54e2-9a97-460203060603")) (pin "2" (uuid "24f0b460-2afc-593f-8235-dd1f57f2e2cc"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "C409") (unit 1)))))
+(global_label "BUCK_CB" (shape passive) (at 204.47 137.16 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "b5296220-f594-5513-a620-53c950897cc7") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 204.47 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BUCK_SW" (shape passive) (at 212.09 137.16 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "ce05fc92-4110-5af3-85fa-164516987fd6") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 212.09 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:D_Schottky") (at 284.48 137.16 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "90000745-73e7-5031-8cf7-df36b0eff84d")
+ (property "Reference" "D402" (at 284.48 134.62 0) (effects (font (size 1.27 1.27)) )) (property "Value" "PMEG6010CEH" (at 284.48 139.70 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Diode_SMD:D_SOD-123F" (at 284.48 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "PMEG6010CEH" (at 284.48 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Nexperia" (at 284.48 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "buck catch diode 60 V 1 A (DSW)" (at 284.48 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "44adae05-19b8-5400-abb0-df15971cc3a0")) (pin "2" (uuid "c60d1cb9-58c9-553e-9daf-d6deb9be5520"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "D402") (unit 1)))))
+(global_label "BUCK_SW" (shape passive) (at 284.48 140.97 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a2eaea9d-734d-5249-9436-ec6468caa4a5") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 284.48 140.97 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 284.48 133.35 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "af95159c-d8f4-594b-9cf7-301c37566121") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 284.48 133.35 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:L") (at 360.68 137.16 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "5f8b1ab0-651b-556c-bd4b-6f8ae60a3793")
+ (property "Reference" "L401" (at 360.68 134.62 0) (effects (font (size 1.27 1.27)) )) (property "Value" "22u" (at 360.68 139.70 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Inductor_SMD:L_Bourns-SRN4018" (at 360.68 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "SRN4018-220M" (at 360.68 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Bourns" (at 360.68 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "buck inductor 22 uH (0.7 MHz, 16.8 V -> 5 V, 0.35 A)" (at 360.68 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "ca2e0806-27af-5042-8ea7-89437787f1ec")) (pin "2" (uuid "f0faff85-c873-5a4c-9cd2-0bcdfd98b583"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "L401") (unit 1)))))
+(global_label "BUCK_SW" (shape passive) (at 356.87 137.16 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ba174be8-23a5-5daa-939f-1f4e8207ab81") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 356.87 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "+5V" (shape passive) (at 364.49 137.16 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "758ecb7e-ed4a-57b9-a18b-4ebec9ff4910") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 364.49 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 436.88 137.16 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "510afcf7-cf80-5191-9422-f32f7bedb045")
+ (property "Reference" "C410" (at 436.88 134.62 0) (effects (font (size 1.27 1.27)) )) (property "Value" "22u 10V" (at 436.88 139.70 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0805_2012Metric" (at 436.88 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 436.88 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 436.88 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 436.88 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "buck output" (at 436.88 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "e1640c6b-1d0f-5f93-97ca-3e1e999bd4ed")) (pin "2" (uuid "2b6a4cc0-eab6-516c-813b-8e27d2cf6553"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "C410") (unit 1)))))
+(global_label "+5V" (shape passive) (at 433.07 137.16 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "1c4ba9b7-beab-5b42-9a13-24364fc70494") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 433.07 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 440.69 137.16 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "5189224e-9898-55b0-9427-640f4f23b853") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 440.69 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 513.08 137.16 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "b51f203d-f3c7-5573-a6ee-9489e0c12141")
+ (property "Reference" "C411" (at 513.08 134.62 0) (effects (font (size 1.27 1.27)) )) (property "Value" "22u 10V" (at 513.08 139.70 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0805_2012Metric" (at 513.08 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 513.08 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 513.08 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 513.08 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "buck output" (at 513.08 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "64d59cc3-6ab7-5154-bb88-1c1299806383")) (pin "2" (uuid "45a83eb4-55cd-5a1f-9e49-ddf8f68e1f7b"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "C411") (unit 1)))))
+(global_label "+5V" (shape passive) (at 509.27 137.16 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "df519101-ceec-5a54-bed2-4cb6f2580179") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 509.27 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 516.89 137.16 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4c3e7c11-8421-5ae3-900e-9d737194430c") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 516.89 137.16 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 55.88 149.86 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "b0428e71-68d1-5e89-8798-258e6bf545a2")
+ (property "Reference" "R407" (at 55.88 147.32 0) (effects (font (size 1.27 1.27)) )) (property "Value" "54.9k" (at 55.88 152.40 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 55.88 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 55.88 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 55.88 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "FB top: 0.765 x (1 + 54.9/10) = 4.96 V" (at 55.88 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "5df267d1-2e43-56f5-9d55-df797a076621")) (pin "2" (uuid "16eeb821-7152-5724-b70d-72e4cc8b2722"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "R407") (unit 1)))))
+(global_label "+5V" (shape passive) (at 52.07 149.86 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e03b31ee-ae4d-557f-87b7-310a55ba44d3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BUCK_FB" (shape passive) (at 59.69 149.86 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "cb635a50-326c-554f-8c76-50aa59ebf1c3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 132.08 149.86 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "12bd6861-e99b-50df-b963-553af815e9f8")
+ (property "Reference" "R408" (at 132.08 147.32 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10k" (at 132.08 152.40 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 132.08 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 132.08 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 132.08 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "FB bottom" (at 132.08 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "3b7bf0dd-afae-50fd-8799-e31d4680e36f")) (pin "2" (uuid "9e8e5435-51f1-5c64-97c7-f0bae6599da1"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "R408") (unit 1)))))
+(global_label "BUCK_FB" (shape passive) (at 128.27 149.86 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "785dbeca-b222-5338-be17-1e3e89e02ed0") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 135.89 149.86 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4bb8226f-ab94-5f4b-a34a-3fd4c968a2e5") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 208.28 149.86 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "420c2e02-c479-5ba8-b1f4-73d175efd107")
+ (property "Reference" "C412" (at 208.28 147.32 0) (effects (font (size 1.27 1.27)) )) (property "Value" "1u" (at 208.28 152.40 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 208.28 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 208.28 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 208.28 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "LDO in" (at 208.28 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "74ad35ae-ecef-59f7-9ea1-f669ee957faf")) (pin "2" (uuid "d345db52-7ab3-5077-911b-f8202a9d6a2f"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "C412") (unit 1)))))
+(global_label "+5V" (shape passive) (at 204.47 149.86 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "893264c8-7dfc-5a5d-8489-fe12d0add452") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 204.47 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 212.09 149.86 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "970e0b03-8004-52d0-88e5-4960b6b098cc") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 212.09 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 284.48 149.86 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "7638f2ce-ee3a-5551-a461-8cdb7596301c")
+ (property "Reference" "C413" (at 284.48 147.32 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10u 10V" (at 284.48 152.40 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_0805_2012Metric" (at 284.48 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 284.48 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 284.48 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "LDO out / 3.3 V bulk" (at 284.48 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "42f460c2-a28a-50e6-aa09-a710c3e6d257")) (pin "2" (uuid "3c4d7beb-aa03-5c9e-8107-fa26d2d83497"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "C413") (unit 1)))))
+(global_label "+3V3" (shape passive) (at 280.67 149.86 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6eb9e053-c055-5df3-88e6-e805f12425fe") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.67 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 288.29 149.86 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "7c365ffb-2b70-56b6-bfe2-859ace1a6d45") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 360.68 149.86 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "6ab3b7bb-aad5-5b68-88e5-7675aa0bd785")
+ (property "Reference" "R409" (at 360.68 147.32 0) (effects (font (size 1.27 1.27)) )) (property "Value" "1k" (at 360.68 152.40 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_0402_1005Metric" (at 360.68 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 360.68 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 360.68 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "power LED" (at 360.68 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "90292179-9c1c-5993-a509-da3039f82bb1")) (pin "2" (uuid "3a5e8b40-a459-59fe-91fa-5619ea6f5182"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "R409") (unit 1)))))
+(global_label "+3V3" (shape passive) (at 356.87 149.86 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6ba5d891-3a62-54d1-a029-2542546795f7") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 356.87 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "PWR_LED" (shape passive) (at 364.49 149.86 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "15714207-a625-517e-91f0-1eda06f30af3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 364.49 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:LED") (at 436.88 149.86 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "09a817d0-a1ff-5156-955c-71567b4b131d")
+ (property "Reference" "D403" (at 436.88 147.32 0) (effects (font (size 1.27 1.27)) )) (property "Value" "GREEN" (at 436.88 152.40 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "LED_SMD:LED_0603_1608Metric" (at 436.88 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 436.88 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 436.88 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 436.88 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "LED GREEN 0603" (at 436.88 149.86 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "7f6bcd38-179c-5603-8df1-09db4bcb13dd")) (pin "2" (uuid "bd1a8f65-f312-507e-975f-8331da12fcae"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "D403") (unit 1)))))
+(global_label "GND" (shape passive) (at 436.88 153.67 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "43eea983-bab9-5910-879f-6a11cf1b383a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 436.88 153.67 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "PWR_LED" (shape passive) (at 436.88 146.05 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2475bfbc-d251-5438-8fbd-8ff08c97a119") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 436.88 146.05 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "power:PWR_FLAG") (at 25.4 170.18 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "c74b0ef8-2806-538e-a0a2-a13ba96db0ee")
+ (property "Reference" "#FLG0300" (at 25.4 166.37 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Value" "PWR_FLAG" (at 25.4 164.68 0) (effects (font (size 1.0 1.0))))
+ (property "Footprint" "" (at 25.4 170.18 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Datasheet" "" (at 25.4 170.18 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (pin "1" (uuid "a82c149e-7761-56fe-94f2-cdc3cb843240"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "#FLG0300") (unit 1)))))
+(global_label "BUCK_VIN" (shape passive) (at 25.4 170.18 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "81d91f17-b286-532a-b968-e92c220f8f1f") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 25.4 170.18 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "power:PWR_FLAG") (at 50.8 170.18 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "5cd77cf4-cca2-5cb2-ae9d-c62e2dd5a283")
+ (property "Reference" "#FLG0301" (at 50.8 166.37 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Value" "PWR_FLAG" (at 50.8 164.68 0) (effects (font (size 1.0 1.0))))
+ (property "Footprint" "" (at 50.8 170.18 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Datasheet" "" (at 50.8 170.18 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (pin "1" (uuid "d33db6b5-f1ba-5f65-a161-91bf041cade0"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/8e49a0e2-23e7-59be-bc14-f2aebbb71891" (reference "#FLG0301") (unit 1)))))
+(global_label "+5V" (shape passive) (at 50.8 170.18 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "821f8ca6-1adc-5e01-9fa8-7da12dd03807") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 50.8 170.18 0) (effects (font (size 1.27 1.27)) (hide yes))))
+ (embedded_fonts no))

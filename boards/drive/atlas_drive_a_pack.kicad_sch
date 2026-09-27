@@ -1,0 +1,485 @@
+(kicad_sch (version 20250114) (generator "eeschema") (generator_version "9.0")
+ (uuid "76d0044b-e0d6-5671-b47a-7a6db4537c72")
+ (paper "A2")
+ (title_block (title "ATLAS-DRV-1 drive board: Pack connection") (date "2026-09-27") (rev "0.1") (company "Atlas Autoware (501c3), Fairfax VA") (comment 1 "Generated from design.py by tools/eda.py; edit the Python, not this file"))
+ (lib_symbols (symbol "atlas:PAD_BAT+"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "PAD_BAT+"
+			(at 0 -6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Connector_Wire:SolderWire-6sqmm_1x01_D3.5mm_OD7mm"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "pack + lead, 10 AWG"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "PAD_BAT+_0_1"
+			(rectangle
+				(start -5.08 2.54)
+				(end 5.08 -2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "PAD_BAT+_1_1"
+			(pin passive line
+				(at -7.62 0.00 0)
+				(length 2.54)
+				(name "1"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:PAD_BAT-"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "PAD_BAT-"
+			(at 0 -6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Connector_Wire:SolderWire-6sqmm_1x01_D3.5mm_OD7mm"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "pack - lead, 10 AWG"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "PAD_BAT-_0_1"
+			(rectangle
+				(start -5.08 2.54)
+				(end 5.08 -2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "PAD_BAT-_1_1"
+			(pin passive line
+				(at -7.62 0.00 0)
+				(length 2.54)
+				(name "1"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:PACK_SENSE"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 13.97 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "PACK_SENSE"
+			(at 0 -13.97 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Connector_JST:JST_XH_S7B-XH-A_1x07_P2.50mm_Horizontal"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "pack sense lead: B0..B4, NTC, NTC return"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "PACK_SENSE_0_1"
+			(rectangle
+				(start -5.08 10.16)
+				(end 5.08 -10.16)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "PACK_SENSE_1_1"
+			(pin passive line
+				(at -7.62 7.62 0)
+				(length 2.54)
+				(name "B0"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 5.08 0)
+				(length 2.54)
+				(name "B1"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 2.54 0)
+				(length 2.54)
+				(name "B2"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 0.00 0)
+				(length 2.54)
+				(name "B3"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "4"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -2.54 0)
+				(length 2.54)
+				(name "B4"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "5"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -5.08 0)
+				(length 2.54)
+				(name "NTC"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "6"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -7.62 0)
+				(length 2.54)
+				(name "NTC_RTN"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "7"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "Device:D_Zener"
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 1.016)
+			(hide yes))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "D"
+			(at 0 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "D_Zener"
+			(at 0 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Zener diode"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "diode"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "D_Zener_0_1"
+			(polyline
+				(pts
+					(xy -1.27 -1.27)
+					(xy -1.27 1.27)
+					(xy -0.762 1.27))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy 1.27 0)
+					(xy -1.27 0))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy 1.27 -1.27)
+					(xy 1.27 1.27)
+					(xy -1.27 0)
+					(xy 1.27 -1.27))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "D_Zener_1_1"
+			(pin passive line
+				(at -3.81 0 0)
+				(length 2.54)
+				(name "K"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 3.81 0 180)
+				(length 2.54)
+				(name "A"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(embedded_fonts no))
+(symbol "power:PWR_FLAG"
+		(power global)
+		(pin_numbers
+			(hide yes))
+		(pin_names
+			(offset 0)
+			(hide yes))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "#FLG"
+			(at 0 1.905 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "PWR_FLAG"
+			(at 0 3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "ki_keywords" "flag power"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(symbol "PWR_FLAG_0_0"
+			(pin power_out line
+				(at 0 0 90)
+				(length 0)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(symbol "PWR_FLAG_0_1"
+			(polyline
+				(pts
+					(xy 0 0)
+					(xy 0 1.27)
+					(xy -1.016 1.905)
+					(xy 0 2.54)
+					(xy 1.016 1.905)
+					(xy 0 1.27))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none))))
+		(embedded_fonts no)))
+ (text "Pack connection" (exclude_from_sim no) (at 25.4 25.4 0) (effects (font (size 3 3) (thickness 0.5) bold) (justify left)) (uuid "57b03e96-f4ae-5529-8bdc-de936c07b7ac"))
+(text "Pack power leads: 10 AWG soldered into B+ and B- (SolderWire 6 mm2 pads)." (exclude_from_sim no) (at 25.4 33.02 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "1f0140d5-c3d8-5d40-ba33-bd9a2d00070a"))
+(text "Sense lead: 7-pin JST-XH side entry. B0 is the bottom of cell 1, B4 the top of cell 4." (exclude_from_sim no) (at 25.4 38.1 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "3f405b4c-9b31-5000-a14d-0b98892a0a8f"))
+(text "B- is the cell stack bottom (BATN). Board ground (GND) is PACK-, after the BMS FETs." (exclude_from_sim no) (at 25.4 43.18000000000001 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "9bd9a2e6-9c28-5399-9ce5-2f1d1cd2dc1e"))
+(symbol (lib_id "atlas:PAD_BAT+") (at 45.72 68.58 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "504c47a6-55bf-5ec0-a49c-d567945696e2")
+ (property "Reference" "J101" (at 45.72 65.08 0) (effects (font (size 1.27 1.27)) )) (property "Value" "B+" (at 45.72 72.08 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Connector_Wire:SolderWire-6sqmm_1x01_D3.5mm_OD7mm" (at 45.72 68.58 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 45.72 68.58 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 45.72 68.58 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 45.72 68.58 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "pack + lead, 10 AWG" (at 45.72 68.58 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "7c82d3ce-f9fe-5236-95e9-1beb49710a01"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/76d0044b-e0d6-5671-b47a-7a6db4537c72" (reference "J101") (unit 1)))))
+(global_label "BATP" (shape passive) (at 38.1 68.58 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "213d4e3d-f8c4-52fc-a326-a9cc9b457378") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 38.1 68.58 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:PAD_BAT-") (at 73.66 68.58 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "33f87c2f-a4b7-547c-aa12-6e9d567cdab1")
+ (property "Reference" "J102" (at 73.66 65.08 0) (effects (font (size 1.27 1.27)) )) (property "Value" "B-" (at 73.66 72.08 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Connector_Wire:SolderWire-6sqmm_1x01_D3.5mm_OD7mm" (at 73.66 68.58 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 73.66 68.58 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 73.66 68.58 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 73.66 68.58 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "pack - lead, 10 AWG" (at 73.66 68.58 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "c605bfa3-026d-551a-964c-1ac4e5a35b2a"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/76d0044b-e0d6-5671-b47a-7a6db4537c72" (reference "J102") (unit 1)))))
+(global_label "BATN" (shape passive) (at 66.04 68.58 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "068ec26c-928b-5f74-bb41-56bb4a95592a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 66.04 68.58 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:PACK_SENSE") (at 101.60 76.20 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "3f4f72d3-6d84-5e0a-a1aa-b6a1ba195e05")
+ (property "Reference" "J103" (at 101.60 65.08 0) (effects (font (size 1.27 1.27)) )) (property "Value" "PACK_SENSE" (at 101.60 87.32 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Connector_JST:JST_XH_S7B-XH-A_1x07_P2.50mm_Horizontal" (at 101.60 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 101.60 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "S7B-XH-A(LF)(SN)" (at 101.60 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "JST" (at 101.60 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "pack sense lead: B0..B4, NTC, NTC return" (at 101.60 76.20 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "336a1c86-7cb4-54ee-8f60-6515ecfa1a4d")) (pin "2" (uuid "f7f1c28a-ee6c-59b3-8283-73b3e572f1e7")) (pin "3" (uuid "bd47ed20-46ba-5bf7-a262-80d789236c94")) (pin "4" (uuid "86a8a918-bdcf-5247-9577-db84f67b620c")) (pin "5" (uuid "72fa0c67-ec20-55ea-81ed-e0b1291e2803")) (pin "6" (uuid "38b92211-96a9-5138-b6d4-ea48fa17b403")) (pin "7" (uuid "1094e2fa-5f66-5922-972b-518507d91420"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/76d0044b-e0d6-5671-b47a-7a6db4537c72" (reference "J103") (unit 1)))))
+(global_label "CELL0" (shape passive) (at 93.98 68.58 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "11af485c-4cd3-5995-9f95-3eb114e4ce98") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 93.98 68.58 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CELL1" (shape passive) (at 93.98 71.12 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "7dc3e5ee-837f-5b1e-ae24-2c2f8cb18499") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 93.98 71.12 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CELL2" (shape passive) (at 93.98 73.66 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0fad016e-5989-5bd5-aad5-4e816b55f526") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 93.98 73.66 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CELL3" (shape passive) (at 93.98 76.2 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "fd0cf69c-67b8-59f1-bfc6-bb289ada3d74") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 93.98 76.2 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CELL4" (shape passive) (at 93.98 78.74 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "326553ef-fc1e-5a2f-8cf3-3a662f9869b7") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 93.98 78.74 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BMS_TS" (shape passive) (at 93.98 81.28 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "fce864c8-38c8-50de-b9ab-c9dff6a14ee3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 93.98 81.28 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BATN" (shape passive) (at 93.98 83.82 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "5415af76-9e97-5ef1-a61c-275873ef31f9") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 93.98 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:D_Zener") (at 55.88 101.60 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "c451d8e8-4b56-573b-9918-45dc032bf768")
+ (property "Reference" "D101" (at 55.88 99.06 0) (effects (font (size 1.27 1.27)) )) (property "Value" "SMBJ20A" (at 55.88 104.14 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Diode_SMD:D_SMB" (at 55.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "SMBJ20A" (at 55.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Littelfuse" (at 55.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "TVS across the pack terminals, 20 V standoff, 32.4 V clamp" (at 55.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "5bee0cec-86e2-5ed4-b042-55ac68a01527")) (pin "2" (uuid "e0ab54a4-a3a8-5dab-8abb-1a025fc1caf3"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/76d0044b-e0d6-5671-b47a-7a6db4537c72" (reference "D101") (unit 1)))))
+(global_label "BATP" (shape passive) (at 55.88 105.41 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "d225d9cd-afdd-563e-8d0e-3cd5724d6279") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 55.88 105.41 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BATN" (shape passive) (at 55.88 97.79 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "de9366d8-f628-5697-9262-88dacc48c1a8") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 55.88 97.79 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "power:PWR_FLAG") (at 25.4 121.92 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "56489bd5-c267-54a6-bfdf-5d42320bf8e1")
+ (property "Reference" "#FLG0000" (at 25.4 118.11 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Value" "PWR_FLAG" (at 25.4 116.42 0) (effects (font (size 1.0 1.0))))
+ (property "Footprint" "" (at 25.4 121.92 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Datasheet" "" (at 25.4 121.92 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (pin "1" (uuid "5f62cebd-59f0-5ac6-81bb-f9452eebe666"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/76d0044b-e0d6-5671-b47a-7a6db4537c72" (reference "#FLG0000") (unit 1)))))
+(global_label "BATP" (shape passive) (at 25.4 121.92 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6c84bdf8-aa27-53fb-86b0-83a99586b968") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 25.4 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "power:PWR_FLAG") (at 50.8 121.92 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "bd383dd5-e9b1-5db2-bc98-8c720b7d98c6")
+ (property "Reference" "#FLG0001" (at 50.8 118.11 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Value" "PWR_FLAG" (at 50.8 116.42 0) (effects (font (size 1.0 1.0))))
+ (property "Footprint" "" (at 50.8 121.92 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Datasheet" "" (at 50.8 121.92 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (pin "1" (uuid "99262cfd-126a-5cb0-a435-d9beb057e67a"))
+ (instances (project "atlas_drive" (path "/aa1fbb69-c53a-5a7c-9e29-d1b48b1ecc80/76d0044b-e0d6-5671-b47a-7a6db4537c72" (reference "#FLG0001") (unit 1)))))
+(global_label "BATN" (shape passive) (at 50.8 121.92 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "5895b350-2512-5af5-a5c4-f8336a690225") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 50.8 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))))
+ (embedded_fonts no))

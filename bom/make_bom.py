@@ -1,0 +1,156 @@
+"""Car v2 bill of materials and cost estimate. The numbers live here so the totals are computed,
+not typed.   python3 make_bom.py  ->  bom.csv, cost_summary.csv, cost_summary.md
+
+price_basis: 'quoted' = read from the linked page on 2026-09-26; 'estimate' = typical
+distributor or fab price, check at order time. status: have / sheet_keep (already on the
+Syslab purchase sheet and still needed) / buy / optional / conditional / credit.
+"""
+import csv, os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+# group, item, part_number, qty, unit_usd, status, price_basis, source, reason
+ROWS = [
+    # ---------------------------------------------------------------- already in hand
+    ('have', 'Traxxas Slash 4x4 chassis (new car) with Holmes Hobbies Puller Pro 540 2200 kV sensored motor', 'KA2246-R00 label, 6822 chassis', 1, 0, 'have', '-', '-', 'The rolling chassis for car 2.'),
+    ('have', 'INJORA INJS235 35 kg brushless steering servo', 'INJS235', 1, 0, 'have', '-', '-', 'Drops into the Slash 4x4 servo bulkhead; powered by the drive board 7.4 V rail.'),
+    ('have', 'SICK TiM561 270 degree lidar + donor M12 power and M12-D to RJ45 cables', 'TiM561-2050101', 1, 0, 'have', '-', '-', 'Donated lidar; Ethernet to the brain board, 9-28 V from the drive board eFuse.'),
+    ('have', 'LUCID Triton 2.3 MP GigE PoE camera', 'TRI023S-CC', 1, 0, 'have', '-', '-', 'Donated camera (at school); powered over PoE by the brain board.'),
+    ('have', 'Carbon-fibre filament for all printed parts (about 0.8 kg)', 'PETG-CF or PA-CF', 1, 0, 'have', '-', '-', 'At school.'),
+    ('have', 'SendCutSend $250 service credit', '-', 1, 0, 'have', '-', '-', 'Covers the aluminium heat spreader cut.'),
+    # ---------------------------------------------------------------- still needed, already on the sheet
+    ('sheet_keep', 'NVIDIA Jetson Orin Nano Super Developer Kit', '945-13766-0005-000', 1, 399.00, 'sheet_keep', 'quoted',
+     'https://marketplace.nvidia.com/en-us/enterprise/robotics-edge/jetson-orin-nano-super-developer-kit/',
+     'The module moves onto the brain board; the dev-kit carrier stays as a known-good fallback for bring-up.'),
+    ('sheet_keep', 'SanDisk Optimus 5100 500 GB NVMe', 'SDS...5100 500GB', 1, 60.00, 'sheet_keep', 'estimate', 'link on the sheet',
+     'Goes in the brain board M.2 Key M slot: OS, TensorRT engines and training logs.'),
+    # ---------------------------------------------------------------- drive board (parts for ONE board; lines follow boards/drive/atlas_drive_parts.json)
+    ('drive_pcb', 'MCU running VESC firmware', 'STM32F405RGT6', 1, 14.00, 'buy', 'estimate', 'st.com / digikey', 'Same MCU as VESC 6, so stock VESC firmware and the ROS vesc_driver keep working (firmware/vesc compiles).'),
+    ('drive_pcb', 'Gate driver, 3 current-sense amps, 600 mA buck', 'DRV8323RSRGZR', 1, 6.50, 'buy', 'estimate', 'ti.com/product/DRV8323R', 'Supported by VESC firmware; the buck makes the 5 V logic rail.'),
+    ('drive_pcb', '40 V 0.79 mOhm N-FET, SON 5x6 (ESC 12, main switch 4 + precharge 1, BMS 8)', 'CSD18510Q5B', 25, 2.10, 'buy', 'estimate', 'ti.com/product/CSD18510Q5B', 'One FET type everywhere; two in parallel per ESC switch.'),
+    ('drive_pcb', 'Current shunt 0.2 mOhm, 4-terminal (ESC x3, main switch x1)', 'Isabellenhuette BVR-Z-R0002-1.0', 4, 4.00, 'buy', 'estimate', 'mouser', 'Kelvin sense pads for the DRV8323 amps and the TPS48111.'),
+    ('drive_pcb', 'BMS sense shunt 0.5 mOhm, 4-terminal', 'Isabellenhuette BVR-Z-R0005-1.0', 1, 4.00, 'buy', 'estimate', 'mouser', 'BQ7791508 overcurrent trips and the INA228 energy meter.'),
+    ('drive_pcb', '4S protector with balancing, no firmware', 'BQ7791508PWR', 1, 3.20, 'buy', 'estimate', 'ti.com/product/BQ77915', 'OV 4.20 V, UV 3.0 V, OT 65 C, auto-recovery.'),
+    ('drive_pcb', 'High-side switch controller with precharge (anti-spark main switch)', 'TPS48111QDGXRQ1', 1, 3.50, 'buy', 'estimate', 'ti.com/product/TPS4811-Q1', 'Turns the motor bus on and off, precharges the ESC caps, fast short-circuit cut.'),
+    ('drive_pcb', 'USB-C buck-boost charger, 1-4S, 5 A', 'BQ25798RQMR', 1, 5.50, 'buy', 'estimate', 'ti.com/product/BQ25798', 'Charges the 4S pack from USB-C and powers VSYS while plugged in.'),
+    ('drive_pcb', 'USB-C PD controller that configures the charger, no MCU', 'TPS25751DREFR', 1, 5.00, 'buy', 'estimate', 'ti.com/product/TPS25751', 'Negotiates 20 V and programs the BQ25798; config in the EEPROM below.'),
+    ('drive_pcb', 'I2C EEPROM for the TPS25751 configuration', 'M24512-RMN6TP', 1, 1.00, 'buy', 'estimate', 'digikey', 'TPS25751 loads its patch and settings from 0x50.'),
+    ('drive_pcb', 'USB-C 16-pin receptacle + ESD array', 'GCT USB4105-GF-A, TPD4E05U06DQAR', 1, 1.50, 'buy', 'estimate', 'digikey', 'The one port for charging and debugging.'),
+    ('drive_pcb', 'USB 2.0 4-port hub', 'USB2514B-I/M2', 1, 2.50, 'buy', 'estimate', 'microchip.com', 'Laptop sees the Jetson, VESC Tool and the serial console on one cable.'),
+    ('drive_pcb', 'USB 2.0 switches (flash-mode path straight to the Jetson)', 'TS3USB30EDGSR', 2, 1.00, 'buy', 'estimate', 'ti.com', 'NVIDIA wants a direct USB link for recovery-mode flashing; slide switch SW801 picks it.'),
+    ('drive_pcb', 'USB to UART bridge (Jetson serial console)', 'CP2102N-A02-GQFN24', 1, 3.00, 'buy', 'estimate', 'silabs.com', 'Boot log and console even with the network down.'),
+    ('drive_pcb', 'Servo supply module, 36 V in, 8 A (set to 7.4 V)', 'TPSM63610RDFR', 1, 9.00, 'buy', 'estimate', 'ti.com/product/TPSM63610', 'Integrated inductor; covers the 35 kg servo stall current.'),
+    ('drive_pcb', 'eFuse for the lidar supply', 'TPS26600PWPR', 1, 3.00, 'buy', 'estimate', 'ti.com/product/TPS2660', 'Current-limited 12-16.8 V to the TiM561; the Jetson can power-cycle it.'),
+    ('drive_pcb', 'Battery power monitor (V, I, energy) read by the Jetson', 'INA228AIDGSR', 1, 4.00, 'buy', 'estimate', 'ti.com/product/INA228', 'Real state of charge in ROS.'),
+    ('drive_pcb', 'IMU on the VESC I2C bus', 'LSM6DS3TR-C', 1, 3.00, 'buy', 'estimate', 'st.com', 'VESC firmware lsm6ds3 driver (WHO_AM_I 0x6A).'),
+    ('drive_pcb', 'CAN transceiver, 3.3 V', 'SN65HVD230DR', 1, 1.50, 'buy', 'estimate', 'ti.com', 'Spare CAN port for later modules.'),
+    ('drive_pcb', 'Logic and small regulators: always-on LDO, on/off latch, buffers, 3.3 V LDO, board-ID EEPROM', 'TPS70933, SN74LVC1G74/1G34/1G08, SN74AHCT1G125, TLV75533P, 24AA02', 1, 3.50, 'buy', 'estimate', 'digikey', 'Power button latch, E-stop gate, servo level shift.'),
+    ('drive_pcb', 'Inductors: charger 1 uH, 5 V buck 22 uH', 'Coilcraft XAL5030-102MEB, Bourns SRN4018-220M', 1, 2.90, 'buy', 'estimate', 'coilcraft.com / digikey', ''),
+    ('drive_pcb', 'DC-link bulk capacitors 330 uF 35 V hybrid polymer, 10 x 12.8 mm', 'Panasonic EEH-ZU1V331P', 4, 1.60, 'buy', 'estimate', 'digikey', 'ESC DC link; low ESR at the motor ripple current. 12.8 mm tall so the brain board NVMe clears them (the 470 uF 35 V part is 16.8 mm).'),
+    ('drive_pcb', 'Power ceramics: 16 x 10 uF 50 V 1210, 4 x 47 uF 16 V 1210, 220 uF 16 V polymer', 'GRM32ER71H106KA12L, GRM32EC81C476ME15L, 16SVPF220M', 1, 10.20, 'buy', 'estimate', 'digikey', 'ESC switching loop and servo supply.'),
+    ('drive_pcb', 'TVS, ESD and small diodes', 'SMBJ20A x2, SMCJ20A, SMF24A, PESD5V0S1BA, NUP2105L, BAT54WS, PMEG6010CEH, MMSZ4684', 1, 5.00, 'buy', 'estimate', 'digikey', ''),
+    ('drive_pcb', 'Crystals 8 MHz (MCU) and 24 MHz (hub)', '3225 SMD', 2, 0.50, 'buy', 'estimate', 'digikey', ''),
+    ('drive_pcb', 'Stack socket 2 x 20, 2.54 mm, 8.5 mm tall', 'Samtec SSQ-120-03-G-D', 1, 8.00, 'buy', 'estimate', 'samtec.com', 'Receives the brain board header across the 20 mm stack gap.'),
+    ('drive_pcb', 'Board connectors: JST XH 7p, ZH 6p, GH 4p, PH 2p x2, Phoenix 2-pin, servo and fan headers, 1.27 mm SWD', 'S7B-XH-A, B6B-ZR, BM04B-GHS-TBT, S2B/B2B-PH-K, 1984617, FTSH-105-01-L-DV-K', 1, 10.00, 'buy', 'estimate', 'digikey', 'Everything that plugs into the board.'),
+    ('drive_pcb', 'Buttons, switches, LEDs, NTC, small FETs', 'KMR211NG, PCM12SMTR, 0603 LEDs, NCP15XH103, 2N7002K, MMBT3904', 1, 3.00, 'buy', 'estimate', 'digikey', ''),
+    ('drive_pcb', 'Resistors and small capacitors (about 290 parts, 0402-0805)', 'various', 1, 15.00, 'buy', 'estimate', 'lcsc / assembler stock', 'Lumped.'),
+    ('drive_fab', 'Drive board fab: 140 x 90 mm, 6 layers, 2 oz copper on every layer, ENIG, qty 5', 'ATLAS-DRV-1', 1, 170.00, 'buy', 'estimate', 'jlcpcb.com / pcbway.com', '5 bare boards (1 assembled, 4 spares). Six layers so every signal routes; JLCPCB offers 2 oz outer and inner on multilayer boards.'),
+    ('drive_fab', 'Drive board assembly, double-sided, qty 1', 'ATLAS-DRV-1 PCBA', 1, 150.00, 'buy', 'estimate', 'jlcpcb.com / pcbway.com', 'Setup, stencils and labour.'),
+    # ---------------------------------------------------------------- brain board (parts for ONE board; Antmicro's kept parts + the Atlas sheets)
+    ('brain_pcb', '260-pin SO-DIMM socket for the Orin module', 'TE 2309413 (Antmicro J15)', 1, 6.00, 'buy', 'estimate', 'github.com/antmicro/jetson-orin-baseboard', 'The module plugs straight into the board.'),
+    ('brain_pcb', 'M.2 Key M + Key E sockets and their SMT standoffs', 'TE 1-2199230-6, 2199230-6, Wurth 9774025151R x2', 1, 6.60, 'buy', 'estimate', 'digikey', 'NVMe SSD and Wi-Fi card.'),
+    ('brain_pcb', 'RJ45 magjacks: camera port (PoE through its centre taps) and lidar port', 'TE 5-2337992-8', 2, 5.00, 'buy', 'estimate', 'digikey', 'Same jack as Antmicro J6 for both ports.'),
+    ('brain_pcb', 'USB to Gigabit Ethernet for the lidar', 'LAN7800-I/Y9X', 1, 5.50, 'buy', 'estimate', 'microchip.com', 'The Orin Nano has one GbE (camera); Linux lan78xx driver.'),
+    ('brain_pcb', 'PoE PSE controller, runs in auto mode as shipped', 'TPS23861PWR', 1, 7.00, 'buy', 'estimate', 'ti.com/product/TPS23861', 'IEEE 802.3af/at source for the camera, no firmware.'),
+    ('brain_pcb', '52 V boost controller for PoE + 100 V FETs (boost and PSE port)', 'LM5155DSSR, CSD19538Q3A x2', 1, 4.30, 'buy', 'estimate', 'ti.com', 'Makes the 52 V the PSE needs from VSYS.'),
+    ('brain_pcb', 'PoE power parts: 47 uH inductor, 100 V diode, 58 V TVS x2, 100 V ceramics, 22 uF 100 V can, 2 kV 1 nF', 'XAL7070-473MEC, SS2H10, SMBJ58A, GRM32ER72A225KA35L, EEE-FK2A220P, GRM31BR73D102KW01L', 1, 9.50, 'buy', 'estimate', 'coilcraft.com / digikey', ''),
+    ('brain_pcb', 'Input eFuses (Atlas stack input and Antmicro module rails)', 'TPS259474ARPWR', 3, 1.50, 'buy', 'estimate', 'ti.com', ''),
+    ('brain_pcb', 'Module power as in the Antmicro design: 2 bucks + inductors, LDOs, polymer caps', 'SIC431AED x2, SRP5030CA, SRP6050CA, NCP730, TPS7A05, T521 100 uF x2', 1, 14.00, 'buy', 'estimate', 'antmicro supply.kicad_sch', 'Copied from the open design.'),
+    ('brain_pcb', 'Stack header 2 x 20, 2.54 mm, long posts for the 20 mm gap', 'Samtec TSW-120-xx-G-D (lead code for ~14 mm below the insulator: confirm on samtec.com)', 1, 6.00, 'buy', 'estimate', 'samtec.com', 'Mates the drive board socket.'),
+    ('brain_pcb', 'Logic, level shifters, expander, ESD, 32 kHz oscillator, RTC holder, buttons, LEDs, fan and debug connectors', 'PCAL6408A, NTS0102 x3, 74LVC2G07 x2, TPD1E0B04 x9, ECS-2520MV, MS621FE holder, KMR2 x5 ...', 1, 18.00, 'buy', 'estimate', 'antmicro BOM', 'Housekeeping kept from Antmicro plus the stack interface.'),
+    ('brain_pcb', 'LAN7800 support: 25 MHz crystal, 3.3 uH, small FETs', 'ABM8-25.000MHZ-B2-T, LQM2HPN3R3MG0L, PJE138K x10, SSM3J332R x4', 1, 3.50, 'buy', 'estimate', 'digikey', ''),
+    ('brain_pcb', 'Resistors and small capacitors (about 190 parts)', 'various', 1, 9.00, 'buy', 'estimate', 'lcsc / assembler stock', 'Lumped.'),
+    ('brain_fab', 'Brain board fab: 120 x 90 mm, 8 layers, impedance control, 0.2 mm vias, ENIG, qty 5', 'ATLAS-BRN-1', 1, 260.00, 'buy', 'estimate', 'jlcpcb.com / pcbway.com', 'High-speed carrier (PCIe, USB 3, Gigabit pairs).'),
+    ('brain_fab', 'Brain board assembly, double-sided, qty 1', 'ATLAS-BRN-1 PCBA', 1, 200.00, 'buy', 'estimate', 'jlcpcb.com / pcbway.com', 'SO-DIMM socket and QFNs need machine assembly.'),
+    # ---------------------------------------------------------------- pack
+    ('pack', 'Molicel P28A 18650, 2800 mAh, 35 A (12 + 2 spare)', 'INR-18650-P28A', 14, 5.99, 'buy', 'quoted',
+     'https://www.18650batterystore.com/products/molicel-p28a', '4S3P = 8.4 Ah, 105 A max; in stock (P30B was sold out at three stores).'),
+    ('pack', 'Pure nickel strip 0.2 x 8 mm, 20 ft', '8mm x 0.2mm', 1, 10.34, 'buy', 'quoted',
+     'https://liionwholesale.com/products/pure-nickel-strip-roll-0-15mm-0-2mm-thickness-6mm-10mm-widths', 'Two layers on each series joint.'),
+    ('pack', 'Fish-paper rings, Kapton tape, 1 mm foam pad', 'various', 1, 12.00, 'buy', 'estimate', '-', 'Cell-top insulation; the CF filament is not an insulator to rely on.'),
+    ('pack', 'Pack sense lead: JST-XH 7p housing + crimps, 24 AWG, 10k NTC', 'various', 1, 10.00, 'buy', 'estimate', '-', 'Cell taps and pack temperature to the BMS.'),
+    ('pack', '10 AWG + 12 AWG silicone wire, 4 mm bullets', 'various', 1, 18.00, 'buy', 'estimate', '-', 'Pack leads and motor-phase pigtails (skip if already in the kit box).'),
+    ('pack_tool', 'Capacitor spot welder, 100-240 V', 'Glitter 801D', 1, 304.51, 'optional', 'quoted ($269.51 + $35 ship)', 'https://www.ebay.com/itm/186415585726',
+     'Only if the lab has no spot welder; needed to build the pack.'),
+    # ---------------------------------------------------------------- sensors, charging, cooling, hardware
+    ('sensor', 'Lens for the Triton: 3.5 mm C-mount, 1/2 in format (~87 x 61 degrees on the IMX392)', 'Kowa LM4NCL', 1, 144.00, 'buy', 'quoted (sale; $198 regular)',
+     'https://machinevisiondirect.com/products/kowa-lm4ncl', 'The camera has no lens; wide view for racing.'),
+    ('sensor', 'M12 X-coded 8-pin to RJ45 Cat6a, 2 m', 'LUCID M12-RJ45 2.0 m', 1, 30.00, 'conditional', 'quoted',
+     'https://thinklucid.com/product/m12-to-rj45-ip67-cat6a-cable-2m-dark-green/', 'Camera to the PoE port; skip if LUCID ships one with the camera.'),
+    ('charge', 'USB-C charger 65 W (20 V 3.25 A PDO)', 'Anker 715 (A2663)', 1, 29.99, 'buy', 'quoted', 'https://www.anker.com/products/a2663', 'The charger input tops out at 3.3 A, so 65 W is the useful maximum.'),
+    ('charge', 'USB-C to USB-C cable, 5 A e-marked, 1 m', 'any 100 W cable', 1, 10.00, 'buy', 'estimate', '-', 'A 3 A cable would cap charging at 60 W.'),
+    ('cooling', '40 x 10 mm 5 V PWM fan', 'Noctua NF-A4x10 5V PWM', 1, 15.00, 'buy', 'estimate', 'https://www.noctua.at/en/products/nf-a4x10-5v-pwm', 'Blows across the ESC heat spreader and under the brain board.'),
+    ('cooling', 'Thermal pad 1.0 mm, 100 x 100', 'Arctic TP-3', 1, 10.00, 'buy', 'estimate', '-', 'FETs to heat spreader.'),
+    ('cooling', 'Aluminium heat spreader 3/16 in (4.76 mm) 6061, 60 x 48 mm, 4 holes tapped M3', 'SendCutSend, mech/out/dxf/heat_spreader.dxf', 1, 12.00, 'credit', 'estimate', 'sendcutsend.com', 'Covered by the existing SendCutSend credit. 3/16 in leaves 1 mm for the thermal pad under the FETs.'),
+    ('hardware', 'M3 hardware: 50 brass heat-set inserts, socket-screw assortment, nylocs, MS621FE RTC cell', 'various', 1, 22.00, 'buy', 'estimate', '-', 'Deck and sensor mounts (about 45 inserts).'),
+    ('hardware', 'Board stack standoffs: 6 x M3 7 mm M-F (deck to drive board), 4 x M3 20 mm M-F (drive to brain board)', 'hex, brass', 1, 8.00, 'buy', 'estimate', '-', 'The brain board sits on all four corners: two posts thread into deck standoffs through the drive board, two are held by nuts under it.'),
+]
+
+REMOVED = [
+    ('Flipsky FSESC 6.7 PRO ESC', 107.00, 'replaced by the ESC on the drive board'),
+    ('UGREEN Nexode 20,000 mAh 130 W power bank', None, 'replaced by the built-in 18650 pack and USB-C charger'),
+]
+
+
+def main():
+    with open(os.path.join(HERE, 'bom.csv'), 'w', newline='') as f:
+        w = csv.writer(f)
+        w.writerow(['group', 'item', 'part_number', 'qty', 'unit_usd', 'ext_usd', 'status', 'price_basis', 'source', 'reason'])
+        for g, it, pn, q, u, st, pb, src, why in ROWS:
+            w.writerow([g, it, pn, q, f'{u:.2f}', f'{q * u:.2f}', st, pb, src, why])
+    tot = {}
+    for g, it, pn, q, u, st, pb, src, why in ROWS:
+        tot.setdefault((g, st), 0.0)
+        tot[(g, st)] += q * u
+    def s(groups, status=('buy', 'conditional', 'optional', 'sheet_keep')):
+        return sum(v for (g, st), v in tot.items() if g in groups and st in status)
+    drive = s(('drive_pcb', 'drive_fab'))
+    brain = s(('brain_pcb', 'brain_fab'))
+    pack = s(('pack',), ('buy',))
+    welder = s(('pack_tool',), ('optional',))
+    sensor = s(('sensor',), ('buy',))
+    cam_cable = s(('sensor',), ('conditional',))
+    other = s(('charge', 'cooling', 'hardware'), ('buy',))
+    sheet_keep = s(('sheet_keep',), ('sheet_keep',))
+    new_buy = drive + brain + pack + sensor + other
+    lines = [
+        ('Drive board (parts + fab x5 + assembly x1)', drive),
+        ('Brain board / Jetson carrier (parts + fab x5 + assembly x1)', brain),
+        ('18650 pack materials (cells, nickel, insulation, leads)', pack),
+        ('Lens', sensor),
+        ('Charger, cable, fan, thermal pad, hardware', other),
+        ('NEW PURCHASES, total', new_buy),
+        ('Still-needed items already on the sheet (Jetson dev kit, NVMe)', sheet_keep),
+        ('CAR V2 TOTAL (new purchases + sheet items)', new_buy + sheet_keep),
+        ('Conditional: camera M12 cable (skip if LUCID includes one)', cam_cable),
+        ('Optional: spot welder (only if the lab has none)', welder),
+        ('Worst case (everything above)', new_buy + sheet_keep + cam_cable + welder),
+        ('Phase 1 only (drive board + pack + kit, Jetson on its dev-kit carrier)', new_buy - brain + sheet_keep),
+    ]
+    with open(os.path.join(HERE, 'cost_summary.csv'), 'w', newline='') as f:
+        w = csv.writer(f); w.writerow(['line', 'usd'])
+        for a, b in lines:
+            w.writerow([a, f'{b:.2f}'])
+    with open(os.path.join(HERE, 'cost_summary.md'), 'w') as f:
+        f.write('| line | USD |\n| --- | ---: |\n')
+        for a, b in lines:
+            f.write(f'| {a} | {b:,.2f} |\n')
+        f.write('\nRemoved from the purchase sheet (no longer needed):\n\n')
+        for a, b, why in REMOVED:
+            f.write(f'- {a}' + (f' (${b:.2f})' if b else '') + f': {why}\n')
+    for a, b in lines:
+        print(f'{a:75s} {b:10,.2f}')
+
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,34 @@
+[
+ {
+  "case": "first_design",
+  "r_total": 10.0,
+  "resistors": 1,
+  "c_bus_mF": 1.42,
+  "tau_ms": 14.2,
+  "t95_ms": 99.0,
+  "i_peak": 1.68,
+  "p_peak_each_w": 28.1,
+  "energy_each_j": 0.293,
+  "v_bus_at_main_close": 13.78,
+  "i_main_close_peak": 90.7,
+  "pulse_margin_crcw_hp": 0.68,
+  "pulse_margin_std_2512": 0.34,
+  "label": "first design: 1 x 10 Ohm"
+ },
+ {
+  "case": "fix",
+  "r_total": 11.0,
+  "resistors": 2,
+  "c_bus_mF": 1.42,
+  "tau_ms": 15.6,
+  "t95_ms": 99.0,
+  "i_peak": 1.52,
+  "p_peak_each_w": 12.8,
+  "energy_each_j": 0.15,
+  "v_bus_at_main_close": 13.47,
+  "i_main_close_peak": 99.9,
+  "pulse_margin_crcw_hp": 1.34,
+  "pulse_margin_std_2512": 0.67,
+  "label": "fix: 2 x 22 Ohm CRCW2512-HP"
+ }
+]

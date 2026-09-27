@@ -1,0 +1,2 @@
+# raw ngspice waveforms: regenerate with run_all.sh
+*.txt

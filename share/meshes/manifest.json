@@ -1,0 +1,58 @@
+{
+ "parts": [
+  "deck_rear",
+  "deck_mid",
+  "deck_front",
+  "splice_rear_right",
+  "splice_rear_left",
+  "splice_front_right",
+  "splice_front_left",
+  "lidar_plinth",
+  "bumper",
+  "camera_arch",
+  "camera_cradle",
+  "side_pod_left",
+  "side_pod_right",
+  "wing_strut_left",
+  "wing_strut_right",
+  "wing_blade",
+  "pack_box",
+  "pack_lid",
+  "cell_holder_bottom",
+  "cell_holder_top"
+ ],
+ "comps": [
+  "lidar",
+  "lidar_connectors",
+  "camera",
+  "camera_plug",
+  "drive_pcb",
+  "drive_fets_bottom",
+  "drive_standoffs_7mm",
+  "esc_heatsink",
+  "drive_bulk_caps",
+  "drive_top_parts",
+  "usb_c_and_button",
+  "brain_pcb",
+  "brain_standoffs_20mm",
+  "nvme_2280",
+  "jetson_module_and_sink",
+  "rj45_poe_camera",
+  "rj45_lidar",
+  "stack_header",
+  "fan_40mm",
+  "cells_4s3p"
+ ],
+ "place": {
+  "drive": [
+   -60.0,
+   -74.0,
+   7.0
+  ],
+  "brain": [
+   -40.0,
+   -74.0,
+   28.6
+  ]
+ }
+}

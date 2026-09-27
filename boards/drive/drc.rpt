@@ -1,0 +1,51 @@
+** Drc report for atlas_drive.kicad_pcb **
+** Created on 2026-09-27T15:59:16 **
+** Report includes: Errors, Warnings, Exclusions **
+
+** Found 8 DRC violations **
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(102.7200 mm, 63.2669 mm): Track [HUB_DN1_DN] on In3.Cu, length 0.2077 mm
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(170.0000 mm, 118.0000 mm): Segment on Edge.Cuts
+    @(168.7300 mm, 51.4000 mm): Segment of SW801 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(170.0000 mm, 118.0000 mm): Segment on Edge.Cuts
+    @(170.0200 mm, 50.1000 mm): Segment of SW801 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(170.0000 mm, 118.0000 mm): Segment on Edge.Cuts
+    @(170.0200 mm, 50.1000 mm): Segment of SW801 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(170.0000 mm, 118.0000 mm): Segment on Edge.Cuts
+    @(170.0200 mm, 51.4000 mm): Segment of SW801 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(170.0000 mm, 118.0000 mm): Segment on Edge.Cuts
+    @(162.7800 mm, 79.1300 mm): Segment of J902 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(170.0000 mm, 118.0000 mm): Segment on Edge.Cuts
+    @(170.6200 mm, 86.3700 mm): Segment of J902 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(74.8500 mm, 46.7000 mm): Circle of U301 on F.Silkscreen
+    @(74.2000 mm, 46.4500 mm): Pad 1 [SW_EN] of U301 on F.Cu
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+    - Footprint not found in libraries
+    - Footprint doesn't match copy in library
+
+** End of Report **

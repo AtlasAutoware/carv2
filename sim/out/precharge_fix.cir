@@ -1,0 +1,24 @@
+* precharge fix
+Vpk pk 0 DC 16.8
+Rpk pk p1 0.024
+Lpk p1 swin 1.5e-07
+* precharge path: resistor(s), then the precharge FET (a switch that closes at T_ON)
+Vir swin r1 0
+Rpre r1 pd 11.0
+Spre pd vm gp 0 SWMOD
+Vgp gp 0 PULSE(0 5 0.001 1u 1u 1 2)
+* main FETs, 4 x 0.79 mOhm, close at T_MAIN
+Vim swin m1 0
+Smain m1 vm gm 0 SWMAIN
+Vgm gm 0 PULSE(0 5 0.1 1u 1u 1 2)
+Cbus vm c1 0.001422 IC=0
+Rbus c1 0 0.00275
+Bservo vm 0 I = 0.3 * 0.5 * (1 + tanh(20 * (v(vm) - 9)))
+.model SWMOD SW(Ron=1m Roff=10Meg Vt=2.5 Vh=0.1)
+.model SWMAIN SW(Ron=0.2m Roff=10Meg Vt=2.5 Vh=0.1)
+.tran 2u 0.12 0 5u uic
+.control
+run
+wrdata /home/claude/carv2/sim/out/precharge_fix.txt v(vm) i(Vir) i(Vim)
+.endc
+.end

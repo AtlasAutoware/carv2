@@ -1,0 +1,382 @@
+{
+ "params": {
+  "UNDER_CLEARANCE": 45.0,
+  "TUB_DEPTH": 24.0,
+  "FRONT_TOWER_X": 168.3,
+  "REAR_TOWER_X": -141.7,
+  "TOWER_T": 4.0,
+  "TOWER_W": 120.0,
+  "TOWER_TOP_BELOW_OLD_PLATE": 16.0,
+  "POST_D": 7.0,
+  "POST_TOP": 25.0,
+  "FRONT_POST": [
+   180.36,
+   38.62
+  ],
+  "REAR_POST": [
+   -127.68,
+   41.12
+  ],
+  "WHEELBASE": 324.0,
+  "TRACK": 296.0,
+  "TYRE_D": 110.0,
+  "TYRE_W": 42.0,
+  "TYRE_TOP_ABOVE_RIM": 14.0,
+  "BUMP": 30.0,
+  "LOCK_DEG": 30.0,
+  "BATT_BAY": [
+   -75.0,
+   65.0,
+   15.0,
+   62.0
+  ],
+  "GEARBOX": [
+   -160.0,
+   -110.0,
+   -25.0,
+   25.0,
+   22.0
+  ],
+  "MOTOR_X": -125.0,
+  "MOTOR_D": 36.0,
+  "MOTOR_Y": [
+   -85.0,
+   -25.0
+  ],
+  "MOTOR_AXIS_ABOVE_RIM": 5.0,
+  "SHAFT": [
+   -110.0,
+   128.0,
+   -8.0,
+   8.0,
+   -8.0
+  ],
+  "SERVO": [
+   128.0,
+   150.0,
+   -53.0,
+   3.0,
+   25.0
+  ],
+  "LINKAGE": [
+   140.0,
+   185.0,
+   -40.0,
+   40.0,
+   12.0
+  ],
+  "SHOCK_Y": 42.0,
+  "SHOCK_CAP_D": 20.0,
+  "DECK_T": 5.0,
+  "X_NOSE": 238.0,
+  "X_TAIL": -226.0,
+  "HALF_W": 88.75,
+  "NOSE_HALF_W": 60.0,
+  "TAPER_X": 120.0,
+  "RIB_DEPTH": 10.0,
+  "RIB_T": 3.0,
+  "JOINTS": [
+   -80.0,
+   82.0
+  ],
+  "SPLICE_T": 3.0,
+  "SPLICE_L": 30.0,
+  "POST_SLOT": 24.0,
+  "CELL_D": 18.6,
+  "CELL_L": 65.2,
+  "CELL_PITCH": 20.0,
+  "HOLDER_T": 5.0,
+  "HOLDER_POCKET": 3.5,
+  "PACK_X0": -62.0,
+  "PACK_Y0": 17.0,
+  "DRIVE": [
+   -60.0,
+   80.0,
+   -74.0,
+   16.0
+  ],
+  "DRIVE_Z": 7.0,
+  "PCB_T": 1.6,
+  "STACK_H": 20.0,
+  "SPREADER_T": 4.76,
+  "SPREADER": [
+   -35.0,
+   25.0,
+   -72.0,
+   -24.0
+  ],
+  "BRAIN": [
+   -40.0,
+   80.0,
+   -74.0,
+   16.0
+  ],
+  "JETSON_SINK_H": 32.0,
+  "LIDAR_FRONT_X": 238.0,
+  "PLINTH_T": 6.0,
+  "CAM_LENS_D": 31.0,
+  "CAM_LENS_L": 30.5,
+  "CAM_M12_L": 48.0,
+  "CAM_PITCH": 0.0,
+  "CAM_HOLE_PITCH": [
+   20.0,
+   20.0
+  ]
+ },
+ "z_rim": -48.175,
+ "tower_top": -19.175,
+ "scan_plane_z": 68.46,
+ "lidar_top_z": 91.75,
+ "camera_axis_z": 122.25,
+ "pack_box_z": [
+  -69.4,
+  3.0
+ ],
+ "pack_in_bay": true,
+ "nvme_over_bulk_caps_mm": 2.4,
+ "interference": [],
+ "lidar_plane": [
+  [
+   "camera_arch",
+   140.1,
+   "inside blind sector"
+  ],
+  [
+   "wing_strut_left",
+   171.8,
+   "inside blind sector"
+  ],
+  [
+   "wing_strut_right",
+   171.8,
+   "inside blind sector"
+  ],
+  [
+   "wing_blade",
+   166.1,
+   "inside blind sector"
+  ]
+ ],
+ "parts": {
+  "deck_rear": {
+   "bed_xyz": [
+    146.0,
+    177.5,
+    25.2
+   ],
+   "volume_cm3": 139.7,
+   "mass_g_solid_petgcf": 182.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "deck_mid": {
+   "bed_xyz": [
+    162.0,
+    177.5,
+    15.0
+   ],
+   "volume_cm3": 121.2,
+   "mass_g_solid_petgcf": 158.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "deck_front": {
+   "bed_xyz": [
+    156.0,
+    177.5,
+    25.2
+   ],
+   "volume_cm3": 131.4,
+   "mass_g_solid_petgcf": 171.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "splice_rear_right": {
+   "bed_xyz": [
+    30.0,
+    72.0,
+    3.0
+   ],
+   "volume_cm3": 6.3,
+   "mass_g_solid_petgcf": 8.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "splice_rear_left": {
+   "bed_xyz": [
+    30.0,
+    72.0,
+    3.0
+   ],
+   "volume_cm3": 6.3,
+   "mass_g_solid_petgcf": 8.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "splice_front_right": {
+   "bed_xyz": [
+    30.0,
+    72.0,
+    3.0
+   ],
+   "volume_cm3": 6.3,
+   "mass_g_solid_petgcf": 8.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "splice_front_left": {
+   "bed_xyz": [
+    30.0,
+    72.0,
+    3.0
+   ],
+   "volume_cm3": 6.3,
+   "mass_g_solid_petgcf": 8.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "lidar_plinth": {
+   "bed_xyz": [
+    70.0,
+    64.0,
+    6.0
+   ],
+   "volume_cm3": 18.4,
+   "mass_g_solid_petgcf": 24.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "bumper": {
+   "bed_xyz": [
+    62.1,
+    124.4,
+    74.4
+   ],
+   "volume_cm3": 87.2,
+   "mass_g_solid_petgcf": 113.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "camera_arch": {
+   "bed_xyz": [
+    80.0,
+    102.0,
+    103.8
+   ],
+   "volume_cm3": 64.2,
+   "mass_g_solid_petgcf": 83.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "camera_cradle": {
+   "bed_xyz": [
+    43.0,
+    34.0,
+    4.0
+   ],
+   "volume_cm3": 5.4,
+   "mass_g_solid_petgcf": 7.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "side_pod_left": {
+   "bed_xyz": [
+    225.0,
+    25.0,
+    50.0
+   ],
+   "volume_cm3": 61.4,
+   "mass_g_solid_petgcf": 80.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "side_pod_right": {
+   "bed_xyz": [
+    225.0,
+    25.0,
+    50.0
+   ],
+   "volume_cm3": 54.9,
+   "mass_g_solid_petgcf": 71.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "wing_strut_left": {
+   "bed_xyz": [
+    35.0,
+    88.0,
+    14.0
+   ],
+   "volume_cm3": 12.3,
+   "mass_g_solid_petgcf": 16.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "wing_strut_right": {
+   "bed_xyz": [
+    35.0,
+    88.0,
+    14.0
+   ],
+   "volume_cm3": 12.3,
+   "mass_g_solid_petgcf": 16.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "wing_blade": {
+   "bed_xyz": [
+    55.0,
+    190.0,
+    46.0
+   ],
+   "volume_cm3": 55.2,
+   "mass_g_solid_petgcf": 72.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "pack_box": {
+   "bed_xyz": [
+    138.2,
+    51.2,
+    72.4
+   ],
+   "volume_cm3": 51.6,
+   "mass_g_solid_petgcf": 67.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "pack_lid": {
+   "bed_xyz": [
+    138.2,
+    51.2,
+    3.8
+   ],
+   "volume_cm3": 20.6,
+   "mass_g_solid_petgcf": 27.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "cell_holder_bottom": {
+   "bed_xyz": [
+    120.0,
+    40.0,
+    5.0
+   ],
+   "volume_cm3": 9.4,
+   "mass_g_solid_petgcf": 12.0,
+   "fits_250_bed": true,
+   "solids": 1
+  },
+  "cell_holder_top": {
+   "bed_xyz": [
+    120.0,
+    40.0,
+    5.0
+   ],
+   "volume_cm3": 9.4,
+   "mass_g_solid_petgcf": 12.0,
+   "fits_250_bed": true,
+   "solids": 1
+  }
+ }
+}

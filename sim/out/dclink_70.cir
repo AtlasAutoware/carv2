@@ -1,0 +1,58 @@
+* DC link ripple, 70 A peak phase current, m = 0.8
+Vpack pk 0 DC 14.4
+Rpack pk p1 0.024
+Lpack p1 vb 1.5e-07
+Lbrd vb vm 5e-09
+Vbm0 vb b0a 0
+Cb0 b0a b0b 0.00033 IC=14.4
+Rb0 b0b b0c 0.011
+Lb0 b0c 0 3e-09
+Vbm1 vb b1a 0
+Cb1 b1a b1b 0.00033 IC=14.4
+Rb1 b1b b1c 0.011
+Lb1 b1c 0 3e-09
+Vbm2 vb b2a 0
+Cb2 b2a b2b 0.00033 IC=14.4
+Rb2 b2b b2c 0.011
+Lb2 b2c 0 3e-09
+Vbm3 vb b3a 0
+Cb3 b3a b3b 0.00033 IC=14.4
+Rb3 b3b b3c 0.011
+Lb3 b3c 0 3e-09
+Vcm vm c0a 0
+Cc c0a c0b 7.2e-05 IC=14.4
+Rc c0b c0c 0.00025
+Lc c0c 0 4.166666666666667e-11
+Vtri tri 0 PULSE(-1 1 0 1.6666666666666667e-05 1.6666666666666667e-05 1e-9 3.3333333333333335e-05)
+Brefa refa 0 V = 0.8 * sin(2513.2741228718346 * time + 0.6571529694961905)
+Bsa sa 0 V = 0.5 * (1 + tanh(2000 * (v(refa) - v(tri))))
+Bouta oa 0 V = v(vm) * v(sa)
+Vima oa ma 0
+Rpha ma ra 0.01
+Lpha ra ea 2e-05
+Bemfa ea n V = 3.8603912375226663 * sin(2513.2741228718346 * time + -0.0)
+Bdrawa vm 0 I = v(sa) * i(Vima)
+Brefb refb 0 V = 0.8 * sin(2513.2741228718346 * time + -1.4372421328970049)
+Bsb sb 0 V = 0.5 * (1 + tanh(2000 * (v(refb) - v(tri))))
+Boutb ob 0 V = v(vm) * v(sb)
+Vimb ob mb 0
+Rphb mb rb 0.01
+Lphb rb eb 2e-05
+Bemfb eb n V = 3.8603912375226663 * sin(2513.2741228718346 * time + -2.0943951023931953)
+Bdrawb vm 0 I = v(sb) * i(Vimb)
+Brefc refc 0 V = 0.8 * sin(2513.2741228718346 * time + -3.5316372352902)
+Bsc sc 0 V = 0.5 * (1 + tanh(2000 * (v(refc) - v(tri))))
+Boutc oc 0 V = v(vm) * v(sc)
+Vimc oc mc 0
+Rphc mc rc 0.01
+Lphc rc ec 2e-05
+Bemfc ec n V = 3.8603912375226663 * sin(2513.2741228718346 * time + -4.1887902047863905)
+Bdrawc vm 0 I = v(sc) * i(Vimc)
+Rn n 0 1e6
+.options method=gear reltol=1e-3 abstol=1e-6 vntol=1e-5 itl4=100
+.tran 50n 0.0125 0 50n uic
+.control
+run
+wrdata /home/claude/carv2/sim/out/dclink_70.txt i(Vpack) i(Vbm0) i(Vbm1) i(Vbm2) i(Vbm3) i(Vcm) v(vm) i(Vima) i(Vimb) i(Vimc)
+.endc
+.end
