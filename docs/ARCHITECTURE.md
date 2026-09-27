@@ -25,7 +25,7 @@ Once, when building the car:
 | lidar Ethernet | brain board RJ45 #2 | the donor M12-D to RJ45 cable |
 | camera | brain board RJ45 #1 | one M12 X-coded to RJ45 cable: data and PoE power together; the plug goes out through the slot in the right side pod |
 | Jetson fan, side-pod fan | brain board / drive board | their own leads |
-| Wi-Fi antennas | M.2 Wi-Fi card | two pigtails to the RP-SMA jacks in the stack canopy (check the card's plug: MHF4 or u.FL) |
+| Wi-Fi antennas | M.2 Wi-Fi card | two MHF4 pigtails to the RP-SMA jacks in the stack canopy (the dev kit's AW-CB375NF card has MHF4 jacks) |
 | E-stop loop (optional) | drive board | 2-pin JST-PH, normally closed; a jumper if unused |
 
 Every run, its length and its route are in `docs/WIRING.md`. The parts that finish the car (the stack canopy,

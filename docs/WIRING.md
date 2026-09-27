@@ -25,8 +25,8 @@ only after the car is measured.
 | Pack - | pack - strip (under the lid) | drive board J102 B- | 10 AWG silicone, pack - (G1 end strip) to B- | 68 | cut to 100 |
 | Pack sense lead | pack taps B0-B4 and NTC | drive board J103 | 7-wire 24 AWG sense lead, JST-XH 7-pin at the board | 60 | cut to 90 |
 | Side-pod fan | 40 mm fan (right pod) | drive board J903 | fan lead, 4-pin (fan to the drive board) | 56 | needs at least 90 |
-| Wi-Fi antenna 1 | M.2 Wi-Fi card (under the Jetson module) | antenna jack, canopy rear left | u.FL/MHF4 to RP-SMA bulkhead pigtail, 1.13 or 1.37 mm coax | 80 | needs at least 110 |
-| Wi-Fi antenna 2 | M.2 Wi-Fi card (under the Jetson module) | antenna jack, canopy rear right | u.FL/MHF4 to RP-SMA bulkhead pigtail, 1.13 or 1.37 mm coax | 67 | needs at least 100 |
+| Wi-Fi antenna 1 | M.2 Wi-Fi card (under the Jetson module) | antenna jack, canopy rear left | MHF4 to RP-SMA bulkhead pigtail, 15 cm, 1.13 mm coax | 80 | needs at least 110 |
+| Wi-Fi antenna 2 | M.2 Wi-Fi card (under the Jetson module) | antenna jack, canopy rear right | MHF4 to RP-SMA bulkhead pigtail, 15 cm, 1.13 mm coax | 67 | needs at least 100 |
 
 ## How each one runs
 
@@ -63,6 +63,7 @@ only after the car is measured.
   - It passes inboard of the brain board's 20 mm standoff at the rear-right corner.
 - **Wi-Fi.**
   - Two pigtails run from the M.2 card under the Jetson module to the RP-SMA jacks in the canopy.
-  - Check the card's connector before ordering: M.2 cards usually use MHF4, not u.FL.
+  - The dev kit's card (AzureWave AW-CB375NF) has MHF4 jacks, so the ordered pigtails are MHF4, 15 cm. The
+    slack, 7 to 8 cm each, coils beside the Jetson module.
 - **E-stop.** Nothing runs here unless an E-stop button is fitted. Close J504 with a JST-PH wire loop, or the
   motor will not run.

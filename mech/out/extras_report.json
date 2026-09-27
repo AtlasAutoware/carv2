@@ -204,7 +204,7 @@
   },
   {
    "cable": "wifi_1",
-   "spec": "u.FL/MHF4 to RP-SMA bulkhead pigtail, 1.13 or 1.37 mm coax",
+   "spec": "MHF4 to RP-SMA bulkhead pigtail, 15 cm, 1.13 mm coax",
    "from_": "M.2 Wi-Fi card (under the Jetson module)",
    "to": "antenna jack, canopy rear left",
    "d_mm": 1.8,
@@ -213,7 +213,7 @@
   },
   {
    "cable": "wifi_2",
-   "spec": "u.FL/MHF4 to RP-SMA bulkhead pigtail, 1.13 or 1.37 mm coax",
+   "spec": "MHF4 to RP-SMA bulkhead pigtail, 15 cm, 1.13 mm coax",
    "from_": "M.2 Wi-Fi card (under the Jetson module)",
    "to": "antenna jack, canopy rear right",
    "d_mm": 1.8,

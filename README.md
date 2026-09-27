@@ -40,11 +40,11 @@ From `bom/cost_summary.md` (prices from September 2026):
 | Brain board: 5 boards, 1 of them assembled | 563.90 |
 | 18650 pack materials | 134.20 |
 | Camera lens | 144.00 |
-| Charger, cable, fan, thermal pad, hardware, antennas | 120.99 |
-| **New purchases** | **1,488.79** |
+| Charger, cable, fan, thermal pad, hardware, antennas | 124.35 |
+| **New purchases** | **1,492.15** |
 | Jetson dev kit and NVMe (already on the purchase list) | 459.00 |
-| **Car 2 total** | **1,947.79** |
-| If needed: M12 camera cable ($30), spot welder ($304.51) | up to 2,282.30 |
+| **Car 2 total** | **1,951.15** |
+| If needed: M12 camera cable ($30), spot welder ($304.51) | up to 2,285.66 |
 
 The carbon-fibre filament and the aluminium heat spreader (SendCutSend credit) are not in these
 numbers because the team already has them.

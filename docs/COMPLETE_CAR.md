@@ -80,15 +80,17 @@ at 180 degrees. Both are inside the blind sector.
 
 ## Added to the parts list (`bom/make_bom.py`)
 
-New lines:
+New lines, asked for on 27 September as items 13-16 of the Syslab order (all Amazon):
 
-- two dual-band RP-SMA antennas and two pigtails
-- the three 40 mm canopy standoffs and three screws
-- a JST-PH loop that closes the E-stop input when no E-stop button is fitted
-- zip ties
+- two Bingfu dual-band 3 dBi RP-SMA antennas, 12 cm (B082SHKT3Q, $5.39 the pair)
+- two Tenmory MHF4 to RP-SMA bulkhead pigtails, 15 cm (B07RXDTC7G, $6.99 the pair)
+- M3 x 40 mm male-female brass standoffs for the canopy, pack of 25 (B0CFJNP726, $7.99; 3 used). The three
+  M3 x 6 screws come from the hardware assortment.
+- JST-PH 2-pin leads, 20 pairs (B0D9R21XYY, $8.99). One of them, with its two wires soldered together, closes the
+  E-stop input when no E-stop button is fitted.
 
-They add about $26 of estimated cost, and the car's total is now $1,947.79. The phase 1 figure ($1,362.89)
-leaves out the antennas, pigtails and canopy standoffs, which only go with the brain board.
+Zip ties come from the lab. The new lines add $29.36, and the car's total is now $1,951.15. The phase 1 figure
+($1,366.88) leaves out the antennas, pigtails and canopy standoffs, which only go with the brain board.
 
 The canopy adds about 30 g of the PETG-CF already on hand. The bench stand is about 0.2 kg of PLA.
 
@@ -96,8 +98,8 @@ The canopy adds about 30 g of the PETG-CF already on hand. The bench stand is ab
 
 - The RJ45 plug and boot sizes in the model are typical: 12 x 8 x 21 mm plug, 14 x 10 x 11 mm boot. A fat boot
   on the camera cable may need the slot widened (`CAM_PLUG_NOTCH`).
-- The Wi-Fi card's antenna connectors. M.2 cards usually use MHF4, which is smaller than u.FL. Order pigtails to
-  match.
+- The Wi-Fi card's antenna connectors. The dev kit ships with an AzureWave AW-CB375NF, and its datasheet gives
+  I-PEX MHF4 jacks, so the pigtails on the order are MHF4. Check the card when the kit arrives.
 - Brain board corner H4: confirm on the real jack that the 20 mm standoff under it needs no screw. The other
   three corners are screwed through the canopy standoffs.
 - The chassis stand-in in the renders is drawn from kit.py's keep-out numbers. The suspension, wheels and body

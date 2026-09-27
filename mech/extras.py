@@ -55,7 +55,7 @@ GRILLE_R = 25.0                 # hex grille over the dev-kit fan (about 40 mm)
 # RP-SMA bulkheads: 1/4-36 UNS thread, 6.5 mm hole with a 5.8 mm flat so the jack cannot turn; 60 mm apart
 ANTENNAS = [(-36.0, 0.0), (-36.0, -60.0)]
 RPSMA_HOLE, RPSMA_FLAT = 6.5, 5.8
-ANTENNA_L = 108.0               # 2.4/5 GHz dipole ("rubber duck"), about 108 mm long with its swivel
+ANTENNA_L = 120.0               # Bingfu 3 dBi dual-band swivel dipole (Amazon B082SHKT3Q), 12 cm
 
 
 def canopy_outline():
@@ -235,11 +235,11 @@ def cable_defs():
                               (-20.0, -66.0, zt + 4.0), (-40.0, -62.5, zt + 3.5), (-48.3, -66.0, zt + 5.0),
                               (-48.3, -69.5, zt + 9.0)])
     wifi = (18.0, -41.0, Z_BRAIN_TOP + 3.3)                      # antenna jacks of the M.2 Wi-Fi card under the module
-    D['wifi_1'] = dict(d=1.8, spec='u.FL/MHF4 to RP-SMA bulkhead pigtail, 1.13 or 1.37 mm coax',
+    D['wifi_1'] = dict(d=1.8, spec='MHF4 to RP-SMA bulkhead pigtail, 15 cm, 1.13 mm coax',
                        ends=('M.2 Wi-Fi card (under the Jetson module)', 'antenna jack, canopy rear left'),
                        pts=[(wifi[0], wifi[1] + 4, wifi[2]), (12.0, -17.0, 38.0), (-8.0, -4.0, 50.0), (-28.0, 0.0, 58.0),
                             (ANTENNAS[0][0], ANTENNAS[0][1], Z_CANOPY - 8.0)])
-    D['wifi_2'] = dict(d=1.8, spec='u.FL/MHF4 to RP-SMA bulkhead pigtail, 1.13 or 1.37 mm coax',
+    D['wifi_2'] = dict(d=1.8, spec='MHF4 to RP-SMA bulkhead pigtail, 15 cm, 1.13 mm coax',
                        ends=('M.2 Wi-Fi card (under the Jetson module)', 'antenna jack, canopy rear right'),
                        pts=[(wifi[0], wifi[1] - 4, wifi[2]), (-6.0, -47.0, 34.8), (-18.0, -52.0, 44.0), (-31.0, -58.0, 56.0),
                             (ANTENNAS[1][0], ANTENNAS[1][1], Z_CANOPY - 8.0)])
