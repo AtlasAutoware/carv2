@@ -1,0 +1,15 @@
+[Unit]
+Description=Atlas car hardware set-up (expander, lidar power, USB-C PD, USB0 role)
+After=systemd-modules-load.service
+Before=atlas-battery.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+EnvironmentFile=-/etc/atlas/atlas.conf
+ExecStart=/usr/local/bin/atlas hw-init
+ExecStart=-/usr/local/bin/atlas pd ensure
+ExecStart=-/usr/local/bin/atlas usb-role device
+
+[Install]
+WantedBy=multi-user.target

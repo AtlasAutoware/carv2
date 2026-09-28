@@ -18,22 +18,28 @@
     */
 
 /*
- * Atlas Autoware ATLAS-DRV-1 (car v2 drive board). DRAFT, not yet built or tested on hardware.
+ * Atlas Autoware ATLAS-DRV-1 (car v2 drive board). Builds against the VESC bldc tree
+ * (release_6_06, see firmware/vesc/build.sh). Not yet run on hardware.
+ *
  * Derived from hwconf/trampa/hd/hw_hd60.{h,c} (Copyright 2019 Benjamin Vedder, GPL-3.0-or-later).
  * The motor side keeps the HD60 pin map (gate PWM, shunt amps, phase sense, halls, DRV8323 SPI,
- * USART3, CAN, servo on PB6), so VESC Tool treats it like an HD60. What differs, marked ATLAS:
- *   - 0.2 mOhm shunts, CSA gain 40, pack limits (4S3P Molicel P28A)
- *   - IMU is an LSM6DS3TR-C on bit-banged I2C, SCL PA15 and SDA PC11 (PB2 stays BOOT1)
- *   - power: no hold pin. A 74LVC1G74 latch keeps the board on; the button sets it and the MCU
- *     clears it with KILL (PB12 high). The button is read on PC5 (BTN_SENSE, low = pressed).
- *   - main switch: TPS48111, MCU-sequenced. PA7 PRECHG_ON (INP_G), then PA6 MAIN_ON (INP),
- *     IMON on PA5 (46 V/V over 0.2 mOhm)
- *   - brain board: PA4 POWER_EN, PC14 power-button request to the Jetson (low = shut down),
- *     PC15 OS_HALTED from the Jetson (high = halted or off)
- *   - PC10 reads the E-stop loop (high = closed). The loop also gates DRV EN in hardware.
- *   - no permanent UART, no NRF SWD and no SPI encoder on PA5-PA7: those pins drive the power
- *     path here. An SPI encoder uses the hall connector (hw.h default).
+ * USART3, CAN, servo on PB6). What differs is marked ATLAS:
+ *   - 0.2 mOhm shunts. The DRV8323RS current-sense gain is 40 V/V, set over SPI. That is not the
+ *     chip's power-on default (20 V/V), and the DRV8323 forgets it whenever its ENABLE pin goes
+ *     low (E-stop loop open, or DISABLE_GATE()). The supervisor thread in hw_atlas_drv1.c writes
+ *     it back and checks it every 250 ms; the motor is held released until it reads back right.
+ *   - IMU: LSM6DS3TR-C on bit-banged I2C, SCL PA15, SDA PC11 (PB2 stays BOOT1).
+ *   - Power: a 74LVC1G74 latch keeps the board on. The button sets it, the MCU clears it with
+ *     KILL (PB12 high). The button is read on PC5 (BTN_SENSE, low while pressed).
+ *   - Main switch: TPS48111, MCU-sequenced. PA7 PRECHG_ON (INP_G), then PA6 MAIN_ON (INP).
+ *     IMON on PA5 (46 V/V over 0.2 mOhm).
+ *   - Brain board: PA4 POWER_EN (its input eFuse), PC14 power-button request to the Jetson
+ *     (low = pressed), PC15 OS_HALTED (high = Jetson module off or brain board unpowered).
+ *   - PC10 reads the E-stop loop (high = closed). The loop also gates DRV ENABLE in hardware.
+ *   - No permanent UART, no NRF SWD and no SPI port on PA5-PA7: those pins drive the power
+ *     path. An SPI encoder uses the hall connector (hw.h default).
  */
+
 #ifndef HW_ATLAS_DRV1_H_
 #define HW_ATLAS_DRV1_H_
 
@@ -49,6 +55,7 @@
 // Macros
 #define ENABLE_GATE()			palSetPad(GPIOB, 5)
 #define DISABLE_GATE()			palClearPad(GPIOB, 5)
+#define IS_GATE_ENABLED()		((GPIOB->ODR & (1 << 5)) != 0)	// ATLAS: output latch of PB5
 
 #define IS_DRV_FAULT()			(!palReadPad(GPIOB, 7))
 
@@ -57,38 +64,47 @@
 #define LED_RED_ON()			palSetPad(GPIOB, 1)
 #define LED_RED_OFF()			palClearPad(GPIOB, 1)
 
-// Shutdown pin
-// ATLAS: the latch holds power; KILL (PB12 high) clears it. Button sense on PC5, low = pressed.
+// ATLAS: power latch. KILL (PB12 high) clears it; the button is read on PC5, low while pressed.
 #define HW_KILL_GPIO			GPIOB
 #define HW_KILL_PIN				12
 #define HW_BTN_GPIO				GPIOC
 #define HW_BTN_PIN				5
 #define HW_SHUTDOWN_HOLD_ON()	palClearPad(HW_KILL_GPIO, HW_KILL_PIN)
-#define HW_SHUTDOWN_HOLD_OFF()	hw_power_off()
+#define HW_SHUTDOWN_HOLD_OFF()	hw_atlas_power_off_from_button()
+// VESC's shutdown.c expects "true" while the button is NOT pressed (see hw_luna_m600.h), and
+// turns the board off on the press edge.
 #define HW_SAMPLE_SHUTDOWN()	hw_sample_shutdown_button()
 
-// ATLAS: main switch and brain board power
+// ATLAS: main switch, brain board and E-stop
 #define HW_PRECHG_GPIO			GPIOA
 #define HW_PRECHG_PIN			7
 #define HW_MAIN_ON_GPIO			GPIOA
 #define HW_MAIN_ON_PIN			6
 #define HW_BRAIN_EN_GPIO		GPIOA
 #define HW_BRAIN_EN_PIN			4
-#define HW_JETSON_REQ_GPIO		GPIOC		// low = ask the Jetson to shut down
+#define HW_JETSON_REQ_GPIO		GPIOC		// low = power button pressed (brain board PWR_SOFT)
 #define HW_JETSON_REQ_PIN		14
-#define HW_JETSON_HALTED_GPIO	GPIOC		// high = Jetson halted (or brain board off)
+#define HW_JETSON_HALTED_GPIO	GPIOC		// high = Jetson module off (or brain board unpowered)
 #define HW_JETSON_HALTED_PIN	15
 #define HW_ESTOP_GPIO			GPIOC		// high = E-stop loop closed
 #define HW_ESTOP_PIN			10
 #define IS_ESTOP_OK()			palReadPad(HW_ESTOP_GPIO, HW_ESTOP_PIN)
 
-// Keep KILL low and the power path off from the first instruction
+// ATLAS: from the first instructions after reset: hold the latch, keep the main switch open and
+// power the brain board. POWER_EN goes high here rather than after the precharge so that an MCU
+// reset (firmware update, watchdog) interrupts the Jetson's supply for as short a time as possible.
+// It is still interrupted: the pull-downs on STK_POWER_EN turn the brain board off while the
+// STM32 is in reset. See docs/FLASHING.md, "POWER_EN during an STM32 reset".
 #define HW_EARLY_INIT()			palSetPadMode(HW_KILL_GPIO, HW_KILL_PIN, PAL_MODE_OUTPUT_PUSHPULL); \
 								HW_SHUTDOWN_HOLD_ON(); \
-								palSetPadMode(HW_MAIN_ON_GPIO, HW_MAIN_ON_PIN, PAL_MODE_OUTPUT_PUSHPULL); \
 								palClearPad(HW_MAIN_ON_GPIO, HW_MAIN_ON_PIN); \
+								palSetPadMode(HW_MAIN_ON_GPIO, HW_MAIN_ON_PIN, PAL_MODE_OUTPUT_PUSHPULL); \
+								palClearPad(HW_PRECHG_GPIO, HW_PRECHG_PIN); \
 								palSetPadMode(HW_PRECHG_GPIO, HW_PRECHG_PIN, PAL_MODE_OUTPUT_PUSHPULL); \
-								palClearPad(HW_PRECHG_GPIO, HW_PRECHG_PIN);
+								palSetPad(HW_JETSON_REQ_GPIO, HW_JETSON_REQ_PIN); \
+								palSetPadMode(HW_JETSON_REQ_GPIO, HW_JETSON_REQ_PIN, PAL_MODE_OUTPUT_PUSHPULL); \
+								palSetPad(HW_BRAIN_EN_GPIO, HW_BRAIN_EN_PIN); \
+								palSetPadMode(HW_BRAIN_EN_GPIO, HW_BRAIN_EN_PIN, PAL_MODE_OUTPUT_PUSHPULL);
 
 #define PHASE_FILTER_GPIO		GPIOC
 #define PHASE_FILTER_PIN		13
@@ -104,11 +120,11 @@
  * 3:	IN10	CURR1
  * 4:	IN11	CURR2
  * 5:	IN12	CURR3
- * 6:	IN5		ADC_EXT1 (ATLAS: main switch IMON)
- * 7:	IN5		ADC_EXT2 (ATLAS: IMON again; PA6 is the MAIN_ON output)
+ * 6:	IN5		ADC_EXT1 (ATLAS: main switch IMON on PA5)
+ * 7:	IN5		ADC_EXT2 (ATLAS: IMON again; PA6 is the MAIN_ON output, never an ADC pin)
  * 8:	IN3		TEMP_PCB
  * 9:	IN14	TEMP_MOTOR
- * 10:	IN15	Shutdown
+ * 10:	IN15	Shutdown (ATLAS: PC5 is a digital button input; the sample is unused)
  * 11:	IN13	AN_IN
  * 12:	Vrefint
  * 13:	IN0		SENS1
@@ -147,11 +163,14 @@
 #define VIN_R2					2200.0
 #endif
 #ifndef CURRENT_AMP_GAIN
-#define CURRENT_AMP_GAIN		40.0	// ATLAS: DRV8323 GAIN pin set to 40 V/V
+#define CURRENT_AMP_GAIN		40.0	// ATLAS: DRV8323RS CSA_GAIN over SPI (see top of file)
 #endif
 #ifndef CURRENT_SHUNT_RES
-#define CURRENT_SHUNT_RES		0.0002	// ATLAS: 0.2 mOhm, 3920 metal strip
+#define CURRENT_SHUNT_RES		0.0002	// ATLAS: 0.2 mOhm 4-terminal shunts
 #endif
+
+// ATLAS: TPS48111 IMON on PA5: 46 V/V across the 0.2 mOhm main-switch shunt
+#define ATLAS_IMON_V_PER_A		(46.0 * 0.0002)
 
 // Input voltage
 #define GET_INPUT_VOLTAGE()		((V_REG / 4095.0) * (float)ADC_Value[ADC_IND_VIN_SENS] * ((VIN_R1 + VIN_R2) / VIN_R2))
@@ -184,7 +203,7 @@
 #define HW_ADC_EXT2_GPIO		GPIOA
 #define HW_ADC_EXT2_PIN			5
 
-// UART Peripheral
+// UART Peripheral (USART3 to the Jetson through the stack header, 115200, vesc_driver)
 #define HW_UART_DEV				SD3
 #define HW_UART_GPIO_AF			GPIO_AF_USART3
 #define HW_UART_TX_PORT			GPIOB
@@ -224,15 +243,16 @@
 #define HW_ENC_TIM_CLK_EN()		RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE)
 #define HW_ENC_EXTI_PORTSRC		EXTI_PortSourceGPIOC
 #define HW_ENC_EXTI_PINSRC		EXTI_PinSource8
+#define HW_ENC_EXTI_CH			EXTI9_5_IRQn
 #define HW_ENC_EXTI_LINE		EXTI_Line8
+#define HW_ENC_EXTI_ISR_VEC		EXTI9_5_IRQHandler
 #define HW_ENC_TIM_ISR_CH		TIM3_IRQn
 #define HW_ENC_TIM_ISR_VEC		TIM3_IRQHandler
 
-// ATLAS: no SPI port on PA5-PA7 (power path control). hw.h puts an SPI encoder on the hall pins.
-// There is no NRF radio either, but VESC always builds its software-SPI NRF driver, and hw.h
-// would aim it at the missing SPI port. Aim it at the hall connector instead (the encoder pins
-// plus the motor-temperature pin as MOSI). It only runs if the NRF app is turned on, which this
-// board has no use for. It must never land on PA5-PA7.
+// ATLAS: no SPI port on PA5-PA7 (power path control); hw.h puts an SPI encoder on the hall pins.
+// There is no NRF radio either, but the NRF app's software SPI still needs pins. Put it on the
+// hall connector (the encoder pins, plus the motor-temperature pin as MOSI). It only runs if the
+// NRF app is turned on, which this board has no use for. It must never land on PA5-PA7.
 #define NRF_PORT_CSN			HW_HALL_ENC_GPIO3
 #define NRF_PIN_CSN				HW_HALL_ENC_PIN3
 #define NRF_PORT_SCK			HW_HALL_ENC_GPIO1
@@ -252,14 +272,16 @@
 #define DRV8323S_CS_GPIO		GPIOC
 #define DRV8323S_CS_PIN			9
 
-// LSM6DS3TR-C (ATLAS): WHO_AM_I 0x6A, accepted by imu/lsm6ds3.c
-#define IMU_DEV				IMU_DEV_LSM6DS3
-#define IMU_COM				IMU_COM_I2C_BB
-#define IMU_I2C_SDA_GPIO		GPIOC		// ATLAS: PC11 (HD60 uses PB2)
-#define IMU_I2C_SDA_PIN			11
-#define IMU_I2C_SCL_GPIO		GPIOA
-#define IMU_I2C_SCL_PIN			15
-#define IMU_FLIP
+// ATLAS: re-assert the non-default CSA gain whenever mc_interface applies DRV settings
+#define DRV8323S_CUSTOM_SETTINGS()	drv8323s_set_current_amp_gain(CURRENT_AMP_GAIN)
+
+// ATLAS: LSM6DS3TR-C (WHO_AM_I 0x6A, SA0 low = address 0x6A), picked up by imu/imu.c.
+// It sits on the top of the drive board, component side up, so there is no IMU_FLIP. Check the
+// axes against the car in VESC Tool (App Settings > IMU) before trusting the data.
+#define LSM6DS3_SDA_GPIO		GPIOC
+#define LSM6DS3_SDA_PIN			11
+#define LSM6DS3_SCL_GPIO		GPIOA
+#define LSM6DS3_SCL_PIN			15
 
 // ATLAS: no NRF SWD (PB12 is KILL, PA4 the brain board enable)
 
@@ -276,19 +298,22 @@
 
 // Default setting overrides
 #ifndef MCCONF_L_CURRENT_MAX
-#define MCCONF_L_CURRENT_MAX				70.0	// ATLAS	// Current limit in Amperes (Upper)
+#define MCCONF_L_CURRENT_MAX				70.0	// ATLAS: motor current limit (A)
 #endif
 #ifndef MCCONF_L_CURRENT_MIN
-#define MCCONF_L_CURRENT_MIN				-40.0	// ATLAS: regen into the pack stays under the BMS OCC trip	// Current limit in Amperes (Lower)
+#define MCCONF_L_CURRENT_MIN				-40.0	// ATLAS: braking current limit (A)
 #endif
 #ifndef MCCONF_L_IN_CURRENT_MAX
-#define MCCONF_L_IN_CURRENT_MAX				90.0	// ATLAS: under the BMS OCD1 trip (~140 A)	// Input current limit in Amperes (Upper)
+#define MCCONF_L_IN_CURRENT_MAX				90.0	// ATLAS: under the BMS OCD1 trip (~140 A)
 #endif
 #ifndef MCCONF_L_IN_CURRENT_MIN
-#define MCCONF_L_IN_CURRENT_MIN				-12.0	// ATLAS: charge-direction limit, about 4 A per cell for 4S3P P28A	// Input current limit in Amperes (Lower)
+#define MCCONF_L_IN_CURRENT_MIN				-12.0	// ATLAS: regen into the pack, about 4 A per cell (4S3P P28A)
 #endif
 #ifndef MCCONF_L_MAX_ABS_CURRENT
-#define MCCONF_L_MAX_ABS_CURRENT			180.0	// ATLAS	// The maximum absolute current above which a fault is generated
+#define MCCONF_L_MAX_ABS_CURRENT			180.0	// ATLAS: fault above this (shunt range +-206 A)
+#endif
+#ifndef MCCONF_L_MAX_VOLTAGE
+#define MCCONF_L_MAX_VOLTAGE				20.0	// ATLAS: 4S pack, 16.8 V full
 #endif
 #ifndef MCCONF_M_DRV8301_OC_ADJ
 #define MCCONF_M_DRV8301_OC_ADJ				10 // DRV8301 over current protection threshold
@@ -305,7 +330,7 @@
 #define MCCONF_M_DRV8301_OC_MODE		DRV8301_OC_LATCH_SHUTDOWN // DRV8301 over current protection mode
 #endif
 
-// ATLAS: pack defaults (4S3P Molicel P28A, 3.0 V/cell cutoff start, 2.8 V end)
+// ATLAS: pack defaults (4S3P Molicel P28A: cutoff starts at 3.0 V per cell and ends at 2.8 V)
 #ifndef MCCONF_L_BATTERY_CUT_START
 #define MCCONF_L_BATTERY_CUT_START		12.0
 #endif
@@ -319,11 +344,16 @@
 #define MCCONF_SI_BATTERY_AH			8.4
 #endif
 
+// ATLAS: the button turns the car off; no inactivity timer (the Jetson may run long jobs parked)
+#ifndef APPCONF_SHUTDOWN_MODE
+#define APPCONF_SHUTDOWN_MODE			SHUTDOWN_MODE_TOGGLE_BUTTON_ONLY
+#endif
+
 // Setting limits
 #define HW_LIM_CURRENT			-120.0, 120.0	// ATLAS
 #define HW_LIM_CURRENT_IN		-60.0, 110.0	// ATLAS
 #define HW_LIM_CURRENT_ABS		0.0, 200.0	// ATLAS
-#define HW_LIM_VIN				6.0, 26.0	// ATLAS: 40 V FETs, 35 V bulk caps; 4S nominal, 6S max
+#define HW_LIM_VIN				6.0, 26.0	// ATLAS: 40 V FETs, 35 V bulk caps; 4S nominal
 #define HW_LIM_ERPM				-200e3, 200e3
 #define HW_LIM_DUTY_MIN			0.0, 0.1
 #define HW_LIM_DUTY_MAX			0.0, 0.99
@@ -331,6 +361,7 @@
 
 // Functions
 bool hw_sample_shutdown_button(void);
-void hw_power_off(void);	// ATLAS: Jetson shutdown handshake, then KILL
+void hw_atlas_power_off_from_button(void);	// ATLAS: Jetson shutdown handshake, then KILL
+float hw_atlas_get_bus_current(void);		// ATLAS: main switch current from IMON (A)
 
 #endif /* HW_ATLAS_DRV1_H_ */

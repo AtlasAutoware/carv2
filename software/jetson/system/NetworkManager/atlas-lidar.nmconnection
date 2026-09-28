@@ -1,0 +1,19 @@
+# SICK TiM561 on the brain board's second RJ45 (LAN7800 USB Ethernet, Linux driver lan78xx).
+# The TiM561 ships at 192.168.0.1/24 (docs/ARCHITECTURE.md); this side takes .100.
+[connection]
+id=atlas-lidar
+type=ethernet
+autoconnect=true
+
+[match]
+driver=lan78xx;
+
+[ethernet]
+
+[ipv4]
+method=manual
+address1=192.168.0.100/24
+never-default=true
+
+[ipv6]
+method=disabled

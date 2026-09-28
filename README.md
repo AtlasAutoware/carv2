@@ -19,12 +19,14 @@ port reaches the Jetson, the ESC and the serial console.
 
 | folder | what |
 | --- | --- |
-| `docs/` | `ARCHITECTURE.md` (the whole design and why), `PACK_BUILD.md` (building the 18650 pack), `MEASURE_FIRST.md` (chassis numbers to check before printing), `COMPLETE_CAR.md` (the parts that finish the car), `WIRING.md` (every cable run and its length) |
+| `docs/` | `ARCHITECTURE.md` (the whole design and why), `SOFTWARE.md` (what runs on the boards), `FLASHING.md` (programming the assembled boards), `TPS25751_CONFIG.md` (USB-C charger settings), `PACK_BUILD.md` (building the 18650 pack), `MEASURE_FIRST.md` (chassis numbers to check before printing), `COMPLETE_CAR.md` (the parts that finish the car), `WIRING.md` (every cable run and its length) |
 | `boards/drive/`, `boards/brain/` | the two boards: `design.py` is the circuit, `layout.py` the placement and hand-drawn copper, and the KiCad schematics and layouts are generated from them |
 | `boards/stack/` | the pin map of the connector between the two boards, used by both |
 | `boards/tools/` | the scripts that build, route and check the boards |
 | `boards/*/out/fab/` | Gerbers, drill files, pick-and-place and BOM for ordering |
-| `firmware/vesc/` | the VESC hardware target for the drive board |
+| `firmware/vesc/` | the VESC hardware target for the drive board, `build.sh`, and a prebuilt image in `prebuilt/` |
+| `software/jetson/` | the `atlas` command, services and settings for the Jetson (`system/install.sh`), with tests |
+| `software/ros2/` | `atlas_power`: battery, E-stop, charging and lidar power in ROS 2 |
 | `mech/` | the printed kit: `kit.py` (deck, pods, mounts, pack box) and `extras.py` (stack canopy, bench stand, plugs and cable paths), the STL/STEP files, renders and its own README |
 | `sim/` | circuit and thermal checks run on the finished schematics, with their own README |
 | `bom/` | the parts list with prices and the cost summary |
@@ -81,8 +83,10 @@ are at the end of `docs/ARCHITECTURE.md`.
   with Blender 4.2's `bpy` module (Python 3.11, `pip install bpy==4.2.0`) and the board models from
   `run_kicad.sh glb-drive glb-brain`.
 - Simulations: ngspice and Python with numpy, scipy and matplotlib; `sim/run_all.sh`.
-- Firmware: build the `fw_atlas_drv1` target in the VESC `bldc` repository with the two files from
-  `firmware/vesc/`.
+- Firmware: `firmware/vesc/build.sh` (clones VESC 6.06, adds the two target files, builds; needs
+  `arm-none-eabi-gcc`). A build of the committed sources is in `firmware/vesc/prebuilt/`.
+- Jetson tools: `sudo software/jetson/system/install.sh` on the car; tests with
+  `cd software/jetson && python3 -m pytest tests` (needs `pytest`).
 
 ## Licenses
 

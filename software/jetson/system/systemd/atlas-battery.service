@@ -1,0 +1,12 @@
+[Unit]
+Description=Atlas battery monitor (INA228 state of charge, low-battery shutdown)
+After=atlas-hw-init.service
+
+[Service]
+EnvironmentFile=-/etc/atlas/atlas.conf
+ExecStart=/usr/local/bin/atlas battery-daemon
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

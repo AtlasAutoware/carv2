@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "atlas-hw"
+version = "0.1.0"
+description = "Jetson-side tools for the Atlas car v2 drive board and brain board"
+requires-python = ">=3.8"
+dependencies = ["smbus2>=0.4"]
+
+[project.optional-dependencies]
+ftdi = ["pyftdi>=0.55"]
+test = ["pytest"]
+
+[project.scripts]
+atlas = "atlas_hw.cli:main"
+
+[tool.setuptools]
+packages = ["atlas_hw"]

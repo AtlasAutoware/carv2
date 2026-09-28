@@ -152,7 +152,8 @@ of the MCU does not turn the car off. The same press wakes the charger out of sh
 **USB-C charging.** TI TPS25751D USB PD controller (integrated sink switch) plus TI BQ25798
 buck-boost charger. The TPS25751D loads its configuration from a 64 KB I2C EEPROM (M24512),
 negotiates up to 20 V and programs the BQ25798 over I2C with no MCU. The EEPROM image is made
-with TI's Application Customization Tool; a 4-pin header (not fitted) can reprogram it on the board. The
+with TI's Application Customization Tool (settings in `docs/TPS25751_CONFIG.md`), and the Jetson
+writes it through the controller's own I2C port (`atlas pd flash`); the 4-pin header J702 stays unfitted. The
 BQ25798 is set for 4S and 1.5 MHz by its PROG resistor, with the input limit at 3.25 A. Its
 SYS output (NVDC power path) is the compute rail, VSYS, so the Jetson and the lidar run from
 USB power whenever it is plugged in. The pack's NTC goes to the BMS; the charger's TS input sees
@@ -177,7 +178,7 @@ keeps the Trampa HD60 pin map on purpose, so the firmware change is small:
 `firmware/vesc/hw_atlas_drv1.{h,c}` (derived from `hw_hd60`, GPL-3.0). The changes: the IMU's
 SDA moves off PB2 so BOOT1 stays low for the ROM bootloader, the power-hold pin becomes KILL,
 and PA4-PA7, PC10, PC14 and PC15 carry the new brain-power, current, precharge, E-stop and
-Jetson-handshake signals. The target builds with the stock VESC tree. The Jetson talks to it on
+Jetson-handshake signals. The target builds with the VESC 6.06 tree (`firmware/vesc/build.sh`). The Jetson talks to it on
 USART3 at 115200 baud, the same as car 1, so `vesc_driver` does not change.
 
 **Other outputs.** Servo: TI TPSM63610 power module (integrated inductor, 8 A, 10 A peak) set
@@ -268,16 +269,21 @@ Details, strip layout and safety: `docs/PACK_BUILD.md`.
 
 ## Software changes
 
-- ESC: build `fw_atlas_drv1` from `firmware/vesc/`, flash once with an ST-Link over SWD, then
-  update over USB from VESC Tool. `vesc_driver` keeps working over the UART at 115200.
+Details in `docs/SOFTWARE.md`; programming order in `docs/FLASHING.md`.
+
+- ESC: `firmware/vesc/build.sh` builds the `fw_atlas_drv1` target on VESC 6.06 (it compiles; not
+  yet run on a board). First flash over SWD with an ST-Link, then updates from VESC Tool over USB.
+  `vesc_driver` keeps working over the UART at 115200 (`/dev/atlas_vesc`).
 - Lidar: SICK's `sick_scan_xd` ROS 2 driver supports the TiM5xx family over Ethernet; the
-  TiM561 ships at 192.168.0.1.
-- Camera: LUCID's Arena SDK and `arena_camera_ros2`. Enable jumbo frames on the camera port.
+  TiM561 ships at 192.168.0.1. The Jetson's lidar port is set to 192.168.0.100/24.
+- Camera: LUCID's Arena SDK and `arena_camera_ros2`. The camera port runs link-local with jumbo
+  frames (MTU 9000).
 - IMU: now from the ESC (`vesc_driver` IMU topic) instead of the OAK-D.
-- Battery: a small node reads the INA228 over I2C and publishes state of charge.
-- Power button: a systemd service shuts the OS down on the power-key event; the drive board
-  then cuts power.
-- Charger: the TPS25751 EEPROM image, made once with TI's Application Customization Tool.
+- Battery: atlas-battery.service reads the INA228 and keeps a state-of-charge estimate;
+  the `atlas_power` ROS 2 node publishes it as `/battery`, with `/estop_ok` and `/charging`.
+- Power button: logind shuts the OS down on the power-key event; the drive board then cuts power.
+- Charger: the TPS25751 EEPROM image, made once with TI's Application Customization Tool and
+  written from the Jetson (`atlas pd flash`).
 
 ## Safety
 
@@ -344,9 +350,11 @@ change.
 2. Check the USB pair widths in JLCPCB's impedance calculator for the stack-up you order, and
    ask for impedance control on both boards.
 3. Order the drive board with its vias filled and capped (JLCPCB's default on 6 layers).
-4. Make the TPS25751D's EEPROM image with TI's Application Customization Tool. Program the
-   EEPROM before assembly, or fit the 4-pin header and write it on the board.
-5. Build the VESC firmware target from `firmware/vesc/`.
+4. Make the TPS25751D's EEPROM files with TI's Application Customization Tool
+   (`docs/TPS25751_CONFIG.md`). They are written on the assembled board from the Jetson
+   (`docs/FLASHING.md`), so J702 does not need fitting.
+5. Decide the POWER_EN fix (`docs/FLASHING.md`): R609 to +3V3 instead of GND keeps the Jetson
+   powered while the STM32 resets and lets the Jetson flash the STM32 itself.
 
 **First power-up.** Pack and BMS alone first, then the main switch and precharge with no motor,
 then USB-C charging, then the ESC on the bench at 50 A and 70 A with a thermocouple on a bus

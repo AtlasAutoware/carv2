@@ -1,0 +1,8 @@
+# Atlas car v2: ATLAS-BRN-1 brain board on a Jetson Orin Nano. Installed by software/jetson/system/install.sh.
+#
+# The UART that reaches the drive board's STM32 (module UART1, serial@3100000): /dev/atlas_vesc
+SUBSYSTEM=="tty", KERNELS=="3100000.serial", SYMLINK+="atlas_vesc", GROUP="dialout", MODE="0660"
+# Stack I2C to the drive board (module I2C1, i2c@c250000): INA228, ID EEPROM, TPS25751, TPS23861
+SUBSYSTEM=="i2c-dev", KERNELS=="c250000.i2c", SYMLINK+="atlas_i2c_stack", GROUP="i2c", MODE="0660"
+# Brain board SYS I2C (module I2C0, i2c@c240000): PCAL6408A expander
+SUBSYSTEM=="i2c-dev", KERNELS=="c240000.i2c", SYMLINK+="atlas_i2c_sys", GROUP="i2c", MODE="0660"

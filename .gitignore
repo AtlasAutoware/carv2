@@ -37,3 +37,10 @@ fp-info-cache
 # whole-car render scene (share/car_scene.py writes it) and test renders
 share/scene/
 share/*_quick.png
+
+# VESC firmware build: firmware/vesc/build.sh clones and builds here (the release image is in prebuilt/)
+firmware/vesc/.build/
+firmware/vesc/out/
+
+# Python test cache
+.pytest_cache/
