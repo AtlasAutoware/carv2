@@ -19,8 +19,9 @@ time), LAN7800.
 
 ## Tools
 
-- ST-Link (V2 or V3) with a 10-pin 1.27 mm Cortex debug cable for J601. Whether the lab has
-  one is not known yet.
+- An ST-Link with a 10-pin 1.27 mm Cortex debug cable for J601. An STLINK-V3SET is on the
+  Syslab purchase sheet (row 96); its box includes a flat cable from its 14-pin STDC14
+  connector to that 10-pin header.
 - A PC with one of: OpenOCD, stlink-tools (`st-flash`), or STM32CubeProgrammer. The team
   laptop (CachyOS) has none of them; `sudo pacman -S openocd stlink` installs the first two.
 - VESC Tool 6.06 (on the laptop at ~/vesc_tool/build/lin/vesc_tool_6.06).
