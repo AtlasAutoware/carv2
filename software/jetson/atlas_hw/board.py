@@ -15,9 +15,9 @@ import os
 STACK_I2C_CONTROLLER = 'c250000.i2c'
 STACK_I2C_DEFAULT = 7
 INA228_ADDR = 0x40          # drive board, BMS shunt 0.5 mOhm, pack voltage on B+
-ID_EEPROM_ADDR = 0x50       # drive board 24AA02, WP tied low
+ID_EEPROM_ADDR = 0x50       # drive board 24AA02, WP tied low (it answers on all of 0x50-0x57)
 TPS25751_ADDR = 0x20        # drive board PD controller target port (ADCIN1 = LDO_3V3, ADCIN2 = GND: index #1)
-TPS23861_ADDR = 0x28        # brain board PoE PSE (A3 open)
+TPS23861_ADDR = 0x28        # brain board PoE PSE (A3 open); every TPS23861 also answers 0x30 (broadcast)
 
 # Module I2C0 (pins 185/187) -> brain board "SYS I2C": the expander (and the module's own INA3221 at 0x40)
 SYS_I2C_CONTROLLER = 'c240000.i2c'

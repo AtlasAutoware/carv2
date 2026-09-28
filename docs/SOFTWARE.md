@@ -24,19 +24,30 @@ Differences from a stock VESC, all in the target files:
   the motor bus rises (below 4 V after 10 ms means a short: stop) and settles above 9 V
   within 400 ms, then turns on the main FETs. A failed precharge is not retried by itself;
   `atlas_precharge` in the VESC Tool terminal retries it (at most every 15 s, for the
-  precharge resistors).
-- **E-stop.** While the loop is open the motor ignores commands. The DRV8323RS forgets its
-  settings whenever its ENABLE drops, so the firmware writes the 40 V/V gain and the
-  over-current settings back when the E-stop closes, checks the gain every 250 ms, and redoes
-  the current-offset calibration once the motor is still.
-- **Jetson.** 5 s after start, if the Jetson has not started by itself, the STM32 presses its
-  power button (up to twice, 20 s apart). Once the Jetson has run, a halt lasting 3 s makes the
-  STM32 switch the car off (`atlas_autooff 0` turns that off until the next start).
-- **Power button.** A press asks the Jetson to shut down (1 s on the power-key line), waits up
-  to 60 s for it to halt, then switches off the brain board, the main switch and the latch.
+  precharge resistors). If the bus collapses while on (a TPS48111 over-current trip), the
+  STM32 drops MAIN_ON so the chip's own 15 s retry cannot close the FETs onto an empty bus,
+  and precharges again 15 s later, three times at most.
+- **E-stop and gate driver.** While the loop is open the motor ignores commands. The DRV8323RS
+  runs from the switched bus and forgets its settings whenever ENABLE drops for about a
+  millisecond, so the firmware writes the 40 V/V gain and the over-current settings back
+  after every precharge and E-stop release, reads the gain back every 5 ms, and holds the
+  motor for 0.5 s after a restore. VESC measures the current-sensor offsets once at boot; if
+  the gate driver was not configured the whole time, the firmware measures them again (about
+  1.4 s, commands locked out) once the E-stop is closed and the motor is still.
+- **Jetson.** 5 s after the brain board gets power, if the Jetson has not started by itself,
+  the STM32 presses its power button (up to twice, 20 s apart). It never presses after the
+  Jetson has run, so a Jetson shut down on purpose stays down. Once the Jetson has run, a halt
+  lasting 3 s makes the STM32 switch the car off (`atlas_autooff 0` turns that off until the
+  next start).
+- **Power button.** A press (30 ms, so a spike on the remote button lead does not count) asks
+  the Jetson to shut down (1 s on the power-key line, again every 10 s in case it was still
+  booting), waits up to 60 s for it to halt, then switches off the brain board, the main switch
+  and the latch.
 - **Defaults** for this car (VESC Tool can change them): motor 70 A / -40 A, battery 90 A /
-  -12 A, absolute 180 A, battery cut-off 12.0-11.2 V, 4 cells, 8.4 Ah, power button mode
-  "toggle button only". The UART app is VESC's default (UART at 115200).
+  -12 A, absolute 150 A (the current sensing is linear to about 175 A), battery cut-off
+  13.4-12.6 V (3.35-3.15 V per cell under load, above the BMS cut at 3.00 V; starting values
+  to check on the bench), 4 cells, 8.4 Ah, power button mode "toggle button only". The UART
+  app is VESC's default (UART at 115200).
 - **Terminal commands** (VESC Tool): `atlas_status`, `atlas_precharge`, `atlas_main_off`,
   `atlas_brain on|off|press`, `atlas_autooff 0|1`, `atlas_poweroff`, `test_button`.
 
@@ -57,8 +68,8 @@ JetPack for the Orin Nano Super, flashed as for the NVIDIA developer kit, plus
 | /etc/atlas/atlas.conf | Lidar at boot, PD Low Region file, low-battery threshold, pack resistance, POWER_EN fix flag. |
 
 Where the parts sit on the Jetson (from the brain board netlist and NVIDIA's pin tables):
-stack I2C = module I2C1 = i2c@c250000 (normally /dev/i2c-7): INA228 0x40, ID EEPROM 0x50,
-PD controller 0x20, PoE controller 0x28. Brain board I2C = module I2C0 = i2c@c240000
+stack I2C = module I2C1 = i2c@c250000 (normally /dev/i2c-7): INA228 0x40, ID EEPROM 0x50
+(answers 0x50-0x57), PD controller 0x20, PoE controller 0x28 (and its broadcast address 0x30). Brain board I2C = module I2C0 = i2c@c240000
 (/dev/i2c-1): expander 0x20. VESC UART = module UART1 = serial@3100000. The tools find the
 bus numbers by controller address, so a different numbering does not break them.
 

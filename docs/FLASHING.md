@@ -102,7 +102,8 @@ E-stop, charger, lidar power and the USB0 role. What the install does: docs/SOFT
 ## 5. Check the stack buses
 
 ```
-i2cdetect -y -r 7      # stack I2C: 0x20 PD controller, 0x28 PoE controller, 0x40 INA228, 0x50 ID EEPROM
+i2cdetect -y -r 7      # stack I2C: 0x20 PD controller, 0x28 PoE controller (and 0x30, its broadcast
+                       # address), 0x40 INA228, 0x50-0x57 ID EEPROM (the 24AA02 answers on all eight)
 i2cdetect -y -r 1      # brain board: 0x20 expander (and the module's own 0x40)
 ```
 The bus numbers are the usual ones for these controllers (c250000.i2c and c240000.i2c);
@@ -152,8 +153,10 @@ VESC Tool, Firmware tab, Custom File: `firmware/vesc/prebuilt/atlas_drv1.bin`, U
 STM32 restarts at the end.
 
 **While the POWER_EN fix is not made**, that restart switches the brain board off without
-warning. So first: in the VESC Tool terminal `atlas_autooff 0`, then `sudo poweroff` on the
-Jetson, then upload. The new firmware powers the brain board up again.
+warning. So first: in the VESC Tool terminal `atlas_autooff 0` (the car stays on when the
+Jetson halts), then `sudo poweroff` on the Jetson and wait for it to halt, then upload. The
+STM32 does not press the Jetson's power button again after a shutdown, so it stays off until
+the upload. The new firmware powers the brain board up and, 5 s later, starts the Jetson.
 
 ## 8. Board ID
 
@@ -164,9 +167,18 @@ sudo atlas id --write --serial 001 --rev A
 ## The POWER_EN fix (proposed, not applied)
 
 R609 (100k, drive board) pulls STK_POWER_EN down. Whenever the STM32 is in reset, flashing,
-or blank, the brain board and the Jetson lose power. Proposed: connect R609 to +3V3 instead
-of GND. The firmware already drives PA4 high at start-up and low before it turns the car off,
-so only the reset and flashing moments change. With the fix:
+or blank, the brain board and the Jetson lose power. Proposed, two resistors:
+
+- R609 to +3V3 instead of GND. The firmware already drives PA4 high at start-up and low
+  before it turns the car off, so only the reset and flashing moments change.
+- A new 10k pull-down on GATE_EN_MCU (PB5, input A of the E-stop AND gate). Today nothing
+  holds it while the STM32 is in reset or in its ROM bootloader. The bootloader uses PB5 as
+  CAN2 RX and may pull it up, and it also uses PA9/PA10 (PWM_BH/PWM_CH), PB13 (PWM_AL) and
+  PC10/PC11 (ESTOP_OK, IMU SDA) for its USART1, USART3 and CAN2 interfaces (ST AN2606; the
+  exact pin states there have not been checked). With the gate driver held off by the
+  pull-down, those pins cannot switch the power stage while the motor bus is still charged.
+
+With both:
 
 - The Jetson stays up through STM32 resets and VESC Tool updates.
 - The Jetson can flash the STM32 itself, even a blank one, with no ST-Link and no cable in
@@ -175,9 +187,10 @@ so only the reset and flashing moments change. With the fix:
   port 2); then `stm32flash -b 115200 -w atlas_drv1_full.hex -v /dev/atlas_vesc` and
   `atlas stm32 run`. Unplug the USB-C cable during a UART flash so the bootloader does not pick
   USB instead. Untested; stm32flash's handling of a .hex with a gap has not been checked.
+  Without the GATE_EN pull-down, do not use this route (see above).
 - The brain board powers up as soon as the car is on, before the STM32 runs.
 
-After the change, set `ATLAS_POWER_EN_FIXED=1` in /etc/atlas/atlas.conf to unlock
+After both changes, set `ATLAS_POWER_EN_FIXED=1` in /etc/atlas/atlas.conf to unlock
 `atlas stm32`.
 
 ## Troubleshooting

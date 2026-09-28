@@ -45,9 +45,9 @@ def test_patch_load_blank_eeprom():
     assert chip.mode == 'APP '
     # PBMs input: size (LE32), temporary address, timeout
     pbms = [e for e in bus.log if e[0] == 'w' and e[2][:1] == b'\x09' and len(e[2]) == 8]
-    assert pbms[0][2][2:] == struct.pack('<IBB', len(LOW), 0x30, 0x32)
+    assert pbms[0][2][2:] == struct.pack('<IBB', len(LOW), 0x6C, 0x32)
     # the bundle went to the temporary address in 64-byte pieces
-    chunks = [e[2] for e in bus.log if e[0] == 'w' and e[1] == 0x30]
+    chunks = [e[2] for e in bus.log if e[0] == 'w' and e[1] == 0x6C]
     assert b''.join(chunks) == LOW and max(len(c) for c in chunks) == 64
     assert chip.eeprom == bytearray(b'\xff' * 0x10000)       # RAM only
 
@@ -56,7 +56,7 @@ def test_patch_load_bad_bundle_aborts():
     bus, chip, tps = setup()
     with pytest.raises(T.TPSError, match='patch complete status'):
         tps.load_patch(LOW[:-1] + b'\0')
-    assert chip.mode == 'PTCH' and 0x30 not in bus.devices
+    assert chip.mode == 'PTCH' and 0x6C not in bus.devices
 
 
 def test_patch_load_pbms_error():
@@ -71,6 +71,20 @@ def test_patch_load_needs_ptch():
     tps.load_patch(LOW)
     with pytest.raises(T.TPSError, match='PTCH'):
         tps.load_patch(LOW)
+
+
+def test_patch_address_skips_busy_ones():
+    bus, chip, tps = setup()
+
+    class Other:
+        def read(self, n):
+            return bytes(n)
+
+        def write(self, data):
+            raise AssertionError('patch bytes sent to a device that answers')
+    bus.attach(0x6C, Other())
+    tps.load_patch(LOW)
+    assert any(e[0] == 'w' and e[1] == 0x6E for e in bus.log)
 
 
 def test_patch_address_rules():
@@ -145,6 +159,14 @@ def test_update_refuses_oversized_bundle_for_region0():
     assert chip.mode == 'APP '
     with pytest.raises(T.TPSError, match='holds'):
         tps.eeprom_update(bytes(0x3C01))
+
+
+def test_update_limit_is_the_same_for_region1():
+    img = bytearray(b'\xff' * 0x10000)
+    img[:0x6000] = full_image()
+    bus, chip, tps = setup(eeprom=img)
+    with pytest.raises(T.TPSError, match='holds'):
+        tps.eeprom_update(bytes(0x3C01))              # region 1 is next, same limit
 
 
 def test_status_decoding():

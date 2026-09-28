@@ -103,34 +103,45 @@ class BusLock:
 
     The kernel serialises single transactions, but a read-modify-write of the expander, or a
     4CC command to the PD controller, is several. Re-entrant within one process, so a long
-    sequence can hold the lock around helpers that take it too.
+    sequence can hold the lock around helpers that take it too. The lock files are opened
+    read-only (flock does not need write access), so root services and user tools share them.
     """
-    _held = {}                  # path -> [file, depth]
+    _held = {}                  # path -> [fd, depth]
     _mutex = threading.RLock()
+    DIR = '/run/lock' if os.path.isdir('/run/lock') and os.access('/run/lock', os.W_OK | os.X_OK) else '/tmp'
 
     def __init__(self, name):
-        self.path = f'/run/lock/atlas-{name}.lock'
+        self.path = os.path.join(self.DIR, f'atlas-{name}.lock')
 
     def __enter__(self):
         BusLock._mutex.acquire()
-        entry = BusLock._held.get(self.path)
-        if entry:
-            entry[1] += 1
-            return self
         try:
-            f = open(self.path, 'w')
-        except OSError:
-            f = open(os.path.join('/tmp', os.path.basename(self.path)), 'w')
-        fcntl.flock(f, fcntl.LOCK_EX)
-        BusLock._held[self.path] = [f, 1]
-        return self
+            entry = BusLock._held.get(self.path)
+            if entry:
+                entry[1] += 1
+                return self
+            fd = os.open(self.path, os.O_RDONLY | os.O_CREAT, 0o666)
+            try:
+                os.fchmod(fd, 0o666)            # ours: let other users open it too
+            except OSError:
+                pass                            # someone else's file: reading it is enough
+            try:
+                fcntl.flock(fd, fcntl.LOCK_EX)
+            except OSError:
+                os.close(fd)
+                raise
+            BusLock._held[self.path] = [fd, 1]
+            return self
+        except BaseException:
+            BusLock._mutex.release()
+            raise
 
     def __exit__(self, *exc):
         entry = BusLock._held[self.path]
         entry[1] -= 1
         if entry[1] == 0:
             fcntl.flock(entry[0], fcntl.LOCK_UN)
-            entry[0].close()
+            os.close(entry[0])
             del BusLock._held[self.path]
         BusLock._mutex.release()
         return False

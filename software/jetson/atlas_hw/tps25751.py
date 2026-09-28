@@ -47,7 +47,11 @@ TASK_TIMEOUT = 1
 TASK_REJECTED = 3
 PBMS_ERRORS = {4: 'invalid bundle size', 5: 'invalid temporary address', 6: 'invalid timeout'}
 BUNDLE_TIMEOUT = 0x32           # PBMs timeout in 100 ms steps (5 s, as in Linux)
-PATCH_ADDR = 0x30               # temporary target address for the burst (not 0, not 0x20-0x23)
+# Temporary target address for the burst: not 0, not 0x20-0x23 (TI), and nothing else on the stack
+# I2C may answer there. Taken: 0x20 (this chip), 0x28 and 0x30 (TPS23861, 0x30 is its broadcast
+# address), 0x40 (INA228), 0x50-0x57 (the 24AA02 ignores its address pins). Each candidate is
+# probed first and must not acknowledge.
+PATCH_ADDR_CANDIDATES = (0x6C, 0x6E, 0x74, 0x1C)
 
 REGION_PTR = (0x0000, 0x0400)       # 32-bit little-endian pointer per region; 0 = region unused
 REGION_BUNDLE = (0x0800, 0x4400)    # where each region's bundle starts
@@ -166,9 +170,19 @@ class TPS25751:
         return self.wait_mode(('APP ', 'PTCH'), timeout)
 
     # ---- patch burst mode (RAM only)
-    def load_patch(self, bundle, temp_addr=PATCH_ADDR, chunk=64):
+    def free_patch_address(self):
+        for addr in PATCH_ADDR_CANDIDATES:
+            try:
+                self.bus.read(addr, 1)
+            except I2CError:
+                return addr                     # nobody answered
+        raise TPSError('every candidate patch address answers on this bus')
+
+    def load_patch(self, bundle, temp_addr=None, chunk=64):
         """Load a Low Region binary into RAM (PTCH mode only). The controller then runs it."""
         bundle = bytes(bundle)
+        if temp_addr is None:
+            temp_addr = self.free_patch_address()
         if temp_addr == 0 or 0x20 <= temp_addr <= 0x23 or temp_addr > 0x77:
             raise ValueError(f'0x{temp_addr:02x} cannot be the patch address')
         with BusLock('tps25751'):
@@ -287,7 +301,7 @@ class TPS25751:
                                'Full Flash binary once first (eeprom_write_full)')
             old = active[0]
             new = 1 - old
-            limit = (REGION_BUNDLE[1] if new == 0 else EEPROM_SIZE) - REGION_BUNDLE[new]
+            limit = REGION_BUNDLE[1] - REGION_BUNDLE[0]     # both regions take the same file
             if len(lowregion) > limit:
                 raise TPSError(f'Low Region binary is {len(lowregion)} bytes; region {new} holds {limit}')
             self.log(f'active region {old}, writing region {new}')

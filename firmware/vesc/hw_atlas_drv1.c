@@ -32,6 +32,7 @@
 #include "hal.h"
 #include "stm32f4xx_conf.h"
 #include "utils_math.h"
+#include "utils_sys.h"
 #include "drv8323s.h"
 #include "terminal.h"
 #include "commands.h"
@@ -56,17 +57,22 @@ static const I2CConfig i2cfg = {
 #define SUP_PERIOD_MS				5		// supervisor loop
 #define PRECHARGE_CHECK_MS			10		// time before the "is the bus shorted" check
 #define PRECHARGE_MAX_MS			400		// the bus must have settled by then
-#define PRECHARGE_RETRY_GAP_MS		15000	// between manual retries (resistor pulse rating)
+#define PRECHARGE_RETRY_GAP_MS		15000	// between precharges (resistor pulse rating)
+#define BUS_LOST_V					6.0		// the motor bus below this while on: the main switch tripped
+#define BUS_LOST_MS					20
+#define TRIP_AUTO_RETRIES			3		// automatic precharges after trips, then only atlas_precharge
 #define DRV_WAKE_MS					2		// DRV8323 wake-up before SPI works (datasheet ~1 ms)
-#define DRV_CHECK_MS				250		// read back the CSA gain this often
 #define DRV_HOLD_AFTER_RESTORE_MS	500		// keep the motor released after a restore
+#define DCCAL_GOOD_CFG_MS			1500	// the boot offsets count if the gain was right this long before
 #define JETSON_PRESS_AFTER_MS		5000	// press the power button if the module is still off
 #define JETSON_PRESS_MS				500
 #define JETSON_PRESS_RETRY_MS		20000
 #define JETSON_ON_CONFIRM_MS		1000	// OS_HALTED low this long = module running
 #define JETSON_HALT_CONFIRM_MS		3000	// OS_HALTED high this long after running = module halted
 #define JETSON_SHUTDOWN_PRESS_MS	1000	// power-key event length for a shutdown request
-#define JETSON_SHUTDOWN_WAIT_MS		60000	// then wait this long for it to halt
+#define JETSON_SHUTDOWN_REPRESS_MS	10000	// press again this often while it has not halted
+#define JETSON_SHUTDOWN_WAIT_MS		60000	// then give up waiting and switch off
+#define BUTTON_SAMPLES				3		// consecutive low samples (10 ms apart) for a press
 
 typedef enum {
 	PWR_WAIT_ADC = 0,
@@ -75,28 +81,34 @@ typedef enum {
 	PWR_FAULT_SHORT,		// the bus did not rise: something on VM is shorted
 	PWR_FAULT_TIMEOUT,		// the bus did not settle in time
 	PWR_MAIN_OFF,			// opened on purpose (terminal)
+	PWR_TRIPPED,			// the bus collapsed while on (TPS48111 over-current trip, most likely)
 	PWR_SHUTTING_DOWN,
 } atlas_pwr_state;
 
 static const char *pwr_state_names[] = {
 		"waiting for ADC", "precharging", "on", "FAULT: bus shorted (did not rise)",
-		"FAULT: bus did not settle", "main switch off (terminal)", "shutting down"
+		"FAULT: bus did not settle", "main switch off (terminal)",
+		"TRIPPED: bus lost while on, main switch opened", "shutting down"
 };
 
 static THD_WORKING_AREA(sup_thread_wa, 2048);
 static volatile atlas_pwr_state m_pwr_state = PWR_WAIT_ADC;
 static volatile bool m_precharge_request = true;		// run once at boot
+static volatile bool m_precharge_done_once = false;
 static volatile systime_t m_last_precharge_time = 0;
 static volatile float m_precharge_v_end = 0.0;
+static volatile int m_trips = 0;
 
 static volatile bool m_drv_cfg_ok = false;			// CSA gain read back as 40 V/V since the last wake
-static volatile bool m_dccal_suspect = false;		// current offsets measured while the DRV slept
+static volatile bool m_dccal_suspect = false;		// current offsets measured with the DRV not ready
 static volatile int m_drv_restores = 0;
 static volatile int m_drv_restore_failures = 0;
 static volatile int m_estop_openings = 0;
 
-static volatile bool m_jetson_seen_on = false;
+static volatile bool m_jetson_seen_on = false;		// running now (for halt detection)
+static volatile bool m_jetson_ever_on = false;		// ran since the brain board got power
 static volatile int m_jetson_presses = 0;
+static volatile systime_t m_brain_on_time = 0;
 static volatile bool m_auto_off = true;				// turn the car off when the Jetson halts
 static volatile bool m_poweroff_request = false;	// from the terminal, done by the supervisor
 static volatile bool m_poweroff_active = false;
@@ -119,6 +131,11 @@ static void terminal_autooff(int argc, const char **argv);
 static void terminal_poweroff(int argc, const char **argv);
 static void terminal_button_test(int argc, const char **argv);
 
+// Milliseconds since t. ST2MS() overflows 32 bits after about 7 minutes at 10 kHz.
+static float age_ms(systime_t t) {
+	return UTILS_AGE_S(t) * 1000.0f;
+}
+
 static float avg_input_voltage(void) {
 	float sum = 0.0;
 	for (int i = 0;i < 8;i++) {
@@ -132,8 +149,9 @@ float hw_atlas_get_bus_current(void) {
 	return ADC_VOLTS(ADC_IND_EXT) / ATLAS_IMON_V_PER_A;
 }
 
-// Motor released and user commands ignored for the next ms milliseconds. Only valid once
-// mc_interface is running (its first DC calibration done).
+// One-off: motor released and user commands ignored for the next ms milliseconds. Only valid
+// once mc_interface is running (its first DC calibration done). Logs two events, so the
+// supervisor loop does not call it every pass.
 static void atlas_hold_motor(int ms) {
 	if (!mcpwm_foc_is_dccal_done()) {
 		return;
@@ -148,6 +166,7 @@ static void atlas_hold_motor(int ms) {
 static bool atlas_precharge(void) {
 	m_pwr_state = PWR_PRECHARGE;
 	m_last_precharge_time = chVTGetSystemTimeX();
+	m_precharge_done_once = true;
 
 	palClearPad(HW_MAIN_ON_GPIO, HW_MAIN_ON_PIN);
 	palSetPad(HW_PRECHG_GPIO, HW_PRECHG_PIN);
@@ -190,17 +209,15 @@ static bool atlas_precharge(void) {
 	return true;
 }
 
-// DRV8323 settings as drv8323s_init() and mc_interface_init() leave them.
+// DRV8323 settings as drv8323s_init() and mc_interface_init() leave them. The DRV8323 runs from
+// the switched bus (VM), so it starts with its defaults (20 V/V) after every precharge, and it
+// resets whenever ENABLE stays low for about a millisecond (E-stop).
 static bool atlas_drv_restore(void) {
 	const volatile mc_configuration *conf = mc_interface_get_configuration();
 
 	if (atlas_drv_gain_ok()) {
-		return true;	// awake and still configured (e.g. the first check after boot)
+		return true;	// awake and still configured
 	}
-
-	// The DRV8323 came back with its defaults (20 V/V): whatever current offsets were measured
-	// since it last woke up belong to the other gain or to a sleeping chip.
-	m_dccal_suspect = true;
 
 	drv8323s_write_reg(5, 0b0000000111010000);
 	drv8323s_set_current_amp_gain(CURRENT_AMP_GAIN);
@@ -224,6 +241,13 @@ static bool atlas_drv_gain_ok(void) {
 	return ((reg >> 6) & 0x03) == 0x03;
 }
 
+// Press the Jetson's power key (SLEEP/WAKE*, through PWR_SOFT on the brain board).
+static void jetson_press(int ms) {
+	palClearPad(HW_JETSON_REQ_GPIO, HW_JETSON_REQ_PIN);
+	chThdSleepMilliseconds(ms);
+	palSetPad(HW_JETSON_REQ_GPIO, HW_JETSON_REQ_PIN);
+}
+
 // The whole power-off: motor off, Jetson asked to shut down (optional), brain board off, main
 // switch open, latch cleared. Does not return while the board still has power.
 static void atlas_power_off(bool ask_jetson) {
@@ -235,18 +259,23 @@ static void atlas_power_off(bool ask_jetson) {
 	atlas_hold_motor(100000);
 
 	if (ask_jetson && !palReadPad(HW_JETSON_HALTED_GPIO, HW_JETSON_HALTED_PIN)) {
-		palClearPad(HW_JETSON_REQ_GPIO, HW_JETSON_REQ_PIN);
-		chThdSleepMilliseconds(JETSON_SHUTDOWN_PRESS_MS);
-		palSetPad(HW_JETSON_REQ_GPIO, HW_JETSON_REQ_PIN);
-
+		// A key press during the Jetson's own boot is lost, so press again every 10 s until it
+		// halts. Only while it runs: the same line switches a halted module back on.
+		jetson_press(JETSON_SHUTDOWN_PRESS_MS);
 		int halted_ms = 0;
+		int since_press_ms = 0;
 		for (int t = 0;t < JETSON_SHUTDOWN_WAIT_MS && halted_ms < 500;t += 50) {
 			chThdSleepMilliseconds(50);
+			since_press_ms += 50;
 			DISABLE_GATE();
 			if (palReadPad(HW_JETSON_HALTED_GPIO, HW_JETSON_HALTED_PIN)) {
 				halted_ms += 50;
 			} else {
 				halted_ms = 0;
+				if (since_press_ms >= JETSON_SHUTDOWN_REPRESS_MS) {
+					jetson_press(JETSON_SHUTDOWN_PRESS_MS);
+					since_press_ms = 0;
+				}
 			}
 		}
 	}
@@ -277,15 +306,20 @@ static THD_FUNCTION(sup_thread, arg) {
 	// The ADC starts inside mc_interface_init(), after hw_init_gpio(). Vrefint reads about
 	// 1500 counts once the DMA is running.
 	systime_t t_start = chVTGetSystemTimeX();
-	while (ADC_Value[ADC_IND_VREFINT] < 1000 && ST2MS(chVTTimeElapsedSinceX(t_start)) < 3000) {
+	while (ADC_Value[ADC_IND_VREFINT] < 1000 && age_ms(t_start) < 3000.0f) {
 		chThdSleepMilliseconds(5);
 	}
 	chThdSleepMilliseconds(20);
 
-	systime_t t_boot = chVTGetSystemTimeX();
+	m_brain_on_time = chVTGetSystemTimeX();
 	bool drv_awake_last = false;
-	systime_t t_drv_awake = t_boot;
-	systime_t t_drv_check = t_boot;
+	systime_t t_drv_awake = m_brain_on_time;
+	systime_t t_cfg_ok = m_brain_on_time;
+	bool dccal_done_last = false;
+	int hold_ms = 0;
+	bool motor_held = false;
+	int bus_low_ms = 0;
+	systime_t t_trip = m_brain_on_time;
 	systime_t t_press_start = 0;
 	bool pressing = false;
 	systime_t t_last_press = 0;
@@ -294,20 +328,45 @@ static THD_FUNCTION(sup_thread, arg) {
 
 	for (;;) {
 		systime_t now = chVTGetSystemTimeX();
+		bool dccal_done = mcpwm_foc_is_dccal_done();
 
 		// ---- main switch
 		if (m_precharge_request) {
 			m_precharge_request = false;
 			atlas_precharge();
+			now = chVTGetSystemTimeX();
 		}
 
-		// ---- E-stop and DRV8323 configuration
+		// A TPS48111 trip opens the FETs and its timer re-closes them 15 s later with no
+		// precharge. Watch the bus: if it collapses, drop MAIN_ON so the chip stays off, and
+		// precharge again after the pulse-rating gap (a few times at most).
+		if (m_pwr_state == PWR_ON) {
+			if (GET_INPUT_VOLTAGE() < BUS_LOST_V) {
+				bus_low_ms += SUP_PERIOD_MS;
+				if (bus_low_ms >= BUS_LOST_MS) {
+					palClearPad(HW_MAIN_ON_GPIO, HW_MAIN_ON_PIN);
+					palClearPad(HW_PRECHG_GPIO, HW_PRECHG_PIN);
+					m_pwr_state = PWR_TRIPPED;
+					m_trips++;
+					t_trip = now;
+					commands_printf("ATLAS: motor bus lost while on (trip %d), main switch opened", m_trips);
+				}
+			} else {
+				bus_low_ms = 0;
+			}
+		} else {
+			bus_low_ms = 0;
+		}
+		if (m_pwr_state == PWR_TRIPPED && m_trips <= TRIP_AUTO_RETRIES &&
+				age_ms(t_trip) >= (float)PRECHARGE_RETRY_GAP_MS &&
+				age_ms(m_last_precharge_time) >= (float)PRECHARGE_RETRY_GAP_MS) {
+			m_precharge_request = true;
+		}
+
+		// ---- E-stop and DRV8323 configuration. The DRV8323 is only powered and awake with the
+		// bus up, the E-stop loop closed and PB5 high.
 		bool estop_ok = IS_ESTOP_OK();
-		bool drv_awake = estop_ok && IS_GATE_ENABLED();
-
-		if (!estop_ok) {
-			atlas_hold_motor(50);
-		}
+		bool drv_awake = estop_ok && IS_GATE_ENABLED() && m_pwr_state == PWR_ON;
 
 		if (drv_awake && !drv_awake_last) {
 			t_drv_awake = now;
@@ -319,44 +378,58 @@ static THD_FUNCTION(sup_thread, arg) {
 				m_estop_openings++;
 			}
 		}
-		if (!drv_awake && !mcpwm_foc_is_dccal_done()) {
-			m_dccal_suspect = true;		// the boot calibration saw a sleeping DRV
-		}
 		drv_awake_last = drv_awake;
 
-		if (drv_awake && mcpwm_foc_is_dccal_done() &&
-				ST2MS(chVTTimeElapsedSinceX(t_drv_awake)) >= DRV_WAKE_MS) {
+		if (drv_awake && age_ms(t_drv_awake) >= (float)DRV_WAKE_MS) {
 			if (!m_drv_cfg_ok) {
-				atlas_hold_motor(DRV_HOLD_AFTER_RESTORE_MS);
 				if (atlas_drv_restore()) {
 					m_drv_cfg_ok = true;
-					atlas_hold_motor(DRV_HOLD_AFTER_RESTORE_MS);
+					t_cfg_ok = now;
+					hold_ms = DRV_HOLD_AFTER_RESTORE_MS;
 				}
-				t_drv_check = now;
-			} else if (ST2MS(chVTTimeElapsedSinceX(t_drv_check)) >= DRV_CHECK_MS) {
-				t_drv_check = now;
-				if (!atlas_drv_gain_ok()) {
-					m_drv_cfg_ok = false;	// reset behind our back: restore on the next pass
-					m_dccal_suspect = true;
-					atlas_hold_motor(DRV_HOLD_AFTER_RESTORE_MS);
-				}
+			} else if (!atlas_drv_gain_ok()) {
+				m_drv_cfg_ok = false;			// reset behind our back: restore on the next pass
+				commands_printf("ATLAS: DRV8323 lost its settings, restoring");
 			}
 		}
 
-		if (!m_drv_cfg_ok && mcpwm_foc_is_dccal_done()) {
-			atlas_hold_motor(50);
+		// VESC measures the current-sensor offsets once at boot, about a second after the bus
+		// comes up. They are only right if the DRV8323 had its 40 V/V gain the whole time.
+		if (dccal_done && !dccal_done_last) {
+			m_dccal_suspect = !(m_drv_cfg_ok && age_ms(t_cfg_ok) >= (float)DCCAL_GOOD_CFG_MS);
+		}
+		dccal_done_last = dccal_done;
+
+		// Motor released and commands ignored while any of this is not right
+		bool need_hold = !estop_ok || !m_drv_cfg_ok || m_pwr_state != PWR_ON || hold_ms > 0;
+		if (hold_ms > 0) {
+			hold_ms -= SUP_PERIOD_MS;
+		}
+		if (dccal_done && need_hold) {
+			mc_interface_ignore_input_both(50);
+			if (!motor_held) {
+				mc_interface_release_motor_override_both();
+				motor_held = true;
+			}
+		} else {
+			motor_held = false;
 		}
 
-		// Redo the current offset calibration once the DRV is configured and the motor is still.
-		if (m_dccal_suspect && m_drv_cfg_ok && drv_awake && m_pwr_state == PWR_ON &&
+		// Measure the offsets again when the boot measurement was not trustworthy: DRV ready,
+		// motor still, commands locked out while VESC's calibration runs (about 1.4 s).
+		if (m_dccal_suspect && dccal_done && m_drv_cfg_ok && drv_awake && !IS_DRV_FAULT() &&
 				fabsf(mc_interface_get_rpm()) < 200.0) {
-			atlas_hold_motor(5000);
-			int res = mcpwm_foc_dc_cal(false);
+			mc_interface_lock();
+			mc_interface_release_motor_override_both();
+			int res = mcpwm_foc_dc_cal(false);	// unlocks mc_interface when it completes
+			if (res < 0) {
+				mc_interface_unlock();
+			}
 			if (res >= 0 && IS_ESTOP_OK() && atlas_drv_gain_ok()) {
 				m_dccal_suspect = false;
 			}
-			atlas_hold_motor(DRV_HOLD_AFTER_RESTORE_MS);
-			t_drv_check = chVTGetSystemTimeX();
+			hold_ms = DRV_HOLD_AFTER_RESTORE_MS;
+			now = chVTGetSystemTimeX();
 		}
 
 		// ---- Jetson (brain board)
@@ -368,6 +441,7 @@ static THD_FUNCTION(sup_thread, arg) {
 			jetson_halted_ms = 0;
 			if (jetson_on_ms >= JETSON_ON_CONFIRM_MS) {
 				m_jetson_seen_on = true;
+				m_jetson_ever_on = true;
 			}
 		} else {
 			jetson_halted_ms += SUP_PERIOD_MS;
@@ -375,17 +449,17 @@ static THD_FUNCTION(sup_thread, arg) {
 		}
 
 		// Antmicro's SW1 decides whether the module starts by itself when the brain board gets
-		// power. If it is still off after a while, press its power button (PWR_SOFT) once, and
-		// once more later. Only ever while it is off: the same line is its power key.
+		// power. If it has not started a while after the brain board got power, press its power
+		// button once, and once more later. Never after it has run: a Jetson that was shut down
+		// on purpose stays down.
 		if (pressing) {
-			if (ST2MS(chVTTimeElapsedSinceX(t_press_start)) >= JETSON_PRESS_MS) {
+			if (age_ms(t_press_start) >= (float)JETSON_PRESS_MS) {
 				palSetPad(HW_JETSON_REQ_GPIO, HW_JETSON_REQ_PIN);
 				pressing = false;
 			}
-		} else if (brain_on && !m_jetson_seen_on && halted && m_jetson_presses < 2 &&
-				ST2MS(chVTTimeElapsedSinceX(t_boot)) >= JETSON_PRESS_AFTER_MS &&
-				(m_jetson_presses == 0 ||
-						ST2MS(chVTTimeElapsedSinceX(t_last_press)) >= JETSON_PRESS_RETRY_MS)) {
+		} else if (brain_on && !m_jetson_ever_on && halted && m_jetson_presses < 2 &&
+				age_ms(m_brain_on_time) >= (float)JETSON_PRESS_AFTER_MS &&
+				(m_jetson_presses == 0 || age_ms(t_last_press) >= (float)JETSON_PRESS_RETRY_MS)) {
 			palClearPad(HW_JETSON_REQ_GPIO, HW_JETSON_REQ_PIN);
 			pressing = true;
 			t_press_start = now;
@@ -674,17 +748,26 @@ void hw_try_restore_i2c(void) {
 }
 
 // ATLAS: the button is buffered (74LVC1G34) onto PC5, low while pressed. VESC's shutdown thread
-// wants true while it is NOT pressed.
+// samples every 10 ms and wants true while it is NOT pressed; a press counts after
+// BUTTON_SAMPLES low samples in a row, so a spike on the remote button lead does not.
 bool hw_sample_shutdown_button(void) {
-	return palReadPad(HW_BTN_GPIO, HW_BTN_PIN) != 0;
+	static int low_samples = 0;
+	if (palReadPad(HW_BTN_GPIO, HW_BTN_PIN) == 0) {
+		if (low_samples < BUTTON_SAMPLES) {
+			low_samples++;
+		}
+	} else {
+		low_samples = 0;
+	}
+	return low_samples < BUTTON_SAMPLES;
 }
 
 static void terminal_status(int argc, const char **argv) {
 	(void)argc;
 	(void)argv;
 
-	commands_printf("Main switch:  %s (bus %.2f V, last precharge ended at %.2f V)",
-			pwr_state_names[m_pwr_state], (double)GET_INPUT_VOLTAGE(), (double)m_precharge_v_end);
+	commands_printf("Main switch:  %s (bus %.2f V, last precharge ended at %.2f V, %d trips)",
+			pwr_state_names[m_pwr_state], (double)GET_INPUT_VOLTAGE(), (double)m_precharge_v_end, m_trips);
 	commands_printf("Bus current:  %.1f A (TPS48111 IMON)", (double)hw_atlas_get_bus_current());
 	commands_printf("E-stop loop:  %s (%d openings since boot)",
 			IS_ESTOP_OK() ? "closed" : "OPEN", m_estop_openings);
@@ -692,7 +775,7 @@ static void terminal_status(int argc, const char **argv) {
 			IS_GATE_ENABLED() ? "enabled" : "disabled",
 			m_drv_cfg_ok ? "40 V/V (checked)" : "NOT CONFIRMED (motor held)",
 			m_drv_restores, m_drv_restore_failures,
-			m_dccal_suspect ? "to be measured again" : "ok");
+			m_dccal_suspect ? "to be measured again (motor still, E-stop closed)" : "ok");
 	commands_printf("Brain board:  POWER_EN %s, Jetson %s, %d power-button presses, auto-off %s",
 			((HW_BRAIN_EN_GPIO->ODR & (1 << HW_BRAIN_EN_PIN))) ? "on" : "off",
 			palReadPad(HW_JETSON_HALTED_GPIO, HW_JETSON_HALTED_PIN) ? "off (OS_HALTED high)" : "running",
@@ -713,11 +796,12 @@ static void terminal_precharge(int argc, const char **argv) {
 		commands_printf("Busy.");
 		return;
 	}
-	if (ST2MS(chVTTimeElapsedSinceX(m_last_precharge_time)) < PRECHARGE_RETRY_GAP_MS) {
+	if (m_precharge_done_once && age_ms(m_last_precharge_time) < (float)PRECHARGE_RETRY_GAP_MS) {
 		commands_printf("Wait %d s between tries: the precharge resistors take one pulse at a time.",
 				PRECHARGE_RETRY_GAP_MS / 1000);
 		return;
 	}
+	m_trips = 0;
 	m_precharge_request = true;
 	commands_printf("Precharging...");
 }
@@ -743,6 +827,11 @@ static void terminal_brain(int argc, const char **argv) {
 	}
 
 	if (strcmp(argv[1], "on") == 0) {
+		if (!(HW_BRAIN_EN_GPIO->ODR & (1 << HW_BRAIN_EN_PIN))) {
+			m_jetson_ever_on = false;		// a fresh start: the power-button help applies again
+			m_jetson_presses = 0;
+			m_brain_on_time = chVTGetSystemTimeX();
+		}
 		palSetPad(HW_BRAIN_EN_GPIO, HW_BRAIN_EN_PIN);
 		commands_printf("Brain board power on.");
 	} else if (strcmp(argv[1], "off") == 0) {
@@ -750,9 +839,7 @@ static void terminal_brain(int argc, const char **argv) {
 		m_jetson_seen_on = false;
 		commands_printf("Brain board power off (without a shutdown: only for a Jetson that is halted or hung).");
 	} else if (strcmp(argv[1], "press") == 0) {
-		palClearPad(HW_JETSON_REQ_GPIO, HW_JETSON_REQ_PIN);
-		chThdSleepMilliseconds(JETSON_PRESS_MS);
-		palSetPad(HW_JETSON_REQ_GPIO, HW_JETSON_REQ_PIN);
+		jetson_press(JETSON_PRESS_MS);
 		commands_printf("Pressed the Jetson power button (turns it on if off, asks it to shut down if on).");
 	} else {
 		commands_printf("Usage: atlas_brain [on|off|press]");

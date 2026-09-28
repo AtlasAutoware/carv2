@@ -310,7 +310,8 @@
 #define MCCONF_L_IN_CURRENT_MIN				-12.0	// ATLAS: regen into the pack, about 4 A per cell (4S3P P28A)
 #endif
 #ifndef MCCONF_L_MAX_ABS_CURRENT
-#define MCCONF_L_MAX_ABS_CURRENT			180.0	// ATLAS: fault above this (shunt range +-206 A)
+#define MCCONF_L_MAX_ABS_CURRENT			150.0	// ATLAS: fault above this. The CSA is linear to about +-175 A
+													// (0.25 V from its rails at 40 V/V x 0.2 mOhm), so stay under it
 #endif
 #ifndef MCCONF_L_MAX_VOLTAGE
 #define MCCONF_L_MAX_VOLTAGE				20.0	// ATLAS: 4S pack, 16.8 V full
@@ -332,10 +333,11 @@
 
 // ATLAS: pack defaults (4S3P Molicel P28A: cutoff starts at 3.0 V per cell and ends at 2.8 V)
 #ifndef MCCONF_L_BATTERY_CUT_START
-#define MCCONF_L_BATTERY_CUT_START		12.0
+#define MCCONF_L_BATTERY_CUT_START		13.4	// ATLAS: 3.35 V per cell under load, so VESC limits
+												// current before the BMS trips at 3.00 V per cell
 #endif
 #ifndef MCCONF_L_BATTERY_CUT_END
-#define MCCONF_L_BATTERY_CUT_END		11.2
+#define MCCONF_L_BATTERY_CUT_END		12.6	// ATLAS: 3.15 V per cell. Starting values: measure
 #endif
 #ifndef MCCONF_SI_BATTERY_CELLS
 #define MCCONF_SI_BATTERY_CELLS			4
@@ -352,7 +354,7 @@
 // Setting limits
 #define HW_LIM_CURRENT			-120.0, 120.0	// ATLAS
 #define HW_LIM_CURRENT_IN		-60.0, 110.0	// ATLAS
-#define HW_LIM_CURRENT_ABS		0.0, 200.0	// ATLAS
+#define HW_LIM_CURRENT_ABS		0.0, 170.0	// ATLAS: inside the CSA's linear range
 #define HW_LIM_VIN				6.0, 26.0	// ATLAS: 40 V FETs, 35 V bulk caps; 4S nominal
 #define HW_LIM_ERPM				-200e3, 200e3
 #define HW_LIM_DUTY_MIN			0.0, 0.1
