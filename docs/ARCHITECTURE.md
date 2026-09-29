@@ -353,8 +353,8 @@ change.
 4. Make the TPS25751D's EEPROM files with TI's Application Customization Tool
    (`docs/TPS25751_CONFIG.md`). They are written on the assembled board from the Jetson
    (`docs/FLASHING.md`), so J702 does not need fitting.
-5. Decide the POWER_EN fix (`docs/FLASHING.md`): R609 to +3V3 instead of GND, plus a 10k
-   pull-down on GATE_EN_MCU. It keeps the Jetson powered while the STM32 resets and lets the
+5. The POWER_EN fix is in (Sept 29, `docs/FLASHING.md`): R609 to +3V3 instead of GND, plus R625,
+   a 10k pull-down on GATE_EN_MCU. It keeps the Jetson powered while the STM32 resets and lets the
    Jetson flash the STM32 itself.
 
 **First power-up.** Pack and BMS alone first, then the main switch and precharge with no motor,

@@ -1,12 +1,12 @@
 %TF.GenerationSoftware,KiCad,Pcbnew,10.0.6*%
-%TF.CreationDate,2026-09-27T16:00:07-04:00*%
+%TF.CreationDate,2026-09-29T05:45:54-04:00*%
 %TF.ProjectId,atlas_drive,61746c61-735f-4647-9269-76652e6b6963,rev?*%
 %TF.SameCoordinates,Original*%
 %TF.FileFunction,Soldermask,Top*%
 %TF.FilePolarity,Negative*%
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 10.0.6) date 2026-09-27 16:00:07*
+G04 Created by KiCad (PCBNEW 10.0.6) date 2026-09-29 05:45:54*
 %MOMM*%
 %LPD*%
 G01*
@@ -533,6 +533,10 @@ D13*
 %TO.C,R523*%
 X116990000Y-104250000D03*
 X118010000Y-104250000D03*
+%TD*%
+%TO.C,R625*%
+X61500000Y-107763000D03*
+X62520000Y-107763000D03*
 %TD*%
 D34*
 %TO.C,Q506*%

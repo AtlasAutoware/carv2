@@ -1,5 +1,5 @@
 ** Drc report for atlas_brain.kicad_pcb **
-** Created on 2026-09-27T15:13:25 **
+** Created on 2026-09-29T05:46:25 **
 ** Report includes: Errors, Warnings, Exclusions **
 
 ** Found 253 DRC violations **
@@ -614,6 +614,38 @@
     @(127.0500 mm, 95.2000 mm): Footprint C10
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
+    @(69.3383 mm, 83.5900 mm): Reference field of C1
+    @(70.7600 mm, 81.5600 mm): Segment on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(55.0100 mm, 58.3000 mm): Segment of D1201 on F.Silkscreen
+    @(55.0900 mm, 50.6000 mm): Segment of D1202 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(55.0100 mm, 54.0000 mm): Segment of D1201 on F.Silkscreen
+    @(55.0900 mm, 50.6000 mm): Segment of D1202 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(55.0100 mm, 58.3000 mm): Segment of D1201 on F.Silkscreen
+    @(55.0900 mm, 54.9000 mm): Segment of D1202 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(68.6700 mm, 102.0950 mm): Reference field of C157
+    @(68.9500 mm, 103.0500 mm): Segment on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(48.0500 mm, 107.8000 mm): PCB text 'ETH' on F.Silkscreen
+    @(48.4000 mm, 110.2000 mm): Reference field of J6
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(31.0900 mm, 102.2000 mm): Segment of D1203 on F.Silkscreen
+    @(30.9000 mm, 102.8000 mm): PCB text 'PoE' on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
+    @(30.9000 mm, 102.8000 mm): PCB text 'PoE' on F.Silkscreen
+    @(31.0900 mm, 102.2000 mm): Segment of D1203 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: board setup constraints silk; warning
     @(133.1190 mm, 126.0200 mm): Segment of D27 on F.Silkscreen
     @(132.9000 mm, 124.2500 mm): PCB text 'LED 1' on F.Silkscreen
 [silk_overlap]: Silkscreen clearance
@@ -622,64 +654,32 @@
     @(134.8000 mm, 124.2500 mm): PCB text 'LED 0' on F.Silkscreen
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
-    @(129.7300 mm, 113.2200 mm): Reference field of TP8
-    @(130.6000 mm, 111.1500 mm): Rectangle on F.Silkscreen
-[silk_overlap]: Silkscreen clearance
-    Rule: board setup constraints silk; warning
     @(131.7000 mm, 105.7167 mm): Reference field of U30
     @(132.0500 mm, 104.7500 mm): PCB text 'DRV' on F.Silkscreen
-[silk_overlap]: Silkscreen clearance
-    Rule: board setup constraints silk; warning
-    @(129.1000 mm, 104.6167 mm): Reference field of D51
-    @(129.1500 mm, 105.2000 mm): PCB text 'WLAN' on F.Silkscreen
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
     @(130.6000 mm, 104.2500 mm): PCB text 'BT' on F.Silkscreen
     @(131.7000 mm, 105.7167 mm): Reference field of U30
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
-    @(55.0100 mm, 58.3000 mm): Segment of D1201 on F.Silkscreen
-    @(55.0900 mm, 54.9000 mm): Segment of D1202 on F.Silkscreen
+    @(129.7300 mm, 113.2200 mm): Reference field of TP8
+    @(130.6000 mm, 111.1500 mm): Rectangle on F.Silkscreen
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
-    @(69.3383 mm, 83.5900 mm): Reference field of C1
-    @(70.7600 mm, 81.5600 mm): Segment on F.Silkscreen
-[silk_overlap]: Silkscreen clearance
-    Rule: board setup constraints silk; warning
-    @(68.6700 mm, 102.0950 mm): Reference field of C157
-    @(68.9500 mm, 103.0500 mm): Segment on F.Silkscreen
-[silk_overlap]: Silkscreen clearance
-    Rule: board setup constraints silk; warning
-    @(55.0100 mm, 54.0000 mm): Segment of D1201 on F.Silkscreen
-    @(55.0900 mm, 50.6000 mm): Segment of D1202 on F.Silkscreen
-[silk_overlap]: Silkscreen clearance
-    Rule: board setup constraints silk; warning
-    @(55.0100 mm, 58.3000 mm): Segment of D1201 on F.Silkscreen
-    @(55.0900 mm, 50.6000 mm): Segment of D1202 on F.Silkscreen
-[silk_overlap]: Silkscreen clearance
-    Rule: board setup constraints silk; warning
-    @(30.9000 mm, 102.8000 mm): PCB text 'PoE' on F.Silkscreen
-    @(31.0900 mm, 102.2000 mm): Segment of D1203 on F.Silkscreen
-[silk_overlap]: Silkscreen clearance
-    Rule: board setup constraints silk; warning
-    @(31.0900 mm, 102.2000 mm): Segment of D1203 on F.Silkscreen
-    @(30.9000 mm, 102.8000 mm): PCB text 'PoE' on F.Silkscreen
-[silk_overlap]: Silkscreen clearance
-    Rule: board setup constraints silk; warning
-    @(48.0500 mm, 107.8000 mm): PCB text 'ETH' on F.Silkscreen
-    @(48.4000 mm, 110.2000 mm): Reference field of J6
+    @(129.1000 mm, 104.6167 mm): Reference field of D51
+    @(129.1500 mm, 105.2000 mm): PCB text 'WLAN' on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(129.1500 mm, 105.2000 mm): PCB text 'WLAN' on F.Silkscreen
-    @(128.9000 mm, 107.4200 mm): Pad 1 [Net-(D52-A)] of R187 on F.Cu
+    @(30.9000 mm, 102.8000 mm): PCB text 'PoE' on F.Silkscreen
+    @(32.6000 mm, 104.3500 mm): Pad 1 [POE_52V] of D1203 on F.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(47.0000 mm, 102.8000 mm): PCB text 'HPM' on F.Silkscreen
     @(45.8250 mm, 102.4900 mm): Pad 2 [GND] of C1217 on F.Cu
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(30.9000 mm, 102.8000 mm): PCB text 'PoE' on F.Silkscreen
-    @(32.6000 mm, 104.3500 mm): Pad 1 [POE_52V] of D1203 on F.Cu
+    @(129.1500 mm, 105.2000 mm): PCB text 'WLAN' on F.Silkscreen
+    @(128.9000 mm, 107.4200 mm): Pad 1 [Net-(D52-A)] of R187 on F.Cu
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
     @(75.7800 mm, 122.7100 mm): PCB text 'SPI' on B.Silkscreen

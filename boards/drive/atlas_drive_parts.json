@@ -7873,6 +7873,37 @@
 "footprint": "Resistor_SMD:R_0402_1005Metric",
 "pads": {
 "1": "STK_POWER_EN",
+"2": "+3V3"
+},
+"block": "F_MCU",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "brain board stays on while the MCU is in reset or being flashed"
+},
+"path": "/47ef5116-f3c3-5add-be6e-aa4b76addc3b/59216766-17fa-5152-aaca-c71e6cc8c63e",
+"sheetfile": "atlas_drive_f_mcu.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "",
+"2": ""
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R625",
+"value": "10k",
+"footprint": "Resistor_SMD:R_0402_1005Metric",
+"pads": {
+"1": "GATE_EN_MCU",
 "2": "GND"
 },
 "block": "F_MCU",
@@ -7881,9 +7912,9 @@
 "fields": {
 "MPN": "",
 "Manufacturer": "",
-"Description": "brain board off while the MCU boots"
+"Description": "gate driver held off while the MCU is in reset or its ROM bootloader"
 },
-"path": "/47ef5116-f3c3-5add-be6e-aa4b76addc3b/59216766-17fa-5152-aaca-c71e6cc8c63e",
+"path": "/47ef5116-f3c3-5add-be6e-aa4b76addc3b/28ff3d38-ee83-5101-9f80-590f3edd1c40",
 "sheetfile": "atlas_drive_f_mcu.kicad_sch",
 "pintypes": {
 "1": "passive",

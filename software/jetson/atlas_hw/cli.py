@@ -259,9 +259,10 @@ def cmd_usb_role(args):
 
 def cmd_stm32(args):
     if not (args.power_en_fixed or _env_flag('ATLAS_POWER_EN_FIXED')):
-        sys.exit('refusing: on the drive board as designed, R609 pulls POWER_EN down, so resetting the STM32 '
-                 'switches off the brain board and this Jetson with it. After the POWER_EN fix '
-                 '(docs/FLASHING.md) set ATLAS_POWER_EN_FIXED=1 or pass --power-en-fixed.')
+        sys.exit('refusing: ATLAS_POWER_EN_FIXED is not set. On a drive board without the POWER_EN fix '
+                 '(R609 to GND, built from files older than Sept 29), resetting the STM32 switches off the '
+                 'brain board and this Jetson with it. With the fix (docs/FLASHING.md) set '
+                 'ATLAS_POWER_EN_FIXED=1 or pass --power-en-fixed.')
     exp = _expander(args)
     exp.setup()
     if args.action == 'bootloader':

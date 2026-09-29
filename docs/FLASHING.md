@@ -153,8 +153,9 @@ J702 (the EEPROM header, not fitted) is not needed for any of this.
 VESC Tool, Firmware tab, Custom File: `firmware/vesc/prebuilt/atlas_drv1.bin`, Upload. The
 STM32 restarts at the end.
 
-**While the POWER_EN fix is not made**, that restart switches the brain board off without
-warning. So first: in the VESC Tool terminal `atlas_autooff 0` (the car stays on when the
+With the POWER_EN fix (below, on every board built from the Sept 29 files) the brain board and
+the Jetson stay up through that restart. **On a board without it**, the restart switches the brain
+board off without warning. So first: in the VESC Tool terminal `atlas_autooff 0` (the car stays on when the
 Jetson halts), then `sudo poweroff` on the Jetson and wait for it to halt, then upload. The
 STM32 does not press the Jetson's power button again after a shutdown, so it stays off until
 the upload. The new firmware powers the brain board up and, 5 s later, starts the Jetson.
@@ -165,15 +166,16 @@ the upload. The new firmware powers the brain board up and, 5 s later, starts th
 sudo atlas id --write --serial 001 --rev A
 ```
 
-## The POWER_EN fix (proposed, not applied)
+## The POWER_EN fix (applied Sept 29, 2026)
 
-R609 (100k, drive board) pulls STK_POWER_EN down. Whenever the STM32 is in reset, flashing,
-or blank, the brain board and the Jetson lose power. Proposed, two resistors:
+Before this change R609 (100k, drive board) pulled STK_POWER_EN down, so whenever the STM32 was
+in reset, flashing, or blank, the brain board and the Jetson lost power. The drive board now has
+two resistors for it:
 
-- R609 to +3V3 instead of GND. The firmware already drives PA4 high at start-up and low
+- R609 goes to +3V3 instead of GND. The firmware already drives PA4 high at start-up and low
   before it turns the car off, so only the reset and flashing moments change.
-- A new 10k pull-down on GATE_EN_MCU (PB5, input A of the E-stop AND gate). Today nothing
-  holds it while the STM32 is in reset or in its ROM bootloader. The bootloader uses PB5 as
+- R625, a new 10k pull-down on GATE_EN_MCU (PB5, input A of the E-stop AND gate U502), next to
+  U502. Before it, nothing held that line while the STM32 is in reset or in its ROM bootloader. The bootloader uses PB5 as
   CAN2 RX and may pull it up, and it also uses PA9/PA10 (PWM_BH/PWM_CH), PB13 (PWM_AL) and
   PC10/PC11 (ESTOP_OK, IMU SDA) for its USART1, USART3 and CAN2 interfaces (ST AN2606; the
   exact pin states there have not been checked). With the gate driver held off by the
@@ -191,8 +193,8 @@ With both:
   Without the GATE_EN pull-down, do not use this route (see above).
 - The brain board powers up as soon as the car is on, before the STM32 runs.
 
-After both changes, set `ATLAS_POWER_EN_FIXED=1` in /etc/atlas/atlas.conf to unlock
-`atlas stm32`.
+`ATLAS_POWER_EN_FIXED=1` in /etc/atlas/atlas.conf (the installed default now) unlocks
+`atlas stm32`. Set it to 0 on a board built from files older than Sept 29.
 
 ## Troubleshooting
 
