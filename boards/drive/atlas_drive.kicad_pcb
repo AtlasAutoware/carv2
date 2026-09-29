@@ -187688,5 +187688,17 @@
 			)
 		)
 	)
+	(gr_text "PCBWay"
+		(at 45 86 90)
+		(layer "F.SilkS")
+		(uuid "b44ebf35-2121-4dc5-bf4b-3038c4ed7346")
+		(effects
+			(font
+				(size 1.6 1.6)
+				(thickness 0.25)
+				(bold yes)
+			)
+		)
+	)
 	(embedded_fonts no)
 )
