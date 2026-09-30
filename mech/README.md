@@ -33,6 +33,8 @@ the drive board's bulk capacitors.
 
 ## Parts
 
+**Before printing, read [PRINTING.md](PRINTING.md):** several STLs in `out/stl` are not in a printable orientation (the bumper failed on Sept 30). It lists which parts to flip and which need supports.
+
 Sizes are as they sit on the bed (mm). Mass is for solid PETG-CF; with 4 walls and 35 %
 gyroid expect about 65 % of it. Everything fits a 250 x 250 bed (Bambu P1S: 256).
 
