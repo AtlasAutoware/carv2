@@ -1,0 +1,613 @@
+(kicad_sch (version 20250114) (generator "eeschema") (generator_version "9.0")
+ (uuid "dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd")
+ (paper "A2")
+ (title_block (title "ATLAS-PWR-1 power board: Pack input: 10 AWG pads, bulk capacitance, TVS") (date "2026-10-24") (rev "B") (company "Atlas Autoware (501c3), Fairfax VA") (comment 1 "Generated from design.py by tools/eda.py; edit the Python, not this file"))
+ (lib_symbols (symbol "atlas:PAD_BAT+"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "PAD_BAT+"
+			(at 0 -6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "atlas:WirePad_THT_10AWG_D3.5mm_OD7.5mm"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "pack + lead, 10 AWG"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "PAD_BAT+_0_1"
+			(rectangle
+				(start -5.08 2.54)
+				(end 5.08 -2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "PAD_BAT+_1_1"
+			(pin passive line
+				(at -7.62 0.00 0)
+				(length 2.54)
+				(name "1"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:PAD_BAT-"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "PAD_BAT-"
+			(at 0 -6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "atlas:WirePad_THT_10AWG_D3.5mm_OD7.5mm"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "pack - lead (P- after the BMS), 10 AWG"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "PAD_BAT-_0_1"
+			(rectangle
+				(start -5.08 2.54)
+				(end 5.08 -2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "PAD_BAT-_1_1"
+			(pin passive line
+				(at -7.62 0.00 0)
+				(length 2.54)
+				(name "1"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "Device:C_Polarized"
+		(pin_numbers hide)
+		(pin_names
+			(offset 0.254))
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Value" "C_Polarized"
+			(at 0.635 -2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Footprint" ""
+			(at 0.9652 -3.81 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "cap capacitor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "Polarized capacitor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_fp_filters" "CP_*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "C_Polarized_0_1"
+			(rectangle
+				(start -2.286 0.508)
+				(end 2.286 1.016)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -1.778 2.286)
+					(xy -0.762 2.286))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -1.27 2.794)
+					(xy -1.27 1.778))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(rectangle
+				(start 2.286 -0.508)
+				(end -2.286 -1.016)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type outline))))
+		(symbol "C_Polarized_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)))))))
+(symbol "Device:C"
+		(pin_numbers hide)
+		(pin_names
+			(offset 0.254))
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Value" "C"
+			(at 0.635 -2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Footprint" ""
+			(at 0.9652 -3.81 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "cap capacitor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "Unpolarized capacitor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_fp_filters" "C_*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "C_0_1"
+			(polyline
+				(pts
+					(xy -2.032 -0.762)
+					(xy 2.032 -0.762))
+				(stroke
+					(width 0.508)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -2.032 0.762)
+					(xy 2.032 0.762))
+				(stroke
+					(width 0.508)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "C_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)))))))
+(symbol "Device:D_Zener"
+		(pin_numbers hide)
+		(pin_names
+			(offset 1.016)
+			hide)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "D"
+			(at 0 2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "D_Zener"
+			(at 0 -2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "diode"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "Zener diode"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "D_Zener_0_1"
+			(polyline
+				(pts
+					(xy 1.27 0)
+					(xy -1.27 0))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -1.27 -1.27)
+					(xy -1.27 1.27)
+					(xy -0.762 1.27))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy 1.27 -1.27)
+					(xy 1.27 1.27)
+					(xy -1.27 0)
+					(xy 1.27 -1.27))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "D_Zener_1_1"
+			(pin passive line
+				(at -3.81 0 0)
+				(length 2.54)
+				(name "K"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 3.81 0 180)
+				(length 2.54)
+				(name "A"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)))))))
+(symbol "Connector:TestPoint"
+		(pin_numbers hide)
+		(pin_names
+			(offset 0.762)
+			hide)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "TP"
+			(at 0 6.858 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "TestPoint"
+			(at 0 5.08 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 5.08 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 5.08 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "test point tp"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "test point"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_fp_filters" "Pin* Test*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "TestPoint_0_1"
+			(circle
+				(center 0 3.302)
+				(radius 0.762)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "TestPoint_1_1"
+			(pin passive line
+				(at 0 0 90)
+				(length 2.54)
+				(name "1"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))))
+(symbol "power:PWR_FLAG"
+		(power)
+		(pin_numbers hide)
+		(pin_names
+			(offset 0)
+			hide)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "#FLG"
+			(at 0 1.905 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Value" "PWR_FLAG"
+			(at 0 3.81 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "flag power"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "Special symbol for telling ERC where power comes from"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "PWR_FLAG_0_0"
+			(pin power_out line
+				(at 0 0 90)
+				(length 0)
+				(name "pwr"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27))))))
+		(symbol "PWR_FLAG_0_1"
+			(polyline
+				(pts
+					(xy 0 0)
+					(xy 0 1.27)
+					(xy -1.016 1.905)
+					(xy 0 2.54)
+					(xy 1.016 1.905)
+					(xy 0 1.27))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none))))))
+ (text "Pack input: 10 AWG pads, bulk capacitance, TVS" (exclude_from_sim no) (at 25.4 25.4 0) (effects (font (size 3 3) (thickness 0.5) bold) (justify left)) (uuid "d87b9796-e127-5134-8cba-13196b8912f7"))
+(text "Pack lead: 10 AWG pigtail soldered into J101/J102 with an XT90 male on its end; the pack carries the" (exclude_from_sim no) (at 25.4 33.02 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "f8636c7d-25ec-5185-bf4a-c3a2902ec6c3"))
+(text "XT90-S anti-spark female, the 125 A MIDI fuse at B+ and the JBD BMS in B-. P- after the BMS is board GND." (exclude_from_sim no) (at 25.4 38.1 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "fa00b3bc-8e89-56f6-9303-a3ce3e9c08a9"))
+(text "No XT90PW board-mount: its drawing could not be read and Amass rates it 30 A (UL) / 60 A for 1 min." (exclude_from_sim no) (at 25.4 43.18000000000001 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "4bd1f5a1-e895-5620-9f9c-1dc31392246c"))
+(text "Bulk at the pads (review P-M3): 3 x 680 uF 35 V low-ESR, 2 mF, so a main-switch trip or a BMS cut" (exclude_from_sim no) (at 25.4 48.260000000000005 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "9ed5329d-289b-5f2d-841d-80cadf9c20dc"))
+(text "cannot ring the pack bus up. 1.5KE20A: 17.1 V standoff (above the 16.8 V CV setpoint), 27.7 V clamp." (exclude_from_sim no) (at 25.4 53.34 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "cbd747a3-944f-500a-8009-dd4e0ae3f067"))
+(text "Top copper is BAT around the pads and FET drains; the bottom under it is GND (low-inductance loop)." (exclude_from_sim no) (at 25.4 58.42 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "6855781e-5729-55e2-b588-9588662d2d12"))
+(symbol (lib_id "atlas:PAD_BAT+") (at 45.72 83.82 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "b7a63c45-35c2-54c3-ba00-0d7cac20d814")
+ (property "Reference" "J101" (at 45.72 80.32 0) (effects (font (size 1.27 1.27)) )) (property "Value" "BAT+" (at 45.72 87.32 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "atlas:WirePad_THT_10AWG_D3.5mm_OD7.5mm" (at 45.72 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 45.72 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 45.72 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 45.72 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "pack + lead, 10 AWG" (at 45.72 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "a38f311e-dd47-5ac0-945a-6b0313831e2a"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd" (reference "J101") (unit 1)))))
+(global_label "BAT" (shape passive) (at 38.1 83.82 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "326f541a-4505-510f-a57b-53db177d9bee") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 38.1 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:PAD_BAT-") (at 73.66 83.82 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "2a90e4dd-83ee-5ac3-8a14-8cea42664192")
+ (property "Reference" "J102" (at 73.66 80.32 0) (effects (font (size 1.27 1.27)) )) (property "Value" "BAT-" (at 73.66 87.32 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "atlas:WirePad_THT_10AWG_D3.5mm_OD7.5mm" (at 73.66 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 73.66 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 73.66 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 73.66 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "pack - lead (P- after the BMS), 10 AWG" (at 73.66 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "8054034d-8376-5daa-b130-1c7d5ddd2180"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd" (reference "J102") (unit 1)))))
+(global_label "GND" (shape passive) (at 66.04 83.82 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a91fd93e-3801-5069-8051-3e4057f116a5") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 66.04 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C_Polarized") (at 55.88 101.60 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "6f6e07ff-8e9a-53b3-bed9-f1e15880552f")
+ (property "Reference" "C101" (at 55.88 99.06 0) (effects (font (size 1.27 1.27)) )) (property "Value" "680u 35V" (at 55.88 104.14 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_THT:CP_Radial_D12.5mm_P5.00mm" (at 55.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "EEU-FR1V681" (at 55.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Panasonic" (at 55.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "pack bulk 680 uF 35 V low-ESR, 12.5 x 20 mm (21 mm tall)" (at 55.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "1.05" (at 55.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/EEU-FR1V681" (at 55.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 55.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "72b8d1be-e764-5e9c-8c07-e80d4677296b")) (pin "2" (uuid "a9db0f8f-0f86-5ee4-8eba-06e4b22221d6"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd" (reference "C101") (unit 1)))))
+(global_label "BAT" (shape passive) (at 52.07 101.6 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "2835f6d1-f96c-5d44-a02b-90b4258557e7") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 59.69 101.6 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "67cce0e4-e57e-5713-95c3-a10ffe0eb7b3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C_Polarized") (at 132.08 101.60 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "a5b7d5cc-004e-5f33-99b3-0125d3e88e83")
+ (property "Reference" "C102" (at 132.08 99.06 0) (effects (font (size 1.27 1.27)) )) (property "Value" "680u 35V" (at 132.08 104.14 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_THT:CP_Radial_D12.5mm_P5.00mm" (at 132.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "EEU-FR1V681" (at 132.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Panasonic" (at 132.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "pack bulk 680 uF 35 V low-ESR, 12.5 x 20 mm (21 mm tall)" (at 132.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "1.05" (at 132.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/EEU-FR1V681" (at 132.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 132.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "9ceabbaf-9483-5fff-bf3e-1abb05ad2324")) (pin "2" (uuid "0944fe69-94df-54f2-8df9-65dbbcfc3724"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd" (reference "C102") (unit 1)))))
+(global_label "BAT" (shape passive) (at 128.27 101.6 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "d725db05-6c3c-56ce-b54a-25b33bfb2988") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 135.89 101.6 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "1da022d1-d146-501d-a418-5ab9dc39bed9") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C_Polarized") (at 208.28 101.60 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "c27ca16a-8fa0-5663-a612-8ff7fc10301f")
+ (property "Reference" "C103" (at 208.28 99.06 0) (effects (font (size 1.27 1.27)) )) (property "Value" "680u 35V" (at 208.28 104.14 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_THT:CP_Radial_D12.5mm_P5.00mm" (at 208.28 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "EEU-FR1V681" (at 208.28 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Panasonic" (at 208.28 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "pack bulk 680 uF 35 V low-ESR, 12.5 x 20 mm (21 mm tall)" (at 208.28 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "1.05" (at 208.28 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/EEU-FR1V681" (at 208.28 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 208.28 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "2d7751cb-53e8-5354-b3eb-f4079b60bb7a")) (pin "2" (uuid "0b06f5e2-bd88-5d01-ab8a-669fcd987a4b"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd" (reference "C103") (unit 1)))))
+(global_label "BAT" (shape passive) (at 204.47 101.6 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0eb96cf5-38d8-5e87-8219-690627caf004") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 204.47 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 212.09 101.6 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "3f4cf6f1-f589-57c2-b397-edab6a34fac6") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 212.09 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 284.48 101.60 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "e698d06a-735c-55fd-8905-978e2aa8c458")
+ (property "Reference" "C104" (at 284.48 99.06 0) (effects (font (size 1.27 1.27)) )) (property "Value" "1u 50V" (at 284.48 104.14 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" (at 284.48 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "TDK C3216X7R1H105K160AB (1 uF 50 V X7R 1206)" (at 284.48 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "TDK" (at 284.48 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "HF decoupling at the pads" (at 284.48 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.65" (at 284.48 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/C3216X7R1H105K160AB" (at 284.48 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 284.48 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "d5b03581-6317-5f32-ac48-94cdd95f5685")) (pin "2" (uuid "7d001d13-40fa-5b54-93b7-d5753963a694"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd" (reference "C104") (unit 1)))))
+(global_label "BAT" (shape passive) (at 280.67 101.6 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a315e72d-1400-5b09-80a8-3f2b59b2ee6e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.67 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 288.29 101.6 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "d96808fb-54cb-5dbd-8ade-705ec1c6ed78") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:D_Zener") (at 360.68 101.60 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "418aeb2c-4194-5b06-ac0b-6802a4011dba")
+ (property "Reference" "D101" (at 360.68 99.06 0) (effects (font (size 1.27 1.27)) )) (property "Value" "1.5KE20A" (at 360.68 104.14 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Diode_THT:D_DO-201AD_P5.08mm_Vertical_KathodeUp" (at 360.68 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "1.5KE20A" (at 360.68 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo / Littelfuse" (at 360.68 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "pack TVS 1500 W, VRWM 17.1 V, VBR 19.0-21.0 V, VC 27.7 V" (at 360.68 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.42" (at 360.68 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/1.5KE20A" (at 360.68 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 360.68 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "a172fba8-5cab-5a52-811b-4321ccc70091")) (pin "2" (uuid "3377a2c5-5f5b-5713-85ef-a5860511ce1c"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd" (reference "D101") (unit 1)))))
+(global_label "BAT" (shape passive) (at 360.68 105.41 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "d0316f39-e45d-56d3-ad5c-97c0d51aa24d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 360.68 105.41 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 360.68 97.79 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "41f63fef-e431-5449-a9a9-6b3662f50b9f") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 360.68 97.79 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Connector:TestPoint") (at 436.88 101.60 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "ad0493b8-b4c1-5db6-9f2e-2d2addcd933d")
+ (property "Reference" "TP101" (at 436.88 98.10 0) (effects (font (size 1.27 1.27)) )) (property "Value" "BAT" (at 436.88 105.10 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "TestPoint:TestPoint_Keystone_5000-5004_Miniature" (at 436.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 436.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "Keystone 5000 (red) / 5001 (black)" (at 436.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Keystone" (at 436.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "test loop" (at 436.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.27" (at 436.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/36-5000-ND" (at 436.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 436.88 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "30cadfaa-d0ef-5b7d-9be9-89715d183577"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd" (reference "TP101") (unit 1)))))
+(global_label "BAT" (shape passive) (at 436.88 101.6 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "b6b9920a-5635-507a-b67d-3b06b4de250a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 436.88 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Connector:TestPoint") (at 513.08 101.60 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "e3560c36-afdd-5a28-bdf0-4a6344d9e838")
+ (property "Reference" "TP102" (at 513.08 98.10 0) (effects (font (size 1.27 1.27)) )) (property "Value" "GND" (at 513.08 105.10 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "TestPoint:TestPoint_Keystone_5000-5004_Miniature" (at 513.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 513.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "Keystone 5000 (red) / 5001 (black)" (at 513.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Keystone" (at 513.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "test loop" (at 513.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.27" (at 513.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/36-5000-ND" (at 513.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 513.08 101.60 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "23e89dab-e187-5ead-bcd3-fbacc636eef9"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd" (reference "TP102") (unit 1)))))
+(global_label "GND" (shape passive) (at 513.08 101.6 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "06393084-e5ea-5d41-8157-23a1adacc826") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 513.08 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "power:PWR_FLAG") (at 25.4 134.62 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "8e7db901-0f37-508d-9470-51c443939dff")
+ (property "Reference" "#FLG0000" (at 25.4 130.81 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Value" "PWR_FLAG" (at 25.4 129.12 0) (effects (font (size 1.0 1.0))))
+ (property "Footprint" "" (at 25.4 134.62 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Datasheet" "" (at 25.4 134.62 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (pin "1" (uuid "3cb165df-25fe-55db-b26f-4baacb1d8994"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd" (reference "#FLG0000") (unit 1)))))
+(global_label "BAT" (shape passive) (at 25.4 134.62 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c37e10d5-b665-5ffd-a56e-9ec8a922e92b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 25.4 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "power:PWR_FLAG") (at 50.8 134.62 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "9a4265e6-420b-509a-92da-4ef220177262")
+ (property "Reference" "#FLG0001" (at 50.8 130.81 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Value" "PWR_FLAG" (at 50.8 129.12 0) (effects (font (size 1.0 1.0))))
+ (property "Footprint" "" (at 50.8 134.62 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (property "Datasheet" "" (at 50.8 134.62 0) (effects (font (size 1.27 1.27)) (hide yes)))
+ (pin "1" (uuid "7e694848-e20e-5ba3-9280-e5c6b14b5689"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd" (reference "#FLG0001") (unit 1)))))
+(global_label "GND" (shape passive) (at 50.8 134.62 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "929e0035-8462-5c92-a25e-f696b8a10b5b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 50.8 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))))
+ (embedded_fonts no))

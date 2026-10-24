@@ -1,0 +1,7647 @@
+{
+"name": "atlas_power",
+"parts": [
+{
+"ref": "J101",
+"value": "BAT+",
+"footprint": "atlas:WirePad_THT_10AWG_D3.5mm_OD7.5mm",
+"pads": {
+"1": "BAT"
+},
+"block": "A_PACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "pack + lead, 10 AWG",
+"in_bom": "no"
+},
+"path": "/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd/b7a63c45-35c2-54c3-ba00-0d7cac20d814",
+"sheetfile": "atlas_power_a_pack.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "J102",
+"value": "BAT-",
+"footprint": "atlas:WirePad_THT_10AWG_D3.5mm_OD7.5mm",
+"pads": {
+"1": "GND"
+},
+"block": "A_PACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "pack - lead (P- after the BMS), 10 AWG",
+"in_bom": "no"
+},
+"path": "/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd/2a90e4dd-83ee-5ac3-8a14-8cea42664192",
+"sheetfile": "atlas_power_a_pack.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "C101",
+"value": "680u 35V",
+"footprint": "Capacitor_THT:CP_Radial_D12.5mm_P5.00mm",
+"pads": {
+"1": "BAT",
+"2": "GND"
+},
+"block": "A_PACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "EEU-FR1V681",
+"Manufacturer": "Panasonic",
+"Description": "pack bulk 680 uF 35 V low-ESR, 12.5 x 20 mm (21 mm tall)",
+"Price": "1.05",
+"Source": "https://www.findchips.com/search/EEU-FR1V681",
+"Verified": "yes"
+},
+"path": "/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd/6f6e07ff-8e9a-53b3-bed9-f1e15880552f",
+"sheetfile": "atlas_power_a_pack.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C102",
+"value": "680u 35V",
+"footprint": "Capacitor_THT:CP_Radial_D12.5mm_P5.00mm",
+"pads": {
+"1": "BAT",
+"2": "GND"
+},
+"block": "A_PACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "EEU-FR1V681",
+"Manufacturer": "Panasonic",
+"Description": "pack bulk 680 uF 35 V low-ESR, 12.5 x 20 mm (21 mm tall)",
+"Price": "1.05",
+"Source": "https://www.findchips.com/search/EEU-FR1V681",
+"Verified": "yes"
+},
+"path": "/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd/a5b7d5cc-004e-5f33-99b3-0125d3e88e83",
+"sheetfile": "atlas_power_a_pack.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C103",
+"value": "680u 35V",
+"footprint": "Capacitor_THT:CP_Radial_D12.5mm_P5.00mm",
+"pads": {
+"1": "BAT",
+"2": "GND"
+},
+"block": "A_PACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "EEU-FR1V681",
+"Manufacturer": "Panasonic",
+"Description": "pack bulk 680 uF 35 V low-ESR, 12.5 x 20 mm (21 mm tall)",
+"Price": "1.05",
+"Source": "https://www.findchips.com/search/EEU-FR1V681",
+"Verified": "yes"
+},
+"path": "/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd/c27ca16a-8fa0-5663-a612-8ff7fc10301f",
+"sheetfile": "atlas_power_a_pack.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C104",
+"value": "1u 50V",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "BAT",
+"2": "GND"
+},
+"block": "A_PACK",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "TDK C3216X7R1H105K160AB (1 uF 50 V X7R 1206)",
+"Manufacturer": "TDK",
+"Description": "HF decoupling at the pads",
+"Price": "0.65",
+"Source": "https://www.findchips.com/search/C3216X7R1H105K160AB",
+"Verified": "yes"
+},
+"path": "/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd/e698d06a-735c-55fd-8905-978e2aa8c458",
+"sheetfile": "atlas_power_a_pack.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D101",
+"value": "1.5KE20A",
+"footprint": "Diode_THT:D_DO-201AD_P5.08mm_Vertical_KathodeUp",
+"pads": {
+"1": "BAT",
+"2": "GND"
+},
+"block": "A_PACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "1.5KE20A",
+"Manufacturer": "Yageo / Littelfuse",
+"Description": "pack TVS 1500 W, VRWM 17.1 V, VBR 19.0-21.0 V, VC 27.7 V",
+"Price": "0.42",
+"Source": "https://www.findchips.com/search/1.5KE20A",
+"Verified": "yes"
+},
+"path": "/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd/418aeb2c-4194-5b06-ac0b-6802a4011dba",
+"sheetfile": "atlas_power_a_pack.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "TP101",
+"value": "BAT",
+"footprint": "TestPoint:TestPoint_Keystone_5000-5004_Miniature",
+"pads": {
+"1": "BAT"
+},
+"block": "A_PACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Keystone 5000 (red) / 5001 (black)",
+"Manufacturer": "Keystone",
+"Description": "test loop",
+"Price": "0.27",
+"Source": "https://www.findchips.com/search/36-5000-ND",
+"Verified": "yes"
+},
+"path": "/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd/ad0493b8-b4c1-5db6-9f2e-2d2addcd933d",
+"sheetfile": "atlas_power_a_pack.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "TP102",
+"value": "GND",
+"footprint": "TestPoint:TestPoint_Keystone_5000-5004_Miniature",
+"pads": {
+"1": "GND"
+},
+"block": "A_PACK",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Keystone 5000 (red) / 5001 (black)",
+"Manufacturer": "Keystone",
+"Description": "test loop",
+"Price": "0.27",
+"Source": "https://www.findchips.com/search/36-5000-ND",
+"Verified": "yes"
+},
+"path": "/dcc663b8-dd9b-5304-9fc5-b2dd2d0d6abd/e3560c36-afdd-5a28-bdf0-4a6344d9e838",
+"sheetfile": "atlas_power_a_pack.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "J201",
+"value": "BMS_UART",
+"footprint": "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical",
+"pads": {
+"1": "BMS_VDD",
+"2": "BMS_TXD",
+"3": "BMS_RXD",
+"4": "BMS_GND"
+},
+"block": "B_BMS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "B4B-XH-A(LF)(SN)",
+"Manufacturer": "JST",
+"Description": "to the JBD UART port through the adapter lead (BMS-side domain, isolated)",
+"Price": "0.11",
+"Source": "https://www.findchips.com/search/B4B-XH-A",
+"Verified": "yes"
+},
+"path": "/783b1d27-0a78-512e-8157-71dc61afe83f/973dcc38-31d8-5788-9066-25b9e6b319d0",
+"sheetfile": "atlas_power_b_bms.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"3": "passive",
+"4": "passive"
+},
+"pinnames": {
+"1": "VDD",
+"2": "TX",
+"3": "RX",
+"4": "GND"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3",
+"4": "4"
+}
+},
+{
+"ref": "U201",
+"value": "PC817",
+"footprint": "Package_DIP:DIP-4_W7.62mm",
+"pads": {
+"1": "BMS_OPT1_A",
+"2": "BMS_TXD",
+"4": "BMS_RX",
+"3": "GND"
+},
+"block": "B_BMS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "PC817X2NSZ9F",
+"Manufacturer": "Sharp",
+"Description": "BMS TX -> Pico GP1 (UART0 RX)",
+"Price": "0.42",
+"Source": "https://www.findchips.com/search/PC817X2NSZ9F",
+"Verified": "yes"
+},
+"path": "/783b1d27-0a78-512e-8157-71dc61afe83f/f6e312bd-02c7-5540-b918-5b55e92ace99",
+"sheetfile": "atlas_power_b_bms.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"4": "passive",
+"3": "passive"
+},
+"pinnames": {
+"1": "A",
+"2": "K",
+"4": "C",
+"3": "E"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"4": "4",
+"3": "3"
+}
+},
+{
+"ref": "R201",
+"value": "1k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "BMS_VDD",
+"2": "BMS_OPT1_A"
+},
+"block": "B_BMS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-071KL",
+"Manufacturer": "Yageo",
+"Description": "U201 LED: 1.9 mA at 3.3 V, 3.5 mA at 5 V (BMS TX sinks it)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/783b1d27-0a78-512e-8157-71dc61afe83f/26a54f78-69ee-5fb6-b12a-8acf92efe973",
+"sheetfile": "atlas_power_b_bms.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R202",
+"value": "4.7k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "+3V3",
+"2": "BMS_RX"
+},
+"block": "B_BMS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-074K7L",
+"Manufacturer": "Yageo",
+"Description": "Pico RX pull-up; idle high",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/783b1d27-0a78-512e-8157-71dc61afe83f/453973c7-9607-5ee5-85af-b7f08bf77203",
+"sheetfile": "atlas_power_b_bms.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "U202",
+"value": "PC817",
+"footprint": "Package_DIP:DIP-4_W7.62mm",
+"pads": {
+"1": "BMS_OPT2_A",
+"2": "BMS_TX",
+"4": "BMS_RXD",
+"3": "BMS_GND"
+},
+"block": "B_BMS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "PC817X2NSZ9F",
+"Manufacturer": "Sharp",
+"Description": "Pico GP0 (UART0 TX) -> BMS RX",
+"Price": "0.42",
+"Source": "https://www.findchips.com/search/PC817X2NSZ9F",
+"Verified": "yes"
+},
+"path": "/783b1d27-0a78-512e-8157-71dc61afe83f/fdd11673-b55e-5d59-9ecd-9d05e1a3ed72",
+"sheetfile": "atlas_power_b_bms.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"4": "passive",
+"3": "passive"
+},
+"pinnames": {
+"1": "A",
+"2": "K",
+"4": "C",
+"3": "E"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"4": "4",
+"3": "3"
+}
+},
+{
+"ref": "R203",
+"value": "470",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "+3V3",
+"2": "BMS_OPT2_A"
+},
+"block": "B_BMS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07470RL",
+"Manufacturer": "Yageo",
+"Description": "U202 LED: 4 mA from the Pico pin (sinks); CTR >= 50 % gives >= 2 mA",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/783b1d27-0a78-512e-8157-71dc61afe83f/b4a4887b-d04f-5f54-ba51-4dd36c297dbf",
+"sheetfile": "atlas_power_b_bms.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R204",
+"value": "4.7k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "BMS_VDD",
+"2": "BMS_RXD"
+},
+"block": "B_BMS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-074K7L",
+"Manufacturer": "Yageo",
+"Description": "BMS RX pull-up to the port VDD; idle high; 0.7-1.1 mA when low",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/783b1d27-0a78-512e-8157-71dc61afe83f/3ff0aab9-37f7-5ecb-894d-7a61c0af53dd",
+"sheetfile": "atlas_power_b_bms.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C201",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "BMS_VDD",
+"2": "BMS_GND"
+},
+"block": "B_BMS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
+"Manufacturer": "Samsung",
+"Description": "BMS-side decoupling (stays in the BMS domain)",
+"Price": "0.14",
+"Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
+"Verified": "yes"
+},
+"path": "/783b1d27-0a78-512e-8157-71dc61afe83f/40db29e6-1438-5ad9-8e8b-e4249035ae8d",
+"sheetfile": "atlas_power_b_bms.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "Q301",
+"value": "IRFB7430PBF",
+"footprint": "Package_TO_SOT_THT:TO-220-3_Vertical",
+"pads": {
+"1": "SW_G1",
+"2": "BAT",
+"3": "VM"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "IRFB7430PBF",
+"Manufacturer": "Infineon",
+"Description": "main switch FET (tab = BAT+)",
+"Price": "3.69",
+"Source": "https://www.findchips.com/search/IRFB7430PBF",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/58cd0f00-6c7a-5f42-9a50-c6b7eceb2ce7",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "input",
+"2": "passive",
+"3": "passive"
+},
+"pinnames": {
+"1": "G",
+"2": "D",
+"3": "S"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3"
+}
+},
+{
+"ref": "Q302",
+"value": "IRFB7430PBF",
+"footprint": "Package_TO_SOT_THT:TO-220-3_Vertical",
+"pads": {
+"1": "SW_G2",
+"2": "BAT",
+"3": "VM"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "IRFB7430PBF",
+"Manufacturer": "Infineon",
+"Description": "main switch FET (tab = BAT+)",
+"Price": "3.69",
+"Source": "https://www.findchips.com/search/IRFB7430PBF",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/a41a9e2c-0206-55ea-ba96-26a8116933e8",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "input",
+"2": "passive",
+"3": "passive"
+},
+"pinnames": {
+"1": "G",
+"2": "D",
+"3": "S"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3"
+}
+},
+{
+"ref": "Q303",
+"value": "IRFB7430PBF",
+"footprint": "Package_TO_SOT_THT:TO-220-3_Vertical",
+"pads": {
+"1": "SW_G3",
+"2": "BAT",
+"3": "VM"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "IRFB7430PBF",
+"Manufacturer": "Infineon",
+"Description": "main switch FET (tab = BAT+)",
+"Price": "3.69",
+"Source": "https://www.findchips.com/search/IRFB7430PBF",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/b5ea3d47-08b3-5612-8383-c8b193e80594",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "input",
+"2": "passive",
+"3": "passive"
+},
+"pinnames": {
+"1": "G",
+"2": "D",
+"3": "S"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3"
+}
+},
+{
+"ref": "R301",
+"value": "10",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "SW_GATE",
+"2": "SW_G1"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710RL",
+"Manufacturer": "Yageo",
+"Description": "gate resistor per FET: current sharing, damps the 3-FET gate loop",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/8576da78-d91a-5607-a761-015de4fd6f26",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R302",
+"value": "10",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "SW_GATE",
+"2": "SW_G2"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710RL",
+"Manufacturer": "Yageo",
+"Description": "gate resistor per FET: current sharing, damps the 3-FET gate loop",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/813592b7-e111-5c0b-81af-bc7a3182e4f5",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R303",
+"value": "10",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "SW_GATE",
+"2": "SW_G3"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710RL",
+"Manufacturer": "Yageo",
+"Description": "gate resistor per FET: current sharing, damps the 3-FET gate loop",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/f5d4a3e9-6e20-5d7f-a674-c101e8ce0f1b",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R304",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "SW_GATE",
+"2": "VM"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "gate-source pull-down: FETs off with the MIC5014 removed",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/9883738d-6699-5128-ab80-011a7b3d2a8f",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "U301",
+"value": "MIC5014",
+"footprint": "Package_DIP:DIP-8_W7.62mm_Socket",
+"pads": {
+"1": "BAT",
+"2": "MIC_IN",
+"4": "GND",
+"5": "SW_GATE",
+"3": "VM",
+"6": null,
+"7": null,
+"8": null
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "MIC5014YN",
+"Manufacturer": "Microchip",
+"Description": "high-side driver (socketed)",
+"Price": "3.54",
+"Source": "https://www.findchips.com/search/MIC5014YN",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/8c05f3ba-8c1b-5e94-8cfa-eff1a673533a",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"2": "input",
+"5": "output",
+"3": "passive",
+"6": "no_connect",
+"7": "no_connect",
+"8": "no_connect",
+"1": "power_in",
+"4": "power_in"
+},
+"pinnames": {
+"2": "IN",
+"5": "GATE",
+"3": "SOURCE",
+"6": "NC",
+"7": "NC",
+"8": "NC",
+"1": "V+",
+"4": "GND"
+},
+"pinprimary": {
+"2": "2",
+"5": "5",
+"3": "3",
+"6": "6",
+"7": "7",
+"8": "8",
+"1": "1",
+"4": "4"
+}
+},
+{
+"ref": "C301",
+"value": "10u 50V",
+"footprint": "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder",
+"pads": {
+"1": "BAT",
+"2": "GND"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Murata GRM32ER71H106KA12L (10 uF 50 V X7R 1210)",
+"Manufacturer": "Murata",
+"Description": "MIC5014 V+ bypass 10 uF (datasheet), under the socket",
+"Price": "0.86",
+"Source": "https://www.findchips.com/search/GRM32ER71H106KA12L",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/71fa752c-6833-5b29-acf9-e8389af0361c",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C302",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "BAT",
+"2": "GND"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
+"Manufacturer": "Samsung",
+"Description": "MIC5014 V+ HF bypass, at pins 1/4",
+"Price": "0.14",
+"Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/19ecc798-417d-5fff-a4c2-64617f0c40c9",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R305",
+"value": "1k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "AND_MAIN",
+"2": "MIC_IN"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-071KL",
+"Manufacturer": "Yageo",
+"Description": "from the 74HCT08 (5 V) to IN",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/30ed030f-8f97-5b30-95ca-61d73f97bedf",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R306",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "MIC_IN",
+"2": "GND"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "IN low while the 5 V rail is off (car off)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/aa82cedf-0927-53c4-942e-ae00fec2e9ca",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "U302",
+"value": "74HCT08",
+"footprint": "Package_DIP:DIP-14_W7.62mm_Socket",
+"pads": {
+"14": "+5V",
+"7": "GND",
+"1": "MAIN_EN",
+"2": "ESTOP_OK",
+"3": "AND_MAIN",
+"4": "PRECHARGE_EN",
+"5": "ESTOP_OK",
+"6": "AND_PRE",
+"9": "SERVO_IN",
+"10": "+5V",
+"8": "SERVO_BUF",
+"12": "GND",
+"13": "GND",
+"11": null
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "SN74HCT08N",
+"Manufacturer": "Texas Instruments",
+"Description": "E-stop AND gates and the servo-signal buffer (socketed)",
+"Price": "0.92",
+"Source": "https://www.findchips.com/search/SN74HCT08N",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/a0b90893-c09c-5840-ae10-056d9b43bfe6",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "input",
+"2": "input",
+"4": "input",
+"5": "input",
+"9": "input",
+"10": "input",
+"12": "input",
+"13": "input",
+"3": "output",
+"6": "output",
+"8": "output",
+"11": "output",
+"14": "power_in",
+"7": "power_in"
+},
+"pinnames": {
+"1": "1A",
+"2": "1B",
+"4": "2A",
+"5": "2B",
+"9": "3A",
+"10": "3B",
+"12": "4A",
+"13": "4B",
+"3": "1Y",
+"6": "2Y",
+"8": "3Y",
+"11": "4Y",
+"14": "VCC",
+"7": "GND"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"4": "4",
+"5": "5",
+"9": "9",
+"10": "10",
+"12": "12",
+"13": "13",
+"3": "3",
+"6": "6",
+"8": "8",
+"11": "11",
+"14": "14",
+"7": "7"
+}
+},
+{
+"ref": "C303",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "+5V",
+"2": "GND"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
+"Manufacturer": "Samsung",
+"Description": "74HCT08 decoupling",
+"Price": "0.14",
+"Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/75df1bd5-629c-5eb4-abad-47442f1feb08",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R307",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "MAIN_EN",
+"2": "GND"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "MAIN_EN low while the Pico is in reset",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/a6fd6983-d8ed-50b3-82c3-0c4a25cc89c7",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R308",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "PRECHARGE_EN",
+"2": "GND"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "PRECHARGE_EN low while the Pico is in reset",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/26a5eef5-7293-568e-a47f-c19ed07b245a",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "Q304",
+"value": "IRF9Z34NPBF",
+"footprint": "Package_TO_SOT_THT:TO-220-3_Vertical",
+"pads": {
+"1": "PRE_G",
+"3": "BAT",
+"2": "PRE_D"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "IRF9Z34NPBF",
+"Manufacturer": "Infineon",
+"Description": "precharge P-FET (tab = PRE_D, not on the heatsink)",
+"Price": "1.08",
+"Source": "https://www.findchips.com/search/IRF9Z34NPBF",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/d2b00f76-4fa1-59f8-9dc0-327bdfad6fde",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "input",
+"3": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "G",
+"3": "S",
+"2": "D"
+},
+"pinprimary": {
+"1": "1",
+"3": "3",
+"2": "2"
+}
+},
+{
+"ref": "R309",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "BAT",
+"2": "PRE_G"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "G-S pull-up: off by default",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/e246c2ee-0f62-57ca-9f01-2bab0748243d",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R310",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "PRE_G",
+"2": "PRE_C"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "gate divider: VGS -8.4 V at 16.8 V, -15 V on a 30 V spike (+-20 V rating)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/97ea2ea7-48f0-5bc6-b18c-ad00e57df11b",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "Q305",
+"value": "2N3904",
+"footprint": "Package_TO_SOT_THT:TO-92_Inline",
+"pads": {
+"2": "PRE_B",
+"3": "PRE_C",
+"1": "GND"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "2N3904BU",
+"Manufacturer": "onsemi",
+"Description": "precharge level shifter",
+"Price": "0.28",
+"Source": "https://www.findchips.com/search/2N3904BU",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/bae9cce0-6e62-53be-92e6-847c851f8d2c",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"2": "input",
+"3": "passive",
+"1": "passive"
+},
+"pinnames": {
+"2": "B",
+"3": "C",
+"1": "E"
+},
+"pinprimary": {
+"2": "2",
+"3": "3",
+"1": "1"
+}
+},
+{
+"ref": "R311",
+"value": "4.7k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "AND_PRE",
+"2": "PRE_B"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-074K7L",
+"Manufacturer": "Yageo",
+"Description": "base drive 0.9 mA from 5 V",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/2a7ef930-baa8-536e-a8fa-eaf81c1f79f3",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R312",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "PRE_B",
+"2": "GND"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "base pull-down",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/aa6c547f-accd-544f-a275-217264216e23",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "F301",
+"value": "MF-R050",
+"footprint": "atlas:Fuse_Bourns_MF-R_P5.08mm",
+"pads": {
+"1": "PRE_D",
+"2": "PRE_F"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "MF-R050",
+"Manufacturer": "Bourns",
+"Description": "0.5 A hold / 1 A trip, 60 V: backstop if precharge stays on into a short",
+"Price": "0.47",
+"Source": "https://www.findchips.com/search/MF-R050",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/885938e6-35f5-5423-9161-df1c69a99915",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R313",
+"value": "10 5W",
+"footprint": "Resistor_THT:R_Axial_Power_L25.0mm_W9.0mm_P27.94mm",
+"pads": {
+"1": "PRE_F",
+"2": "VM"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "SQP500JB-10R",
+"Manufacturer": "Yageo",
+"Description": "precharge resistor 10 Ohm 5 W cement, 22 x 9.5 x 9 mm, lying flat; 1.7 A peak, 0.28 J per start",
+"Price": "0.52",
+"Source": "https://www.findchips.com/search/SQP500JB-10R",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/29c462e0-2f36-5200-a8ef-7755b2627fa2",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D301",
+"value": "1.5KE22A",
+"footprint": "Diode_THT:D_DO-201AD_P5.08mm_Vertical_KathodeUp",
+"pads": {
+"1": "VM",
+"2": "GND"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "1.5KE22A",
+"Manufacturer": "Diotec",
+"Description": "motor bus TVS 1500 W, VRWM 18.8 V: regen with the BMS open",
+"Price": "0.29",
+"Source": "https://www.findchips.com/search/1.5KE22A",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/417fde56-447b-5e89-9076-80c11880efc0",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "TH301",
+"value": "10k B3977",
+"footprint": "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm",
+"pads": {
+"1": "FET_NTC",
+"2": "GND"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "NTCLE100E3103JB0",
+"Manufacturer": "Vishay",
+"Description": "FET temperature: bent against the heatsink bar with Kapton between (the bar is BAT+)",
+"Price": "0.53",
+"Source": "https://www.findchips.com/search/NTCLE100E3103JB0",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/9a6bc897-5d12-5baf-9788-6f91fc9e8377",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R314",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "+3V3",
+"2": "FET_NTC"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "NTC divider top: 1.65 V at 25 C, 0.3 V at 90 C",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/1c0c3e1a-12e5-5a3f-a34e-d28527491a72",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C304",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "FET_NTC",
+"2": "GND"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
+"Manufacturer": "Samsung",
+"Description": "NTC filter",
+"Price": "0.14",
+"Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/b485d2e2-513e-5cad-8315-f6187ad1e5c7",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "HS301",
+"value": "HEATSINK_BAR",
+"footprint": "atlas:Heatsink_Bar_3xTO220_40x15x3mm",
+"pads": {},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "6061 bar 40 x 15 x 3 mm, 3 x 3.2 mm holes at 13.0 mm",
+"Manufacturer": "SendCutSend or stock bar",
+"Description": "aluminium bar 40 x 15 x 3 mm bolted to the three main FET tabs (M3); live at BAT+, insulate it",
+"Price": "1.50",
+"Source": "https://sendcutsend.com",
+"Verified": "no"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/f011e9b9-280a-5b23-931d-a51b80868593",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {},
+"pinnames": {},
+"pinprimary": {}
+},
+{
+"ref": "R315",
+"value": "4.7k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "VM",
+"2": "VM_LED_A"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-074K7L",
+"Manufacturer": "Yageo",
+"Description": "VM-live LED: 3 mA at 16.8 V, 60 mW (1206 is 1/4 W)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/e086cacd-a90d-50be-9bab-4592bd577c99",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D302",
+"value": "RED",
+"footprint": "LED_THT:LED_D3.0mm",
+"pads": {
+"1": "GND",
+"2": "VM_LED_A"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Lite-On LTL-4221N (3 mm red)",
+"Manufacturer": "Lite-On",
+"Description": "VM live (motor bus energised)",
+"Price": "0.12",
+"Source": "https://www.findchips.com/search/LTL-4221N",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/8b21de35-6488-5f59-8b5f-603f674ca555",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "TP301",
+"value": "VM",
+"footprint": "TestPoint:TestPoint_Keystone_5000-5004_Miniature",
+"pads": {
+"1": "VM"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Keystone 5000 (red) / 5001 (black)",
+"Manufacturer": "Keystone",
+"Description": "test loop",
+"Price": "0.27",
+"Source": "https://www.findchips.com/search/36-5000-ND",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/16fb567b-7c88-5fb5-a52f-435ad4315da2",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "TP302",
+"value": "SW_GATE",
+"footprint": "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm",
+"pads": {
+"1": "SW_GATE"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "test point",
+"in_bom": "no"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/a0b9b973-136b-5ab4-bde4-bda12e0be89a",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "MOD401",
+"value": "POLOLU_2813",
+"footprint": "atlas:WireLand_Pololu_2813",
+"pads": {
+"1": "BAT",
+"3": "GND",
+"2": "VSYS_SW",
+"4": "LATCH_ON",
+"5": "LATCH_OFF_M"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "2813",
+"Manufacturer": "Pololu",
+"Description": "push-on latch, mounted on the tray, wired: 18 AWG VIN/VOUT/GND, 24 AWG ON/OFF",
+"Price": "8.95",
+"Source": "https://www.pololu.com/product/2813",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/4d829c8b-ebe3-5cf2-97cb-2e0d27273964",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "power_in",
+"4": "input",
+"5": "input",
+"2": "power_out",
+"3": "power_in"
+},
+"pinnames": {
+"1": "VIN",
+"4": "ON",
+"5": "OFF",
+"2": "VOUT",
+"3": "GND"
+},
+"pinprimary": {
+"1": "1",
+"4": "4",
+"5": "5",
+"2": "2",
+"3": "3"
+}
+},
+{
+"ref": "SW401",
+"value": "POWER",
+"footprint": "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx58-2LFS",
+"pads": {
+"1": "BTN_HI",
+"2": "LATCH_ON"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "PTS645VL58-2 LFS",
+"Manufacturer": "C&K",
+"Description": "power button, 6 mm right-angle tactile at the Y=0 edge, pressed through the pod window",
+"Price": "0.30",
+"Source": "https://www.findchips.com/search/PTS645VL582LFS",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/894f5b81-2192-51de-97fb-4f2d4c9192e3",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "1",
+"2": "2"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R401",
+"value": "33k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "BAT",
+"2": "BTN_HI"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0733KL",
+"Manufacturer": "Yageo",
+"Description": "button source: 0.4 mA when pressed; a shorted remote lead draws 0.5 mA",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/457ea193-fdf9-5c6d-8c6d-3f41433ef165",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R402",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "LATCH_ON",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "ON low when released; with the ON input (about 20k) gives 2.0-3.9 V pressed",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/cfcc4e0a-48e6-5acb-9ff1-9efd1cde0c6d",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C401",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "LATCH_ON",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
+"Manufacturer": "Samsung",
+"Description": "debounce and ESD on the remote button line",
+"Price": "0.14",
+"Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/7e250199-15d2-5ea5-86d2-bbe70e261b7a",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "Q401",
+"value": "2N3904",
+"footprint": "Package_TO_SOT_THT:TO-92_Inline",
+"pads": {
+"2": "BTN_B",
+"3": "BUTTON_N",
+"1": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "2N3904BU",
+"Manufacturer": "onsemi",
+"Description": "button sense for the Pico (open collector)",
+"Price": "0.28",
+"Source": "https://www.findchips.com/search/2N3904BU",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/b35818d3-ff5c-50e5-8553-4b6d4d9dfb9b",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"2": "input",
+"3": "passive",
+"1": "passive"
+},
+"pinnames": {
+"2": "B",
+"3": "C",
+"1": "E"
+},
+"pinprimary": {
+"2": "2",
+"3": "3",
+"1": "1"
+}
+},
+{
+"ref": "R403",
+"value": "22k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "LATCH_ON",
+"2": "BTN_B"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0722KL",
+"Manufacturer": "Yageo",
+"Description": "base drive 60 uA at 2.0 V",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/a2aef3eb-2049-5393-9afc-4be592b8d6ce",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R404",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "BTN_B",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "base pull-down",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/70678ced-1b43-5fd4-be33-b99f83634b43",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R405",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "+3V3",
+"2": "BUTTON_N"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "BUTTON_N pull-up (active low)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/c5b177fc-01c5-574c-9459-2f49a94356d2",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R406",
+"value": "1k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "LATCH_OFF",
+"2": "LATCH_OFF_M"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-071KL",
+"Manufacturer": "Yageo",
+"Description": "GP9 to the Pololu OFF input (> 1 V pulse)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/96adb9c4-8e39-53c0-9191-c975f07af8a7",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R407",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "LATCH_OFF_M",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "OFF stays low while the Pico is off or in reset",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/0edbfc4f-77ed-5341-bae1-fa56319bc355",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R408",
+"value": "10",
+"footprint": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
+"pads": {
+"1": "VSYS_SW",
+"2": "V5_IN"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Vishay MBB02070C1009FCT00 (0.6 W metal film)",
+"Manufacturer": "Vishay",
+"Description": "R-78E input filter: 0.1 A x 10 Ohm = 1 V; with D404 limits a 30 V spike",
+"Price": "0.24",
+"Source": "https://www.findchips.com/search/MBB02070C1009FCT00",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/7c237bc2-f874-57bc-9146-7351c050ab07",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D401",
+"value": "P6KE20A",
+"footprint": "Diode_THT:D_DO-15_P3.81mm_Vertical_KathodeUp",
+"pads": {
+"1": "V5_IN",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "P6KE20A",
+"Manufacturer": "Littelfuse",
+"Description": "clamp for the R-78E input (28 V max): conducts above 19 V",
+"Price": "0.54",
+"Source": "https://www.findchips.com/search/P6KE20A",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/52a8b852-c641-567e-ba0d-330d0b0bf67e",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C402",
+"value": "10u 50V",
+"footprint": "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder",
+"pads": {
+"1": "V5_IN",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Murata GRM32ER71H106KA12L (10 uF 50 V X7R 1210)",
+"Manufacturer": "Murata",
+"Description": "R-78E input",
+"Price": "0.86",
+"Source": "https://www.findchips.com/search/GRM32ER71H106KA12L",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/f166db96-f02c-5fd5-9849-95072fdf72cb",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "U401",
+"value": "R-78E5.0-1.0",
+"footprint": "Converter_DCDC:Converter_DCDC_RECOM_R-78E-0.5_THT",
+"pads": {
+"1": "V5_IN",
+"3": "+5V",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "R-78E5.0-1.0",
+"Manufacturer": "RECOM",
+"Description": "5 V rail: Pico, hub-free logic, fan, 74HCT08",
+"Price": "4.47",
+"Source": "https://www.findchips.com/search/R-78E5.0-1.0",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/143b2af0-2fb7-5721-82fb-2fc7c9481b25",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "power_in",
+"3": "power_out",
+"2": "power_in"
+},
+"pinnames": {
+"1": "VIN",
+"3": "VOUT",
+"2": "GND"
+},
+"pinprimary": {
+"1": "1",
+"3": "3",
+"2": "2"
+}
+},
+{
+"ref": "C403",
+"value": "10u 50V",
+"footprint": "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder",
+"pads": {
+"1": "+5V",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Murata GRM32ER71H106KA12L (10 uF 50 V X7R 1210)",
+"Manufacturer": "Murata",
+"Description": "R-78E output",
+"Price": "0.86",
+"Source": "https://www.findchips.com/search/GRM32ER71H106KA12L",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/79a15f3f-1444-5e65-b25a-e38bb3a7dea6",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D402",
+"value": "1N5817",
+"footprint": "Diode_THT:D_DO-41_SOD81_P3.81mm_Vertical_KathodeUp",
+"pads": {
+"1": "PICO_VSYS",
+"2": "+5V"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "1N5817RLG",
+"Manufacturer": "onsemi",
+"Description": "5 V to the Pico VSYS (OR-ing with its own VBUS diode)",
+"Price": "0.67",
+"Source": "https://www.findchips.com/search/1N5817RLG",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/39a89608-7a74-5f0e-bce2-9cf4a67c7795",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R409",
+"value": "2.2k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "+5V",
+"2": "LED5_A"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-072K2L",
+"Manufacturer": "Yageo",
+"Description": "5 V LED, 1.3 mA",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/23118b05-3cb4-5bd1-a862-25a67923a44a",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D403",
+"value": "GREEN",
+"footprint": "LED_THT:LED_D3.0mm",
+"pads": {
+"1": "GND",
+"2": "LED5_A"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Lite-On LTL-4231N (3 mm green)",
+"Manufacturer": "Lite-On",
+"Description": "5 V on",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/LTL-4231N",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/fb8443ef-08bb-5d2c-8c16-fec6dda2fcba",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "J401",
+"value": "BEC+",
+"footprint": "Connector_Wire:SolderWire-1.5sqmm_1x01_D1.7mm_OD3.9mm",
+"pads": {
+"1": "VM"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "Castle BEC input + (16 AWG red lead)",
+"in_bom": "no"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/43c06797-a7b2-5804-8d17-5d4ef07b356c",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "J402",
+"value": "BEC-",
+"footprint": "Connector_Wire:SolderWire-1.5sqmm_1x01_D1.7mm_OD3.9mm",
+"pads": {
+"1": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "Castle BEC input - (16 AWG black lead)",
+"in_bom": "no"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/9a2f1e89-5ba5-519d-8e19-400388cb93c3",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "J403",
+"value": "BEC_OUT",
+"footprint": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+"pads": {
+"1": null,
+"2": "SERVO_V",
+"3": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Wurth 61300311121",
+"Manufacturer": "Wurth",
+"Description": "Castle BEC output plug (servo style); signal pin unused",
+"Price": "0.13",
+"Source": "https://www.findchips.com/search/61300311121",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/472e5874-2e2a-5941-839a-08dd9966c8db",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"3": "passive"
+},
+"pinnames": {
+"1": "NC",
+"2": "V+",
+"3": "GND"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3"
+}
+},
+{
+"ref": "J404",
+"value": "SRV+",
+"footprint": "Connector_Wire:SolderWire-1.5sqmm_1x01_D1.7mm_OD3.9mm",
+"pads": {
+"1": "SERVO_V"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "alternative: BEC output + soldered",
+"in_bom": "no"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/42dfa3d0-9783-5240-92ad-3f82d8d24d8b",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "J405",
+"value": "SRV-",
+"footprint": "Connector_Wire:SolderWire-1.5sqmm_1x01_D1.7mm_OD3.9mm",
+"pads": {
+"1": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "alternative: BEC output - soldered",
+"in_bom": "no"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/41ad57b2-2792-577c-b4c2-9648337137f8",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "C404",
+"value": "1000u 16V",
+"footprint": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
+"pads": {
+"1": "SERVO_V",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "EEU-FR1C102",
+"Manufacturer": "Panasonic",
+"Description": "servo rail bulk 1000 uF 16 V low-ESR, 10 x 16 mm, at the servo header (stall pulses)",
+"Price": "0.80",
+"Source": "https://www.findchips.com/search/EEU-FR1C102",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/e6c4d76d-8490-59bd-8c8f-3ecb9a5d849a",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "J406",
+"value": "SERVO",
+"footprint": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+"pads": {
+"1": "SERVO_SIG",
+"2": "SERVO_V",
+"3": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Wurth 61300311121",
+"Manufacturer": "Wurth",
+"Description": "steering servo S / + / - (front edge)",
+"Price": "0.13",
+"Source": "https://www.findchips.com/search/61300311121",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/b18ee9fb-6014-5b1b-908f-b2d3c36110a9",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"3": "passive"
+},
+"pinnames": {
+"1": "SIG",
+"2": "V+",
+"3": "GND"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3"
+}
+},
+{
+"ref": "R410",
+"value": "220",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "SERVO_BUF",
+"2": "SERVO_SIG"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07220RL",
+"Manufacturer": "Yageo",
+"Description": "servo signal series (5 V from the 74HCT08 buffer)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/184ea6e7-e21b-5302-9116-bc323aa5ded0",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "F401",
+"value": "5A mini",
+"footprint": "Fuse:Fuseholder_Blade_Mini_Keystone_3568",
+"pads": {
+"1": "VSYS_SW",
+"2": "VDEV_F"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Keystone 3568 + Littelfuse 0297005.WXNV",
+"Manufacturer": "Keystone / Littelfuse",
+"Description": "dev-kit feed fuse: mini blade (ATM) holder with a 5 A fuse",
+"Price": "1.48",
+"Source": "https://www.findchips.com/search/3568",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/421849e1-2e78-56c4-85a4-ca2a8de1c715",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D404",
+"value": "P6KE20A",
+"footprint": "Diode_THT:D_DO-15_P3.81mm_Vertical_KathodeUp",
+"pads": {
+"1": "VDEV_F",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "P6KE20A",
+"Manufacturer": "Littelfuse",
+"Description": "dev-kit feed TVS 600 W, VRWM 17.1 V",
+"Price": "0.54",
+"Source": "https://www.findchips.com/search/P6KE20A",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/0e24091e-0095-58b9-bda1-3e5bdd4afdeb",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "Q402",
+"value": "IRF9Z34NPBF",
+"footprint": "Package_TO_SOT_THT:TO-220-3_Vertical",
+"pads": {
+"1": "OV_G",
+"3": "VDEV_F",
+"2": "VDEV"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "IRF9Z34NPBF",
+"Manufacturer": "Infineon",
+"Description": "dev-kit over-voltage cut-off",
+"Price": "1.08",
+"Source": "https://www.findchips.com/search/IRF9Z34NPBF",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/dd2da6a9-015b-56d3-b19b-34b5749d236e",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "input",
+"3": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "G",
+"3": "S",
+"2": "D"
+},
+"pinprimary": {
+"1": "1",
+"3": "3",
+"2": "2"
+}
+},
+{
+"ref": "R411",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "VDEV_F",
+"2": "OV_G"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "G-S pull-up",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/593b43de-7411-5d7c-8556-c8e743b557d4",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R412",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "OV_G",
+"2": "OV_C"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "gate divider: VGS -8.4 V at 16.8 V, -15 V at 30 V",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/d96b461d-f08d-52db-8670-d39a58282ea8",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "Q403",
+"value": "2N3904",
+"footprint": "Package_TO_SOT_THT:TO-92_Inline",
+"pads": {
+"2": "DEV_B",
+"3": "OV_C",
+"1": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "2N3904BU",
+"Manufacturer": "onsemi",
+"Description": "dev-kit power enable (on unless GP22 is driven low)",
+"Price": "0.28",
+"Source": "https://www.findchips.com/search/2N3904BU",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/7aef9b55-1472-55a3-9e5b-93003d0e1f64",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"2": "input",
+"3": "passive",
+"1": "passive"
+},
+"pinnames": {
+"2": "B",
+"3": "C",
+"1": "E"
+},
+"pinprimary": {
+"2": "2",
+"3": "3",
+"1": "1"
+}
+},
+{
+"ref": "R413",
+"value": "4.7k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "DEVKIT_PWR",
+"2": "DEV_B"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-074K7L",
+"Manufacturer": "Yageo",
+"Description": "base drive from GP22",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/68d9832f-b232-5ec7-bf94-69f1b27528a5",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R414",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "DEV_B",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "base pull-down",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/1c0878c9-3cbe-5900-888e-36e763e1f8a5",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R415",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "+3V3",
+"2": "DEVKIT_PWR"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "pull-up: about 2.7 V against the Pico reset pull-down, so the dev kit stays on",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/56971a72-c29e-5c9e-8e9c-bc907baf0e7e",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "U402",
+"value": "TL431",
+"footprint": "Package_TO_SOT_THT:TO-92_Inline",
+"pads": {
+"1": "OV_REF",
+"3": "OV_K",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "TL431ACLPRE3",
+"Manufacturer": "Texas Instruments",
+"Description": "over-voltage comparator for the dev-kit feed",
+"Price": "0.14",
+"Source": "https://www.findchips.com/search/TL431ACLPR",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/cc46bb46-9eb4-520e-9d1f-3b294b791d65",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "input",
+"3": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "REF",
+"3": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"3": "3",
+"2": "2"
+}
+},
+{
+"ref": "R416",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "VDEV_F",
+"2": "OV_REF"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "OV divider top (1 %)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/7d92e53d-e606-568c-ade8-bcdcad81c867",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R417",
+"value": "15.0k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "OV_REF",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0715KL",
+"Manufacturer": "Yageo",
+"Description": "OV divider bottom: trips at 18.6 V (2.495 V REF)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/fac0d7cf-5d7a-5b43-94a8-964c0d3de31b",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R418",
+"value": "1.2M",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "OV_G",
+"2": "OV_REF"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-071M2L",
+"Manufacturer": "Yageo",
+"Description": "hysteresis: releases at 17.9 V (above the 17.1 V worst-case charge voltage)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/830a2759-22e5-543c-b760-316327e5d703",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "Q404",
+"value": "2N3906",
+"footprint": "Package_TO_SOT_THT:TO-92_Inline",
+"pads": {
+"2": "OV_B",
+"1": "VDEV_F",
+"3": "OV_G"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "2N3906BU",
+"Manufacturer": "onsemi",
+"Description": "pulls the gate to the source on over-voltage",
+"Price": "0.26",
+"Source": "https://www.findchips.com/search/2N3906",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/0b378f78-27ee-56eb-b94b-fe6a8e0951c6",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"2": "input",
+"1": "passive",
+"3": "passive"
+},
+"pinnames": {
+"2": "B",
+"1": "E",
+"3": "C"
+},
+"pinprimary": {
+"2": "2",
+"1": "1",
+"3": "3"
+}
+},
+{
+"ref": "R419",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "VDEV_F",
+"2": "OV_B"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "PNP B-E pull-up",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/e52c6d1f-fcd6-5025-a7cc-56b8d2028dfa",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R420",
+"value": "4.7k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "OV_B",
+"2": "OV_K"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-074K7L",
+"Manufacturer": "Yageo",
+"Description": "TL431 cathode current 3.4 mA at 18.6 V, 5.9 mA at 30 V (>= 1 mA needed)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/ee233f02-c68a-5404-a647-5922b7adc7a3",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C405",
+"value": "220u 35V",
+"footprint": "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm",
+"pads": {
+"1": "VDEV",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Panasonic EEU-FR1V221",
+"Manufacturer": "Panasonic",
+"Description": "dev-kit lead bulk at the pads",
+"Price": "0.73",
+"Source": "https://www.findchips.com/search/EEU-FR1V221",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/c1698d3e-9d6b-59f3-aef8-a08d1c92a408",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "J407",
+"value": "DEV+",
+"footprint": "Connector_Wire:SolderWire-1sqmm_1x01_D1.4mm_OD3.9mm",
+"pads": {
+"1": "VDEV"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "dev-kit DC lead + (18 AWG, 5.5 x 2.5 mm plug)",
+"in_bom": "no"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/7a85b578-4e03-5f2d-bd74-98d155796524",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "J408",
+"value": "DEV-",
+"footprint": "Connector_Wire:SolderWire-1sqmm_1x01_D1.4mm_OD3.9mm",
+"pads": {
+"1": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "dev-kit DC lead -",
+"in_bom": "no"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/5c659afd-b0ac-57aa-a396-98201ec3d2eb",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "Q405",
+"value": "IRF9Z34NPBF",
+"footprint": "Package_TO_SOT_THT:TO-220-3_Vertical",
+"pads": {
+"1": "LID_G",
+"3": "VSYS_SW",
+"2": "LID_SW"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "IRF9Z34NPBF",
+"Manufacturer": "Infineon",
+"Description": "lidar high-side switch",
+"Price": "1.08",
+"Source": "https://www.findchips.com/search/IRF9Z34NPBF",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/a3165958-ba43-5a03-bc1c-766aeb0c6310",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "input",
+"3": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "G",
+"3": "S",
+"2": "D"
+},
+"pinprimary": {
+"1": "1",
+"3": "3",
+"2": "2"
+}
+},
+{
+"ref": "R421",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "VSYS_SW",
+"2": "LID_G"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "G-S pull-up: lidar off by default",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/82a2ded7-5725-598d-a6bd-8a4266dfc33b",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C406",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "VSYS_SW",
+"2": "LID_G"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
+"Manufacturer": "Samsung",
+"Description": "gate capacitor: about 0.5 ms soft start",
+"Price": "0.14",
+"Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/5e56774a-9eea-5c76-b492-1cb5d79ba822",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R422",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "LID_G",
+"2": "LID_C"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "gate divider: VGS -8.4 V at 16.8 V, -15 V at 30 V",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/60354dcd-acae-5e00-8fc4-93f42b776bc3",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "Q406",
+"value": "2N3904",
+"footprint": "Package_TO_SOT_THT:TO-92_Inline",
+"pads": {
+"2": "LID_B",
+"3": "LID_C",
+"1": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "2N3904BU",
+"Manufacturer": "onsemi",
+"Description": "lidar enable",
+"Price": "0.28",
+"Source": "https://www.findchips.com/search/2N3904BU",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/dafcbd7c-db7d-579a-998c-42ecf5fcd1f2",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"2": "input",
+"3": "passive",
+"1": "passive"
+},
+"pinnames": {
+"2": "B",
+"3": "C",
+"1": "E"
+},
+"pinprimary": {
+"2": "2",
+"3": "3",
+"1": "1"
+}
+},
+{
+"ref": "R423",
+"value": "4.7k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "LIDAR_EN",
+"2": "LID_B"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-074K7L",
+"Manufacturer": "Yageo",
+"Description": "base drive from GP6",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/10eed0f1-eb5e-5d35-8487-41c17e88c89e",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R424",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "LID_B",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "base pull-down: lidar off while the Pico is dead (fixes rev A P-m1 by construction)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/7214bfcc-5e8b-5745-8983-46fb048b440f",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "F402",
+"value": "MF-R075",
+"footprint": "atlas:Fuse_Bourns_MF-R_P5.08mm",
+"pads": {
+"1": "LID_SW",
+"2": "LIDAR_V"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "MF-R075",
+"Manufacturer": "Bourns",
+"Description": "lidar polyfuse 0.75 A hold, 60 V (TiM561 about 0.33 A)",
+"Price": "0.25",
+"Source": "https://www.findchips.com/search/MF-R075",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/d847251c-56f6-595e-aac3-2ecf7bb76b56",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D405",
+"value": "P6KE20A",
+"footprint": "Diode_THT:D_DO-15_P3.81mm_Vertical_KathodeUp",
+"pads": {
+"1": "LIDAR_V",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "P6KE20A",
+"Manufacturer": "Littelfuse",
+"Description": "lidar output TVS",
+"Price": "0.54",
+"Source": "https://www.findchips.com/search/P6KE20A",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/710c3ef4-0a59-50a7-b9ca-d76d6f0c0422",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "J409",
+"value": "LIDAR_PWR",
+"footprint": "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal",
+"pads": {
+"1": "LIDAR_V",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "1984617",
+"Manufacturer": "Phoenix Contact",
+"Description": "lidar power (donor M12 cable)",
+"Price": "0.59",
+"Source": "https://www.findchips.com/search/1984617",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/1b0548c2-607b-5087-aaaf-52adfffd55d5",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "+",
+"2": "-"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "F403",
+"value": "MF-R075",
+"footprint": "atlas:Fuse_Bourns_MF-R_P5.08mm",
+"pads": {
+"1": "VSYS_SW",
+"2": "CAM_VIN"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "MF-R075",
+"Manufacturer": "Bourns",
+"Description": "camera feed polyfuse (1 A class; the camera takes about 0.25 A at the regulator input)",
+"Price": "0.25",
+"Source": "https://www.findchips.com/search/MF-R075",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/2771d6b5-0e33-5329-b74b-bac8cd7ee83d",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "MOD402",
+"value": "POLOLU_S18V20F12",
+"footprint": "atlas:WireLand_Pololu_S18V20F12",
+"pads": {
+"1": "CAM_VIN",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "2577 (S18V20F12)",
+"Manufacturer": "Pololu",
+"Description": "camera 12 V regulator, off board on the tray: input wired here (22 AWG), 12 V output straight to the Triton VAUX lead (M8 pin 1 red +12 V, pin 5 black GND)",
+"Price": "29.95",
+"Source": "https://www.pololu.com/product/2577",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/4610a06d-9fc6-5cdd-964d-91565f8a3ca4",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "power_in",
+"2": "power_in"
+},
+"pinnames": {
+"1": "VIN",
+"2": "GND"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "TP401",
+"value": "VSYS_SW",
+"footprint": "TestPoint:TestPoint_Keystone_5000-5004_Miniature",
+"pads": {
+"1": "VSYS_SW"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Keystone 5000 (red) / 5001 (black)",
+"Manufacturer": "Keystone",
+"Description": "test loop",
+"Price": "0.27",
+"Source": "https://www.findchips.com/search/36-5000-ND",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/d45199e1-6e26-570f-83c7-25fd0f283870",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "TP402",
+"value": "+5V",
+"footprint": "TestPoint:TestPoint_Keystone_5000-5004_Miniature",
+"pads": {
+"1": "+5V"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Keystone 5000 (red) / 5001 (black)",
+"Manufacturer": "Keystone",
+"Description": "test loop",
+"Price": "0.27",
+"Source": "https://www.findchips.com/search/36-5000-ND",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/994ea60a-9ec4-5402-9bbc-97550453fbc7",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "TP403",
+"value": "SERVO_V",
+"footprint": "TestPoint:TestPoint_Keystone_5000-5004_Miniature",
+"pads": {
+"1": "SERVO_V"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Keystone 5000 (red) / 5001 (black)",
+"Manufacturer": "Keystone",
+"Description": "test loop",
+"Price": "0.27",
+"Source": "https://www.findchips.com/search/36-5000-ND",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/418dd4d8-a607-572c-a1f5-cc9f2c737c60",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "MOD501",
+"value": "ADA5807_HUSB238",
+"footprint": "atlas:WireLand_PD_Trigger",
+"pads": {
+"1": "CHG_IN",
+"2": "GND"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "5807",
+"Manufacturer": "Adafruit",
+"Description": "USB-C PD trigger set to 20 V (jumpers), off board in the pod; its terminal holes wired here (20 AWG)",
+"Price": "5.95",
+"Source": "https://www.adafruit.com/product/5807",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/f8815220-cef7-5772-a235-a748e520c0cf",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "power_out",
+"2": "passive"
+},
+"pinnames": {
+"1": "VOUT",
+"2": "GND"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D501",
+"value": "P6KE24A",
+"footprint": "Diode_THT:D_DO-15_P3.81mm_Vertical_KathodeUp",
+"pads": {
+"1": "CHG_IN",
+"2": "GND"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "P6KE24A",
+"Manufacturer": "Littelfuse",
+"Description": "charge input TVS, VRWM 20.5 V (PD 20 V + 5 %)",
+"Price": "0.54",
+"Source": "https://www.findchips.com/search/P6KE24A",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/04be5ca1-fca0-5cce-812c-0b91e716d985",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C501",
+"value": "10u 50V",
+"footprint": "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder",
+"pads": {
+"1": "CHG_IN",
+"2": "GND"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Murata GRM32ER71H106KA12L (10 uF 50 V X7R 1210)",
+"Manufacturer": "Murata",
+"Description": "charge input, <= 10 uF so PD attach inrush stays small",
+"Price": "0.86",
+"Source": "https://www.findchips.com/search/GRM32ER71H106KA12L",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/e9103c12-62b2-5121-8edb-a107643d9fe5",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "MOD502",
+"value": "CCCV_BUCK_XL4015",
+"footprint": "atlas:WireLand_CCCV_Buck",
+"pads": {
+"1": "CHG_IN",
+"2": "GND",
+"3": "CHG_OUT",
+"4": "GND"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "XL4015 CC/CV 5 A module (generic)",
+"Manufacturer": "generic",
+"Description": "CC/CV buck, set 16.80 V / 2.5 A with a meter before wiring OUT+ (README)",
+"Price": "8.00",
+"Source": "-",
+"Verified": "no"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/3192d796-1d66-5a4d-a309-b327fb574085",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "power_in",
+"3": "power_out",
+"2": "power_in",
+"4": "power_in"
+},
+"pinnames": {
+"1": "IN+",
+"3": "OUT+",
+"2": "IN-",
+"4": "OUT-"
+},
+"pinprimary": {
+"1": "1",
+"3": "3",
+"2": "2",
+"4": "4"
+}
+},
+{
+"ref": "Q501",
+"value": "IRF9Z34NPBF",
+"footprint": "Package_TO_SOT_THT:TO-220-3_Vertical",
+"pads": {
+"1": "CHG_G",
+"3": "CHG_RB",
+"2": "CHG_OUT"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "IRF9Z34NPBF",
+"Manufacturer": "Infineon",
+"Description": "reverse block: body diode CHG_OUT -> pack; channel on only with 20 V present",
+"Price": "1.08",
+"Source": "https://www.findchips.com/search/IRF9Z34NPBF",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/56a481b3-081e-57da-94c4-c43b1d4d7530",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "input",
+"3": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "G",
+"3": "S",
+"2": "D"
+},
+"pinprimary": {
+"1": "1",
+"3": "3",
+"2": "2"
+}
+},
+{
+"ref": "R501",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "CHG_RB",
+"2": "CHG_G"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "G-S pull-up: off (body diode only) without a charger",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/a844d852-c8a6-53ff-9fbc-b2137ee3075b",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R502",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "CHG_G",
+"2": "CHG_C"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "gate divider: VGS -8.4 V",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/4a2d27b3-a167-5728-b5fb-4f80b109ca10",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "Q502",
+"value": "2N3904",
+"footprint": "Package_TO_SOT_THT:TO-92_Inline",
+"pads": {
+"2": "CHG_B1",
+"3": "CHG_C",
+"1": "GND"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "2N3904BU",
+"Manufacturer": "onsemi",
+"Description": "reverse-block enable",
+"Price": "0.28",
+"Source": "https://www.findchips.com/search/2N3904BU",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/8858392c-66f0-5116-8fdc-280c34f4bb3d",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"2": "input",
+"3": "passive",
+"1": "passive"
+},
+"pinnames": {
+"2": "B",
+"3": "C",
+"1": "E"
+},
+"pinprimary": {
+"2": "2",
+"3": "3",
+"1": "1"
+}
+},
+{
+"ref": "D502",
+"value": "1N5247B",
+"footprint": "Diode_THT:D_DO-35_SOD27_P2.54mm_Vertical_KathodeUp",
+"pads": {
+"1": "CHG_IN",
+"2": "CHG_Z"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "1N5247BTR",
+"Manufacturer": "onsemi",
+"Description": "17 V zener: 20 V present detector (on above 16.8-18.5 V)",
+"Price": "0.17",
+"Source": "https://www.findchips.com/search/1N5247BTR",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/97bf49c9-89be-5431-8f57-2ae1054d14bd",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R503",
+"value": "47k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "CHG_Z",
+"2": "CHG_B1"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0747KL",
+"Manufacturer": "Yageo",
+"Description": "base drive",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/6e740f2d-bf03-5939-97d6-e7a93029304d",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R504",
+"value": "47k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "CHG_B1",
+"2": "GND"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0747KL",
+"Manufacturer": "Yageo",
+"Description": "base pull-down",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/6986f99e-f225-5e1d-bd53-d6955b1e5684",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "Q503",
+"value": "2N3904",
+"footprint": "Package_TO_SOT_THT:TO-92_Inline",
+"pads": {
+"2": "CHG_B2",
+"3": "CHG_PRESENT_N",
+"1": "GND"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "2N3904BU",
+"Manufacturer": "onsemi",
+"Description": "charger present to the Pico (GP15)",
+"Price": "0.28",
+"Source": "https://www.findchips.com/search/2N3904BU",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/5a5a392e-7e20-55b8-89c5-ad9ac0eded7a",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"2": "input",
+"3": "passive",
+"1": "passive"
+},
+"pinnames": {
+"2": "B",
+"3": "C",
+"1": "E"
+},
+"pinprimary": {
+"2": "2",
+"3": "3",
+"1": "1"
+}
+},
+{
+"ref": "R505",
+"value": "47k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "CHG_Z",
+"2": "CHG_B2"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0747KL",
+"Manufacturer": "Yageo",
+"Description": "base drive",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/4208f7f2-e67d-5896-9aad-11fc5f5e26a4",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R506",
+"value": "47k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "CHG_B2",
+"2": "GND"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0747KL",
+"Manufacturer": "Yageo",
+"Description": "base pull-down",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/1b5ab74a-cf61-5c42-b3df-8ee1d7ebc3ab",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R507",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "+3V3",
+"2": "CHG_PRESENT_N"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "pull-up: high = no charger",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/36ecbcf9-e8d5-558f-93a7-78d9b6a309af",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "F501",
+"value": "5A mini",
+"footprint": "Fuse:Fuseholder_Blade_Mini_Keystone_3568",
+"pads": {
+"1": "CHG_RB",
+"2": "BAT"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Keystone 3568 + Littelfuse 0297005.WXNV",
+"Manufacturer": "Keystone / Littelfuse",
+"Description": "charge path fuse: mini blade (ATM) holder with a 5 A fuse",
+"Price": "1.48",
+"Source": "https://www.findchips.com/search/3568",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/cacbd75f-796d-55fb-829e-05d8091618bd",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "TP501",
+"value": "CHG_IN",
+"footprint": "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm",
+"pads": {
+"1": "CHG_IN"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "test point",
+"in_bom": "no"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/84b84efa-a310-5861-8ddd-f1c16eb68d86",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "MOD601",
+"value": "ADA5997_CH334F_HUB",
+"footprint": "atlas:Adafruit_5997_CH334F_Hub_Headers",
+"pads": {
+"1": "HUB_VBUS",
+"2": null,
+"3": null,
+"4": "GND",
+"5": "HUB_VBUS",
+"6": "P1_DP",
+"7": "P1_DM",
+"8": "GND",
+"9": "HUB_VBUS",
+"10": "P2_DP",
+"11": "P2_DM",
+"12": "GND",
+"13": "HUB_VBUS",
+"14": "P3_DP",
+"15": "P3_DM",
+"16": "GND",
+"17": "HUB_VBUS",
+"18": "P4_DP",
+"19": "P4_DM",
+"20": "GND"
+},
+"block": "F_DEBUG",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "5997",
+"Manufacturer": "Adafruit",
+"Description": "USB hub module on 2 x Sullins PPTC081LFBN-RC + 1 x PPTC041LFBN-RC female sockets (8.5 mm), so the MCP2221A fits under it; its own USB-C is the laptop port. $4.95 module (adafruit.com) + $3.30 sockets (findchips, broker price)",
+"Price": "8.25",
+"Source": "https://www.adafruit.com/product/5997",
+"Verified": "yes"
+},
+"path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/6157ca8e-1116-5c81-8d04-c7f0337acec8",
+"sheetfile": "atlas_power_f_debug.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "bidirectional",
+"3": "bidirectional",
+"4": "passive",
+"5": "passive",
+"6": "bidirectional",
+"7": "bidirectional",
+"8": "passive",
+"9": "passive",
+"10": "bidirectional",
+"11": "bidirectional",
+"12": "passive",
+"13": "passive",
+"14": "bidirectional",
+"15": "bidirectional",
+"16": "passive",
+"17": "passive",
+"18": "bidirectional",
+"19": "bidirectional",
+"20": "passive"
+},
+"pinnames": {
+"1": "UP_VBUS",
+"2": "UP_D+",
+"3": "UP_D-",
+"4": "UP_GND",
+"5": "P1_VBUS",
+"6": "P1_D+",
+"7": "P1_D-",
+"8": "P1_GND",
+"9": "P2_VBUS",
+"10": "P2_D+",
+"11": "P2_D-",
+"12": "P2_GND",
+"13": "P3_VBUS",
+"14": "P3_D+",
+"15": "P3_D-",
+"16": "P3_GND",
+"17": "P4_VBUS",
+"18": "P4_D+",
+"19": "P4_D-",
+"20": "P4_GND"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3",
+"4": "4",
+"5": "5",
+"6": "6",
+"7": "7",
+"8": "8",
+"9": "9",
+"10": "10",
+"11": "11",
+"12": "12",
+"13": "13",
+"14": "14",
+"15": "15",
+"16": "16",
+"17": "17",
+"18": "18",
+"19": "19",
+"20": "20"
+}
+},
+{
+"ref": "J601",
+"value": "DEVKIT_USB",
+"footprint": "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical",
+"pads": {
+"1": "HUB_VBUS",
+"2": "P1_DM",
+"3": "P1_DP",
+"4": "GND"
+},
+"block": "F_DEBUG",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Wurth 61300411121",
+"Manufacturer": "Wurth",
+"Description": "hub port 1 to the dev-kit USB-C (device port); Adafruit 4449 lead: red, white, green, black",
+"Price": "0.19",
+"Source": "https://www.findchips.com/search/61300411121",
+"Verified": "yes"
+},
+"path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/7d27f574-1932-5600-ab43-a9d94867c745",
+"sheetfile": "atlas_power_f_debug.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"3": "passive",
+"4": "passive"
+},
+"pinnames": {
+"1": "VBUS",
+"2": "D-",
+"3": "D+",
+"4": "GND"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3",
+"4": "4"
+}
+},
+{
+"ref": "J602",
+"value": "VESC_USB",
+"footprint": "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical",
+"pads": {
+"1": "HUB_VBUS",
+"2": "P3_DM",
+"3": "P3_DP",
+"4": "GND"
+},
+"block": "F_DEBUG",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Wurth 61300411121",
+"Manufacturer": "Wurth",
+"Description": "hub port 3 to the FSESC micro-USB (VESC Tool); Adafruit 4449 lead: red, white, green, black",
+"Price": "0.19",
+"Source": "https://www.findchips.com/search/61300411121",
+"Verified": "yes"
+},
+"path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/d7a367d5-46be-5298-ba6f-093853a4904a",
+"sheetfile": "atlas_power_f_debug.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"3": "passive",
+"4": "passive"
+},
+"pinnames": {
+"1": "VBUS",
+"2": "D-",
+"3": "D+",
+"4": "GND"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3",
+"4": "4"
+}
+},
+{
+"ref": "J603",
+"value": "HUB_PORT4",
+"footprint": "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical",
+"pads": {
+"1": "HUB_VBUS",
+"2": "P4_DM",
+"3": "P4_DP",
+"4": "GND"
+},
+"block": "F_DEBUG",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Wurth 61300411121",
+"Manufacturer": "Wurth",
+"Description": "hub port 4 to the spare hub port; Adafruit 4449 lead: red, white, green, black",
+"Price": "0.19",
+"Source": "https://www.findchips.com/search/61300411121",
+"Verified": "yes"
+},
+"path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/331e1cc3-fc14-581d-81a1-71eb0b0cb90d",
+"sheetfile": "atlas_power_f_debug.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"3": "passive",
+"4": "passive"
+},
+"pinnames": {
+"1": "VBUS",
+"2": "D-",
+"3": "D+",
+"4": "GND"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3",
+"4": "4"
+}
+},
+{
+"ref": "U601",
+"value": "MCP2221A",
+"footprint": "Package_DIP:DIP-14_W7.62mm_Socket",
+"pads": {
+"1": "CON_3V3",
+"11": "CON_3V3",
+"13": "P2_DP",
+"12": "P2_DM",
+"4": "CON_RST",
+"6": "CON_TX",
+"5": "CON_RX",
+"2": null,
+"3": null,
+"7": null,
+"8": null,
+"9": null,
+"10": null,
+"14": "GND"
+},
+"block": "F_DEBUG",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "MCP2221A-I/P",
+"Manufacturer": "Microchip",
+"Description": "console USB-UART on hub port 2 (CDC, no driver needed), socketed, under the hub",
+"Price": "3.20",
+"Source": "https://www.findchips.com/search/MCP2221A-I%2FP",
+"Verified": "yes"
+},
+"path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/a2fa31da-fbd7-5a88-a4dd-9f60db03505b",
+"sheetfile": "atlas_power_f_debug.kicad_sch",
+"pintypes": {
+"13": "bidirectional",
+"12": "bidirectional",
+"4": "input",
+"6": "output",
+"5": "input",
+"2": "bidirectional",
+"3": "bidirectional",
+"7": "bidirectional",
+"8": "bidirectional",
+"9": "bidirectional",
+"10": "bidirectional",
+"1": "power_in",
+"11": "passive",
+"14": "power_in"
+},
+"pinnames": {
+"13": "D+",
+"12": "D-",
+"4": "~{RST}",
+"6": "UTx",
+"5": "URx",
+"2": "GP0",
+"3": "GP1",
+"7": "GP2",
+"8": "GP3",
+"9": "SDA",
+"10": "SCL",
+"1": "VDD",
+"11": "VUSB",
+"14": "VSS"
+},
+"pinprimary": {
+"13": "13",
+"12": "12",
+"4": "4",
+"6": "6",
+"5": "5",
+"2": "2",
+"3": "3",
+"7": "7",
+"8": "8",
+"9": "9",
+"10": "10",
+"1": "1",
+"11": "11",
+"14": "14"
+}
+},
+{
+"ref": "C601",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "CON_3V3",
+"2": "GND"
+},
+"block": "F_DEBUG",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
+"Manufacturer": "Samsung",
+"Description": "MCP2221A VDD",
+"Price": "0.14",
+"Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
+"Verified": "yes"
+},
+"path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/10cdec63-71c9-55f7-ae8a-ab1b71527b96",
+"sheetfile": "atlas_power_f_debug.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C602",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "CON_3V3",
+"2": "GND"
+},
+"block": "F_DEBUG",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
+"Manufacturer": "Samsung",
+"Description": "MCP2221A VUSB (tied to VDD for 3.3 V operation)",
+"Price": "0.14",
+"Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
+"Verified": "yes"
+},
+"path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/948476fe-decb-5b81-955d-a38481918678",
+"sheetfile": "atlas_power_f_debug.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R601",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "CON_3V3",
+"2": "CON_RST"
+},
+"block": "F_DEBUG",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "RST pull-up (datasheet: 1-10k to VDD)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/c4ab167d-1bad-506b-a69b-2ba06f803d7d",
+"sheetfile": "atlas_power_f_debug.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "U602",
+"value": "MCP1700-3302E/TO",
+"footprint": "Package_TO_SOT_THT:TO-92_Inline",
+"pads": {
+"2": "HUB_VBUS",
+"3": "CON_3V3",
+"1": "GND"
+},
+"block": "F_DEBUG",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "MCP1700-3302E/TO",
+"Manufacturer": "Microchip",
+"Description": "3.3 V for the console from HUB_VBUS",
+"Price": "0.50",
+"Source": "https://www.findchips.com/search/MCP1700-3302E%2FTO",
+"Verified": "yes"
+},
+"path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/5f604bce-f2a9-5048-937a-a30bb5c532f3",
+"sheetfile": "atlas_power_f_debug.kicad_sch",
+"pintypes": {
+"2": "power_in",
+"3": "power_out",
+"1": "power_in"
+},
+"pinnames": {
+"2": "VIN",
+"3": "VOUT",
+"1": "GND"
+},
+"pinprimary": {
+"2": "2",
+"3": "3",
+"1": "1"
+}
+},
+{
+"ref": "C603",
+"value": "1u",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "HUB_VBUS",
+"2": "GND"
+},
+"block": "F_DEBUG",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "TDK C3216X7R1H105K160AB (1 uF 50 V X7R 1206)",
+"Manufacturer": "TDK",
+"Description": "LDO input (keeps total VBUS capacitance under 10 uF)",
+"Price": "0.65",
+"Source": "https://www.findchips.com/search/C3216X7R1H105K160AB",
+"Verified": "yes"
+},
+"path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/2a0ba2a5-256a-5448-bf19-4b1441c5422c",
+"sheetfile": "atlas_power_f_debug.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C604",
+"value": "1u",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "CON_3V3",
+"2": "GND"
+},
+"block": "F_DEBUG",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "TDK C3216X7R1H105K160AB (1 uF 50 V X7R 1206)",
+"Manufacturer": "TDK",
+"Description": "LDO output",
+"Price": "0.65",
+"Source": "https://www.findchips.com/search/C3216X7R1H105K160AB",
+"Verified": "yes"
+},
+"path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/0b0e2f86-79a7-5480-a926-6ecf5bf41449",
+"sheetfile": "atlas_power_f_debug.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R602",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "CON_TX",
+"2": "J14_CON_RXD"
+},
+"block": "F_DEBUG",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "console TX -> J14 pin 3: limits back-power into an unpowered Jetson to 0.3 mA",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/ee7e9cea-f5f9-5e63-8f79-6b84b4b6426f",
+"sheetfile": "atlas_power_f_debug.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R603",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "J14_CON_TXD",
+"2": "CON_RX"
+},
+"block": "F_DEBUG",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "J14 pin 4 -> console RX: same, the other way",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/e99618b4-5295-5dd9-a276-d3e536272c71",
+"sheetfile": "atlas_power_f_debug.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "MOD701",
+"value": "RPi_Pico",
+"footprint": "atlas:RaspberryPi_Pico_Socketed_2x20_P17.78mm",
+"pads": {
+"1": "BMS_TX",
+"2": "BMS_RX",
+"4": "PRECHARGE_EN",
+"5": "MAIN_EN",
+"6": "I2C0_SDA",
+"7": "I2C0_SCL",
+"9": "LIDAR_EN",
+"10": "JETSON_PWR_KEY",
+"11": "JETSON_RESET",
+"12": "LATCH_OFF",
+"14": "ESTOP_OK",
+"15": "JETSON_UP",
+"16": "JETSON_3V3_SENSE",
+"17": "BUTTON_N",
+"19": "VESC_KILL",
+"20": "CHG_PRESENT_N",
+"21": "FAN_PWM",
+"22": "LED_STATUS",
+"24": "LED_FAULT",
+"25": "ESTOP_OK_TO_JETSON",
+"26": "CHG_STAT_N_TO_JETSON",
+"27": "LIDAR_REQ",
+"29": "DEVKIT_PWR",
+"30": "PICO_RUN",
+"31": "VM_SENSE",
+"32": "BAT_SENSE",
+"33": "GND",
+"34": "FET_NTC",
+"35": null,
+"36": "+3V3",
+"37": null,
+"39": "PICO_VSYS",
+"40": null,
+"3": "GND",
+"8": "GND",
+"13": "GND",
+"18": "GND",
+"23": "GND",
+"28": "GND",
+"38": "GND"
+},
+"block": "G_SUPER",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "SC0915",
+"Manufacturer": "Raspberry Pi",
+"Description": "supervisor MCU module in 2 x 1x20 female sockets (Sullins PPTC201LFBN-RC, 8.5 mm, $1.05 each); the 74HCT08 and two PC817s sit under it",
+"Price": "6.10",
+"Source": "https://www.findchips.com/search/SC0915",
+"Verified": "yes"
+},
+"path": "/0eaa1969-0986-5bbd-8ec1-5d97a2800962/8133d2cf-5dc2-5566-b680-adacaa288fa8",
+"sheetfile": "atlas_power_g_super.kicad_sch",
+"pintypes": {
+"1": "bidirectional",
+"2": "bidirectional",
+"4": "bidirectional",
+"5": "bidirectional",
+"6": "bidirectional",
+"7": "bidirectional",
+"9": "bidirectional",
+"10": "bidirectional",
+"11": "bidirectional",
+"12": "bidirectional",
+"14": "bidirectional",
+"15": "bidirectional",
+"16": "bidirectional",
+"17": "bidirectional",
+"19": "bidirectional",
+"20": "bidirectional",
+"21": "bidirectional",
+"22": "bidirectional",
+"24": "bidirectional",
+"25": "bidirectional",
+"26": "bidirectional",
+"27": "bidirectional",
+"29": "bidirectional",
+"30": "input",
+"31": "bidirectional",
+"32": "bidirectional",
+"33": "power_in",
+"34": "bidirectional",
+"35": "passive",
+"36": "power_out",
+"37": "input",
+"39": "power_in",
+"40": "passive",
+"3": "power_in",
+"8": "power_in",
+"13": "power_in",
+"18": "power_in",
+"23": "power_in",
+"28": "power_in",
+"38": "power_in"
+},
+"pinnames": {
+"1": "GP0",
+"2": "GP1",
+"4": "GP2",
+"5": "GP3",
+"6": "GP4",
+"7": "GP5",
+"9": "GP6",
+"10": "GP7",
+"11": "GP8",
+"12": "GP9",
+"14": "GP10",
+"15": "GP11",
+"16": "GP12",
+"17": "GP13",
+"19": "GP14",
+"20": "GP15",
+"21": "GP16",
+"22": "GP17",
+"24": "GP18",
+"25": "GP19",
+"26": "GP20",
+"27": "GP21",
+"29": "GP22",
+"30": "RUN",
+"31": "GP26_ADC0",
+"32": "GP27_ADC1",
+"33": "AGND",
+"34": "GP28_ADC2",
+"35": "ADC_VREF",
+"36": "3V3",
+"37": "3V3_EN",
+"39": "VSYS",
+"40": "VBUS",
+"3": "GND",
+"8": "GND",
+"13": "GND",
+"18": "GND",
+"23": "GND",
+"28": "GND",
+"38": "GND"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"4": "4",
+"5": "5",
+"6": "6",
+"7": "7",
+"9": "9",
+"10": "10",
+"11": "11",
+"12": "12",
+"14": "14",
+"15": "15",
+"16": "16",
+"17": "17",
+"19": "19",
+"20": "20",
+"21": "21",
+"22": "22",
+"24": "24",
+"25": "25",
+"26": "26",
+"27": "27",
+"29": "29",
+"30": "30",
+"31": "31",
+"32": "32",
+"33": "33",
+"34": "34",
+"35": "35",
+"36": "36",
+"37": "37",
+"39": "39",
+"40": "40",
+"3": "3",
+"8": "3",
+"13": "3",
+"18": "3",
+"23": "3",
+"28": "3",
+"38": "3"
+}
+},
+{
+"ref": "C701",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "+3V3",
+"2": "GND"
+},
+"block": "G_SUPER",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
+"Manufacturer": "Samsung",
+"Description": "3V3 decoupling at the Pico",
+"Price": "0.14",
+"Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
+"Verified": "yes"
+},
+"path": "/0eaa1969-0986-5bbd-8ec1-5d97a2800962/50bc9953-d3c8-516f-95df-c81a0ed860ce",
+"sheetfile": "atlas_power_g_super.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C702",
+"value": "10u 50V",
+"footprint": "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder",
+"pads": {
+"1": "PICO_VSYS",
+"2": "GND"
+},
+"block": "G_SUPER",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Murata GRM32ER71H106KA12L (10 uF 50 V X7R 1210)",
+"Manufacturer": "Murata",
+"Description": "Pico VSYS bulk",
+"Price": "0.86",
+"Source": "https://www.findchips.com/search/GRM32ER71H106KA12L",
+"Verified": "yes"
+},
+"path": "/0eaa1969-0986-5bbd-8ec1-5d97a2800962/74028306-3df2-58d7-8fb1-9d94a1878d00",
+"sheetfile": "atlas_power_g_super.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R701",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "VM",
+"2": "VM_SENSE"
+},
+"block": "G_SUPER",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "VM divider top",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/0eaa1969-0986-5bbd-8ec1-5d97a2800962/0b167c33-8e9b-5ffb-8678-f886b6ea56c4",
+"sheetfile": "atlas_power_g_super.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R702",
+"value": "18k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "VM_SENSE",
+"2": "GND"
+},
+"block": "G_SUPER",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0718KL",
+"Manufacturer": "Yageo",
+"Description": "VM divider bottom: 0.1525",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/0eaa1969-0986-5bbd-8ec1-5d97a2800962/c4e6e9d2-57a6-5a78-8703-5097f97379c5",
+"sheetfile": "atlas_power_g_super.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C703",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "VM_SENSE",
+"2": "GND"
+},
+"block": "G_SUPER",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
+"Manufacturer": "Samsung",
+"Description": "VM sense filter (1.5 ms)",
+"Price": "0.14",
+"Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
+"Verified": "yes"
+},
+"path": "/0eaa1969-0986-5bbd-8ec1-5d97a2800962/c2bd21fb-5dc4-5b2e-9be4-1f3bbe26e3d5",
+"sheetfile": "atlas_power_g_super.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R703",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "VSYS_SW",
+"2": "BAT_SENSE"
+},
+"block": "G_SUPER",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "pack divider top (from VSYS_SW: no drain when off)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/0eaa1969-0986-5bbd-8ec1-5d97a2800962/b1dd735b-9a51-5213-8394-b912b7dd1a36",
+"sheetfile": "atlas_power_g_super.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R704",
+"value": "18k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "BAT_SENSE",
+"2": "GND"
+},
+"block": "G_SUPER",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0718KL",
+"Manufacturer": "Yageo",
+"Description": "pack divider bottom: 0.1525",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/0eaa1969-0986-5bbd-8ec1-5d97a2800962/3d68fc13-4726-56e7-88cd-5b5d849b8b4e",
+"sheetfile": "atlas_power_g_super.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C704",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "BAT_SENSE",
+"2": "GND"
+},
+"block": "G_SUPER",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
+"Manufacturer": "Samsung",
+"Description": "pack sense filter",
+"Price": "0.14",
+"Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
+"Verified": "yes"
+},
+"path": "/0eaa1969-0986-5bbd-8ec1-5d97a2800962/d78ff8f3-1069-57f7-94d0-99c4e5e58ede",
+"sheetfile": "atlas_power_g_super.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R705",
+"value": "470",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "LED_STATUS",
+"2": "LEDS_A"
+},
+"block": "G_SUPER",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07470RL",
+"Manufacturer": "Yageo",
+"Description": "status LED",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/0eaa1969-0986-5bbd-8ec1-5d97a2800962/007ceef8-29ac-5ae4-b224-fd338aba0f1e",
+"sheetfile": "atlas_power_g_super.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D701",
+"value": "GREEN",
+"footprint": "LED_THT:LED_D3.0mm",
+"pads": {
+"1": "GND",
+"2": "LEDS_A"
+},
+"block": "G_SUPER",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Lite-On LTL-4231N (3 mm green)",
+"Manufacturer": "Lite-On",
+"Description": "LED_STATUS",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/LTL-4231N",
+"Verified": "yes"
+},
+"path": "/0eaa1969-0986-5bbd-8ec1-5d97a2800962/c288ae47-6d3f-56fa-a014-6c1d0167e4c0",
+"sheetfile": "atlas_power_g_super.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R706",
+"value": "470",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "LED_FAULT",
+"2": "LEDF_A"
+},
+"block": "G_SUPER",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07470RL",
+"Manufacturer": "Yageo",
+"Description": "fault LED",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/0eaa1969-0986-5bbd-8ec1-5d97a2800962/27c5f6d6-91b5-5c04-8677-ffbcae99187a",
+"sheetfile": "atlas_power_g_super.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D702",
+"value": "RED",
+"footprint": "LED_THT:LED_D3.0mm",
+"pads": {
+"1": "GND",
+"2": "LEDF_A"
+},
+"block": "G_SUPER",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Lite-On LTL-4221N (3 mm red)",
+"Manufacturer": "Lite-On",
+"Description": "LED_FAULT",
+"Price": "0.12",
+"Source": "https://www.findchips.com/search/LTL-4221N",
+"Verified": "yes"
+},
+"path": "/0eaa1969-0986-5bbd-8ec1-5d97a2800962/5fe95e49-cc4a-56c4-b487-823cf93f27ee",
+"sheetfile": "atlas_power_g_super.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "TP701",
+"value": "+3V3",
+"footprint": "TestPoint:TestPoint_Keystone_5000-5004_Miniature",
+"pads": {
+"1": "+3V3"
+},
+"block": "G_SUPER",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Keystone 5000 (red) / 5001 (black)",
+"Manufacturer": "Keystone",
+"Description": "test loop",
+"Price": "0.27",
+"Source": "https://www.findchips.com/search/36-5000-ND",
+"Verified": "yes"
+},
+"path": "/0eaa1969-0986-5bbd-8ec1-5d97a2800962/ecaba174-b7f4-511c-8d62-789b849ff5ec",
+"sheetfile": "atlas_power_g_super.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "TP702",
+"value": "PICO_RUN",
+"footprint": "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm",
+"pads": {
+"1": "PICO_RUN"
+},
+"block": "G_SUPER",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "test point",
+"in_bom": "no"
+},
+"path": "/0eaa1969-0986-5bbd-8ec1-5d97a2800962/fcd35ab5-4ed0-5880-9b12-f121861b99dc",
+"sheetfile": "atlas_power_g_super.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "J801",
+"value": "J12_RIBBON",
+"footprint": "Connector_IDC:IDC-Header_2x20_P2.54mm_Vertical",
+"pads": {
+"1": null,
+"2": null,
+"3": "J12_SDA",
+"4": null,
+"5": "J12_SCL",
+"6": "GND",
+"7": "J12_GPIO09",
+"8": "J12_TXD",
+"9": "GND",
+"10": "J12_RXD",
+"11": null,
+"12": null,
+"13": null,
+"14": "GND",
+"15": "J12_GPIO12",
+"16": null,
+"17": "J12_3V3",
+"18": null,
+"19": null,
+"20": "GND",
+"21": null,
+"22": null,
+"23": null,
+"24": null,
+"25": "GND",
+"26": null,
+"27": null,
+"28": null,
+"29": "J12_LIDAR_REQ",
+"30": "GND",
+"31": "J12_JETSON_UP",
+"32": "J12_CHG_STAT_N",
+"33": "J12_ESTOP_OK",
+"34": "GND",
+"35": null,
+"36": "J12_CTS",
+"37": null,
+"38": null,
+"39": null,
+"40": null
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Wurth 61204021621",
+"Manufacturer": "Wurth",
+"Description": "2x20 shrouded box header for the 40-wire IDC ribbon to dev-kit J12",
+"Price": "1.21",
+"Source": "https://www.findchips.com/search/61204021621",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/7a07c47d-dbc4-5c8f-aac1-359946a10f68",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"3": "passive",
+"4": "passive",
+"5": "passive",
+"6": "passive",
+"7": "passive",
+"8": "passive",
+"9": "passive",
+"10": "passive",
+"11": "passive",
+"12": "passive",
+"13": "passive",
+"14": "passive",
+"15": "passive",
+"16": "passive",
+"17": "passive",
+"18": "passive",
+"19": "passive",
+"20": "passive",
+"21": "passive",
+"22": "passive",
+"23": "passive",
+"24": "passive",
+"25": "passive",
+"26": "passive",
+"27": "passive",
+"28": "passive",
+"29": "passive",
+"30": "passive",
+"31": "passive",
+"32": "passive",
+"33": "passive",
+"34": "passive",
+"35": "passive",
+"36": "passive",
+"37": "passive",
+"38": "passive",
+"39": "passive",
+"40": "passive"
+},
+"pinnames": {
+"1": "1_3V3",
+"2": "2_5V",
+"3": "3_I2C1_SDA",
+"4": "4_5V",
+"5": "5_I2C1_SCL",
+"6": "6_GND",
+"7": "7_GPIO09",
+"8": "8_UART1_TXD",
+"9": "9_GND",
+"10": "10_UART1_RXD",
+"11": "11_UART1_RTS",
+"12": "12_I2S0_SCLK",
+"13": "13_SPI1_SCK",
+"14": "14_GND",
+"15": "15_GPIO12",
+"16": "16_SPI1_CS1",
+"17": "17_3V3",
+"18": "18_SPI1_CS0",
+"19": "19_SPI0_MOSI",
+"20": "20_GND",
+"21": "21_SPI0_MISO",
+"22": "22_SPI1_MISO",
+"23": "23_SPI0_SCK",
+"24": "24_SPI0_CS0",
+"25": "25_GND",
+"26": "26_SPI0_CS1",
+"27": "27_I2C0_SDA",
+"28": "28_I2C0_SCL",
+"29": "29_GPIO01",
+"30": "30_GND",
+"31": "31_GPIO11",
+"32": "32_GPIO07",
+"33": "33_GPIO13",
+"34": "34_GND",
+"35": "35_I2S0_FS",
+"36": "36_UART1_CTS",
+"37": "37_SPI1_MOSI",
+"38": "38_I2S0_DIN",
+"39": "39_GND",
+"40": "40_I2S0_DOUT"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3",
+"4": "4",
+"5": "5",
+"6": "6",
+"7": "7",
+"8": "8",
+"9": "9",
+"10": "10",
+"11": "11",
+"12": "12",
+"13": "13",
+"14": "14",
+"15": "15",
+"16": "16",
+"17": "17",
+"18": "18",
+"19": "19",
+"20": "20",
+"21": "21",
+"22": "22",
+"23": "23",
+"24": "24",
+"25": "25",
+"26": "26",
+"27": "27",
+"28": "28",
+"29": "29",
+"30": "30",
+"31": "31",
+"32": "32",
+"33": "33",
+"34": "34",
+"35": "35",
+"36": "36",
+"37": "37",
+"38": "38",
+"39": "39",
+"40": "40"
+}
+},
+{
+"ref": "R801",
+"value": "330",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "J12_SDA",
+"2": "I2C0_SDA"
+},
+"block": "H_JETSON",
+"dnp": true,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07330RL",
+"Manufacturer": "Yageo",
+"Description": "I2C series, spare link: DNP (an unpowered Pico would clamp dev-kit bus 7)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/616c3daa-d0f2-5f39-8f46-85bd6eb78de1",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R802",
+"value": "330",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "J12_SCL",
+"2": "I2C0_SCL"
+},
+"block": "H_JETSON",
+"dnp": true,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07330RL",
+"Manufacturer": "Yageo",
+"Description": "I2C series, spare link: DNP",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/1c048b9c-3262-5948-86a5-05ad3ed48329",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R803",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "J12_TXD",
+"2": "COMM_RX"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "Jetson UART1 TX -> FSESC RX; limits back-power into an unpowered ESC",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/96a51e11-beca-5893-85f3-9d4588f21917",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R804",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "COMM_TX",
+"2": "J12_RXD"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "FSESC TX -> Jetson UART1 RX: board output toward the Jetson, 10k",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/8736860e-cd62-5d62-9346-8ba878e102af",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R805",
+"value": "1k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "J12_CTS",
+"2": "GND"
+},
+"block": "H_JETSON",
+"dnp": true,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-071KL",
+"Manufacturer": "Yageo",
+"Description": "DNP: ties UART1 CTS low; fit only if vesc_driver keeps hardware flow control (B_esc.md)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/4ab20d03-fe7f-5a48-93cb-2674b06c3597",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R806",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "J12_3V3",
+"2": "JETSON_3V3_SENSE"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "3.3 V sense series (never tied to the board 3.3 V)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/80d9f7b0-107e-532e-9dc3-47f517ef300b",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R807",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "JETSON_3V3_SENSE",
+"2": "GND"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "3.3 V sense: 3.0 V at the Pico",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/8cfdd0c8-cda4-5b9d-adf7-381e5928aa1f",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R808",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "J12_JETSON_UP",
+"2": "GND"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "JETSON_UP pull-down: reads 0 while the module is off",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/63d81578-8b87-51a9-9c66-ffe38a571b79",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R809",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "J12_JETSON_UP",
+"2": "JETSON_UP"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "series into GP11: 0.3 mA at most into an unpowered Pico",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/df556d15-487e-5009-9c0a-6a619fbfe10b",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R810",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "J12_LIDAR_REQ",
+"2": "GND"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "LIDAR_REQ pull-down",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/cb82c71a-fc32-5cbb-886e-6beeed8b7761",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R811",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "J12_LIDAR_REQ",
+"2": "LIDAR_REQ"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "series into GP21: 0.3 mA at most into an unpowered Pico",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/bf7178fa-927c-58ce-8c37-cde87a73ca1a",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R812",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "ESTOP_OK_TO_JETSON",
+"2": "J12_ESTOP_OK"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "board output toward the Jetson, 10k",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/6af440fe-f596-5b00-992d-5c1881bd357f",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R813",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "CHG_STAT_N_TO_JETSON",
+"2": "J12_CHG_STAT_N"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "board output toward the Jetson, 10k",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/45ccad16-9489-5ead-a253-955baf7cff02",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "TP801",
+"value": "J12_GPIO09",
+"footprint": "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm",
+"pads": {
+"1": "J12_GPIO09"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "test point",
+"in_bom": "no"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/7082241b-3945-5244-a25e-033c6c94b6ed",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "TP802",
+"value": "J12_GPIO12",
+"footprint": "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm",
+"pads": {
+"1": "J12_GPIO12"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "test point",
+"in_bom": "no"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/903820f1-1b44-597c-b2ea-1e715ef12490",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "J802",
+"value": "J14_HARNESS",
+"footprint": "Connector_PinHeader_2.54mm:PinHeader_1x12_P2.54mm_Vertical",
+"pads": {
+"1": null,
+"2": null,
+"3": "J14_CON_RXD",
+"4": "J14_CON_TXD",
+"5": null,
+"6": null,
+"7": "GND",
+"8": "J14_RESET_N",
+"9": "GND",
+"10": "J14_RECOVERY_N",
+"11": "GND",
+"12": "J14_PWR_KEY_N"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Wurth 61301211121",
+"Manufacturer": "Wurth",
+"Description": "1x12 header for the Dupont lead to dev-kit J14",
+"Price": "0.54",
+"Source": "https://www.findchips.com/search/61301211121",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/a6467daa-7b60-5fd0-bca1-81613a7911a7",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"3": "passive",
+"4": "passive",
+"5": "passive",
+"6": "passive",
+"7": "passive",
+"8": "passive",
+"9": "passive",
+"10": "passive",
+"11": "passive",
+"12": "passive"
+},
+"pinnames": {
+"1": "1_PC_LED-",
+"2": "2_PC_LED+",
+"3": "3_UART2_RXD",
+"4": "4_UART2_TXD",
+"5": "5_AC_OK",
+"6": "6_APO_DIS",
+"7": "7_GND",
+"8": "8_SYS_RESET*",
+"9": "9_GND",
+"10": "10_FORCE_RECOVERY*",
+"11": "11_GND",
+"12": "12_SLEEP/WAKE*"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3",
+"4": "4",
+"5": "5",
+"6": "6",
+"7": "7",
+"8": "8",
+"9": "9",
+"10": "10",
+"11": "11",
+"12": "12"
+}
+},
+{
+"ref": "U801",
+"value": "PC817",
+"footprint": "Package_DIP:DIP-4_W7.62mm",
+"pads": {
+"1": "PWRKEY_A",
+"2": "GND",
+"4": "J14_PWR_KEY_N",
+"3": "GND"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "PC817X2NSZ9F",
+"Manufacturer": "Sharp",
+"Description": "Jetson power key (J14 12 to 11)",
+"Price": "0.42",
+"Source": "https://www.findchips.com/search/PC817X2NSZ9F",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/1c1cd313-2d5d-5532-bd48-293455355e1a",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"4": "passive",
+"3": "passive"
+},
+"pinnames": {
+"1": "A",
+"2": "K",
+"4": "C",
+"3": "E"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"4": "4",
+"3": "3"
+}
+},
+{
+"ref": "R814",
+"value": "470",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "JETSON_PWR_KEY",
+"2": "PWRKEY_A"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07470RL",
+"Manufacturer": "Yageo",
+"Description": "LED 2.8 mA from GP7",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/40590fdd-6a1d-522b-85d0-a7e9c36c792f",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "U802",
+"value": "PC817",
+"footprint": "Package_DIP:DIP-4_W7.62mm",
+"pads": {
+"1": "RESET_A",
+"2": "GND",
+"4": "J14_RESET_N",
+"3": "GND"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "PC817X2NSZ9F",
+"Manufacturer": "Sharp",
+"Description": "Jetson hard reset (J14 8 to 7)",
+"Price": "0.42",
+"Source": "https://www.findchips.com/search/PC817X2NSZ9F",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/4b289886-1414-5897-b3de-2b337953975e",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"4": "passive",
+"3": "passive"
+},
+"pinnames": {
+"1": "A",
+"2": "K",
+"4": "C",
+"3": "E"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"4": "4",
+"3": "3"
+}
+},
+{
+"ref": "R815",
+"value": "470",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "JETSON_RESET",
+"2": "RESET_A"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07470RL",
+"Manufacturer": "Yageo",
+"Description": "LED 2.8 mA from GP8",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/62677c64-3a2b-5be5-9236-4ae7f8204734",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "SW801",
+"value": "RECOVERY",
+"footprint": "Button_Switch_THT:SW_PUSH_6mm_H5mm",
+"pads": {
+"1": "J14_RECOVERY_N",
+"2": "GND"
+},
+"block": "H_JETSON",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "PTS645SL50-2 LFS",
+"Manufacturer": "C&K",
+"Description": "Jetson force-recovery (hold, then reset or apply power)",
+"Price": "0.25",
+"Source": "https://www.findchips.com/search/PTS645SL50-2LFS",
+"Verified": "yes"
+},
+"path": "/9a7ad940-bc14-58e6-a39c-64b52965b0da/6c4443c1-4968-5ae9-8268-a95347d7931b",
+"sheetfile": "atlas_power_h_jetson.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "1",
+"2": "2"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "J901",
+"value": "ESC+",
+"footprint": "atlas:WirePad_THT_10AWG_D3.5mm_OD7.5mm",
+"pads": {
+"1": "VM"
+},
+"block": "I_ESC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "ESC + (VM), 10-12 AWG",
+"in_bom": "no"
+},
+"path": "/a0b30b9c-7ff1-5be2-bac0-593ee6535e5b/0d802c39-0199-5f7f-b217-935e95d58c10",
+"sheetfile": "atlas_power_i_esc.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "J902",
+"value": "ESC-",
+"footprint": "atlas:WirePad_THT_10AWG_D3.5mm_OD7.5mm",
+"pads": {
+"1": "GND"
+},
+"block": "I_ESC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "ESC - (GND), 10-12 AWG",
+"in_bom": "no"
+},
+"path": "/a0b30b9c-7ff1-5be2-bac0-593ee6535e5b/f61b3f8c-0aa8-57c6-bd20-64955c9d368e",
+"sheetfile": "atlas_power_i_esc.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "J903",
+"value": "FSESC_COMM",
+"footprint": "Connector_JST:JST_PH_B7B-PH-K_1x07_P2.00mm_Vertical",
+"pads": {
+"1": null,
+"2": "GND",
+"3": "COMM_TX",
+"4": "COMM_RX",
+"5": null,
+"6": "COMM_ADC2",
+"7": null
+},
+"block": "I_ESC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "B7B-PH-K-S(LF)(SN)",
+"Manufacturer": "JST",
+"Description": "FSESC COMM (pin order unverified)",
+"Price": "0.33",
+"Source": "https://www.findchips.com/search/B7B-PH-K-S",
+"Verified": "yes"
+},
+"path": "/a0b30b9c-7ff1-5be2-bac0-593ee6535e5b/352042a7-7b84-5570-aeb8-8da544ef6bcc",
+"sheetfile": "atlas_power_i_esc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"3": "passive",
+"4": "passive",
+"5": "passive",
+"6": "passive",
+"7": "passive"
+},
+"pinnames": {
+"1": "3V3",
+"2": "GND",
+"3": "TX",
+"4": "RX",
+"5": "ADC1",
+"6": "ADC2",
+"7": "PPM"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3",
+"4": "4",
+"5": "5",
+"6": "6",
+"7": "7"
+}
+},
+{
+"ref": "R901",
+"value": "1k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "VESC_KILL",
+"2": "COMM_ADC2"
+},
+"block": "I_ESC",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-071KL",
+"Manufacturer": "Yageo",
+"Description": "kill line series (B_esc.md)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a0b30b9c-7ff1-5be2-bac0-593ee6535e5b/7bd3352f-260e-5667-9e2c-2bf176afb719",
+"sheetfile": "atlas_power_i_esc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R902",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "VESC_KILL",
+"2": "GND"
+},
+"block": "I_ESC",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "kill asserted (0 V) while the Pico is in reset",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a0b30b9c-7ff1-5be2-bac0-593ee6535e5b/bdc7640c-f0d9-5414-8016-46d84eb0858e",
+"sheetfile": "atlas_power_i_esc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "J904",
+"value": "SERVO_IN",
+"footprint": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+"pads": {
+"1": "SERVO_IN_J",
+"2": null,
+"3": "GND"
+},
+"block": "I_ESC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Wurth 61300311121",
+"Manufacturer": "Wurth",
+"Description": "servo signal from the FSESC servo/PPM port (S / + / -; + unused)",
+"Price": "0.13",
+"Source": "https://www.findchips.com/search/61300311121",
+"Verified": "yes"
+},
+"path": "/a0b30b9c-7ff1-5be2-bac0-593ee6535e5b/85156a12-1532-5701-bed7-3f50f81cd366",
+"sheetfile": "atlas_power_i_esc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"3": "passive"
+},
+"pinnames": {
+"1": "SIG",
+"2": "5V",
+"3": "GND"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3"
+}
+},
+{
+"ref": "R903",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "SERVO_IN_J",
+"2": "SERVO_IN"
+},
+"block": "I_ESC",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "input series: 0.3 mA at most into the unpowered 74HCT08 when the ESC runs on USB",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a0b30b9c-7ff1-5be2-bac0-593ee6535e5b/ca95cce9-061b-5563-b25f-7147d1ca203e",
+"sheetfile": "atlas_power_i_esc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R904",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "SERVO_IN",
+"2": "GND"
+},
+"block": "I_ESC",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "defined low while the ESC is off",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a0b30b9c-7ff1-5be2-bac0-593ee6535e5b/8878b741-adce-5627-a859-900c17c7af63",
+"sheetfile": "atlas_power_i_esc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "J1001",
+"value": "ESTOP",
+"footprint": "Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical",
+"pads": {
+"1": "ESTOP_SRC",
+"2": "ESTOP_IN"
+},
+"block": "J_MISC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "B2B-PH-K-S(LF)(SN)",
+"Manufacturer": "JST",
+"Description": "E-stop loop, normally closed (jumper lead if no button)",
+"Price": "0.12",
+"Source": "https://www.findchips.com/search/B2B-PH-K-S",
+"Verified": "yes"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/0714c1e2-fd2e-56ab-915a-62c931e8c066",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "1",
+"2": "2"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1001",
+"value": "1k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "+3V3",
+"2": "ESTOP_SRC"
+},
+"block": "J_MISC",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-071KL",
+"Manufacturer": "Yageo",
+"Description": "loop source, 3 mA into a shorted lead",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/da416a66-6dae-5622-914a-97761ebef69f",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1002",
+"value": "100",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "ESTOP_IN",
+"2": "ESTOP_OK"
+},
+"block": "J_MISC",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100RL",
+"Manufacturer": "Yageo",
+"Description": "loop filter",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/3ec0bbfe-9147-592f-be25-6f4f61fd68e4",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1003",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "ESTOP_OK",
+"2": "GND"
+},
+"block": "J_MISC",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "open loop reads low = stop",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/ef31c08f-7da4-5628-b01d-c6c00b3617e7",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "C1001",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "ESTOP_OK",
+"2": "GND"
+},
+"block": "J_MISC",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
+"Manufacturer": "Samsung",
+"Description": "loop filter (1 ms)",
+"Price": "0.14",
+"Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
+"Verified": "yes"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/094214fa-47c1-5557-9446-2f5c25ac5ce4",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D1001",
+"value": "BAT85",
+"footprint": "Diode_THT:D_DO-35_SOD27_P2.54mm_Vertical_KathodeUp",
+"pads": {
+"1": "ESTOP_IN",
+"2": "GND"
+},
+"block": "J_MISC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "BAT85S-TAP",
+"Manufacturer": "Vishay",
+"Description": "lead clamp to GND",
+"Price": "0.43",
+"Source": "https://www.findchips.com/search/BAT85",
+"Verified": "yes"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/985cef4a-2614-5667-a7ac-7be32129c202",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D1002",
+"value": "BAT85",
+"footprint": "Diode_THT:D_DO-35_SOD27_P2.54mm_Vertical_KathodeUp",
+"pads": {
+"1": "+3V3",
+"2": "ESTOP_IN"
+},
+"block": "J_MISC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "BAT85S-TAP",
+"Manufacturer": "Vishay",
+"Description": "lead clamp to 3.3 V",
+"Price": "0.43",
+"Source": "https://www.findchips.com/search/BAT85",
+"Verified": "yes"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/21b8a7f9-d35f-521f-ab8e-0645135c5c85",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "J1002",
+"value": "BTN_REMOTE",
+"footprint": "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal",
+"pads": {
+"1": "BTN_HI",
+"2": "LATCH_ON"
+},
+"block": "J_MISC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "S2B-PH-K-S(LF)(SN)",
+"Manufacturer": "JST",
+"Description": "remote power button (parallel to SW401), side entry at the front edge",
+"Price": "0.12",
+"Source": "https://www.findchips.com/search/S2B-PH-K-S",
+"Verified": "yes"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/81b72dbb-0afc-58d1-bd0f-60a340d3201b",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "1",
+"2": "2"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "J1003",
+"value": "FAN",
+"footprint": "Connector:FanPinHeader_1x04_P2.54mm_Vertical",
+"pads": {
+"1": "GND",
+"2": "+5V",
+"3": "FAN_TACH",
+"4": "FAN_PWM_N"
+},
+"block": "J_MISC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Molex 47053-1000",
+"Manufacturer": "Molex",
+"Description": "side-pod fan, 5 V PWM (Noctua NF-A4x10 5V PWM)",
+"Price": "0.56",
+"Source": "https://www.findchips.com/search/0470531000",
+"Verified": "yes"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/5ed53b16-d7c9-5575-9c58-c5f3f46909cf",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive",
+"3": "passive",
+"4": "passive"
+},
+"pinnames": {
+"1": "GND",
+"2": "+5V",
+"3": "TACH",
+"4": "PWM"
+},
+"pinprimary": {
+"1": "1",
+"2": "2",
+"3": "3",
+"4": "4"
+}
+},
+{
+"ref": "Q1001",
+"value": "2N7000",
+"footprint": "Package_TO_SOT_THT:TO-92_Inline",
+"pads": {
+"2": "FAN_G",
+"3": "FAN_PWM_N",
+"1": "GND"
+},
+"block": "J_MISC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "2N7000-G",
+"Manufacturer": "Microchip",
+"Description": "fan PWM pull-down",
+"Price": "0.50",
+"Source": "https://www.findchips.com/search/2N7000",
+"Verified": "yes"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/24d008d0-365c-57ef-946d-6a48fdb38858",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {
+"2": "input",
+"3": "passive",
+"1": "passive"
+},
+"pinnames": {
+"2": "G",
+"3": "D",
+"1": "S"
+},
+"pinprimary": {
+"2": "2",
+"3": "3",
+"1": "1"
+}
+},
+{
+"ref": "R1004",
+"value": "100",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "FAN_PWM",
+"2": "FAN_G"
+},
+"block": "J_MISC",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100RL",
+"Manufacturer": "Yageo",
+"Description": "gate series",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/4c2425cf-b965-5383-8513-8d4729d7e6c9",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R1005",
+"value": "100k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "FAN_G",
+"2": "GND"
+},
+"block": "J_MISC",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-07100KL",
+"Manufacturer": "Yageo",
+"Description": "gate pull-down: fan full speed with the Pico off",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/e4a8946e-2049-5579-85ed-3e5096458931",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "TP1001",
+"value": "FAN_TACH",
+"footprint": "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm",
+"pads": {
+"1": "FAN_TACH"
+},
+"block": "J_MISC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "test point",
+"in_bom": "no"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/6335f8b7-6e29-5176-a480-3d9decc49a9e",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "TP1002",
+"value": "GND",
+"footprint": "TestPoint:TestPoint_Keystone_5000-5004_Miniature",
+"pads": {
+"1": "GND"
+},
+"block": "J_MISC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "Keystone 5000 (red) / 5001 (black)",
+"Manufacturer": "Keystone",
+"Description": "test loop",
+"Price": "0.27",
+"Source": "https://www.findchips.com/search/36-5000-ND",
+"Verified": "yes"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/613dd4ca-bbd1-53f9-aeed-6e07162e0046",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
+"ref": "H1001",
+"value": "M3",
+"footprint": "atlas:MountingHole_3.2mm_M3_Keepout7mm",
+"pads": {},
+"block": "J_MISC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "M3 mounting hole, 7 mm keep-out",
+"in_bom": "no"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/c5399103-7bce-574e-9bfb-7f9673e3f568",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {},
+"pinnames": {},
+"pinprimary": {}
+},
+{
+"ref": "H1002",
+"value": "M3",
+"footprint": "atlas:MountingHole_3.2mm_M3_Keepout7mm",
+"pads": {},
+"block": "J_MISC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "M3 mounting hole, 7 mm keep-out",
+"in_bom": "no"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/eac15af8-54fd-56e1-949d-4f03bda5b414",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {},
+"pinnames": {},
+"pinprimary": {}
+},
+{
+"ref": "H1003",
+"value": "M3",
+"footprint": "atlas:MountingHole_3.2mm_M3_Keepout7mm",
+"pads": {},
+"block": "J_MISC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "M3 mounting hole, 7 mm keep-out",
+"in_bom": "no"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/086d971b-d8b1-567d-b9b5-d8a2dc117271",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {},
+"pinnames": {},
+"pinprimary": {}
+},
+{
+"ref": "H1004",
+"value": "M3",
+"footprint": "atlas:MountingHole_3.2mm_M3_Keepout7mm",
+"pads": {},
+"block": "J_MISC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "M3 mounting hole, 7 mm keep-out",
+"in_bom": "no"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/bb40608f-ec17-51b7-8a23-0dbc784b3dfb",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {},
+"pinnames": {},
+"pinprimary": {}
+},
+{
+"ref": "H1005",
+"value": "M3",
+"footprint": "atlas:MountingHole_3.2mm_M3_Keepout7mm",
+"pads": {},
+"block": "J_MISC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "M3 mounting hole, 7 mm keep-out",
+"in_bom": "no"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/7bfe1d16-748a-5b51-bdee-0a9b6292f303",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {},
+"pinnames": {},
+"pinprimary": {}
+},
+{
+"ref": "H1006",
+"value": "M3",
+"footprint": "atlas:MountingHole_3.2mm_M3_Keepout7mm",
+"pads": {},
+"block": "J_MISC",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "M3 mounting hole, 7 mm keep-out",
+"in_bom": "no"
+},
+"path": "/ee83b628-42e9-56cf-843e-3370940a7fef/817161d4-1e30-51cc-924b-483143d96236",
+"sheetfile": "atlas_power_j_misc.kicad_sch",
+"pintypes": {},
+"pinnames": {},
+"pinprimary": {}
+}
+],
+"nets": [
+"+3V3",
+"+5V",
+"AND_MAIN",
+"AND_PRE",
+"BAT",
+"BAT_SENSE",
+"BMS_GND",
+"BMS_OPT1_A",
+"BMS_OPT2_A",
+"BMS_RX",
+"BMS_RXD",
+"BMS_TX",
+"BMS_TXD",
+"BMS_VDD",
+"BTN_B",
+"BTN_HI",
+"BUTTON_N",
+"CAM_VIN",
+"CHG_B1",
+"CHG_B2",
+"CHG_C",
+"CHG_G",
+"CHG_IN",
+"CHG_OUT",
+"CHG_PRESENT_N",
+"CHG_RB",
+"CHG_STAT_N_TO_JETSON",
+"CHG_Z",
+"COMM_ADC2",
+"COMM_RX",
+"COMM_TX",
+"CON_3V3",
+"CON_RST",
+"CON_RX",
+"CON_TX",
+"DEVKIT_PWR",
+"DEV_B",
+"ESTOP_IN",
+"ESTOP_OK",
+"ESTOP_OK_TO_JETSON",
+"ESTOP_SRC",
+"FAN_G",
+"FAN_PWM",
+"FAN_PWM_N",
+"FAN_TACH",
+"FET_NTC",
+"GND",
+"HUB_VBUS",
+"I2C0_SCL",
+"I2C0_SDA",
+"J12_3V3",
+"J12_CHG_STAT_N",
+"J12_CTS",
+"J12_ESTOP_OK",
+"J12_GPIO09",
+"J12_GPIO12",
+"J12_JETSON_UP",
+"J12_LIDAR_REQ",
+"J12_RXD",
+"J12_SCL",
+"J12_SDA",
+"J12_TXD",
+"J14_CON_RXD",
+"J14_CON_TXD",
+"J14_PWR_KEY_N",
+"J14_RECOVERY_N",
+"J14_RESET_N",
+"JETSON_3V3_SENSE",
+"JETSON_PWR_KEY",
+"JETSON_RESET",
+"JETSON_UP",
+"LATCH_OFF",
+"LATCH_OFF_M",
+"LATCH_ON",
+"LED5_A",
+"LEDF_A",
+"LEDS_A",
+"LED_FAULT",
+"LED_STATUS",
+"LIDAR_EN",
+"LIDAR_REQ",
+"LIDAR_V",
+"LID_B",
+"LID_C",
+"LID_G",
+"LID_SW",
+"MAIN_EN",
+"MIC_IN",
+"OV_B",
+"OV_C",
+"OV_G",
+"OV_K",
+"OV_REF",
+"P1_DM",
+"P1_DP",
+"P2_DM",
+"P2_DP",
+"P3_DM",
+"P3_DP",
+"P4_DM",
+"P4_DP",
+"PICO_RUN",
+"PICO_VSYS",
+"PRECHARGE_EN",
+"PRE_B",
+"PRE_C",
+"PRE_D",
+"PRE_F",
+"PRE_G",
+"PWRKEY_A",
+"RESET_A",
+"SERVO_BUF",
+"SERVO_IN",
+"SERVO_IN_J",
+"SERVO_SIG",
+"SERVO_V",
+"SW_G1",
+"SW_G2",
+"SW_G3",
+"SW_GATE",
+"V5_IN",
+"VDEV",
+"VDEV_F",
+"VESC_KILL",
+"VM",
+"VM_LED_A",
+"VM_SENSE",
+"VSYS_SW"
+]
+}

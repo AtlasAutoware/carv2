@@ -161,6 +161,13 @@ class Board:
     def has_pth(self, ref):
         return any(d > 0 for _, _, _, d in self.pads(ref)) or ref in getattr(self.L, 'THROUGH', ())
 
+    def hollow(self, ref):
+        """layout.HOLLOW: modules on tall sockets; parts may sit under them, only their pads are obstacles"""
+        return ref in getattr(self.L, 'HOLLOW', ())
+
+    def pad_boxes(self, ref, margin=0.0):
+        return [(b[0] - margin, b[1] - margin, b[2] + margin, b[3] + margin) for _, _, b, _ in self.pads(ref)]
+
     def auto(self, explicit, keep=None):
         """Place every part not in `explicit` next to the pad it shares a net with. `keep` maps refs to their
         {x, y, rot, side} from an earlier run: such a part goes back there first if that spot is still free, so
@@ -175,6 +182,11 @@ class Board:
         margin = getattr(L, 'AUTO_MARGIN', 0.1)          # half the gap left between automatically placed parts
         ring = getattr(L, 'IC_RING', 0.1)                # kept clear around ICs with 20+ pads for their fan-out
 
+        # layout.SMD_UNDER_THT: on the far side a through-hole part blocks only its pads (plus PAD_CLEAR), so
+        # bottom-side chips can go under through-hole bodies; otherwise its whole courtyard blocks both sides
+        under = getattr(L, 'SMD_UNDER_THT', False)
+        pclear = getattr(L, 'PAD_CLEAR', 0.6)
+
         def add(ref, explicit_part=False):
             big = explicit_part and len(self.parts[ref]['pads']) >= 20
             b = self.crt(ref, ring if big else margin)
@@ -184,13 +196,17 @@ class Board:
                 return
             occ[side].append(b + (ref,))
             if self.has_pth(ref):
-                occ['B' if side == 'F' else 'F'].append(b + (ref,))
+                other = 'B' if side == 'F' else 'F'
+                if under:
+                    occ[other].extend(pb + (ref,) for pb in self.pad_boxes(ref, pclear))
+                else:
+                    occ[other].append(b + (ref,))
         for r in explicit:
             add(r, True)
         for (side, x0, y0, x1, y1) in getattr(L, 'NO_AUTO', []):
             occ[side].append((x0, y0, x1, y1, 'keepout'))
 
-        def free(b, side):
+        def free(b, side, ref=None):
             if b[0] < 0.5 or b[1] < 0.5 or b[2] > self.W - 0.5 or b[3] > self.H - 0.5:
                 return False
             for o in occ[side]:
@@ -199,6 +215,12 @@ class Board:
             for h in holes:
                 if self.circle_hits(h, b, 0.1):
                     return False
+            if under and ref is not None and self.has_pth(ref):
+                other = 'B' if side == 'F' else 'F'
+                for pb in self.pad_boxes(ref, pclear):
+                    for o in occ[other]:
+                        if pb[0] < o[2] and pb[2] > o[0] and pb[1] < o[3] and pb[3] > o[1]:
+                            return False
             return True
 
         used = {}
@@ -237,7 +259,7 @@ class Board:
                 k = keep.get(ref)
                 if k:
                     self.place(ref, k['x'], k['y'], k['rot'], k['side'])
-                    if free(self.crt(ref, margin), k['side']):
+                    if free(self.crt(ref, margin), k['side'], ref):
                         add(ref)
                         placed[ref] = None
                         continue
@@ -259,7 +281,7 @@ class Board:
                         tx, ty = px + rad * math.cos(ang), py + rad * math.sin(ang)
                         for deg in ((0, 90) if abs(ux) > abs(uy) else (90, 0)):
                             self.place(ref, round(tx * 4) / 4, round(ty * 4) / 4, deg, side)
-                            if free(self.crt(ref, margin), side):
+                            if free(self.crt(ref, margin), side, ref):
                                 done = True
                                 break
                         if done:
@@ -307,7 +329,13 @@ class Board:
                     if not self.circle_hits(h, boxes[o]):
                         continue
                 sa, sc = self.pos[a][3], self.pos[c][3]
-                if sa == sc and ov > 0.02:
+                if sa == sc and ov > 0.02 and (self.hollow(a) or self.hollow(c)):
+                    h, o = (a, c) if self.hollow(a) else (c, a)
+                    ob = boxes[o]
+                    if self.hollow(o) or any(pb[0] < ob[2] and pb[2] > ob[0] and pb[1] < ob[3] and pb[3] > ob[1]
+                                             for pb in self.pad_boxes(h, 0.25)):
+                        out.append(('overlap', round(ov, 2), a, c))
+                elif sa == sc and ov > 0.02:
                     out.append(('overlap', round(ov, 2), a, c))
                 elif sa != sc:
                     for f1, f2 in ((a, c), (c, a)):

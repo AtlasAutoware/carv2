@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "filename": "atlas_power.kicad_pro",
+    "version": 3
+  },
+  "board": {
+    "design_settings": {
+      "defaults": {},
+      "rules": {}
+    }
+  },
+  "erc": {
+    "rule_severities": {
+      "lib_symbol_issues": "ignore",
+      "lib_symbol_mismatch": "ignore",
+      "footprint_link_issues": "ignore",
+      "single_global_label": "ignore",
+      "unconnected_wire_endpoint": "warning",
+      "simulation_model_issue": "ignore"
+    }
+  },
+  "libraries": {
+    "pinned_footprint_libs": [],
+    "pinned_symbol_libs": []
+  },
+  "net_settings": {
+    "classes": [
+      {
+        "name": "Default",
+        "clearance": 0.15,
+        "track_width": 0.2,
+        "via_diameter": 0.6,
+        "via_drill": 0.3,
+        "diff_pair_width": 0.2,
+        "diff_pair_gap": 0.15
+      }
+    ],
+    "meta": {
+      "version": 3
+    }
+  },
+  "schematic": {
+    "meta": {
+      "version": 1
+    }
+  },
+  "text_variables": {}
+}

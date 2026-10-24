@@ -1,0 +1,835 @@
+(kicad_sch (version 20250114) (generator "eeschema") (generator_version "9.0")
+ (uuid "99c1cc93-96e2-5c34-b949-69e2191cfc6f")
+ (paper "A2")
+ (title_block (title "ATLAS-PWR-1 power board: USB-C charging: PD trigger 20 V, CC/CV buck 16.8 V / 2.5 A, reverse block, fuse") (date "2026-10-24") (rev "B") (company "Atlas Autoware (501c3), Fairfax VA") (comment 1 "Generated from design.py by tools/eda.py; edit the Python, not this file"))
+ (lib_symbols (symbol "atlas:ADA5807_HUSB238"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "MOD"
+			(at 0 6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "ADA5807_HUSB238"
+			(at 0 -8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "atlas:WireLand_PD_Trigger"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "USB-C PD sink trigger (HUSB238), jumpers set to 20 V / 3 A; off board in the pod, wired"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "ADA5807_HUSB238_0_1"
+			(rectangle
+				(start -5.08 2.54)
+				(end 5.08 -2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "ADA5807_HUSB238_1_1"
+			(pin power_out line
+				(at 7.62 0.00 180)
+				(length 2.54)
+				(name "VOUT"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -5.08 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:CCCV_BUCK_XL4015"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "MOD"
+			(at 0 6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "CCCV_BUCK_XL4015"
+			(at 0 -8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "atlas:WireLand_CCCV_Buck"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "CC/CV buck module, XL4015 class 5 A; set CV 16.80 V, CC 2.5 A; mounted off the board, wired to these pads"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "CCCV_BUCK_XL4015_0_1"
+			(rectangle
+				(start -7.62 2.54)
+				(end 7.62 -2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "CCCV_BUCK_XL4015_1_1"
+			(pin power_in line
+				(at -10.16 0.00 0)
+				(length 2.54)
+				(name "IN+"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_out line
+				(at 10.16 0.00 180)
+				(length 2.54)
+				(name "OUT+"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at -1.27 -5.08 90)
+				(length 2.54)
+				(name "IN-"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 1.27 -5.08 90)
+				(length 2.54)
+				(name "OUT-"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "4"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:IRF9Z34NPBF"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "Q"
+			(at 0 8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "IRF9Z34NPBF"
+			(at 0 -8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "P-FET -55 V 100 mOhm, VGS +-20 V, TO-220 (tab = drain)"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "IRF9Z34NPBF_0_1"
+			(rectangle
+				(start -3.81 2.54)
+				(end 3.81 -2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "IRF9Z34NPBF_1_1"
+			(pin input line
+				(at -6.35 0.00 0)
+				(length 2.54)
+				(name "G"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 5.08 270)
+				(length 2.54)
+				(name "S"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -5.08 90)
+				(length 2.54)
+				(name "D"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:2N3904"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "Q"
+			(at 0 8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "2N3904"
+			(at 0 -8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "NPN 40 V 200 mA, TO-92"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "2N3904_0_1"
+			(rectangle
+				(start -3.81 2.54)
+				(end 3.81 -2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "2N3904_1_1"
+			(pin input line
+				(at -6.35 0.00 0)
+				(length 2.54)
+				(name "B"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 5.08 270)
+				(length 2.54)
+				(name "C"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -5.08 90)
+				(length 2.54)
+				(name "E"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "Device:D_Zener"
+		(pin_numbers hide)
+		(pin_names
+			(offset 1.016)
+			hide)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "D"
+			(at 0 2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "D_Zener"
+			(at 0 -2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "diode"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "Zener diode"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "D_Zener_0_1"
+			(polyline
+				(pts
+					(xy 1.27 0)
+					(xy -1.27 0))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -1.27 -1.27)
+					(xy -1.27 1.27)
+					(xy -0.762 1.27))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy 1.27 -1.27)
+					(xy 1.27 1.27)
+					(xy -1.27 0)
+					(xy 1.27 -1.27))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "D_Zener_1_1"
+			(pin passive line
+				(at -3.81 0 0)
+				(length 2.54)
+				(name "K"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 3.81 0 180)
+				(length 2.54)
+				(name "A"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)))))))
+(symbol "Device:C"
+		(pin_numbers hide)
+		(pin_names
+			(offset 0.254))
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Value" "C"
+			(at 0.635 -2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Footprint" ""
+			(at 0.9652 -3.81 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "cap capacitor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "Unpolarized capacitor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_fp_filters" "C_*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "C_0_1"
+			(polyline
+				(pts
+					(xy -2.032 -0.762)
+					(xy 2.032 -0.762))
+				(stroke
+					(width 0.508)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -2.032 0.762)
+					(xy 2.032 0.762))
+				(stroke
+					(width 0.508)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "C_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)))))))
+(symbol "Device:R"
+		(pin_numbers hide)
+		(pin_names
+			(offset 0))
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "R"
+			(at 2.032 0 90)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "R"
+			(at 0 0 90)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at -1.778 0 90)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "R res resistor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "Resistor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_fp_filters" "R_*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "R_0_1"
+			(rectangle
+				(start -1.016 -2.54)
+				(end 1.016 2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "R_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)))))))
+(symbol "Device:Fuse"
+		(pin_numbers hide)
+		(pin_names
+			(offset 0))
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "F"
+			(at 2.032 0 90)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "Fuse"
+			(at -1.905 0 90)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at -1.778 0 90)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "fuse"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "Fuse"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_fp_filters" "*Fuse*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "Fuse_0_1"
+			(rectangle
+				(start -0.762 -2.54)
+				(end 0.762 2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy 0 2.54)
+					(xy 0 -2.54))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "Fuse_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)))))))
+(symbol "Connector:TestPoint"
+		(pin_numbers hide)
+		(pin_names
+			(offset 0.762)
+			hide)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "TP"
+			(at 0 6.858 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "TestPoint"
+			(at 0 5.08 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 5.08 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 5.08 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "test point tp"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "test point"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_fp_filters" "Pin* Test*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "TestPoint_0_1"
+			(circle
+				(center 0 3.302)
+				(radius 0.762)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "TestPoint_1_1"
+			(pin passive line
+				(at 0 0 90)
+				(length 2.54)
+				(name "1"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27))))))))
+ (text "USB-C charging: PD trigger 20 V, CC/CV buck 16.8 V / 2.5 A, reverse block, fuse" (exclude_from_sim no) (at 25.4 25.4 0) (effects (font (size 3 3) (thickness 0.5) bold) (justify left)) (uuid "3c660a56-af5b-5f96-8591-236304460baf"))
+(text "Adafruit 5807 (HUSB238) and the CC/CV buck (XL4015 class) sit off the board in the side pod at the charge" (exclude_from_sim no) (at 25.4 33.02 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "8c0359e4-4937-513b-8ecb-1e5e3931345f"))
+(text "window (130 mm board limit), wired to pads. On the 5807 cut the 5V jumper (all open = 20 V) and the 1A" (exclude_from_sim no) (at 25.4 38.1 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "7731f396-6d98-5559-a645-bef97d689072"))
+(text "jumper (both current jumpers open = 3 A)." (exclude_from_sim no) (at 25.4 43.18000000000001 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "3a675a70-9f78-5b7c-844d-324c280e9516"))
+(text "Reverse block: Q501 P-FET with its body diode toward the pack, turned fully on only while CHG_IN > ~17.5 V" (exclude_from_sim no) (at 25.4 48.260000000000005 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "dd3d79fb-9da6-59cb-977c-d4b0285b0d00"))
+(text "(1N5247B 17 V zener + Q502), so a 5/9/12/15 V PD fallback never enables it. No diode drop at the end of" (exclude_from_sim no) (at 25.4 53.34 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "5df1cfee-9f1d-5d39-88d9-093e535fa9f1"))
+(text "charge, so the buck CV is set to 16.80 V (4.20 V/cell), not 17.1 V (PHASE2 assumed a diode)." (exclude_from_sim no) (at 25.4 58.42 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "513297bc-0182-5367-9e7e-454ed7f70d1c"))
+(text "Q503 gives the Pico CHG_PRESENT_N (open collector, no back-power into an unpowered Pico)." (exclude_from_sim no) (at 25.4 63.5 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "4223b51e-a43d-5d89-be2d-e9052f69d7bc"))
+(text "5 A mini blade fuse into BAT. The pack-side current goes through the XT90 and the BMS common port." (exclude_from_sim no) (at 25.4 68.58000000000001 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "01d7522e-569a-5db6-8f11-cfcf2eb0ff97"))
+(symbol (lib_id "atlas:ADA5807_HUSB238") (at 38.10 93.98 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "f8815220-cef7-5772-a235-a748e520c0cf")
+ (property "Reference" "MOD501" (at 38.10 90.48 0) (effects (font (size 1.27 1.27)) )) (property "Value" "ADA5807_HUSB238" (at 38.10 102.56 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "atlas:WireLand_PD_Trigger" (at 38.10 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 38.10 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "5807" (at 38.10 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Adafruit" (at 38.10 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "USB-C PD trigger set to 20 V (jumpers), off board in the pod; its terminal holes wired here (20 AWG)" (at 38.10 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "5.95" (at 38.10 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.adafruit.com/product/5807" (at 38.10 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 38.10 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "7f1af42b-60a6-550f-96ca-db7ebbf7d59e")) (pin "2" (uuid "ff7e5517-1ba3-57f1-9128-49868e76b631"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "MOD501") (unit 1)))))
+(global_label "CHG_IN" (shape passive) (at 45.72 93.98 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "65b5616a-6639-50c0-bed7-c11e256507e5") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 38.1 99.06 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "63c58587-83c7-5587-837e-fc9b53407770") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 38.1 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:CCCV_BUCK_XL4015") (at 88.90 93.98 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "3192d796-1d66-5a4d-a309-b327fb574085")
+ (property "Reference" "MOD502" (at 88.90 90.48 0) (effects (font (size 1.27 1.27)) )) (property "Value" "CCCV_BUCK_XL4015" (at 88.90 102.56 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "atlas:WireLand_CCCV_Buck" (at 88.90 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 88.90 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "XL4015 CC/CV 5 A module (generic)" (at 88.90 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "generic" (at 88.90 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "CC/CV buck, set 16.80 V / 2.5 A with a meter before wiring OUT+ (README)" (at 88.90 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "8.00" (at 88.90 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "-" (at 88.90 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "no" (at 88.90 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "f22c6938-9a68-578b-8c81-c2dca7bce7aa")) (pin "3" (uuid "8f9c26c2-cdb2-5634-822d-59ae6e75da70")) (pin "2" (uuid "e08720a0-a470-5c42-883b-958e50aa8e65")) (pin "4" (uuid "e98e85d4-4a3c-50cc-b52e-baa694c8718f"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "MOD502") (unit 1)))))
+(global_label "CHG_IN" (shape passive) (at 78.74 93.98 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a43f2980-3954-5cc6-8df9-30ad11e90f76") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 78.74 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CHG_OUT" (shape passive) (at 99.06 93.98 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "ce80123a-ef79-516f-a863-b4678d8dc0c2") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 99.06 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 87.63 99.06 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "5fdcd680-dff2-5403-8a98-12d313fe09de") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 87.63 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 90.17 99.06 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ab87b214-6a0c-559b-b437-a74f8132e170") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 90.17 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:IRF9Z34NPBF") (at 139.70 99.06 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "56a481b3-081e-57da-94c4-c43b1d4d7530")
+ (property "Reference" "Q501" (at 139.70 90.48 0) (effects (font (size 1.27 1.27)) )) (property "Value" "IRF9Z34NPBF" (at 139.70 107.64 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical" (at 139.70 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 139.70 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "IRF9Z34NPBF" (at 139.70 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Infineon" (at 139.70 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "reverse block: body diode CHG_OUT -> pack; channel on only with 20 V present" (at 139.70 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "1.08" (at 139.70 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/IRF9Z34NPBF" (at 139.70 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 139.70 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "eda95745-5810-5196-9fda-92ddee7a3f1d")) (pin "3" (uuid "831b260d-9020-548f-9c73-1b77c3bad777")) (pin "2" (uuid "4afc8815-79a5-5ae6-9947-06bba9b7e9e2"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "Q501") (unit 1)))))
+(global_label "CHG_G" (shape passive) (at 133.35 99.06 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "17fc5fde-1f6e-5f5f-be7d-9007ebbbcfc8") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 133.35 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CHG_RB" (shape passive) (at 139.7 93.98 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4875184d-181e-5dc7-bb61-f23d574f9bb9") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 139.7 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CHG_OUT" (shape passive) (at 139.7 104.14 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "32b81bac-6169-59af-925b-9c717ba22f12") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 139.7 104.14 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:2N3904") (at 177.80 99.06 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "8858392c-66f0-5116-8fdc-280c34f4bb3d")
+ (property "Reference" "Q502" (at 177.80 90.48 0) (effects (font (size 1.27 1.27)) )) (property "Value" "2N3904" (at 177.80 107.64 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Package_TO_SOT_THT:TO-92_Inline" (at 177.80 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 177.80 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "2N3904BU" (at 177.80 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "onsemi" (at 177.80 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "reverse-block enable" (at 177.80 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.28" (at 177.80 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/2N3904BU" (at 177.80 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 177.80 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "2" (uuid "88dbdc6b-a940-536e-b842-c2a40c00ac98")) (pin "3" (uuid "6ee3a5a9-6846-5043-b8c0-76f11e3561c1")) (pin "1" (uuid "1e76f72d-2c25-5689-988e-b0ce5173f396"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "Q502") (unit 1)))))
+(global_label "CHG_B1" (shape passive) (at 171.45 99.06 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "52877c5f-5679-555f-8d52-3c64c65c1ca0") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 171.45 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CHG_C" (shape passive) (at 177.8 93.98 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "ceb07491-e0ae-5cb3-94df-2f784a97db1d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 177.8 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 177.8 104.14 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "06488b13-358b-5c06-b2ef-85d23900d4b1") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 177.8 104.14 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:2N3904") (at 223.52 99.06 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "5a5a392e-7e20-55b8-89c5-ad9ac0eded7a")
+ (property "Reference" "Q503" (at 223.52 90.48 0) (effects (font (size 1.27 1.27)) )) (property "Value" "2N3904" (at 223.52 107.64 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Package_TO_SOT_THT:TO-92_Inline" (at 223.52 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 223.52 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "2N3904BU" (at 223.52 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "onsemi" (at 223.52 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "charger present to the Pico (GP15)" (at 223.52 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.28" (at 223.52 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/2N3904BU" (at 223.52 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 223.52 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "2" (uuid "98de04d6-1155-5eca-9f72-07cde02490de")) (pin "3" (uuid "b0855a91-d2b6-5369-9419-5d139c33322c")) (pin "1" (uuid "fa17c54b-91ca-57ae-bc0a-a0cbc3a55f5f"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "Q503") (unit 1)))))
+(global_label "CHG_B2" (shape passive) (at 217.17 99.06 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "cf0da4d8-6214-5c0f-8efb-467e670651b1") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 217.17 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CHG_PRESENT_N" (shape passive) (at 223.52 93.98 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "46ca1687-06d1-5706-a3d0-8ed756c35cbe") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 223.52 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 223.52 104.14 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c9e5611c-4d90-547c-935d-dfcd9b21518d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 223.52 104.14 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:D_Zener") (at 55.88 121.92 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "04be5ca1-fca0-5cce-812c-0b91e716d985")
+ (property "Reference" "D501" (at 55.88 119.38 0) (effects (font (size 1.27 1.27)) )) (property "Value" "P6KE24A" (at 55.88 124.46 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Diode_THT:D_DO-15_P3.81mm_Vertical_KathodeUp" (at 55.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "P6KE24A" (at 55.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Littelfuse" (at 55.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "charge input TVS, VRWM 20.5 V (PD 20 V + 5 %)" (at 55.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.54" (at 55.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/P6KE24A" (at 55.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 55.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "d08db75e-3e20-5044-b89c-30ccdd1716b7")) (pin "2" (uuid "b88f1166-87a0-59f8-8f58-b5ec114dfa68"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "D501") (unit 1)))))
+(global_label "CHG_IN" (shape passive) (at 55.88 125.73 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6eabdf1b-9041-5bbd-a591-b3308f480c94") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 55.88 125.73 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 55.88 118.11 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "e09fff51-664d-5788-9a19-f1485d97c209") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 55.88 118.11 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 132.08 121.92 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "e9103c12-62b2-5121-8edb-a107643d9fe5")
+ (property "Reference" "C501" (at 132.08 119.38 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10u 50V" (at 132.08 124.46 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" (at 132.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "Murata GRM32ER71H106KA12L (10 uF 50 V X7R 1210)" (at 132.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Murata" (at 132.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "charge input, <= 10 uF so PD attach inrush stays small" (at 132.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.86" (at 132.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/GRM32ER71H106KA12L" (at 132.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 132.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "b10a0aae-d92d-5939-91ee-4ae506eea1eb")) (pin "2" (uuid "1e415d23-2c42-54ca-acf9-7610425601c8"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "C501") (unit 1)))))
+(global_label "CHG_IN" (shape passive) (at 128.27 121.92 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0b9d9a1e-20db-5518-af9c-53af20675d1c") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 135.89 121.92 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4472b303-6a6e-5d65-9574-51cafa993c92") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 208.28 121.92 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "a844d852-c8a6-53ff-9fbc-b2137ee3075b")
+ (property "Reference" "R501" (at 208.28 119.38 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10k" (at 208.28 124.46 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 208.28 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-0710KL" (at 208.28 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 208.28 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "G-S pull-up: off (body diode only) without a charger" (at 208.28 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 208.28 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 208.28 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 208.28 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "c7789ee1-dd78-5116-8331-285c2d1e7e22")) (pin "2" (uuid "8f495a32-bf40-5dbd-986c-4224a59b68f1"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "R501") (unit 1)))))
+(global_label "CHG_RB" (shape passive) (at 204.47 121.92 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "909c4fe5-391e-59b9-8380-8590d498d011") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 204.47 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CHG_G" (shape passive) (at 212.09 121.92 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "230b62eb-d2f5-5376-ae4d-7b6c59bec493") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 212.09 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 284.48 121.92 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "4a2d27b3-a167-5728-b5fb-4f80b109ca10")
+ (property "Reference" "R502" (at 284.48 119.38 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10k" (at 284.48 124.46 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 284.48 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-0710KL" (at 284.48 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 284.48 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "gate divider: VGS -8.4 V" (at 284.48 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 284.48 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 284.48 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 284.48 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "96afc8a7-4da4-5aaf-8cf1-d803abb1fb99")) (pin "2" (uuid "468a1f41-f29b-5aa3-a25a-e1748009ebbf"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "R502") (unit 1)))))
+(global_label "CHG_G" (shape passive) (at 280.67 121.92 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "b4c69837-961d-59e0-97f8-05bfff4eb474") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.67 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CHG_C" (shape passive) (at 288.29 121.92 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "775cb3c1-4ab5-5834-b077-d4b14de53e34") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:D_Zener") (at 360.68 121.92 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "97bf49c9-89be-5431-8f57-2ae1054d14bd")
+ (property "Reference" "D502" (at 360.68 119.38 0) (effects (font (size 1.27 1.27)) )) (property "Value" "1N5247B" (at 360.68 124.46 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Diode_THT:D_DO-35_SOD27_P2.54mm_Vertical_KathodeUp" (at 360.68 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "1N5247BTR" (at 360.68 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "onsemi" (at 360.68 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "17 V zener: 20 V present detector (on above 16.8-18.5 V)" (at 360.68 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.17" (at 360.68 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/1N5247BTR" (at 360.68 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 360.68 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "5e74f739-2811-50f6-9ce0-80bf81b93021")) (pin "2" (uuid "218b3c43-0fe6-52da-bd65-0bc771b8359f"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "D502") (unit 1)))))
+(global_label "CHG_IN" (shape passive) (at 360.68 125.73 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "06a6c422-4670-5eb1-b1f8-a423577b3baa") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 360.68 125.73 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CHG_Z" (shape passive) (at 360.68 118.11 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "29453c30-c6b8-5676-8f2e-5769e0f27a74") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 360.68 118.11 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 436.88 121.92 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "6e740f2d-bf03-5939-97d6-e7a93029304d")
+ (property "Reference" "R503" (at 436.88 119.38 0) (effects (font (size 1.27 1.27)) )) (property "Value" "47k" (at 436.88 124.46 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 436.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 436.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-0747KL" (at 436.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 436.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "base drive" (at 436.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 436.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 436.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 436.88 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "5d88e6cc-964f-56fa-bc0c-951a18472969")) (pin "2" (uuid "8c1c0930-99b2-5a6e-8ddc-1ce9857d829e"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "R503") (unit 1)))))
+(global_label "CHG_Z" (shape passive) (at 433.07 121.92 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "2d058305-e06f-5f91-857f-d6de99914504") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 433.07 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CHG_B1" (shape passive) (at 440.69 121.92 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "036d1646-08a7-5d93-9f4a-6f3638a826e2") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 440.69 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 513.08 121.92 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "6986f99e-f225-5e1d-bd53-d6955b1e5684")
+ (property "Reference" "R504" (at 513.08 119.38 0) (effects (font (size 1.27 1.27)) )) (property "Value" "47k" (at 513.08 124.46 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 513.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 513.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-0747KL" (at 513.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 513.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "base pull-down" (at 513.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 513.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 513.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 513.08 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "f8575636-071e-5350-8ec3-0e4f4c360aeb")) (pin "2" (uuid "f93ae5d6-1d59-5dcb-b6c5-96eb0b766eb2"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "R504") (unit 1)))))
+(global_label "CHG_B1" (shape passive) (at 509.27 121.92 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "7b2fa325-b927-5369-8cb4-60afe66d522b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 509.27 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 516.89 121.92 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "b7aff359-21d5-501a-bfff-7d88dee262eb") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 516.89 121.92 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 55.88 134.62 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "4208f7f2-e67d-5896-9aad-11fc5f5e26a4")
+ (property "Reference" "R505" (at 55.88 132.08 0) (effects (font (size 1.27 1.27)) )) (property "Value" "47k" (at 55.88 137.16 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 55.88 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-0747KL" (at 55.88 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 55.88 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "base drive" (at 55.88 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 55.88 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 55.88 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 55.88 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "b471cd90-748c-5aa4-94ac-f3ebc38f90dd")) (pin "2" (uuid "a03c3431-8658-572c-bcda-ca795269dd06"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "R505") (unit 1)))))
+(global_label "CHG_Z" (shape passive) (at 52.07 134.62 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "fb71e59f-e8f7-5dd3-8ca0-9a61c46b51e5") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CHG_B2" (shape passive) (at 59.69 134.62 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "9a97336f-dcd5-57ac-9e5d-90700cc31d5d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 132.08 134.62 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "1b5ab74a-cf61-5c42-b3df-8ee1d7ebc3ab")
+ (property "Reference" "R506" (at 132.08 132.08 0) (effects (font (size 1.27 1.27)) )) (property "Value" "47k" (at 132.08 137.16 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 132.08 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-0747KL" (at 132.08 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 132.08 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "base pull-down" (at 132.08 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 132.08 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 132.08 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 132.08 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "b1dda18d-a7ad-551a-8b93-f60f3e41c4b2")) (pin "2" (uuid "6b9e04ac-ad50-52c6-a4b2-19f063f48701"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "R506") (unit 1)))))
+(global_label "CHG_B2" (shape passive) (at 128.27 134.62 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "f5835500-130b-5d28-9b15-b9667822f3a4") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 135.89 134.62 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "99eff0e3-e40e-575e-829c-4dd02d8d8394") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 208.28 134.62 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "36ecbcf9-e8d5-558f-93a7-78d9b6a309af")
+ (property "Reference" "R507" (at 208.28 132.08 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10k" (at 208.28 137.16 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 208.28 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-0710KL" (at 208.28 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 208.28 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "pull-up: high = no charger" (at 208.28 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 208.28 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 208.28 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 208.28 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "bbea7ae6-f5fd-58b4-9fe4-bba583d87c9c")) (pin "2" (uuid "549145b3-20c5-5115-81c0-a92589f76f06"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "R507") (unit 1)))))
+(global_label "+3V3" (shape passive) (at 204.47 134.62 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "08db2987-da3f-5bf6-a7ae-37beb22affc4") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 204.47 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CHG_PRESENT_N" (shape passive) (at 212.09 134.62 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "e0a96528-94e8-5cf4-b41e-76c0acf08fc5") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 212.09 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:Fuse") (at 284.48 134.62 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "cacbd75f-796d-55fb-829e-05d8091618bd")
+ (property "Reference" "F501" (at 284.48 132.08 0) (effects (font (size 1.27 1.27)) )) (property "Value" "5A mini" (at 284.48 137.16 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Fuse:Fuseholder_Blade_Mini_Keystone_3568" (at 284.48 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "Keystone 3568 + Littelfuse 0297005.WXNV" (at 284.48 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Keystone / Littelfuse" (at 284.48 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "charge path fuse: mini blade (ATM) holder with a 5 A fuse" (at 284.48 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "1.48" (at 284.48 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/3568" (at 284.48 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 284.48 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "dd520852-69d1-591d-8446-8a4f8b56bbd7")) (pin "2" (uuid "62c6dbbb-0c40-56d5-a099-21478dad57e6"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "F501") (unit 1)))))
+(global_label "CHG_RB" (shape passive) (at 280.67 134.62 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "9caaa0a6-e711-5b58-8c68-1b8070e3e89b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.67 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BAT" (shape passive) (at 288.29 134.62 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "bac2c3e5-d307-5888-a50c-50c092320406") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Connector:TestPoint") (at 360.68 134.62 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "84b84efa-a310-5861-8ddd-f1c16eb68d86")
+ (property "Reference" "TP501" (at 360.68 131.12 0) (effects (font (size 1.27 1.27)) )) (property "Value" "CHG_IN" (at 360.68 138.12 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm" (at 360.68 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 360.68 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 360.68 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "test point" (at 360.68 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "3860b20a-a0dd-5ca6-bb6f-8a3bd87178de"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/99c1cc93-96e2-5c34-b949-69e2191cfc6f" (reference "TP501") (unit 1)))))
+(global_label "CHG_IN" (shape passive) (at 360.68 134.62 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "9b8e4a7b-8e75-5f72-a3ed-cbd123235798") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 360.68 134.62 0) (effects (font (size 1.27 1.27)) (hide yes))))
+ (embedded_fonts no))
