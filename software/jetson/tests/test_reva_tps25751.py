@@ -1,8 +1,9 @@
+"""Rev A TPS25751 PD controller driver (atlas_hw.reva), kept with the rev A boards."""
 import struct
 
 import pytest
 
-from atlas_hw import tps25751 as T
+from atlas_hw.reva import tps25751 as T
 from atlas_hw.i2c import I2CError
 from fakes import FakeBus, FakeTPS25751
 

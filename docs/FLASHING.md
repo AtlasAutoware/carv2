@@ -4,7 +4,117 @@ Every chip is programmed on the assembled boards, never before it is soldered. T
 the order to do it in and the commands. None of it has been tried on real boards yet: the
 boards are not built. Where a step is untested or depends on a guess, it says so.
 
-## What gets programmed
+Rev B (the dev-kit carrier and the ATLAS-PWR-1 power board) comes first. The rev A sections
+after it (drive board and brain board) are kept as history.
+
+## Rev B
+
+| Part | What | How | Later |
+| --- | --- | --- | --- |
+| Raspberry Pi Pico (supervisor, in its sockets on the power board) | MicroPython, then the six files in `firmware/supervisor/` | UF2 drag-and-drop, then Thonny or mpremote (step B1) | Thonny or mpremote, from the Jetson or a laptop |
+| Flipsky Mini FSESC 6.7 Pro | Flipsky's VESC firmware, kept; the team's configuration | VESC Tool over the FSESC's USB, through the power board's debug hub (step B4) | same |
+| Jetson Orin Nano Super module + NVMe | JetPack 6 for the Orin Nano Super developer kit | On the dev kit itself, in the car or on the bench (step B2) | `apt` updates; reflash the same way |
+| Jetson tools | `software/jetson/` | `install.sh` (step B3) | run it again |
+
+Nothing else on the power board is programmable. The JBD BMS is set up once with JBD's phone app
+or PC tool, with the values from the rev B BMS study: cell over-voltage 4.20-4.25 V, cell
+under-voltage 3.00 V, discharge over-current above the VESC's 90 A battery limit with a 1-2 s
+delay, charge over-current about 20 A, charge over-temperature 50 C, discharge 65 C, design
+capacity 8.4 Ah. The USB-C PD trigger and the CC/CV buck are set with their trimmers and a meter.
+The USB hub and the console adapter need nothing. The TPS25751, the ID EEPROM and the STM32 SWD step of rev A are gone.
+
+**Tools:** a laptop with Thonny or `pip install mpremote`, VESC Tool 6.06, a micro-USB cable,
+and for the Jetson an Ubuntu 22.04 PC (or VM with USB pass-through) with NVIDIA's SDK Manager or
+the Jetson Linux flashing scripts.
+
+### B1. The supervisor (Pico)
+
+Do this on the bench, with the Pico out of its sockets or with the board on a current-limited
+supply (no pack, no ESC).
+
+1. Hold the Pico's BOOTSEL button and plug it into the laptop. It appears as the drive RPI-RP2.
+   Drag the MicroPython UF2 for the board onto it (https://micropython.org/download/RPI_PICO/;
+   RPI_PICO2 for a Pico 2). It restarts as a USB serial port (USB ID 2e8a:0005).
+2. Copy `pins.py hal.py jbd.py link.py sequencer.py main.py` to it:
+   ```
+   cd firmware/supervisor
+   mpremote connect /dev/ttyACM0 cp pins.py hal.py jbd.py link.py sequencer.py main.py :
+   mpremote connect /dev/ttyACM0 reset
+   ```
+   or open each file in Thonny and use File > Save as... > Raspberry Pi Pico.
+3. `screen /dev/ttyACM0 115200` should show a status line every second, starting with
+   `{"t": "evt", "evt": "boot", ...}`. Type `status` and Enter (nothing is echoed). With no board
+   around it the inputs float and there is no pack, so it ends in LOCKOUT or in FAULT
+   `bat_sense`; that is expected.
+
+Everything about the firmware (protocol, states, LEDs, getting back to the REPL) is in
+`firmware/supervisor/README.md`.
+
+### B2. JetPack on the dev kit, flashed on itself
+
+The module and the NVMe stay on the dev-kit carrier, so there is no move between carriers.
+
+1. Put the dev kit in recovery mode: short J14 pins 10 and 9 (FORCE_RECOVERY*) while it powers
+   up. On the car that is the power board's recovery button on the J14 harness, held while you
+   switch the car on; on the bench, a jumper on J14 pins 9-10 at power-up.
+2. Connect the Ubuntu PC to the dev kit's USB-C port: through the power board's debug USB-C (the
+   hub passes it on), or straight to the dev kit if flashing through the hub fails (NVIDIA's
+   flashing is sensitive to hubs; untested here). `lsusb` on the PC then lists an NVIDIA device
+   (vendor ID 0955).
+3. Flash JetPack 6.2 or later for the Orin Nano Super developer kit with SDK Manager, or with the
+   Jetson Linux scripts, following NVIDIA's quick start for an NVMe root file system (the board
+   configuration is `jetson-orin-nano-devkit-super`; the exact command depends on the release,
+   so take it from NVIDIA's page for that release).
+4. First boot: user `atlas`, network, `sudo apt update && sudo apt upgrade`.
+
+The laptop's 192.168.55.1 link and the serial console over USB work as on any dev kit. The J14
+debug console (pins 3/4/7) also reaches the hub through the power board's USB-serial adapter.
+
+### B3. Atlas tools on the Jetson
+
+```
+git clone https://github.com/AtlasAutoware/carv2.git && cd carv2
+sudo software/jetson/system/install.sh
+sudo reboot
+atlas status
+```
+
+`install.sh` installs libgpiod, the `atlas` command, the udev names (`/dev/atlas_vesc`,
+`/dev/atlas_supervisor`, `lidar0`), the NetworkManager profiles, the power-key setting, the
+systemd-shutdown hook, the two services, frees UART1 of any serial console, and sets the 25 W
+power mode. It prints warnings for anything it could not do. Then check once:
+
+```
+ls -l /dev/atlas_vesc /dev/atlas_supervisor     # ttyTHS1 and ttyACM0 expected
+gpioinfo | grep -E 'PQ.05|PQ.06|PH.00|PG.06'      # line numbers 105, 106, 43, 41 expected
+atlas supervisor log                              # the Pico's last events
+sudo evtest                                       # a short press of the car's button = KEY_POWER
+```
+
+If `gpioinfo` disagrees, set `ATLAS_GPIO_<NAME>` in /etc/atlas/atlas.conf (docs/SOFTWARE.md).
+
+### B4. The FSESC
+
+VESC Tool on the laptop, through the power board's debug USB-C. Read the firmware version and
+hardware name first (Firmware page): the kill switch needs VESC 5.03 or later. Do not update the
+firmware unless VESC Tool offers a build for that exact hardware name. Then set the UART app at
+115200, the kill switch on ADC2 (active low), the servo output, the timeout and the limits as
+listed in docs/SOFTWARE.md ("The FSESC"), check ADC2 reads about 3.3 V in RUN, and write the
+configuration. From the Jetson, `atlas vesc --probe` then answers with the same version.
+
+### B5. First power-up with the pack
+
+1. E-stop loop closed, ESC connected, wheels off the ground. Switch on: green LED fast blink, then
+   steady (RUN). `atlas supervisor` shows `RUN (precharged in N ms)` and `pre_ms`. If the
+   precharge fails as `slow` with a healthy bus, the FSESC has more capacitance than the 2 mF
+   assumed: set `VM_CAP_UF` in `sequencer.py` from `pre_ms` and copy the file again.
+2. Open the loop: the motor bus drops at once, the red LED blinks, `atlas status` shows E-stop
+   OPEN. Close it: nothing happens until a short press of the button.
+3. Short press: the Jetson shuts down and the car switches itself off about 3 s after the halt.
+
+## Rev A (history)
+
+### What gets programmed
 
 | Part | What | First time | Later |
 | --- | --- | --- | --- |
@@ -17,7 +127,7 @@ Nothing to program: BQ25798 (the PD controller sets it up), USB2514B (strapped),
 (factory default), TPS23861 (auto mode), BQ7791508 (fixed thresholds), INA228 (set up at run
 time), LAN7800.
 
-## Tools
+### Tools
 
 - An ST-Link with a 10-pin 1.27 mm Cortex debug cable for J601. An STLINK-V3SET is on the
   Syslab purchase sheet (row 96); its box includes a flat cable from its 14-pin STDC14
@@ -33,7 +143,7 @@ time), LAN7800.
 Firmware files: `firmware/vesc/prebuilt/` (built from this repo, see `BUILD_INFO.txt` there),
 or build them with `firmware/vesc/build.sh`.
 
-## 1. STM32 first flash (drive board, SWD)
+### 1. STM32 first flash (drive board, SWD)
 
 Do it before the brain board goes on: J601 is at drive (105.5, 33.5), under the brain board
 once stacked, and whether a debug cable fits through the 20 mm gap has not been checked.
@@ -58,7 +168,7 @@ once stacked, and whether a debug cable fits through the 20 mm gap has not been 
    terminal, `atlas_status` prints the main switch, E-stop, gate driver and brain board state.
 5. Motor and current set-up: docs/COMPLETE_CAR.md.
 
-## 2. Stack the boards
+### 2. Stack the boards
 
 Brain board on the drive board (mech/README.md). With the car on, the STM32 raises POWER_EN
 and the brain board powers up; about 5 s later the STM32 presses the Jetson's power button
@@ -69,7 +179,7 @@ its pins 2 and 3 connected (check with a meter; which slider position that is ha
 checked). In the other position Antmicro's auto-on circuit restarts the Jetson a few seconds
 after every shutdown, and the drive board would never see it stay halted.
 
-## 3. Jetson module and NVMe
+### 3. Jetson module and NVMe
 
 Flash on the NVIDIA dev kit first. It is NVIDIA's supported path, and the brain board
 carries the same module ports the software uses:
@@ -88,7 +198,7 @@ edge, S4 34 mm from the rear, S2 and S3 are user buttons. The STM32 must already
 firmware, because it powers the brain board. Risk: the brain board has no VBUS detection on
 USB0, which NVIDIA's initrd flash may need.
 
-## 4. Atlas tools on the Jetson
+### 4. Atlas tools on the Jetson
 
 ```
 git clone https://github.com/AtlasAutoware/carv2.git && cd carv2
@@ -100,7 +210,7 @@ atlas status
 `atlas status` should list the drive board, the pack voltage, the PD controller's mode,
 E-stop, charger, lidar power and the USB0 role. What the install does: docs/SOFTWARE.md.
 
-## 5. Check the stack buses
+### 5. Check the stack buses
 
 ```
 i2cdetect -y -r 7      # stack I2C: 0x20 PD controller, 0x28 PoE controller (and 0x30, its broadcast
@@ -110,7 +220,7 @@ i2cdetect -y -r 1      # brain board: 0x20 expander (and the module's own 0x40)
 The bus numbers are the usual ones for these controllers (c250000.i2c and c240000.i2c);
 `/dev/atlas_i2c_stack` and `/dev/atlas_i2c_sys` point at the right ones either way.
 
-## 6. USB-C PD controller EEPROM
+### 6. USB-C PD controller EEPROM
 
 Until this is done the car does not charge from USB-C (the controller waits in PTCH mode).
 
@@ -148,7 +258,7 @@ python3 -m atlas_hw.cli --ftdi pd flash ../../firmware/tps25751/tps25751_full.bi
 ```
 J702 (the EEPROM header, not fitted) is not needed for any of this.
 
-## 7. Later STM32 updates (VESC Tool)
+### 7. Later STM32 updates (VESC Tool)
 
 VESC Tool, Firmware tab, Custom File: `firmware/vesc/prebuilt/atlas_drv1.bin`, Upload. The
 STM32 restarts at the end.
@@ -160,13 +270,13 @@ Jetson halts), then `sudo poweroff` on the Jetson and wait for it to halt, then 
 STM32 does not press the Jetson's power button again after a shutdown, so it stays off until
 the upload. The new firmware powers the brain board up and, 5 s later, starts the Jetson.
 
-## 8. Board ID
+### 8. Board ID
 
 ```
 sudo atlas id --write --serial 001 --rev A
 ```
 
-## The POWER_EN fix (applied Sept 29, 2026)
+### The POWER_EN fix (applied Sept 29, 2026)
 
 Before this change R609 (100k, drive board) pulled STK_POWER_EN down, so whenever the STM32 was
 in reset, flashing, or blank, the brain board and the Jetson lost power. The drive board now has
@@ -196,7 +306,7 @@ With both:
 `ATLAS_POWER_EN_FIXED=1` in /etc/atlas/atlas.conf (the installed default now) unlocks
 `atlas stm32`. Set it to 0 on a board built from files older than Sept 29.
 
-## Troubleshooting
+### Troubleshooting
 
 - `atlas pd status` says PTCH: the EEPROM is blank or was not accepted. `sudo atlas pd load
   /etc/atlas/tps25751_lowregion.bin` runs the configuration until the next power cycle.

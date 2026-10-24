@@ -1,14 +1,17 @@
-"""ROS 2 node for the Atlas car v2 boards.
+"""ROS 2 node for Atlas car 2 (rev B: dev-kit carrier + ATLAS-PWR-1 power board).
 
 Publishes
-  /battery      sensor_msgs/BatteryState  from atlas-battery.service (/run/atlas/battery.json)
-  /estop_ok     std_msgs/Bool             E-stop loop closed (brain board expander P3)
-  /charging     std_msgs/Bool             charger active (expander P4)
+  /battery      sensor_msgs/BatteryState  from atlas-battery.service (/run/atlas/battery.json):
+                pack voltage and current from the JBD BMS, cell voltages, temperature, estimate
+  /estop_ok     std_msgs/Bool             E-stop loop closed (J12 pin 33, driven by the supervisor)
+  /charging     std_msgs/Bool             charger connected (J12 pin 32, low = charging)
 Serves
-  /lidar_power  std_srvs/SetBool          lidar eFuse on/off (expander P2)
+  /lidar_power  std_srvs/SetBool          lidar power, through the supervisor
 
-It never touches the INA228 itself: atlas-battery.service owns the charge counter. The atlas_hw
-package comes from /opt/atlas (software/jetson/system/install.sh).
+It never opens the supervisor's USB port itself: atlas-battery.service owns it, and this node
+asks through its socket. The E-stop and charger lines are read on the 40-pin header; if libgpiod
+is missing or the lines are busy, the node falls back to the supervisor's status frame (up to
+1 s old). The atlas_hw package comes from /opt/atlas (software/jetson/system/install.sh).
 """
 import math
 import sys
@@ -20,9 +23,7 @@ from std_msgs.msg import Bool
 from std_srvs.srv import SetBool
 
 sys.path.append('/opt/atlas')
-from atlas_hw import battery, board  # noqa: E402
-from atlas_hw.expander import Expander  # noqa: E402
-from atlas_hw.i2c import LinuxI2C  # noqa: E402
+from atlas_hw import battery, board, gpio, supervisor  # noqa: E402
 
 
 class PowerNode(Node):
@@ -33,23 +34,32 @@ class PowerNode(Node):
         self.estop_pub = self.create_publisher(Bool, 'estop_ok', 10)
         self.charging_pub = self.create_publisher(Bool, 'charging', 10)
         self.create_service(SetBool, 'lidar_power', self.on_lidar)
-        self.exp = None
+        self.lines = None
         try:
-            self.exp = Expander(LinuxI2C(board.sys_i2c_bus()))
-            self.exp.setup()
-        except OSError as e:
-            self.get_logger().error(f'brain board expander not reachable: {e}')
+            self.lines = gpio.Lines(inputs=board.GPIO_INPUTS, consumer='atlas_power')
+        except gpio.GpioUnavailable as e:
+            self.get_logger().warn(f'J12 lines not available ({e}); using the supervisor status instead')
         self.charging = False
         self.create_timer(1.0 / rate, self.tick)
 
-    def tick(self):
-        if self.exp:
+    def _inputs(self):
+        """(estop_ok, charging) or (None, None)."""
+        if self.lines is not None:
             try:
-                self.estop_pub.publish(Bool(data=self.exp.estop_ok()))
-                self.charging = self.exp.charging()
-                self.charging_pub.publish(Bool(data=self.charging))
+                return self.lines.get('ESTOP_OK') == 1, self.lines.get('CHG_STAT_N') == 0
             except OSError as e:
-                self.get_logger().warn(f'expander read failed: {e}', throttle_duration_sec=10.0)
+                self.get_logger().warn(f'J12 read failed: {e}', throttle_duration_sec=10.0)
+        st = supervisor.read_live()
+        if st is None:
+            return None, None
+        return bool(st.get('estop')), bool(st.get('chg'))
+
+    def tick(self):
+        estop_ok, charging = self._inputs()
+        if estop_ok is not None:
+            self.estop_pub.publish(Bool(data=estop_ok))
+            self.charging = charging
+            self.charging_pub.publish(Bool(data=charging))
         live = battery.read_live()
         msg = BatteryState()
         msg.header.stamp = self.get_clock().now().to_msg()
@@ -59,7 +69,7 @@ class PowerNode(Node):
         msg.charge = math.nan
         msg.temperature = math.nan
         msg.cell_voltage = [math.nan] * board.PACK_CELLS_SERIES
-        msg.location = 'drive board pack'
+        msg.location = 'car 2 pack (JBD BMS)'
         if live is None:
             msg.present = False
             msg.voltage = msg.current = msg.percentage = math.nan
@@ -68,8 +78,16 @@ class PowerNode(Node):
         else:
             msg.present = True
             msg.voltage = float(live['voltage'])
-            msg.current = -float(live['current'])       # ROS: negative while discharging
+            msg.current = -float(live['current']) if live.get('current_known', True) else math.nan
             msg.percentage = float(live['soc'])
+            if live.get('cells'):
+                msg.cell_voltage = [float(c) for c in live['cells']]
+            if live.get('temps'):
+                msg.temperature = float(max(live['temps']))
+            if live.get('full_ah') is not None:
+                msg.capacity = float(live['full_ah'])
+            if live.get('rem_ah') is not None:
+                msg.charge = float(live['rem_ah'])
             if self.charging:
                 msg.power_supply_status = BatteryState.POWER_SUPPLY_STATUS_CHARGING
             elif live['current'] > 0.05:
@@ -79,16 +97,22 @@ class PowerNode(Node):
         self.battery_pub.publish(msg)
 
     def on_lidar(self, request, response):
-        if not self.exp:
-            response.success, response.message = False, 'expander not reachable'
-            return response
         try:
-            self.exp.lidar(request.data)
-            response.success = True
-            response.message = 'lidar power ' + ('on' if self.exp.lidar() else 'off')
-        except (OSError, RuntimeError) as e:
+            reply = supervisor.DaemonClient().request({'cmd': 'lidar', 'on': bool(request.data)})
+        except supervisor.SupervisorError as e:
             response.success, response.message = False, str(e)
+            return response
+        if reply.get('t') == 'err':
+            response.success, response.message = False, reply.get('msg', 'error')
+        else:
+            response.success = True
+            response.message = 'lidar power ' + ('on' if reply.get('on') else 'off')
         return response
+
+    def destroy_node(self):
+        if self.lines is not None:
+            self.lines.release()
+        super().destroy_node()
 
 
 def main():

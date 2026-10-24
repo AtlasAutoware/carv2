@@ -13,7 +13,7 @@ setup(
     zip_safe=True,
     maintainer='Atlas Autoware',
     maintainer_email='admin@atlasautoware.org',
-    description='Battery state, E-stop and charging status, and lidar power for the Atlas car v2 boards',
+    description='Battery state, E-stop and charging status, and lidar power for Atlas car 2 (rev B power board and supervisor)',
     license='Apache-2.0',
     entry_points={'console_scripts': ['power_node = atlas_power.power_node:main']},
 )

@@ -1,6 +1,8 @@
-# LUCID Triton on the camera RJ45 (J6, PoE). J6 carries the Orin Nano module's own gigabit port,
-# whose Realtek controller uses r8168 in NVIDIA's kernel (r8169 upstream). The camera falls back to
-# a link-local address when nobody answers DHCP, so this side does link-local too.
+# LUCID Triton on the dev kit's RJ45: the Orin Nano module's own gigabit port, whose Realtek
+# controller uses r8168 in NVIDIA's kernel (r8169 upstream). Rev B has no PoE: the camera is
+# powered through its M8 GPIO connector (12 V from the power board), so this link carries data
+# only. The camera falls back to a link-local address when nobody answers DHCP, so this side does
+# link-local too.
 # Jumbo frames for GigE Vision (docs/ARCHITECTURE.md); set the camera's packet size to match.
 [connection]
 id=atlas-camera

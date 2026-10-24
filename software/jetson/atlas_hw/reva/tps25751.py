@@ -28,7 +28,7 @@ import struct
 import time
 
 from . import board
-from .i2c import BusLock, I2CError
+from ..i2c import BusLock, I2CError
 
 REG_VID = 0x00
 REG_MODE = 0x03

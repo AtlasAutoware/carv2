@@ -1,0 +1,18 @@
+#!/bin/sh
+# Atlas car 2 (rev B): systemd runs this at the very end of every shutdown, after the root file
+# system is read-only, with $1 = halt, poweroff, reboot or kexec (man systemd-shutdown).
+# It tells the power board supervisor which one it is (HALT: the supervisor switches the car off
+# 3 s later; REBOOT: it keeps the power on) and drops JETSON_UP.
+# Installed as /usr/lib/systemd/system-shutdown/atlas-halt by software/jetson/system/install.sh.
+VERB="${1:-poweroff}"
+[ -r /etc/atlas/atlas.conf ] && . /etc/atlas/atlas.conf
+export ATLAS_SUPERVISOR_TTY ATLAS_GPIO_JETSON_UP
+if PYTHONPATH=/opt/atlas timeout 5 python3 -m atlas_hw.cli halt-hook "$VERB"; then
+    exit 0
+fi
+# Fallback without Python: one line straight to the port.
+for dev in "${ATLAS_SUPERVISOR_TTY:-/dev/atlas_supervisor}" /dev/serial/by-id/usb-MicroPython_*; do
+    [ -c "$dev" ] || continue
+    timeout 2 sh -c "stty -F '$dev' 115200 raw -echo clocal 2>/dev/null; printf '{\"cmd\":\"halt\",\"verb\":\"%s\"}\n' '$VERB' > '$dev'" && break
+done
+exit 0

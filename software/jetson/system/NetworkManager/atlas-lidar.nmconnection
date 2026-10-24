@@ -1,4 +1,8 @@
-# SICK TiM561 on the brain board's second RJ45 (LAN7800 USB Ethernet, Linux driver lan78xx).
+# SICK TiM561 on a USB 3 gigabit Ethernet adapter in a dev-kit USB-A port (rev B; the brain board's
+# LAN7800 is gone). udev names the adapter lidar0 (99-atlas.rules); this profile matches the
+# drivers instead, so it works even if the rename did not happen. RTL8153 adapters use r8152,
+# ASIX AX88179 ones ax88179_178a (some kernels bind the B version to cdc_ncm: if `ethtool -i`
+# says cdc_ncm, add it here; it is left out because USB gadget links can use it too).
 # The TiM561 ships at 192.168.0.1/24 (docs/ARCHITECTURE.md); this side takes .100.
 [connection]
 id=atlas-lidar
@@ -6,7 +10,7 @@ type=ethernet
 autoconnect=true
 
 [match]
-driver=lan78xx;
+driver=r8152;ax88179_178a;lan78xx;
 
 [ethernet]
 

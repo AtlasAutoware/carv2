@@ -1,12 +1,11 @@
-import json
-
+"""Rev A drivers (atlas_hw.reva), kept for the rev A boards in boards/drive and boards/brain."""
 import pytest
 
-from atlas_hw import battery, board
-from atlas_hw.expander import Expander
 from atlas_hw.i2c import BusLock
-from atlas_hw.ideeprom import IDEEPROM
-from atlas_hw.ina228 import INA228
+from atlas_hw.reva import board
+from atlas_hw.reva.expander import Expander
+from atlas_hw.reva.ideeprom import IDEEPROM
+from atlas_hw.reva.ina228 import INA228
 from fakes import FakeBus, FakeEEPROM24AA02, FakeINA228, FakePCAL6408A
 
 
@@ -99,35 +98,6 @@ def test_id_eeprom_detects_damage():
     chip.mem[8] ^= 0x01
     with pytest.raises(ValueError, match='CRC'):
         eep.record()
-
-
-# ---------------------------------------------------------------- battery
-def test_ocv_lookup():
-    assert battery.soc_from_cell_voltage(3.84) == pytest.approx(0.5)
-    assert battery.soc_from_cell_voltage(3.82) == pytest.approx(0.45)
-    assert battery.soc_from_cell_voltage(2.9) == 0.0
-    assert battery.soc_from_cell_voltage(4.3) == 1.0
-
-
-def test_estimator_voltage_start_then_coulombs(tmp_path):
-    chip, dev = ina()
-    chip.set20(0x05, round(4 * 3.84 / 195.3125e-6 - 0))     # 15.36 V at rest
-    est = battery.Estimator(dev, r_pack=0.0, state_path=str(tmp_path / 's.json'))
-    assert est.start() == pytest.approx(0.5, abs=0.01) and est.source == 'voltage'
-    chip.set40(0x0A, round(0.84 * 3600 / 0.000625))           # 0.84 Ah out = 10 % of 8.4 Ah
-    assert est.read()['soc'] == pytest.approx(0.4, abs=0.01)
-
-
-def test_estimator_trusts_close_saved_state(tmp_path):
-    chip, dev = ina()
-    chip.set20(0x05, round(4 * 3.84 / 195.3125e-6))
-    path = tmp_path / 's.json'
-    path.write_text(json.dumps({'soc': 0.55}))
-    est = battery.Estimator(dev, r_pack=0.0, state_path=str(path))
-    assert est.start() == pytest.approx(0.55) and est.source == 'saved'
-    path.write_text(json.dumps({'soc': 0.95}))                 # charged with the car off
-    est = battery.Estimator(dev, r_pack=0.0, state_path=str(path))
-    assert est.start() == pytest.approx(0.5, abs=0.01) and est.source == 'voltage'
 
 
 # ---------------------------------------------------------------- lock

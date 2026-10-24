@@ -7,7 +7,7 @@ Jetson's own supply), so this class always writes the output register first and 
 register second.
 """
 from . import board
-from .i2c import BusLock
+from ..i2c import BusLock
 
 REG_INPUT = 0x00
 REG_OUTPUT = 0x01
