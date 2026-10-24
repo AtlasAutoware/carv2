@@ -57,13 +57,14 @@ def tray_footprint_local():
     return rects
 
 
-# PHASE2 edge assignments (scratchpad PHASE2.md, "Edges") and the positions the mechanical model assumes
+# what sits at each edge in agent D's layout (boards/power/HANDOFF_E.md, 24 Oct); the positions are in
+# extras.POWER_CONN and the right pod's windows in kit.P['POD_WINDOWS']
 EDGES = {
-    'Y=84 (pack side)': 'XT90 board-mount for the pack, BMS UART JST-XH 4-pin (isolated), dev-kit DC lead pads',
-    'X=0 (rear, ESC bay)': 'ESC output XT60PW/XT90PW, Castle BEC in/out headers, FSESC UART/COMM JST-PH 7-pin',
-    'X=L (front)': 'servo 3-pin, lidar power Phoenix 2-pin, camera power JST-XH 2-pin, fan 4-pin, E-stop JST-PH 2-pin, remote button JST-PH 2-pin',
-    'Y=0 (right, pod side, z <= 30)': 'charge USB-C (PD trigger module at the edge), debug USB-C, power button (6 mm tactile + remote header)',
-    'middle': '2x20 shrouded box header (J12 ribbon), 1x12 header (J14 harness), Pico in 2 x 20-pin sockets, hub module, console module, Pololu latch, R-78E, FET switch with its heatsink in the rear strip',
+    'Y=84 (pack side)': 'pack BAT+ / BAT- pads (10 AWG pigtail to an XT90 male), BMS UART J201 JST-XH 4, dev-kit DEV+ / DEV- pads, Pico micro-USB',
+    'X=0 (rear, ESC bay)': 'ESC+ / ESC- pads, fan header J1003, FSESC COMM J903 JST-PH 7, SERVO_IN J904, BEC_OUT J403, BEC and servo-supply pads',
+    'X=L (front)': 'servo J406, lidar power J409 Phoenix, camera regulator input pads MOD402, E-stop J1001, remote button J1002',
+    'Y=0 (right, pod side)': 'hub USB-C (laptop), dev-kit USB-A J601 on its edge, power button SW401 (right angle), status LEDs; the PD trigger and the CC/CV module are off the board in the pod',
+    'middle': 'J12 box header J801, J14 header J802, PD-trigger and CC/CV pads, FSESC USB header J602, spare J603, Pico and hub modules on sockets, Pololu latch pads, R-78E, FET switch with its heatsink bar',
 }
 
 
@@ -76,11 +77,16 @@ def blocks():
     dx0, dx1, dy0, dy1 = P['DEVKIT']
     a, c = car_to_local(dx0, dy0); b, d = car_to_local(dx1, dy1)
     B.append(('dev-kit carrier shadow (100 x 79, on the tray 25 mm up)', a, b, c, d, 'shadow', '#7f7f7f'))
+    if P['FET_SHIELD']:
+        a, b, c, d = P['FET_SHIELD_XY']
+        B.append((f'acrylic FET shield under the tray (parts <= {P["FET_SHIELD_MAX_H"]:g} mm here)', a, b, c, d, 'shadow', '#e377c2'))
+        fb = P['FET_BAR']
+        B.append(('heatsink bar + FET tabs (BAT+)', fb[0], fb[1], fb[2], fb[3], 'window', '#d62728'))
     for name, (X, Y, h) in extras.POWER_CONN.items():
-        B.append((f'{name} (mech model)', X - 2, X + 2, Y - 2, Y + 2, 'conn', '#1f77b4'))
-    for (name, xc, w, z0, z1) in P['POD_WINDOWS']:
+        B.append((f'{name}', X - 2, X + 2, Y - 2, Y + 2, 'conn', '#1f77b4'))
+    for (name, xc, w, z0, z1, walls) in kit.pod_windows():
         X = xc - X0
-        B.append((f'pod window {name} (z {z0:g}-{z1:g})', X - w / 2, X + w / 2, -6, 0, 'window', '#9467bd'))
+        B.append((f'pod window {name} ({walls}, z {z0:g}-{z1:g})', X - w / 2, X + w / 2, -6, 0, 'window', '#9467bd'))
     return B
 
 
@@ -104,6 +110,7 @@ def make():
 
     fig, ax = plt.subplots(figsize=(13, 13 * (W + 14) / (L + 10) + 1.0), dpi=130)
     ax.add_patch(Polygon(pts, closed=True, fill=False, lw=2))
+    nwin = 0
     for (lab, a, b, c, e, style, col) in blocks():
         if style == 'zone':
             ax.add_patch(Rectangle((a, c), b - a, e - c, facecolor=col, alpha=0.10, edgecolor=col, lw=0.8))
@@ -113,7 +120,8 @@ def make():
             ax.text(a + 1.0, e - 2.5, lab, fontsize=7, color=col)
         elif style == 'window':
             ax.add_patch(Rectangle((a, c), b - a, e - c, facecolor=col, alpha=0.35, edgecolor=col))
-            ax.text(a, c - 2.0, lab, fontsize=5.5, color=col, rotation=0)
+            ax.text(a, c - 2.0 - 1.6 * (nwin % 3 if c < 0 else 0), lab, fontsize=5.5, color=col, rotation=0)
+            nwin += 1 if c < 0 else 0
         else:
             ax.add_patch(Rectangle((a, c), b - a, e - c, facecolor=col, alpha=0.6, edgecolor=col))
             ax.text(b + 0.6, c, lab, fontsize=5.5, color=col)
@@ -125,11 +133,11 @@ def make():
     if notch:
         ax.text(notch[0] - 6, notch[3] + 1.0, 'servo-lead notch', fontsize=6)
     ax.annotate('car front (+x)', xy=(L, W / 2), xytext=(L - 26, W + 4), fontsize=8, arrowprops=dict(arrowstyle='->'))
-    ax.set_xlim(-6, L + 6); ax.set_ylim(-10, W + 8); ax.set_aspect('equal')
+    ax.set_xlim(-6, L + 6); ax.set_ylim(-13, W + 8); ax.set_aspect('equal')
     ax.set_xlabel('mm, from the rear edge'); ax.set_ylabel('mm, from the right edge (car left is up)')
     ax.set_title(f'ATLAS-PWR-1 power board rev B, {L:g} x {W:g} mm: height map (green <= {P["POWER_LOW_H"]:g} mm, red <= '
-                 f'{P["POWER_TALL_H"]:g} mm), tray rails (brown), holes and keep-outs; blue = connector positions the mech '
-                 f'model assumes', fontsize=8)
+                 f'{P["POWER_TALL_H"]:g} mm), tray rails (brown), holes and keep-outs; blue = connector positions (agent D, '
+                 f'HANDOFF_E) used for the cable runs', fontsize=8)
     fig.tight_layout(); fig.savefig(os.path.join(d, 'atlas_power_placement.png')); plt.close(fig)
     return dict(size_mm=[L, W], car_origin=[X0, Y0], pcb_z=P['POWER_Z'], outline_local=pts, holes_local=holes, hole_d=3.2,
                 hole_keepout_d=kit.POWER_HOLE_KEEPOUT, servo_notch_local=notch,
@@ -137,9 +145,13 @@ def make():
                 devkit_shadow_local=dict(x=[car_to_local(P['DEVKIT'][0], 0)[0], car_to_local(P['DEVKIT'][1], 0)[0]],
                                          y=[car_to_local(0, P['DEVKIT'][2])[1], car_to_local(0, P['DEVKIT'][3])[1]]),
                 tray_underside_above_pcb_top=P['STACK_H'], tray_rails_local=tray_footprint_local(),
-                edges=EDGES, mech_assumed_connectors_local={k: list(v) for k, v in extras.POWER_CONN.items()},
-                pod_windows_car_x={n: [xc - w / 2, xc + w / 2, z0, z1] for (n, xc, w, z0, z1) in P['POD_WINDOWS']},
-                lidar_plug_ends_car_x=round(kit.LIDAR_PLUG_END_X, 2))
+                edges=EDGES, connectors_local={k: list(v) for k, v in extras.POWER_CONN.items()},
+                connectors_note='board X, Y and the cable entry height above the board top, from agent D (HANDOFF_E, 24 Oct); heights are estimates',
+                pod_windows_car_x={n: [xc - w / 2, xc + w / 2, z0, z1, walls] for (n, xc, w, z0, z1, walls) in kit.pod_windows()},
+                lidar_plug_ends_car_x=round(kit.LIDAR_PLUG_END_X, 2),
+                fet_shield=dict(on=bool(P['FET_SHIELD']), rect_local=list(P['FET_SHIELD_XY']), screws_local=[list(v) for v in P['FET_SHIELD_SCREWS']],
+                                max_part_h_under=P['FET_SHIELD_MAX_H'], fet_bar_local=list(P['FET_BAR']),
+                                note='3 mm acrylic hung under the tray; nylon nuts under it at the two screws need 2.4 mm, so keep parts under those two points at 18 mm or less'))
 
 
 if __name__ == '__main__':

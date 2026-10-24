@@ -85,15 +85,42 @@ P = dict(
     # (x -95..-65) and the joint bolt at (-90, -60); this one is between the rear post slot (ends -115.7) and the
     # cross rib (x -99..-96), right under the ESC's motor end
     PHASE_OPENING=(-112.0, -101.0, -70.0, -46.0),
-    ESC_OUT_Y=66.0,                # board-local Y of the ESC output XT60PW on the rear edge (X = 0), agent D
+    # ESC battery leads: soldered from above onto the ESC+ / ESC- wire pads at board X 5, Y 42 / 54 (agent D, HANDOFF_E,
+    # 24 Oct; they replace the XT60PW). ESC_OUT_Y is the pads' midpoint, inside the ESC's Y span 12.5 to 55.5
+    ESC_OUT_Y=48.0,
     # JBD 4S 100 A BMS (PHASE2 decision 2): 160 x 105 x 10 mm. 'edge' = standing on its long edge in bms_fence on
     # the pack lid's outboard edge; 'flat' = lying on a tray on the lid (only for a BMS that fits the 138 x 51 lid)
     BMS=(160.0, 105.0, 10.0), BMS_MOUNT='edge',
-    # right side pod: 40 mm fan (x range), and the windows through both pod walls for the plugs and the button at
-    # the power board's Y = 0 edge: (name, car x centre, width, z0, z1). Agent D reports the real positions.
+    # right side pod: 40 mm fan (x range), and the windows for the plugs, the button and the charge modules at the power
+    # board's Y = 0 edge: (name, car x centre, width, z0, z1, walls), walls 'both', 'inner' or 'outer'. Positions from
+    # agent D's HANDOFF_E (24 Oct); the z of each plug centre there is an estimate (module sockets, footprint heights).
+    #   charge_usbc  the PD trigger's USB-C, at the outer wall (the trigger sits in the pod; no board constraint on x)
+    #   charge_pd    slot in the inner wall that the PD trigger board passes through, on its way to the gap
+    #   cccv         the CC/CV module stands in the pod; it is 0.8 mm deeper than the pod inside, its parts stand into this
+    #   debug_usbc   the laptop's USB-C plug, through both walls straight into the hub module's USB-C (board X 88.5)
+    #   devkit_usba  J601 (USB-A on its edge, board X 102.8): the tail of the right-angle plug head, inner wall only
+    #   button       SW401's plunger (board X 112.75, car x 80.75, z about 12), pressed with a rod through both walls;
+    #                the window reaches on to the status LEDs D701 / D702 at car x 87.75 so they show through it
     FAN_X=(-94.0, -54.0),
-    POD_WINDOWS=(('charge_usbc', 68.0, 16.0, 10.0, 25.0), ('debug_usbc', 88.0, 16.0, 10.0, 25.0),
-                 ('button', -20.0, 12.0, 11.0, 23.0)),
+    POD_WINDOWS=(('charge_usbc', 19.0, 16.0, 10.3, 20.3, 'outer'), ('charge_pd', 19.0, 25.5, 11.5, 17.4, 'inner'),
+                 ('cccv', -24.5, 53.0, 5.0, 33.3, 'inner'), ('debug_usbc', 56.5, 16.0, 17.8, 27.8, 'both'),
+                 ('devkit_usba', 71.25, 11.5, 6.0, 26.0, 'inner'), ('button', 83.1, 13.8, 8.0, 17.0, 'both')),
+    # the charge modules in the right pod (agent D: both off the board in the pod at the charge window, x is mech's choice)
+    PD_TRIGGER=(24.5, 20.2, 4.9),  # Adafruit 5807 HUSB238, L x W x H (adafruit.com); lies flat, its USB-C at the outer wall
+    PD_RECEPT_DZ=3.3,              # USB-C centre above the trigger board's underside (ESTIMATE; which edge it is on: unverified)
+    CCCV=(51.0, 26.3, 14.0),       # XL4015-class 5 A CC/CV module L x H x D (one vendor's listing; generic modules vary)
+    CCCV_X=(-50.0, 1.0), CCCV_Z0=6.0,   # stands on edge in the pod, its PCB on the outer wall, parts facing inboard
+    # J601, the dev-kit USB-A on its edge at the Y = 0 edge (HANDOFF_E): body X 99.25-106.35, Y 0.5-19.8 from the KiCad
+    # footprint. Its height is not in the footprint and not verified: J601_H is the USB-A shell's width plus a standoff.
+    J601_H=14.5,                   # ESTIMATE
+    J601_PLUG=(9.0, 12.0, 18.0),   # right-angle USB-A plug head beyond the receptacle face: x, y, z (ESTIMATE); cable leaves up
+    # pack: the board's 10 AWG pigtail ends in an XT90 male that mates with the pack's XT90-S (HANDOFF_E); the mated pair
+    # lies on the pack lid along x. XT90_PAIR = width, height, mated length (ESTIMATE, unverified); centre in plan
+    XT90_PAIR=(22.0, 12.0, 46.0), XT90_PAIR_C=(-37.0, 41.0),
+    # camera 12 V regulator (Pololu S18V20F12, 43 x 21 x 10 mm, pololu.com), off the board: D's notes say "on the tray", but
+    # the tray is a frame with no free surface outside the carrier, so it stands on the camera arch's right leg, mirroring the
+    # lidar dongle on the left leg
+    CAM_REG=(43.0, 21.0, 10.0),
     # sensors
     LIDAR_FRONT_X=238.0, PLINTH_T=6.0,
     CAM_LENS_D=31.0, CAM_LENS_L=30.5, CAM_M12_L=48.0, CAM_PITCH=0.0,   # Kowa LM4NCL 3.5 mm: 31 x 30.5 mm, 60 g (machinevisiondirect.com)
@@ -391,11 +418,8 @@ def boards():
     B['fet_bar'] = box(a[0], b[0], a[1], b[1], zt, zt + fb[4])     # heatsink bar + FET tabs, live at BAT+
     if bought_posts():               # canopy posts that are bought M3 hex standoff stacks (40 + 8 mm)
         B['canopy_standoffs'] = union(*[cylz(x, y, Z_TRAY1, Z_POST_TOP, 6.35) for (x, y) in bought_posts()])
-    # mating plugs at the board's edges: ESC XT60 on the rear edge (cable to the ESC), pack XT90-S on the pack edge
-    ey = pw(0, P['ESC_OUT_Y'])[1]
-    B['esc_out_plug'] = box(x0 - 16.0, x0, ey - 8.0, ey + 8.0, zt, zt + 9.0)
-    xx = pw(8.0, 0)[0]
-    B['xt90s_pack'] = box(xx - 10.5, xx + 10.5, y1, y1 + 30.0, zt, zt + 17.0)
+    # the ESC and pack leads land on wire pads (HANDOFF_E): no board-edge plugs. The pack pigtail's XT90 male and the
+    # pack's XT90-S, mated, lie on the pack lid (see battery assembly below)
     # the dev-kit carrier
     dx0, dx1, dy0, dy1 = P['DEVKIT']
     dpcb = box(dx0, dx1, dy0, dy1, Z_DEVKIT0, Z_DEVKIT1)
@@ -430,8 +454,13 @@ def boards():
     # battery assembly on the pack lid
     B['bms'] = bms_solid()
     B['midi_fuse'] = box(*MIDI_FUSE_XY, PACK_TOP + PACK_LID_T, PACK_TOP + PACK_LID_T + MIDI_FUSE_H)
+    B['xt90_pair'] = box(*XT90_BOX)
     # lidar USB-Ethernet dongle, zip-tied upright to the rear face of the camera arch's left leg, jack down
     B['usb_eth_adapter'] = box(*USB_ETH_BOX)
+    # camera 12 V regulator on the right leg, the same way; the charge modules in the right pod
+    B['camera_regulator'] = box(*CAM_REG_BOX)
+    B['pd_trigger'] = box(*PD_BOX)
+    B['cccv_module'] = box(*CCCV_BOX)
     return B
 
 
@@ -468,6 +497,11 @@ MIDI_FUSE_H = 26.0
 # lidar dongle, standing upright against the rear face of the camera arch's left leg (x 136, y 36..48 is the leg),
 # jack at the bottom (z 40) facing down, its USB lead leaving the top: (x0, x1, y0, y1, z0, z1)
 USB_ETH_BOX = (136.0 - P['USB_ETH'][2], 136.0, 36.0 - P['USB_ETH'][1], 36.0, 40.0, 40.0 + P['USB_ETH'][0])
+# camera regulator, the mirror image on the right leg: input wires leave its bottom end, the 12 V output its top
+CAM_REG_BOX = (136.0 - P['CAM_REG'][2], 136.0, -36.0, -36.0 + P['CAM_REG'][1], 40.0, 40.0 + P['CAM_REG'][0])
+# the mated XT90 pair on the lid, long axis along x: the board pigtail's XT90 male at the +x end, the pack's XT90-S at -x
+XT90_BOX = (P['XT90_PAIR_C'][0] - P['XT90_PAIR'][2] / 2, P['XT90_PAIR_C'][0] + P['XT90_PAIR'][2] / 2,
+            P['XT90_PAIR_C'][1] - P['XT90_PAIR'][0] / 2, P['XT90_PAIR_C'][1] + P['XT90_PAIR'][0] / 2, Z_LID_TOP, Z_LID_TOP + P['XT90_PAIR'][1])
 
 
 # ----------------------------------------------------------------------------- deck
@@ -476,6 +510,27 @@ ARCH_X = (136.0, 150.0)
 ARCH_Y = 42.0
 ARCH_BOLTS = [(x, sy * ARCH_Y) for x in (ARCH_X[0] - 5, ARCH_X[1] + 5) for sy in (1, -1)]
 POD = dict(x0=-105.0, x1=120.0, y_in=76.0, y_out=94.0, h=50.0, t=2.4)
+
+
+def pod_windows():
+    """P['POD_WINDOWS'] as (name, car x centre, width, z0, z1, walls); an entry without walls goes through both"""
+    return [tuple(w) if len(w) == 6 else tuple(w) + ('both',) for w in P['POD_WINDOWS']]
+
+
+def pod_window(name):
+    return next((w for w in pod_windows() if w[0] == name), None)
+
+
+# the charge modules in the right pod (car y negative). The PD trigger lies flat, its USB-C centred on the charge_usbc
+# window with its face at the outer wall's inside face, and runs inboard through the inner wall's charge_pd slot into
+# the gap over the board edge (its wire holes end up there). The CC/CV stands on its long edge, PCB on the outer wall.
+_Y_POD_OUT_IN = -(POD['y_out'] - POD['t'])              # -91.6, the outer wall's inside face
+_cw = pod_window('charge_usbc') or ('charge_usbc', 19.0, 16.0, 10.3, 20.3, 'outer')
+PD_ZC = (_cw[3] + _cw[4]) / 2
+PD_BOX = (_cw[1] - P['PD_TRIGGER'][0] / 2, _cw[1] + P['PD_TRIGGER'][0] / 2, _Y_POD_OUT_IN, _Y_POD_OUT_IN + P['PD_TRIGGER'][1],
+          PD_ZC - P['PD_RECEPT_DZ'], PD_ZC - P['PD_RECEPT_DZ'] + P['PD_TRIGGER'][2])
+CCCV_BOX = (P['CCCV_X'][0], P['CCCV_X'][0] + P['CCCV'][0], _Y_POD_OUT_IN, _Y_POD_OUT_IN + P['CCCV'][2],
+            P['CCCV_Z0'], P['CCCV_Z0'] + P['CCCV'][1])
 # 40 mm side-pod fan (right pod), x range in the car frame. Rev B: it moved back from x -16..24 to x -94..-54 so it
 # blows across the FSESC in the ESC bay (case centre x -74). The pod bolt at (-88, -72.5) sits inboard of the window,
 # on the flange, with its head below the window's lower 2.7 mm (kit_report.json pod_bolt_head_in_fan_window_mm).
@@ -695,9 +750,12 @@ def side_pod(sy):
     pod = pod.union(fl)
     for (x, y) in [(x, abs(y)) for (x, y) in POD_BOLTS[1 if sy > 0 else -1]]:
         pod = pod.cut(cylz(x, y, -1, 4, M3_CLEAR))
-    # vents on the outer face
+    # vents on the outer face (the right pod skips a vent where an outer-wall window is)
+    outer_w = [(xc - w / 2, xc + w / 2) for (_, xc, w, _, _, wl) in pod_windows() if wl in ('both', 'outer')] if sy < 0 else []
     for i in range(7):
         xv = x0 + 30 + i * 22
+        if any(a < xv + 12 and xv < b for (a, b) in outer_w):
+            continue
         pod = pod.cut(box(xv, xv + 12, yo - 5, yo + 1, 10, h - 20))
     if sy < 0:
         # fan window on the inner wall, fan behind it (40 mm fan, blows inboard across the FSESC)
@@ -705,10 +763,11 @@ def side_pod(sy):
         pod = pod.cut(box(f0 + 1, f1 - 1, yi - 1, yi + t + 1, 2, 40))
         for (fx, fz) in ((f0 + 4, 5), (f1 - 4, 5), (f0 + 4, 37), (f1 - 4, 37)):     # 32 mm hole pitch
             pod = pod.cut(cyl((fx, yi - 1, fz), 3.4, t + 12, (0, 1, 0)))
-        # windows through both walls for the charge USB-C, the debug USB-C and the power button at the power board's
-        # Y = 0 edge (a plug's overmold passes through the pod to the board edge 8 mm inboard of the pod)
-        for (name, xc, w, z0, z1) in P['POD_WINDOWS']:
-            pod = pod.cut(box(xc - w / 2, xc + w / 2, yi - 1, yo + 1, z0, z1))
+        # windows for the plugs, the button and the charge modules at the power board's Y = 0 edge (8 mm inboard of
+        # the pod): through the inner wall, the outer wall or both
+        for (name, xc, w, z0, z1, walls) in pod_windows():
+            ya, yb = {'both': (yi - 1, yo + 1), 'inner': (yi - 1, yi + t + 0.5), 'outer': (yo - t - 0.5, yo + 1)}[walls]
+            pod = pod.cut(box(xc - w / 2, xc + w / 2, ya, yb, z0, z1))
     if sy < 0:
         pod = pod.mirror('XZ')
     return pod
@@ -1449,7 +1508,7 @@ def renders(parts, comps, S):
     stack = ('devkit_tray', 'esc_cradle')
     stack_c = ('power_pcb', 'power_standoffs_7mm', 'tray_standoffs_25mm', 'power_parts_low', 'power_parts_tall', 'devkit_pcb',
                'devkit_bottom_parts', 'jetson_module_and_sink', 'devkit_io', 'devkit_plugs', 'devkit_headers', 'devkit_header_plugs',
-               'esc_case', 'fan_40mm', 'esc_out_plug', 'xt90s_pack')
+               'esc_case', 'fan_40mm', 'pd_trigger', 'cccv_module')
     render([(parts[k], grey) for k in stack] + [(comps[k], blue) for k in stack_c],
            os.path.join(OUT, 'renders', 'stack_revb.png'), views=[(24, -58), (24, 122)],
            title='rev B stack: power board height map, dev-kit tray and carrier, ESC in its cradle')

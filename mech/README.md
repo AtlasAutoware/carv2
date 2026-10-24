@@ -41,7 +41,11 @@ calls, the parameters still to measure and the print list. In the model:
 - The **JBD BMS** (160 x 105 x 10 mm) stands on its long edge in a printed holder on the pack lid's outboard edge.
   It is too big to lie on the 138 x 51 mm lid or to go inside the pack box.
 - The aluminium heat spreader, its deck vents and DXF, the right pod's camera-plug slot and its tie slots are gone.
-  The right pod gets windows for the charge USB-C, the debug USB-C and the power button.
+  The right pod gets windows at agent D's connector positions (`POD_WINDOWS`, from `boards/power/HANDOFF_E.md`):
+  the laptop's USB-C into the hub and the power button (with its status LEDs) through both walls, the charge USB-C on
+  the PD trigger through the outer wall, and in the inner wall a window for the right-angle plug in J601 (the dev
+  kit's USB), a slot for the PD trigger board and a window for the CC/CV module's parts. The PD trigger and the
+  CC/CV module live in the pod.
 - The default board length is the layout's 130 mm (`boards/power/layout.py`). At 150 mm the board's front-left
   corner sits inside the lidar's M12 plugs.
 
@@ -50,16 +54,18 @@ calls, the parameters still to measure and the print list. In the model:
 
 ## Last run (24 October, rev B)
 
-- **At the default `POWER_L` of 130 mm**, both scripts report zero interference: printed parts, bought parts, the
-  height-map blocks, the acrylic shield, the chassis keep-outs, the plugs and all 31 cable runs. No cable crosses
-  another. The lidar plugs end 16.6 mm ahead of the board.
+- **At the default `POWER_L` of 130 mm**, with agent D's final connector positions (HANDOFF_E), both scripts report
+  zero interference: printed parts, bought parts, the height-map blocks, the acrylic shield, the charge modules in
+  the right pod, the camera regulator, the XT90 pair, the chassis keep-outs, the plugs (charge and laptop USB-C, the
+  right-angle USB-A in J601) and all 36 cable runs. No cable crosses another. The lidar plugs end 16.6 mm ahead of
+  the board.
 - **With `SHEET_PARTS=all`** (laser-cut tray, BMS holder, canopy box and splice plates in place of the printed ones),
   the result is the same: zero everywhere.
-- **At `POWER_L=150`**, `kit.py` finds four overlaps, all between the lidar's M12 plug envelope and the front of the
+- **At `POWER_L=150`** (run before D's connector positions; D's layout is 130 mm), `kit.py` found four overlaps, all between the lidar's M12 plug envelope and the front of the
   board (the plugs end at x 114.6, an estimate, MEASURE_FIRST item 12; a 150 mm board reaches x 118), and the lidar
-  Ethernet cable runs through the board's front.
+  Ethernet cable ran through the board's front.
 - Everything that crosses the lidar's scan plane (the camera arch legs, the wing, the tray's pillars, the BMS and its
-  holder, the canopy leg, the dongle, a few cables) sits inside its rear blind sector.
+  holder, the canopy leg, the dongle, the camera regulator, a few cables) sits inside its rear blind sector.
 - Stack heights: power board top z 8.6, tray 33.6 to 36.6, carrier 43.6 to 45.2, fan top 77.2 (32 mm heatsink,
   unmeasured), canopy posts 48 mm above the tray (top z 84.6), canopy underside 85.6 (8.4 mm over the fan), canopy
   top 88.0. The carrier's underside parts clear the tray by 1 mm, the tray clears the board's 23 mm parts by 2 mm,
@@ -85,7 +91,7 @@ gyroid expect about 65 % of it. Everything fits a 250 x 250 bed (Bambu P1S: 256)
 | `bumper` | 1 | 62 x 124 x 74 | 113 g | flange down; bolts up through the deck into the plinth (4 x M3 x 16) |
 | `camera_arch` | 1 | 80 x 102 x 104 | 83 g | feet down; the tongue is a 34 mm bridge |
 | `camera_cradle` (0 deg), `_down5`, `_down10` | pick one | 43 x 34 x 4-8 | 7 g | flat; slotted +-1.5 mm for the camera's M3 holes |
-| `side_pod_left`, `side_pod_right` | 1 each (right pod is rev B) | 225 x 25 x 50 | 80 / 68 g | outer face down, vents vertical; the right pod holds the 40 mm fan over the ESC and has three windows through both walls for the charge USB-C, the debug USB-C and the button |
+| `side_pod_left`, `side_pod_right` | 1 each (right pod is rev B) | 225 x 25 x 50 | 80 / 65 g | outer face down, vents vertical; the right pod holds the 40 mm fan over the ESC and the two charge modules, with windows for the laptop USB-C and the button (both walls), the charge USB-C (outer wall), and the J601 plug, the PD trigger slot and the CC/CV module (inner wall) |
 | `wing_blade` | 1 | 55 x 190 x 46 | 72 g | endplates up |
 | `wing_strut_left`, `_right` | 1 each | 35 x 88 x 14 | 16 g | on their side |
 | `pack_box` | 1 | 138 x 51 x 72 | 67 g | open end up |
@@ -157,23 +163,26 @@ its case) on, and no bare copper against the holder.
    inboard screws.
 3. BMS holder on the lid's outboard edge (2 countersunk M3 x 10), the BMS into its channel, zip ties. MIDI fuse
    holder on the lid. Wire the battery assembly: pack - to the BMS B-, the sense lead through its adapter to the
-   BMS, pack + to the fuse, the fuse and the BMS P- to the XT90-S, the BMS UART lead. Leave the XT90-S unplugged.
+   BMS, pack + to the fuse, the fuse and the BMS P- to the XT90-S, the BMS UART lead. Leave the XT90-S unplugged
+   from the board pigtail's XT90 male.
 4. Deck onto the towers, posts through the slots, washers and body clips on.
 5. Lidar screwed to the plinth on the bench; plinth, deck and bumper bolted together from below.
 6. Camera arch, cradle, camera. Zip-tie the USB-Ethernet dongle upright against the rear face of the arch's left
    leg, jack down, and plug the lidar's Ethernet lead into it.
 7. ESC cradle (2 M3 x 8, and M3 x 16 through the two outboard rear-joint holes), the FSESC zip-tied in it. Phase and
    hall leads straight down through the opening at the FSESC's motor end to the motor.
-8. 7 mm standoffs, the power board, then the 25 mm standoffs through it. Plug everything on the board's rear and
-   front edges and on its right edge now (ESC XT60 and COMM, FSESC USB, servo, lidar power, camera power, fan,
-   E-stop): the tray's arms run over those edges. The ribbon and the J14 harness go onto the board's box header and
-   1 x 12 header now as well.
+8. 7 mm standoffs, the power board, then the 25 mm standoffs through it. Solder the ESC battery leads to the ESC+ /
+   ESC- pads and the PD-trigger and CC/CV wires to their pads, and plug in everything on the board's rear and front
+   edges and in its middle now (COMM, fan, FSESC USB on J602, servo, lidar power, the camera regulator's input pair,
+   E-stop, the ribbon on J801 and the J14 harness on J802): the tray covers them. Plug the dev kit's USB cable
+   (right-angle USB-A) into J601 now too, before the right pod goes on.
 9. The acrylic shield under the tray (2 nylon screws, nuts underneath), then the tray (countersunk M3 x 8 at the
    rear and middle standoffs, the two 40 mm front post standoffs at the front). Clip the two Wi-Fi pigtails onto the M.2 card and lead them out under the
    carrier's I/O edge, then put the carrier on the bosses (4 M2.5 x 10). Ribbon onto J12, harness onto J14 (pin 1
-   marked, printed key clip), DC lead, the two USB-A leads (Pico, dongle), the USB-C lead to the hub, the camera's
+   marked, printed key clip), DC lead, the two USB-A leads (Pico, dongle), the USB-C lead from J601, the camera's
    RJ45.
-10. Side pods (fan in the right one), wing. The runs are in `docs/WIRING.md`.
+10. Side pods (the fan, the PD trigger and the CC/CV module in the right one; the trigger's USB-C to the charge
+    window), wing. The runs are in `docs/WIRING.md`.
 11. Canopy leg (M3 x 16 through the front joint's two left holes), then the canopy (5 x M3 x 8), with the pigtails'
     RP-SMA jacks nutted into its two holes. Screw the antennas on last.
 
@@ -199,6 +208,7 @@ the parts that stay printed are in [PRINTING.md](PRINTING.md), section "Laser-cu
 Every chassis dimension is an estimate carried over from car 1 until it is measured
 (`docs/MEASURE_FIRST.md`). The camera's bottom hole spacing is an estimate. The TiM561's
 swivel-unit and plug sizes are estimates (the SICK drawing does not give them). Rev B adds more (MEASURE_FIRST items
-17 to 26): the dev-kit carrier's hole positions, the heights above and below it and the positions of its headers
-and ports; the cased FSESC's size and where its leads leave; the BMS's terminals; the fuse holder and the dongle.
-The power board's connector positions in `extras.POWER_CONN` are placeholders until the layout reports them.
+17 to 31): the dev-kit carrier's hole positions, the heights above and below it and the positions of its headers
+and ports; the cased FSESC's size and where its leads leave; the BMS's terminals; the fuse holder, the XT90 pair and
+the dongle; J601's height and the right-angle plug in it; the charge modules. The power board's connector positions
+in `extras.POWER_CONN` are agent D's (`boards/power/HANDOFF_E.md`); the heights of the plugs on them are estimates.

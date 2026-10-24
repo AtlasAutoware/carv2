@@ -326,97 +326,157 @@
    ]
   ],
   "edges": {
-   "Y=84 (pack side)": "XT90 board-mount for the pack, BMS UART JST-XH 4-pin (isolated), dev-kit DC lead pads",
-   "X=0 (rear, ESC bay)": "ESC output XT60PW/XT90PW, Castle BEC in/out headers, FSESC UART/COMM JST-PH 7-pin",
-   "X=L (front)": "servo 3-pin, lidar power Phoenix 2-pin, camera power JST-XH 2-pin, fan 4-pin, E-stop JST-PH 2-pin, remote button JST-PH 2-pin",
-   "Y=0 (right, pod side, z <= 30)": "charge USB-C (PD trigger module at the edge), debug USB-C, power button (6 mm tactile + remote header)",
-   "middle": "2x20 shrouded box header (J12 ribbon), 1x12 header (J14 harness), Pico in 2 x 20-pin sockets, hub module, console module, Pololu latch, R-78E, FET switch with its heatsink in the rear strip"
+   "Y=84 (pack side)": "pack BAT+ / BAT- pads (10 AWG pigtail to an XT90 male), BMS UART J201 JST-XH 4, dev-kit DEV+ / DEV- pads, Pico micro-USB",
+   "X=0 (rear, ESC bay)": "ESC+ / ESC- pads, fan header J1003, FSESC COMM J903 JST-PH 7, SERVO_IN J904, BEC_OUT J403, BEC and servo-supply pads",
+   "X=L (front)": "servo J406, lidar power J409 Phoenix, camera regulator input pads MOD402, E-stop J1001, remote button J1002",
+   "Y=0 (right, pod side)": "hub USB-C (laptop), dev-kit USB-A J601 on its edge, power button SW401 (right angle), status LEDs; the PD trigger and the CC/CV module are off the board in the pod",
+   "middle": "J12 box header J801, J14 header J802, PD-trigger and CC/CV pads, FSESC USB header J602, spare J603, Pico and hub modules on sockets, Pololu latch pads, R-78E, FET switch with its heatsink bar"
   },
-  "mech_assumed_connectors_local": {
-   "esc_out": [
-    0.0,
-    66.0,
-    4.5
+  "connectors_local": {
+   "esc_plus": [
+    5.0,
+    42.0,
+    1.5
+   ],
+   "esc_minus": [
+    5.0,
+    54.0,
+    1.5
    ],
    "vesc_comm": [
-    0.0,
-    14.0,
-    6.0
+    2.7,
+    27.6,
+    8.0
    ],
-   "xt90": [
-    8.0,
-    84.0,
-    8.5
+   "fan": [
+    3.6,
+    13.4,
+    11.0
+   ],
+   "bat_plus": [
+    19.5,
+    79.6,
+    1.5
+   ],
+   "bat_minus": [
+    6.25,
+    65.6,
+    1.5
    ],
    "bms_uart": [
-    22.0,
-    84.0,
-    3.0
+    85.3,
+    81.0,
+    10.0
    ],
-   "dc_out": [
-    28.0,
-    84.0,
+   "dev_plus": [
+    92.0,
+    74.0,
+    1.5
+   ],
+   "dev_minus": [
+    92.0,
+    68.2,
     1.5
    ],
    "pico_usb": [
-    102.0,
-    84.0,
-    11.0
+    106.5,
+    83.4,
+    13.9
    ],
-   "hub": [
-    70.0,
-    40.0,
-    10.0
+   "hub_usbc": [
+    88.5,
+    -0.4,
+    14.2
+   ],
+   "j601": [
+    102.8,
+    0.5,
+    7.25
+   ],
+   "j602": [
+    109.3,
+    16.0,
+    12.0
    ],
    "j12_box": [
-    40.0,
-    8.5,
+    41.1,
+    7.3,
     18.0
    ],
    "j14_hdr": [
-    92.0,
-    13.5,
+    93.0,
+    48.4,
     14.0
    ],
-   "servo": [
-    130.0,
-    14.0,
-    6.0
+   "chg_pd": [
+    19.3,
+    21.0,
+    1.5
    ],
-   "fan": [
-    130.0,
+   "chg_cccv": [
+    26.9,
     24.0,
-    5.0
+    1.5
    ],
-   "camera_pwr": [
-    130.0,
-    34.0,
-    6.0
+   "servo": [
+    127.6,
+    17.1,
+    17.0
    ],
    "lidar_pwr": [
-    130.0,
-    58.0,
-    6.0
+    125.0,
+    26.8,
+    4.5
+   ],
+   "camera_pads": [
+    125.1,
+    44.6,
+    1.5
    ]
   },
+  "connectors_note": "board X, Y and the cable entry height above the board top, from agent D (HANDOFF_E, 24 Oct); heights are estimates",
   "pod_windows_car_x": {
    "charge_usbc": [
-    60.0,
-    76.0,
-    10.0,
-    25.0
+    11.0,
+    27.0,
+    10.3,
+    20.3,
+    "outer"
+   ],
+   "charge_pd": [
+    6.25,
+    31.75,
+    11.5,
+    17.4,
+    "inner"
+   ],
+   "cccv": [
+    -51.0,
+    2.0,
+    5.0,
+    33.3,
+    "inner"
    ],
    "debug_usbc": [
-    80.0,
-    96.0,
-    10.0,
-    25.0
+    48.5,
+    64.5,
+    17.8,
+    27.8,
+    "both"
+   ],
+   "devkit_usba": [
+    65.5,
+    77.0,
+    6.0,
+    26.0,
+    "inner"
    ],
    "button": [
-    -26.0,
-    -14.0,
-    11.0,
-    23.0
+    76.19999999999999,
+    90.0,
+    8.0,
+    17.0,
+    "both"
    ]
   },
   "lidar_plug_ends_car_x": 114.63,

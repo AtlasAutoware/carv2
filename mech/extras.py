@@ -11,15 +11,16 @@ What is here (see docs/COMPLETE_CAR.md for why each one exists; NOTES_REVB.md fo
                     at 50 A and 70 A (ARCHITECTURE.md, First power-up).
   cables            every cable run as a path through the model, so its length is known and its clearance is
                     checked like any other part: camera data and power, lidar Ethernet (through its USB dongle) and
-                    power, dev-kit DC lead, 40-pin ribbon, J14 harness, USB leads to the hub and to the dev kit,
-                    motor phases, hall sensor, servo, ESC battery leads, pack leads through the fuse and the BMS,
-                    balance lead, BMS UART, side-pod fan, Wi-Fi pigtails.
-  bought parts      the lidar RJ45 plug on its dongle, the USB-C plugs through the right pod, the antenna bulkheads
-                    and antennas, as envelopes for the checks.
+                    power (through its regulator on the arch), dev-kit DC lead, 40-pin ribbon, J14 harness, the
+                    dev kit's USB-C to J601, the Pico and FSESC USB leads, motor phases, hall sensor, servo, ESC
+                    battery leads, pack leads through the fuse and the BMS to the XT90 pair, the board's pack
+                    pigtail, balance lead, BMS UART, charge-module wires, side-pod fan, Wi-Fi pigtails.
+  bought parts      the lidar RJ45 plug on its dongle, the charge and laptop USB-C plugs through the right pod, the
+                    right-angle USB-A plug in J601, the antenna bulkheads and antennas, as envelopes for the checks.
 
 Same frame and parameters as kit.py: +x forward, +y car left, +z up, origin at the deck centre, deck top at z 0.
 Chassis numbers are kit.py's estimates (docs/MEASURE_FIRST.md). The power-board connector positions in POWER_CONN
-are placeholders until agent D's layout reports the real ones.
+are agent D's (boards/power/HANDOFF_E.md, 24 Oct); the heights of the plugs on them are estimates.
 """
 import os
 import sys
@@ -197,32 +198,54 @@ _ue = kit.USB_ETH_BOX
 LID_JACK = ((_ue[0] + _ue[1]) / 2, (_ue[2] + _ue[3]) / 2, _ue[4])        # the dongle's RJ45 jack, facing down
 
 
-def usbc_through_pod(name):
-    """a USB-C plug pushed through the right pod's window to the board edge: shell 8.4 x 2.6 into the receptacle,
-    overmold 12.5 x 7 x 22 mm and 15 mm of strain relief, centred on the window"""
-    for (n, xc, w, z0, z1) in P['POD_WINDOWS']:
-        if n == name:
-            zc = (z0 + z1) / 2
-            y_edge = kit.POWER[2]
-            return box(xc - 6.25, xc + 6.25, kit.POD['y_out'] * -1 - 15.0, y_edge - 4.0, zc - 3.5, zc + 3.5), (xc, zc, w, z0, z1)
-    return None, None
+def usbc_through_pod(name, face_y):
+    """a USB-C plug pushed through a right-pod window into a receptacle whose face is at car y `face_y`: shell 8.4 x 2.6
+    into the receptacle, overmold 12.5 x 7 x 22 mm and 15 mm of strain relief, centred on the window"""
+    w = kit.pod_window(name)
+    if w is None:
+        return None, None
+    _, xc, ww, z0, z1, _ = w
+    zc = (z0 + z1) / 2
+    return box(xc - 6.25, xc + 6.25, face_y - 0.5 - 37.0, face_y - 0.5, zc - 3.5, zc + 3.5), (xc, zc, ww, z0, z1)
+
+
+def j601_plug():
+    """right-angle USB-A plug in J601 (the receptacle stands on its edge, opening facing -y): the head beyond the
+    receptacle face (J601_PLUG, an estimate) and the point where its cable leaves upward, in the gap between the board
+    edge and the pod's inner wall"""
+    X, Y, h = POWER_CONN['j601']
+    x, y = pw(X, Y)
+    zc = Z_POWER_TOP + h
+    wx, ly, hz = P['J601_PLUG']
+    # the receptacle face is 0.5 mm inside the board edge; the head is taken to stop at the edge (an overmold that
+    # reaches below the shell would hit the PCB there)
+    head = box(x - wx / 2, x + wx / 2, y - ly, min(y, kit.POWER[2]), zc - hz / 2, zc + hz / 2)
+    return head, (x, -(kit.POD['y_in'] - 2.5), zc + hz / 2)
 
 
 # ----------------------------------------------------------------------------- power-board connectors
-# board-local (X, Y, height of the cable entry above the PCB top). PLACEHOLDERS until agent D's layout: PHASE2 fixes
-# only which edge each one faces.
+# board-local (X, Y, height of the cable entry above the PCB top), from agent D's layout (boards/power/HANDOFF_E.md,
+# "Real connector positions", 24 Oct). Positions are pad-group centres; the heights are estimates of the header plus
+# its mating plug (D's where given). The front-edge entries keep their distance from the front edge if POWER_L changes.
 L_ = P['POWER_L']
+_F = L_ - 130.0
 POWER_CONN = dict(
-    esc_out=(0.0, P['ESC_OUT_Y'], 4.5),      # rear edge, XT60PW; kit.esc_out_plug
-    vesc_comm=(0.0, 14.0, 6.0),             # rear edge, JST-PH 7-pin for the FSESC COMM lead (UART + ADC2 kill)
-    xt90=(8.0, 84.0, 8.5),                  # pack edge, XT90 board-mount; kit.xt90s_pack
-    bms_uart=(22.0, 84.0, 3.0),             # pack edge, JST-XH 4-pin (isolated)
-    dc_out=(28.0, 84.0, 1.5),               # pack edge, dev-kit DC lead pads
-    pico_usb=(102.0, 84.0, 11.0),           # the Pico's micro-USB at the pack edge (Pico in sockets)
-    hub=(70.0, 40.0, 10.0),                 # USB 2.0 hub module, its downstream sockets
-    j12_box=(40.0, 8.5, 18.0),              # 2 x 20 shrouded box header + IDC plug top
-    j14_hdr=(92.0, 13.5, 14.0),             # 1 x 12 header + Dupont housing top
-    servo=(L_, 14.0, 6.0), fan=(L_, 24.0, 5.0), camera_pwr=(L_, 34.0, 6.0), lidar_pwr=(L_, 58.0, 6.0),
+    esc_plus=(5.0, 42.0, 1.5), esc_minus=(5.0, 54.0, 1.5),     # ESC+ / ESC- wire pads, 10-12 AWG soldered from above
+    vesc_comm=(2.7, 27.6, 8.0),             # J903 JST-PH 7 vertical, rear edge (pins Y 21.6-33.6)
+    fan=(3.6, 13.4, 11.0),                  # J1003 4-pin fan header, rear edge (pins Y 9.6-17.2)
+    bat_plus=(19.5, 79.6, 1.5), bat_minus=(6.25, 65.6, 1.5),   # pack pigtail pads, 10 AWG over the Y = 84 edge
+    bms_uart=(85.3, 81.0, 10.0),            # J201 JST-XH 4 vertical, pack edge
+    dev_plus=(92.0, 74.0, 1.5), dev_minus=(92.0, 68.2, 1.5),   # dev-kit DC lead pads, 18 AWG
+    pico_usb=(106.5, 83.4, 13.9),           # the Pico's micro-USB, facing +Y (D: 13.9 mm above the board)
+    hub_usbc=(88.5, -0.4, 14.2),            # the hub module's USB-C, facing -Y: the laptop port (D: centre about 14.2)
+    j601=(102.8, 0.5, P['J601_H'] / 2),     # USB-A on its edge, face at Y 0.5, opening facing -Y (height: estimate)
+    j602=(109.3, 16.0, 12.0),               # 1 x 4 header for the FSESC USB (Adafruit 4449 jack lead, D's choice)
+    j12_box=(41.1, 7.3, 18.0),              # J801 2 x 20 shrouded box header + IDC plug (D: about 18)
+    j14_hdr=(93.0, 48.4, 14.0),             # J802 1 x 12 vertical header + Dupont housing
+    chg_pd=(19.3, 21.0, 1.5), chg_cccv=(26.9, 24.0, 1.5),     # PD-trigger and CC/CV wire pads (modules in the pod)
+    servo=(127.6 + _F, 17.1, 17.0),         # J406 1 x 3, front edge (servo plug about 17 mm, D's estimate for J403)
+    lidar_pwr=(125.0 + _F, 26.8, 4.5),      # J409 Phoenix PT 1,5/2-3,5-H, wires enter from +X
+    camera_pads=(125.1 + _F, 44.6, 1.5),    # MOD402 camera regulator input pads (VIN Y 46.5, GND Y 42.7)
 )
 
 
@@ -284,11 +307,16 @@ def cable_defs():
                        ends=('dev kit RJ45', 'camera M12'),
                        pts=[pe['rj45_camera'], (66.0, 54.0, 53.0), (72.0, 46.0, 54.0), (88.0, 30.0, 57.0), (100.0, 24.0, 63.0),
                             (108.0, 22.0, 66.0), (113.5, 18.0, 74.0), (114.0, 14.0, 95.0), (113.0, 9.0, 112.0), (113.5, 7.0, 118.0), cam_start])
-    D['camera_power'] = dict(d=4.5, spec='LUCID GPIO-M8-5M-RA2-A cut to length: red (VAUX) and black (GND) to the board, other six tied back',
-                             ends=('camera M8 GPIO (right angle, up)', 'power board camera 2-pin (front edge)'),
+    rg = kit.CAM_REG_BOX; rgx, rgy = (rg[0] + rg[1]) / 2, (rg[2] + rg[3]) / 2
+    D['camera_power'] = dict(d=4.5, spec='LUCID GPIO-M8-5M-RA2-A cut to length: red (VAUX) and black (GND) to the 12 V regulator output, other six tied back',
+                             ends=('camera M8 GPIO (right angle, up)', 'camera 12 V regulator output (on the arch, right leg)'),
                              pts=[m8_top, (m8_top[0] - 2, -8.0, m8_top[2] + 7.0), (138.0, -13.0, m8_top[2] + 8.0),
-                                  (122.0, -22.0, 130.0), (114.0, -30.0, 104.0), (112.5, -33.0, 72.0),
-                                  (max(xf + 8.0, 106.0), -34.0, 32.0), (xf + 6.0, -34.0, zt + 9.0), pc('camera_pwr')])
+                                  (rgx + 1.0, rgy + 3.0, 122.0), (rgx, rgy, 98.0), (rgx, rgy, rg[5] + 4.0), (rgx, rgy, rg[5])])
+    cp = pc('camera_pads')
+    D['camera_reg_in'] = dict(d=3.0, spec='22 AWG pair, board MOD402 pads (VIN, GND) to the Pololu S18V20F12 input',
+                              ends=('power board camera regulator pads MOD402 (front edge)', 'camera 12 V regulator input'),
+                              pts=[(rgx, rgy, rg[4]), (rgx, rgy, rg[4] - 4.0), (rgx - 8.0, rgy - 0.5, 34.0), (112.0, -26.0, 30.0),
+                                   (100.0, -24.0, 22.0), (cp[0] + 2.5, cp[1], cp[2] + 4.0), (cp[0], cp[1], cp[2] + 2.0), cp])
     # ---- lidar: Ethernet through the USB dongle on the arch, power from the board's front edge
     D['lidar_ethernet'] = dict(d=6.0, spec='donor SICK M12 D-coded 4-pin to RJ45 (TiM561 Ethernet), into the USB dongle',
                                ends=('USB-Ethernet dongle RJ45 (on the arch leg)', 'lidar Ethernet M12'),
@@ -299,17 +327,20 @@ def cable_defs():
                           pts=[(LID_JACK[0], LID_JACK[1], _ue[5] + 1.0), (LID_JACK[0], LID_JACK[1], _ue[5] + 4.0), (125.0, 30.0, 93.0),
                                (117.0, 40.0, 88.0), (110.0, 41.0, 72.0), (88.0, 35.0, 68.0), (60.0, 48.0, 60.0), (40.0, 54.0, 54.0),
                                (pe['usb_a_lidar'][0], pe['usb_a_lidar'][1] + 7.0, pe['usb_a_lidar'][2] + 1.0), pe['usb_a_lidar']])
-    lp = pc('lidar_pwr')
-    lpts = [(lp[0] + 2.0, lid_pwr[1], lp[2]), (lp[0] + 8.0, lid_pwr[1], lp[2] + 0.2), (lid_pwr[0] - 4.0, lid_pwr[1], lid_pwr[2]), lid_pwr]
-    if lid_pwr[0] - lp[0] < 16.0:                                # board front close to (or past) the plug end: straight in
-        lpts = [(lp[0] + 2.0, lid_pwr[1], lp[2]), lid_pwr]
+    lp = pc('lidar_pwr')                                         # J409: the wires enter from +x
+    lpts = [(lp[0] + 1.0, lp[1], lp[2]), (lp[0] + 5.0, lp[1], lp[2] + 0.3), (lp[0] + 10.0, lp[1] + 4.0, lp[2] + 0.8),
+            (lid_pwr[0] - 6.0, lid_pwr[1] - 8.0, lid_pwr[2]), (lid_pwr[0] - 2.0, lid_pwr[1], lid_pwr[2]), lid_pwr]
     D['lidar_power'] = dict(d=5.5, spec='donor SICK M12 power cable, cut and stripped into the terminal',
-                            ends=('power board lidar Phoenix 2-pin (front edge)', 'lidar power M12'), pts=lpts)
+                            ends=('power board lidar Phoenix 2-pin J409 (front edge)', 'lidar power M12'), pts=lpts)
     # ---- the dev kit's own leads
+    dv = pw(POWER_CONN['dev_plus'][0], (POWER_CONN['dev_plus'][1] + POWER_CONN['dev_minus'][1]) / 2)
+    dz = Z_POWER_TOP + POWER_CONN['dev_plus'][2]
+    pdc = pe['dc_plug']
     D['devkit_dc'] = dict(d=4.5, spec='Tensility 10-01779 5.5 x 2.5 mm right-angle plug, 18 AWG pair, cut to length',
-                          ends=('power board DC pads (pack edge)', 'dev kit DC jack'),
-                          pts=[pc('dc_out'), (pc('dc_out')[0], 22.0, 14.0), (pc('dc_out')[0] - 1.0, 28.0, 30.0),
-                               (pe['dc_plug'][0], pe['dc_plug'][1], pe['dc_plug'][2] - 8.0), pe['dc_plug']])
+                          ends=('power board DEV+ / DEV- pads (pack side)', 'dev kit DC jack'),
+                          pts=[(dv[0], dv[1], dz), (dv[0], dv[1], dz + 4.0), (dv[0] - 4.0, 5.0, 24.0), (48.0, 6.0, 28.0), (38.0, 6.5, 28.5),
+                               (34.0, 14.0, 29.5), (30.0, 19.5, 33.5), (24.0, 19.5, 38.0), (10.0, 19.5, 38.5), (pdc[0], 20.5, 38.5), (pdc[0], 27.0, 39.0),
+                               (pdc[0], pdc[1], pdc[2] - 3.5), pdc])
     jb = pc('j12_box')
     j12 = P['DEVKIT_J12']; jx = dk((j12[0] + j12[1]) / 2, 0)[0]; jy = dk(0, (j12[2] + j12[3]) / 2)[1]
     zi = Z_DEVKIT_TOP + 17.5
@@ -322,36 +353,59 @@ def cable_defs():
                                            (jb[0] + d, jb[1], jb[2])])
     j14 = P['DEVKIT_J14']; hx0 = dk(j14[0], 0)[0]; hy = P['DEVKIT'][2] - 9.0; hz = Z_DEVKIT_TOP + 1.5
     jh = pc('j14_hdr')
+    # the bundle leaves the Dupont housing's rear end and drops between the ribbon and the laptop plug, then runs in under
+    # the tray (over the parts, 2 mm under the tray, above the FSESC USB lead) to the 1 x 12 header in the board's middle
     D['j14'] = dict(d=4.0, spec='1 x 12 Dupont housing, 8 crimped wires (keyed with a printed clip)',
-                    ends=('dev kit J14 (button header)', 'power board 1 x 12 header'),
-                    pts=[(hx0 + 2.0, hy, hz), (hx0 + 2.0, hy - 1.5, hz - 3.0), (hx0 + 3.0, -73.5, 32.0), (hx0 + 4.0, -73.0, 26.0),
-                         (hx0 + 6.0, -66.0, 26.0), (jh[0], jh[1] - 4.0, jh[2] + 3.0), jh])
-    hub = pc('hub')
-    D['devkit_usbc'] = dict(d=4.5, spec='USB-C to USB-C (or to the hub module socket) 0.25 m, USB 2.0',
-                            ends=('dev kit USB-C (device mode, 192.168.55.1)', 'power board USB hub'),
-                            pts=[pe['usb_c_hub'], (pe['usb_c_hub'][0] + 1.0, pe['usb_c_hub'][1] + 3.0, pe['usb_c_hub'][2] - 6.0),
-                                 (86.0, 28.0, 30.0), (84.0, 17.0, 26.0), (70.0, 5.0, 25.0), (hub[0] + 6.0, hub[1] + 10.0, hub[2] + 4.0), hub])
+                    ends=('dev kit J14 (button header)', 'power board 1 x 12 header J802 (middle)'),
+                    pts=[(hx0 + 2.0, hy, hz), (hx0 + 0.5, hy - 1.5, hz - 3.0), (47.5, -73.5, 37.0), (47.0, -73.0, 31.0),
+                         (48.5, -67.0, 30.5), (55.0, -42.0, 30.0), (60.0, -27.0, 28.0), (jh[0], jh[1] - 2.0, jh[2] + 3.0), jh])
+    # ---- dev kit USB-C to the board's J601 (hub port 1): right-angle USB-A plug, cable up the gap between the board
+    # edge and the pod, forward past the J14 housing, over the carrier's front strip (in front of the heatsink) to the
+    # I/O edge, then down and round under the USB-C plug into it from behind
+    _, j6 = j601_plug()
+    uc = pe['usb_c_hub']
+    D['devkit_usb'] = dict(d=4.5, spec='USB-A right-angle plug (cable leaving the narrow side, so up here) to USB-C, 0.3 m, USB 2.0',
+                           ends=('power board J601 USB-A (pod edge, hub port 1)', 'dev kit USB-C (device mode, 192.168.55.1)'),
+                           pts=[j6, (j6[0], j6[1], j6[2] + 5.0), (j6[0] + 4.0, j6[1], 36.0), (82.0, -73.5, 40.0), (86.5, -72.0, 43.5),
+                                (86.5, -66.0, 47.5), (85.5, -60.0, 49.5), (85.0, -40.0, 50.0), (85.5, 5.0, 50.5), (88.5, 14.0, 50.0),
+                                (89.5, 19.0, 44.0), (89.5, 24.0, 37.0), (86.0, 36.0, 34.0), (81.5, 45.0, 40.0),
+                                (uc[0], uc[1] + 1.5, uc[2] - 1.5), uc])
     pu = pc('pico_usb')
     D['pico_usb'] = dict(d=4.0, spec='micro-USB to USB-A, 0.3 m (supervisor USB CDC to the Jetson)',
-                         ends=('Pico micro-USB (power board)', 'dev kit USB-A (port 2)'),
-                         pts=[(pu[0], pu[1] + 2.0, pu[2]), (pu[0] + 1.0, pu[1] + 10.0, pu[2] + 8.0), (69.0, 40.0, 40.0),
-                              (52.0, 54.0, 49.0), (pe['usb_a_pico'][0], pe['usb_a_pico'][1] + 7.0, pe['usb_a_pico'][2] + 0.5), pe['usb_a_pico']])
-    D['vesc_usb'] = dict(d=4.0, spec="FSESC micro-USB to the hub (the kit's cable, or a 0.3 m one)",
-                         ends=('FSESC USB (front end, position ESTIMATE)', 'power board USB hub'),
-                         pts=[(e_front + 1.0, ecy - 14.0, ez + 11.0), (e_front + 3.5, ecy - 14.0, ez + 15.0), (-30.0, -46.0, 30.0),
-                              (-10.0, -38.0, 28.0), (hub[0] - 8.0, hub[1] - 2.0, hub[2] + 4.0), hub])
+                         ends=('Pico micro-USB (power board, pack edge)', 'dev kit USB-A (port 2)'),
+                         pts=[(pu[0], pu[1] + 2.0, pu[2]), (pu[0], pu[1] + 12.0, pu[2] + 3.0), (pu[0] + 0.5, 32.0, 33.0), (69.0, 41.0, 40.0),
+                              (55.0, 52.0, 49.0), (pe['usb_a_pico'][0], pe['usb_a_pico'][1] + 7.0, pe['usb_a_pico'][2] + 0.5), pe['usb_a_pico']])
+    j2 = pc('j602')
+    D['vesc_usb'] = dict(d=4.0, spec="FSESC micro-USB lead (the kit's cable) into the USB jack lead on J602 (Adafruit 4449, D's choice); length is the whole run",
+                         ends=('FSESC USB (front end, position ESTIMATE)', 'power board J602 (hub port 3, 1 x 4 header)'),
+                         pts=[(e_front + 1.0, ecy - 14.0, ez + 11.0), (e_front + 3.5, ecy - 14.0, ez + 14.0), (-25.0, -50.0, 29.0),
+                              (0.0, -51.0, 28.0), (40.0, -52.0, 25.0), (60.0, -52.0, 24.5), (j2[0] - 4.0, j2[1], j2[2] + 3.0),
+                              (j2[0], j2[1], j2[2] + 3.0), j2])
     vc = pc('vesc_comm')
     D['vesc_comm'] = dict(d=3.0, spec='FSESC COMM lead, JST-PH 7-pin both ends (UART TX/RX/GND, ADC2 kill)',
-                          ends=('FSESC COMM port (front end, position ESTIMATE)', 'power board FSESC header (rear edge)'),
-                          pts=[(e_front + 1.0, ecy - 16.0, ez - 3.0), (e_front + 3.0, ecy - 17.0, ez - 1.0), (vc[0] - 2.0, vc[1], vc[2]),
-                               (vc[0] + 1.0, vc[1], vc[2])])
-    # ---- debug USB-C: a panel-mount socket in the right pod's window, its pigtail to the hub
-    _, dbg = usbc_through_pod('debug_usbc')
-    zc = (dbg[3] + dbg[4]) / 2
-    D['debug_usbc'] = dict(d=4.0, spec='panel-mount USB-C socket with a 0.2 m pigtail to the hub (or a THT receptacle at the board edge: no cable)',
-                           ends=('right pod, debug window', 'power board USB hub'),
-                           pts=[(dbg[0], -84.0, zc), (dbg[0], -74.0, zc), (dbg[0] - 2.0, -64.0, zc + 3.0), (60.0, -42.0, 22.0),
-                                (hub[0] + 6.0, hub[1] - 6.0, hub[2] + 4.0), hub])
+                          ends=('FSESC COMM port (front end, position ESTIMATE)', 'power board J903 (rear edge)'),
+                          pts=[(e_front + 1.0, ecy - 16.0, ez - 3.0), (e_front + 3.0, ecy - 16.0, ez - 1.0), (vc[0] - 3.7, vc[1] - 3.6, vc[2] - 2.0),
+                               (vc[0] - 0.7, vc[1] - 1.1, vc[2] + 3.0), (vc[0], vc[1], vc[2] + 3.0), vc])
+    # ---- charging: the PD trigger and the CC/CV in the right pod, wired to their pads in the board's rear middle
+    # (six wires, one per module terminal; IN- and OUT- are joined only inside the module, review B1). The IN and OUT
+    # pairs are taken to land 2 mm either side of D's pad-group centre
+    pdb = kit.PD_BOX; cv = kit.CCCV_BOX
+    p1, p2 = pc('chg_pd'), pc('chg_cccv')
+    pdx = (pdb[0] + pdb[1]) / 2
+    D['charge_pd'] = dict(d=2.5, spec='20 AWG pair, PD trigger VOUT / GND (CHG_GND) to the board pads',
+                          ends=('PD trigger (right pod)', 'power board PD-trigger pads'),
+                          pts=[(pdx, pdb[3] - 0.6, pdb[5] + 0.6), (pdx - 2.0, pdb[3] + 3.0, pdb[5] + 2.0), (8.0, -62.0, 22.0),
+                               (-6.0, -53.0, 22.5), (p1[0], p1[1], p1[2] + 6.0), (p1[0], p1[1], p1[2] + 3.0), p1])
+    cz = (cv[4] + cv[5]) / 2
+    D['cccv_in'] = dict(d=2.5, spec='20 AWG pair, CC/CV IN+ / IN- (CHG_GND) to the board pads',
+                        ends=('CC/CV module, input end (right pod)', 'power board CC/CV pads'),
+                        pts=[(cv[1] - 3.0, cv[3] + 0.6, cz), (cv[1] - 4.0, -72.0, cz - 2.0), (p2[0] + 2.5, -60.0, 15.0),
+                             (p2[0] + 2.0, p2[1] - 4.0, p2[2] + 3.0), (p2[0] + 2.0, p2[1], p2[2] + 2.0), (p2[0] + 2.0, p2[1], p2[2])])
+    D['cccv_out'] = dict(d=2.5, spec='20 AWG pair, CC/CV OUT+ / OUT- (GND) to the board pads',
+                         ends=('CC/CV module, output end (right pod)', 'power board CC/CV pads'),
+                         pts=[(cv[0] + 3.0, cv[3] + 0.6, cz), (cv[0] + 6.0, -72.0, cz - 2.0), (-34.0, -70.0, 20.0), (-24.0, -66.5, 22.0),
+                              (-18.0, -58.0, 20.0), (-11.0, -51.0, 14.0), (p2[0] - 3.4, p2[1] - 2.5, p2[2] + 2.0),
+                              (p2[0] - 2.0, p2[1], p2[2] + 2.0), (p2[0] - 2.0, p2[1], p2[2])])
     # ---- motor side: phases and hall from the ESC's motor end straight down through the opening
     # descent columns in the opening, staggered in x and y so no lead crosses another's drop; above the deck the
     # leads are stacked 5 mm apart in z (A lowest, and A comes round behind the opening), the hall lead runs over them
@@ -376,50 +430,61 @@ def cable_defs():
                      pts=[(e_rear - 1.0, ecy + 17.0, ez - 3.0), (e_rear - 3.0, ecy + 16.0, ez + 12.0), (hx_, hy_ + 6.0, 21.0),
                           (hx_, hy_, 9.0), (hx_, hy_, 1.0), (hx_, hy_, -8.0), (hx_ - 1.3, hy_ - 8.0, -14.0), (-118.0, -84.0, -16.0),
                           (-124.0, y_bell + 2.0, motor_axis[1] + 17.0)])
-    # ---- ESC battery leads: out of the ESC's front end, a U-turn into the XT60 plug on the board's rear edge
-    # the case's front end is only POWER_X0 - (ESC_C + L/2) = 6.5 mm from the board edge, so the leads turn inboard at
-    # once, run over the XT60 plug and come back into it from behind (a U-loop; the + lead low, the - lead high)
-    eo = pc('esc_out'); xe = kit.POWER[0] - 16.0
-    for k, (ys, dy, zl) in (('plus', (ecy + 8.0, 3.5, 0.0)), ('minus', (ecy - 8.0, -3.5, 8.0))):
-        xg = (e_front + kit.POWER[0]) / 2
-        D[f'esc_battery_{k}'] = dict(d=4.2, spec=f"FSESC 12 AWG battery {'+' if k == 'plus' else '-'} lead to an XT60 female",
-                                     ends=('FSESC battery end', 'power board XT60PW (rear edge)'),
-                                     pts=[(e_front + 1.0, ys, ez + zl / 2), (xg, ys + 2.0, ez + 2.0 + zl), (xg, -14.0, 18.0 + zl),
-                                          (xe + 8.0, eo[1] - 7.0 + dy, 23.0 + zl), (xe - 7.0, eo[1] - 2.0 + dy, 22.0 + zl),
-                                          (xe - 12.0, eo[1] + dy, 16.0), (xe - 4.0, eo[1] + dy, eo[2]), (xe - 1.0, eo[1] + dy, eo[2])])
+    # ---- ESC battery leads: out of the ESC's front end (exits ESTIMATE) and onto the ESC+ / ESC- pads just inside the
+    # board's rear edge, soldered from above
+    for k, ys, dzl in (('plus', ecy + 4.0, 0.0), ('minus', ecy + 12.0, 3.0)):
+        pad = pc('esc_' + k)
+        D[f'esc_battery_{k}'] = dict(d=4.2, spec=f"FSESC 12 AWG battery {'+' if k == 'plus' else '-'} lead, soldered to the board pad",
+                                     ends=('FSESC battery end', f"power board ESC{'+' if k == 'plus' else '-'} pad (rear edge)"),
+                                     pts=[(e_front + 1.0, ys, ez + dzl / 2), (e_front + 3.0, ys + 0.5 * (pad[1] - ys), ez + 3.0 + dzl),
+                                          (pad[0] - 4.0, pad[1] - 1.0, 17.0 + dzl), (pad[0] - 0.5, pad[1], 15.0), (pad[0], pad[1], pad[2] + 2.5), pad])
     # ---- servo: the servo's own lead from the front-edge header down through the deck slot (or the board's notch)
-    sv = pc('servo')
+    sv = pc('servo')                                             # J406, the plug from above
     srv_end = (126.0, -24.0, kit.Z_RIM + P['SERVO'][4] - 6.0)
     under = [(101.0, -50.0, -8.0), (101.0, -45.0, -19.0), (112.0, -33.0, -23.0), srv_end]
     if kit.servo_notch_local():
-        pts = [(sv[0] + 14.0, sv[1], sv[2]), (sv[0] + 19.0, sv[1] - 4.0, sv[2]), (sv[0] + 10.0, -70.0, 14.0),
+        pts = [sv, (sv[0], sv[1], sv[2] + 3.0), (sv[0] + 3.0, sv[1] - 2.0, sv[2] + 3.0), (xf + 5.0, -70.0, 14.0),
                (106.0, -70.0, 12.0), (101.0, -66.0, 9.0), (101.0, -64.0, 3.0), (101.0, -62.0, -3.0)] + under
     else:
-        pts = [(sv[0] + 14.0, sv[1], sv[2]), (max(sv[0] + 19.0, 108.0), sv[1] - 2.0, sv[2] - 1.0), (101.0, -55.0, 6.0),
-               (101.0, -55.0, 1.0), (101.0, -54.0, -3.0)] + under
-    D['servo'] = dict(d=3.2, spec="servo's own 3-wire lead", ends=('power board servo header (front edge)', 'steering servo'), pts=pts)
-    # ---- battery assembly: pack + through the MIDI fuse, pack - through the BMS, both to the XT90-S
+        pts = [sv, (sv[0], sv[1], sv[2] + 3.0), (sv[0] + 3.0, sv[1] - 0.5, sv[2] + 4.0), (100.0, -52.5, 20.0),
+               (101.0, -54.0, 9.0), (101.0, -55.0, 1.0), (101.0, -54.0, -3.0)] + under
+    pts = pts[::-1]
+    D['servo'] = dict(d=3.2, spec="servo's own 3-wire lead", ends=('steering servo', 'power board servo header J406 (front edge)'), pts=pts)
+    # ---- battery assembly: pack + through the MIDI fuse, pack - through the BMS, both to the pack's XT90-S; that mates
+    # with the XT90 male on the board's 10 AWG pigtail (HANDOFF_E), the pair lying on the lid (kit.XT90_BOX). Pins: +
+    # on the north side (y + 4), - on the south side (estimate; check the polarity marks on the housings)
     fx0, fx1, fy0, fy1 = kit.MIDI_FUSE_XY; fz = kit.Z_LID_TOP + kit.MIDI_FUSE_H
     stud_in, stud_out = (fx1 - 6.0, (fy0 + fy1) / 2, fz + 1.0), (fx0 + 6.0, (fy0 + fy1) / 2, fz + 1.0)
-    xt = pc('xt90'); xt_end = kit.POWER[3] + 30.0
+    xb = kit.XT90_BOX; xcy = (xb[2] + xb[3]) / 2; xz = (xb[4] + xb[5]) / 2
+    xpack_p, xpack_m = (xb[0] - 1.0, xcy + 4.0, xz), (xb[0] - 1.0, xcy - 4.0, xz)      # XT90-S (pack side), -x end
+    xbrd_p, xbrd_m = (xb[1] + 1.0, xcy + 4.0, xz), (xb[1] + 1.0, xcy - 4.0, xz)        # XT90 male (board pigtail), +x end
+    bp_, bm_ = pc('bat_plus'), pc('bat_minus')
+    D['pack_pigtail_plus'] = dict(d=5.8, spec='10 AWG silicone pigtail, board BAT+ pad to the XT90 male (+)',
+                                  ends=('power board BAT+ pad (pack edge)', 'XT90 male, + (mates with the pack XT90-S)'),
+                                  pts=[bp_, (bp_[0], bp_[1], bp_[2] + 5.0), (bp_[0] + 2.5, 18.0, 24.0), (-4.0, 32.0, 26.0), (-3.0, xcy + 1.0, 19.0),
+                                       (xbrd_p[0] + 6.0, xbrd_p[1], xz + 1.0), xbrd_p])
+    D['pack_pigtail_minus'] = dict(d=5.8, spec='10 AWG silicone pigtail, board BAT- pad to the XT90 male (-)',
+                                   ends=('power board BAT- pad (pack edge)', 'XT90 male, - (mates with the pack XT90-S)'),
+                                   pts=[bm_, (bm_[0], bm_[1], bm_[2] + 5.0), (bm_[0] + 6.0, 12.0, 20.0), (-16.0, 26.0, 18.0), (-9.0, xcy - 5.0, 15.0),
+                                        (xbrd_m[0] + 4.0, xbrd_m[1], xz + 0.5), xbrd_m])
     D['pack_plus'] = dict(d=5.8, spec='10 AWG silicone, pack + (G4 end strip) to the MIDI fuse holder input',
                           ends=('pack + strip (under the lid)', 'MIDI 125 A fuse, input stud'),
                           pts=[(48.2, 21.0, 3.0), (48.2, 20.5, 12.0), (54.0, 21.0, 30.0), (stud_in[0], 24.0, fz + 8.0),
                                (stud_in[0], stud_in[1], fz + 6.0), stud_in])
-    D['fuse_to_xt90'] = dict(d=5.8, spec='10 AWG silicone, fuse output stud to the XT90-S male (B+)',
-                             ends=('MIDI fuse, output stud', 'XT90-S male, + (into the board XT90)'),
-                             pts=[stud_out, (stud_out[0], stud_out[1], fz + 7.0), (-4.0, 46.0, 40.0), (xt[0] + 5.0, xt_end + 9.0, 30.0),
-                                  (xt[0] + 5.0, xt_end + 4.0, xt[2]), (xt[0] + 5.0, xt_end, xt[2])])
+    D['fuse_to_xt90'] = dict(d=5.8, spec='10 AWG silicone, fuse output stud to the pack XT90-S (B+)',
+                             ends=('MIDI fuse, output stud', 'pack XT90-S, + (mates with the board pigtail)'),
+                             pts=[stud_out, (stud_out[0], stud_out[1], fz + 7.0), (2.0, 48.0, 34.0), (-12.0, 51.0, 29.0), (-40.0, 50.5, 25.5),
+                                  (-64.5, 49.5, 21.0), (xpack_p[0] - 6.0, xpack_p[1] + 0.5, xz + 2.0), xpack_p])
     bt = (bx0 - 1.0, bms_y, bz0 + 22.0)                         # BMS B- / P- terminals at its rear end (ESTIMATE)
     D['pack_minus'] = dict(d=5.8, spec='10 AWG silicone, pack - (G1 end strip) to the BMS B-',
                            ends=('pack - strip (under the lid)', 'JBD BMS B-'),
                            pts=[(-48.0, 21.0, 3.0), (-48.0, 20.0, 12.0), (-56.0, 28.0, 30.0), (-74.0, 46.0, bt[2]), (bx0 - 8.0, bms_y - 2.0, bt[2]),
                                 (bx0 - 4.0, bms_y, bt[2]), bt])
     bp = (bx0 - 1.0, bms_y, bz0 + 40.0)
-    D['bms_p_minus'] = dict(d=5.8, spec='10 AWG silicone, BMS P- to the XT90-S male (system ground)',
-                            ends=('JBD BMS P-', 'XT90-S male, - (into the board XT90)'),
-                            pts=[bp, (bx0 - 5.0, bms_y, bp[2]), (bx0 - 8.0, bms_y - 6.0, bp[2] - 4.0), (-62.0, 50.0, 38.0),
-                                 (xt[0] - 5.0, xt_end + 9.0, 30.0), (xt[0] - 5.0, xt_end + 4.0, xt[2]), (xt[0] - 5.0, xt_end, xt[2])])
+    D['bms_p_minus'] = dict(d=5.8, spec='10 AWG silicone, BMS P- to the pack XT90-S (system ground)',
+                            ends=('JBD BMS P-', 'pack XT90-S, - (mates with the board pigtail)'),
+                            pts=[bp, (bx0 - 5.0, bms_y, bp[2]), (bx0 - 9.0, bms_y - 6.0, bp[2] - 3.0), (bx0 - 8.0, 50.0, 34.0),
+                                 (bx0 + 0.0, xpack_m[1] + 3.0, 20.0), (xpack_m[0] - 6.0, xpack_m[1], xz + 1.0), xpack_m])
     bb = (bx0 - 1.0, bms_y, bz0 + 62.0)
     D['pack_sense'] = dict(d=4.5, spec="pack's 7-wire sense lead (JST-XH 7-pin) and the adapter harness to the BMS balance and NTC inputs",
                            ends=('pack taps B0-B4 and NTC', 'JBD BMS balance connector'),
@@ -427,17 +492,19 @@ def cable_defs():
                                 (bx0 - 8.0, bms_y - 2.0, bb[2]), (bx0 - 4.0, bms_y, bb[2]), bb])
     bu = pc('bms_uart')
     bm = (bx0 - 1.0, bms_y, bz0 + 80.0)
-    D['bms_uart'] = dict(d=3.0, spec='JBD 4-pin UART lead to the board JST-XH 4-pin (opto-isolated on the board)',
-                         ends=('JBD BMS UART port', 'power board BMS UART (pack edge)'),
+    D['bms_uart'] = dict(d=3.0, spec='JBD 4-pin UART lead to the board J201 JST-XH 4-pin (opto-isolated on the board)',
+                         ends=('JBD BMS UART port', 'power board J201 BMS UART (pack edge)'),
                          pts=[bm, (bx0 - 6.0, bms_y - 1.0, bm[2]), (bx0 - 8.0, bms_y - 8.0, bm[2] - 10.0), (-62.0, 50.0, 46.0),
-                              (-30.0, 40.0, 36.0), (bu[0], 26.0, 30.0), (bu[0], 20.0, bu[2] + 4.0), (bu[0], kit.POWER[3] + 1.0, bu[2])])
-    # ---- side-pod fan: forward along the right edge to the board's fan header (front edge per PHASE2)
+                              (-40.0, 36.0, 38.0), (-15.0, 30.0, 34.5), (20.0, 30.0, 35.0), (38.0, 28.0, 36.0), (43.0, 21.0, 34.0),
+                              (45.5, 16.5, 26.5), (bu[0] - 3.8, bu[1] + 0.5, bu[2] + 3.9), (bu[0], bu[1], bu[2] + 3.0), bu])
+    # ---- side-pod fan: out of the fan window, forward in the gap between the pod and the board, onto the fan header
+    # J1003 on the board's rear edge (HANDOFF_E moved it there)
     f0 = kit.FAN_X[0]; fh = pc('fan')
-    D['side_fan'] = dict(d=2.2, spec='fan lead, 4-pin (fan to the power board)',
-                         ends=('40 mm fan (right pod)', 'power board fan 4-pin (front edge)'),
-                         pts=[(f0 + 2.0, -79.0, 5.0), (f0 + 2.0, -77.3, 10.0), (f0 + 6.0, -73.0, 8.0), (-40.0, -72.5, 7.0),
-                              (60.0, -72.5, 7.0), (xf - 14.0, -72.0, 7.0), (xf + 3.0, -70.0, 10.0), (fh[0] + 5.0, fh[1] - 11.0, fh[2]),
-                              (fh[0] + 2.0, fh[1], fh[2])])
+    D['side_fan'] = dict(d=2.2, spec="the fan's own 4-pin lead (fan to the power board)",
+                         ends=('40 mm fan (right pod)', 'power board fan header J1003 (rear edge)'),
+                         pts=[(f0 + 2.0, -79.0, 5.0), (f0 + 2.0, -77.3, 10.0), (f0 + 6.0, -73.0, 8.0), (-60.0, -72.5, 8.0),
+                              (-42.0, -72.0, 9.0), (-36.0, -68.0, 13.0), (-33.0, -61.0, 19.0),
+                              (fh[0], fh[1] - 2.0, fh[2] + 3.0), fh])
     # ---- Wi-Fi: from the M.2 card under the carrier out under the I/O edge (behind the unused DisplayPort, the one
     # gap in the plugs) and up and back to the canopy jacks. The rear and front edges are no way out: the power
     # board's 35 mm strips reach up to the carrier's underside there.
@@ -507,14 +574,12 @@ def build(kit_build=None):
     canopy_sheets = sheet_canopy()
     ant_under, ant_over = antennas()
     lid_plug, _ = rj45_plug_down(*LID_JACK)
-    chg, _ = usbc_through_pod('charge_usbc')
-    dbg, dw = usbc_through_pod('debug_usbc')
-    zc = (dw[3] + dw[4]) / 2
-    # panel-mount USB-C socket in the debug window (12 x 7 mm body, flange on the outer wall) with the cable plug
-    dbg_panel = box(dw[0] - 6.0, dw[0] + 6.0, -kit.POD['y_out'] - 15.0, -kit.POD['y_in'] - 6.0, zc - 3.5, zc + 3.5)
+    chg, _ = usbc_through_pod('charge_usbc', kit.PD_BOX[2])               # into the PD trigger, face at the outer wall
+    lap, _ = usbc_through_pod('debug_usbc', pw(*POWER_CONN['hub_usbc'][:2])[1])   # the laptop's plug, into the hub
+    j6, _ = j601_plug()
     new_parts = dict(stack_canopy=canopy) if not SHEET_CANOPY else {k: sh.solid() for k, sh in canopy_sheets.items()}
     new_comps = dict(antenna_jacks=ant_under, antennas=ant_over, rj45_plug_lidar=lid_plug,
-                     usbc_plug_charge=chg, usbc_panel_debug=dbg_panel)
+                     usbc_plug_charge=chg, usbc_plug_laptop=lap, j601_plug=j6)
     cables = cable_defs()
     stand = bench_stand()
     info['canopy_sheets'] = canopy_sheets
@@ -525,14 +590,15 @@ def build(kit_build=None):
 TOUCH = {frozenset(p) for p in (
     ('antenna_jacks', 'stack_canopy'), ('antennas', 'stack_canopy'), ('antenna_jacks', 'antennas'),
     ('antenna_jacks', 'laser_canopy_top'), ('antennas', 'laser_canopy_top'), ('rj45_plug_lidar', 'usb_eth_adapter'),
-    ('usbc_plug_charge', 'power_parts_low'), ('usbc_panel_debug', 'side_pod_right'))}
+    ('usbc_plug_charge', 'pd_trigger'))}
 _BOARD = {'power_parts_low', 'power_parts_tall'}
 _PACK = {'pack_lid', 'pack_box', 'cells_4s3p', 'cell_holder_top'}
 # what each cable may touch: its connectors, and where it ends on the power board, the board's height-map blocks
 # (those blocks are envelopes for parts the leads are routed between on the real board)
 CABLE_OK = {
     'camera': {'devkit_plugs', 'camera_plug'},
-    'camera_power': {'camera_m8_plug'} | _BOARD,
+    'camera_power': {'camera_m8_plug', 'camera_regulator'},
+    'camera_reg_in': {'camera_regulator'} | _BOARD,
     'lidar_ethernet': {'rj45_plug_lidar', 'lidar_connectors'},
     'lidar_usb': {'usb_eth_adapter', 'devkit_plugs'},
     'lidar_power': {'lidar_connectors'} | _BOARD,
@@ -540,22 +606,23 @@ CABLE_OK = {
     'ribbon_40pin_a': {'devkit_header_plugs'} | _BOARD, 'ribbon_40pin_b': {'devkit_header_plugs'} | _BOARD,
     'ribbon_40pin_c': {'devkit_header_plugs'} | _BOARD,
     'j14': {'devkit_header_plugs'} | _BOARD,
-    'devkit_usbc': {'devkit_plugs'} | _BOARD,
+    'devkit_usb': {'devkit_plugs', 'j601_plug'},
     'pico_usb': {'devkit_plugs'} | _BOARD,
     'vesc_usb': {'esc_case'} | _BOARD,
     'vesc_comm': {'esc_case'} | _BOARD,
-    'debug_usbc': {'usbc_panel_debug', 'side_pod_right'} | _BOARD,
+    'charge_pd': {'pd_trigger'} | _BOARD, 'cccv_in': {'cccv_module'} | _BOARD, 'cccv_out': {'cccv_module'} | _BOARD,
     'motor_A': {'esc_case', 'motor'}, 'motor_B': {'esc_case', 'motor'}, 'motor_C': {'esc_case', 'motor'},
     'hall': {'esc_case', 'motor'},
-    'esc_battery_plus': {'esc_case', 'esc_out_plug'}, 'esc_battery_minus': {'esc_case', 'esc_out_plug'},
+    'esc_battery_plus': {'esc_case'} | _BOARD, 'esc_battery_minus': {'esc_case'} | _BOARD,
     'servo': {'steering_servo'} | _BOARD,
     'pack_plus': _PACK | {'midi_fuse'},
-    'fuse_to_xt90': {'midi_fuse', 'xt90s_pack'},
+    'fuse_to_xt90': {'midi_fuse', 'xt90_pair'},
+    'pack_pigtail_plus': {'xt90_pair'} | _BOARD, 'pack_pigtail_minus': {'xt90_pair'} | _BOARD,
     'pack_minus': _PACK | {'bms'},
-    'bms_p_minus': {'bms', 'xt90s_pack'},
+    'bms_p_minus': {'bms', 'xt90_pair'},
     'pack_sense': _PACK | {'bms'},
     'bms_uart': {'bms'} | _BOARD,
-    'side_fan': {'fan_40mm', 'side_pod_right'} | _BOARD,
+    'side_fan': {'fan_40mm'} | _BOARD,
     'wifi_1': {'devkit_bottom_parts', 'antenna_jacks'},
     'wifi_2': {'devkit_bottom_parts', 'antenna_jacks'},
 }
@@ -628,16 +695,24 @@ def checks(kb, new_parts, new_comps, cables):
     io = kit.devkit_io_boxes(); pl = kit.devkit_plug_boxes(io)
     plug_top = max(v['box'].val().BoundingBox().zmax for v in pl.values())
     idc_top = comps['devkit_header_plugs'].val().BoundingBox().zmax
-    win = {n: (xc, w, z0, z1) for (n, xc, w, z0, z1) in P['POD_WINDOWS']}
-    chg_bb = new_comps['usbc_plug_charge'].val().BoundingBox()
-    xc, w, z0, z1 = win['charge_usbc']
+    def in_window(comp, wname):
+        bb_ = new_comps[comp].val().BoundingBox()
+        _, xc, w, z0, z1, _ = kit.pod_window(wname)
+        return [round(min(bb_.xmin - (xc - w / 2), (xc + w / 2) - bb_.xmax), 2), round(min(bb_.zmin - z0, z1 - bb_.zmax), 2)]
     cxy = SHEET_CANOPY_XY if SHEET_CANOPY else CANOPY_XY
     cl = dict(canopy=('laser box' if SHEET_CANOPY else 'printed'), canopy_over_jetson_fan_mm=round(Z_CANOPY - Z_SINK_TOP, 2),
               canopy_over_devkit_plugs_mm=round(Z_CANOPY - (0.0 if SHEET_CANOPY else CANOPY_LIP) - plug_top, 2),
               canopy_over_j12_idc_mm=round(Z_CANOPY - idc_top, 2),
               canopy_to_bms_mm=round(kit.bms_place()[2] - cxy[3], 2),
-              charge_plug_in_window_side_gap_mm=round(min(chg_bb.xmin - (xc - w / 2), (xc + w / 2) - chg_bb.xmax), 2),
-              charge_plug_in_window_z_gap_mm=round(min(chg_bb.zmin - z0, z1 - chg_bb.zmax), 2))
+              plug_in_window_side_and_z_gap_mm=dict(charge_usbc=in_window('usbc_plug_charge', 'charge_usbc'),
+                                                    laptop_usbc=in_window('usbc_plug_laptop', 'debug_usbc'),
+                                                    j601_head=in_window('j601_plug', 'devkit_usba')),
+              cccv_module_in_window_side_and_z_gap_mm=[round(min(kit.CCCV_BOX[0] - (kit.pod_window('cccv')[1] - kit.pod_window('cccv')[2] / 2),
+                                                                 (kit.pod_window('cccv')[1] + kit.pod_window('cccv')[2] / 2) - kit.CCCV_BOX[1]), 2),
+                                                       round(min(kit.CCCV_BOX[4] - kit.pod_window('cccv')[3], kit.pod_window('cccv')[4] - kit.CCCV_BOX[5]), 2)],
+              cccv_module_depth_past_pod_inside_mm=round(P['CCCV'][2] - (kit.POD['y_out'] - kit.POD['y_in'] - 2 * kit.POD['t']), 2),
+              pd_trigger_past_inner_wall_into_gap_mm=round(kit.PD_BOX[3] - (-kit.POD['y_in']), 2),
+              j601_head_past_board_edge_mm=round(P['J601_PLUG'][1] - 0.5, 2))
     return rows, cable_hits, cable_cross, fov, cl
 
 

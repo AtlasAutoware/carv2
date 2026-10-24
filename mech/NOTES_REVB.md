@@ -15,16 +15,18 @@ board's front standoffs and one leg in zone B. A 3 mm acrylic shield hangs under
 which is live at pack voltage. The FSESC sits
 in a cradle in the ESC bay beside the motor (x -113 to -35), the right pod's fan blows across it, and the motor leads
 drop through a new deck opening at its motor end. The JBD BMS stands on its long edge in a holder on the pack lid's
-outboard edge, with the MIDI fuse holder on the lid beside the dev kit's plugs. The lidar's USB-Ethernet dongle is
-zip-tied behind the camera arch's left leg.
+outboard edge, with the MIDI fuse holder on the lid beside the dev kit's plugs and the mated XT90 pair (the board's
+pigtail in the pack's XT90-S) lying on the lid. The lidar's USB-Ethernet dongle is zip-tied behind the camera arch's
+left leg and the camera's 12 V regulator behind its right leg. The charge modules (PD trigger and CC/CV buck) live
+in the right pod. The power board's connectors are at agent D's final positions (`boards/power/HANDOFF_E.md`).
 
 ## Interference results
 
-| run | printed and bought parts (`kit.py`) | new parts, plugs (`extras.py`) | cables (31 runs) | cable against cable | lidar plane |
+| run | printed and bought parts (`kit.py`) | new parts, plugs (`extras.py`) | cables (36 runs) | cable against cable | lidar plane |
 | --- | --- | --- | --- | --- | --- |
 | `POWER_L` 130 (the default, agent D's layout) | 0 | 0 | 0 | 0 | all inside the rear blind sector |
 | `POWER_L` 130, `SHEET_PARTS=all` (laser-cut tray, BMS holder, canopy box, splices) | 0 | 0 | 0 | 0 | all inside |
-| `POWER_L` 150 | 4 overlaps, all the lidar's M12 plug envelope against the board's front: the PCB, its height-map blocks and the front-left 25 mm standoff | 0 | the lidar Ethernet cable runs through the board's front-left corner | 0 | all inside |
+| `POWER_L` 150 (run before D's connector positions; not rerun, D's layout is 130 mm) | 4 overlaps, all the lidar's M12 plug envelope against the board's front: the PCB, its height-map blocks and the front-left 25 mm standoff | 0 | the lidar Ethernet cable runs through the board's front-left corner | 0 | all inside |
 
 The lidar's two M12 plugs end at x 114.6 (an estimate: 45 mm straight plugs behind the swivel unit, MEASURE_FIRST item
 12). A 150 mm board reaches x 118, so its front 3.4 mm is inside them. Agent D took the recommendation and laid the
@@ -44,7 +46,11 @@ Other numbers from `out/kit_report.json` and `out/extras_report.json`:
   fan blows in, 9.3 mm under the 35 mm bay limit.
 - The right pod's rear bolt at (-88, -72.5) sits inboard of the new fan window, on the flange. Its head (top z 4.65)
   covers the window's lowest 2.65 mm over 6 mm of width; harmless, so the bolt stays.
-- The charge USB-C plug passes the pod window with 1.75 mm a side and 4 mm above and below.
+- Right pod windows (`clearances` in the extras report): the charge and laptop USB-C plugs pass their windows with
+  1.75 mm a side and 1.5 mm above and below; the J601 plug head has 0.8 mm a side and 0.85 mm above and below in
+  its inner-wall window; the CC/CV module has 1.0 mm all round in its window and stands 0.8 mm into the inner wall's
+  thickness (it is 14 mm deep, the pod inside 13.2 mm); the PD trigger board reaches 4.6 mm past the inner wall into
+  the gap over the board edge.
 
 ## Judgment calls
 
@@ -92,26 +98,29 @@ Other numbers from `out/kit_report.json` and `out/extras_report.json`:
     because the power board's 35 mm strips reach up to the carrier's underside there. They come out under the I/O
     edge behind the unused DisplayPort and run back: 104 and 161 mm. Order 20 cm pigtails; the 15 cm ones on the BOM
     do not reach.
-11. **FSESC USB goes to the board's hub (Phase 2 decision 4)**, not to a dev-kit USB-A as one line of my task text said.
+11. **FSESC USB goes to the board's hub (Phase 2 decision 4; D's J602, hub port 3)**, not to a dev-kit USB-A as one line of my task text said.
     PHASE2 governs; the FSESC talks to the Jetson over UART1 through the ribbon. The lengths differ by a few cm.
-12. **Debug USB-C as a panel-mount socket in the right pod's window**, with a pigtail to the hub. A THT receptacle
-    at the board edge also works through the same window (then no cable).
-13. **Button window in the rear strip** (car x -20). A 6 mm tactile switch at the board edge is 26 mm in from the
-    pod's outer face; fit a 12 mm panel-mount momentary in the window on the board's remote-button header, or a
-    printed plunger.
-14. **ESC battery leads loop round.** The FSESC's front end is only 6.5 mm from the board's rear edge, so the battery
-    leads turn inboard at once and come back into the XT60 from behind (62 and 85 mm). Better for the layout: put the
-    XT60PW at the inboard end of the rear edge (Y 66 or more, as modelled) or land the leads on wire pads.
-15. **Fan lead.** PHASE2 puts the fan header on the board's front edge; the fan is now at the rear (x -94 to -54), so
-    its lead is 230 to 250 mm. A fan header on the rear edge would make it about 60 mm. A question for agent D.
-16. **Placeholder connector positions on the board** (`extras.POWER_CONN`): ESC XT60 at the rear edge Y 66, FSESC
-    COMM at Y 14; XT90 at the pack edge X 8, BMS UART at X 22, DC pads at X 28, Pico USB at X 102; hub at (70, 40);
-    box header for the ribbon centred at (40, 8.5) near the right edge, behind the X 75 standoff; 1 x 12 header at
-    (92, 13.5); front edge: servo Y 14, fan Y 24, camera power Y 34, lidar power Y 58 (straight in line with the
-    lidar's power plug at car y -10). Pod windows (`POD_WINDOWS`): charge USB-C at car x 68, debug USB-C at 88, button
-    at -20, all z 10 to 25. When D reports the real positions, edit those two dicts and rerun.
+12. **Laptop USB-C straight into the hub.** D put the hub module's USB-C at the board's pod edge (car x 56.5, centre
+    about z 22.8), so the laptop's own cable plugs in through both pod walls (window x 48.5 to 64.5, z 17.8 to
+    27.8). The panel-mount socket and its pigtail are gone.
+13. **Button window at D's SW401** (right-angle, plunger tip at the board edge, car x 80.75, z about 12). Its plunger
+    is 26 mm in from the pod's outer face, so it is pressed with a rod (a 3 mm hex key) through both walls; the
+    window (x 76.2 to 90, z 8 to 17) reaches on to the status LEDs D701 / D702 at x 87.75 so they show through it.
+    The remote-button header J1002 on the front edge still takes a panel button if the team prefers one.
+14. **ESC battery leads on D's wire pads** (board X 5, Y 42 and 54): straight from the FSESC's front end down onto
+    the pads, 19 and 24 mm routed. No XT60 and no U-loop; the battery-lead exits on the FSESC are still estimates.
+15. **Fan lead.** D moved the fan header to the rear edge (J1003): the lead is now 88 mm (it was 230 mm to the front
+    edge).
+16. **Connector positions from D** (`extras.POWER_CONN`, from HANDOFF_E's table): the pad-group centres and the facing
+    edge are D's; the height of each plug above the board (header plus mating plug, for example 11 mm for the fan
+    header, 18 mm for the box header with its IDC plug, 17 mm for the servo plug) is an estimate. The front-edge
+    entries keep their distance from the front edge if `POWER_L` changes; D's layout is 130 mm.
 17. **The JBD's leads** are assumed to leave its rear end (x -80). The B+ path is pack + up the lid's front slot, the
-    MIDI fuse on the lid, then the XT90-S; the B- path is pack - up the rear slot to the BMS, P- to the XT90-S.
+    MIDI fuse on the lid, then the pack's XT90-S; the B- path is pack - up the rear slot to the BMS, P- to the XT90-S.
+    D replaced the board-mount XT90 with BAT+ / BAT- pads and a 10 AWG pigtail to an XT90 male. The mated pair
+    (22 x 12 x 46 mm, an estimate) lies on the lid along x at car x -60 to -14, y 30 to 52: the board pigtails
+    (58 and 56 mm) come over the pack edge into its +x end, the fuse lead (106 mm) and the BMS P- (68 mm) into its -x
+    end. Polarity in the model: + on the pair's north side.
 18. **Acrylic FET shield.** D's layout puts the 40 x 15 x 3 mm heatsink bar (live at BAT+, the three FET tabs are its
     drains) at board X 10.5 to 50.5, Y 63 to 66, under the tray's CF rear rails, 5 mm below them. A 3 mm cast acrylic
     plate (34 x 23 mm, board X 20 to 54, Y 49 to 72) hangs under the tray there on two nylon countersunk M3 screws,
@@ -127,6 +136,33 @@ Other numbers from `out/kit_report.json` and `out/extras_report.json`:
     part must insulate. The laser BMS holder moves the BMS 2.5 mm inboard (its base needs closed slots and the left
     pod is 1.7 mm away), and the laser canopy is 4 mm bigger a side so its skirts, inset 2.5 mm for closed slots, stay
     1.5 mm off every post.
+21. **J601 with a right-angle USB-A plug.** J601 (Wurth 614004134726) stands on its edge at the pod edge (car x 70.8),
+    its face 0.5 mm inside the board edge. A straight plug and its strain relief need about 40 mm (D's estimate); the
+    pod's outer face is 26 mm out, so a straight plug would stand 14 mm out of the side of the car. The model takes a
+    right-angle plug whose cable leaves its narrow side, which on an edge-standing receptacle is upward (on a normal
+    receptacle that is a "left" or "right" angle plug, not "up" or "down"): head 9 x 12 x 18 mm beyond the face (an
+    estimate). The head's last 3.5 mm pass through a window in the inner wall (x 65.5 to 77, z 6 to 26, which merges
+    with the button window), and the cable rises in the 8 mm gap and runs over the carrier's front strip to the dev
+    kit's USB-C: 165 mm, so a 0.3 m cable. The plug goes in before the right pod is fitted. J601's height is not in
+    the KiCad footprint; `J601_H` 14.5 mm is the shell's width plus a standoff (MEASURE_FIRST 29).
+22. **Charge modules in the right pod**, at a charge window that no longer has to line up with the board. The PD
+    trigger (Adafruit 5807, 24.5 x 20.2 x 4.9 mm from adafruit.com) lies flat with its USB-C against the outer wall's
+    charge window at car x 19 and passes through a slot in the inner wall, so its wire holes end up in the gap next to
+    the board edge (50 mm of wire to its pads). The CC/CV module stands on its long edge behind the fan's forward
+    just forward of the fan (car x -50 to 1), its PCB on the outer wall and its parts facing inboard. At 51 x 26.3 x 14 mm (one vendor's
+    listing) it is 0.8 mm deeper than the pod inside, so its parts stand into a window in the inner wall (x -51 to 2,
+    z 5 to 33.3), which also lets its heat out into the gap and its wires straight through to the board (36 and
+    60 mm). Which edge of the trigger the USB-C is on, and the module actually bought, are MEASURE_FIRST 30.
+23. **Camera regulator on the arch.** D's notes put the Pololu S18V20F12 (43 x 21 x 10 mm, pololu.com) "on the
+    tray", but the tray is a frame of rails with no free surface outside the carrier. It stands upright against the
+    rear face of the camera arch's right leg instead (x 126 to 136, y -36 to -15, z 40 to 83), the mirror image of the
+    lidar dongle: 53 mm of 22 AWG pair from the MOD402 pads, 89 mm of M8 lead from the camera. If the team wants it on
+    the tray, it needs a small bracket there.
+24. **Leads that got longer** with D's positions: the dev-kit DC lead (40 to 103 mm: the DEV pads are now under the
+    carrier's middle, not under the DC jack), the J14 harness (42 to 75 mm: J802 is in the board's middle), the BMS
+    UART (144 to 200 mm: J201 is near the board's front), the FSESC USB (84 to 121 mm, to J602), the lidar power
+    (15 to 42 mm: J409 is 5 mm in from the front edge, its wires enter from the front) and the fuse lead to the
+    XT90-S (64 to 106 mm). Shorter: the fan lead, the ESC battery leads, the BMS P- and the camera's M8 lead.
 
 ## Parameters that must be measured
 
@@ -140,9 +176,13 @@ Other numbers from `out/kit_report.json` and `out/extras_report.json`:
 | the M8 plug in `triton()` | 16 mm out, cable up | item 23 |
 | `USB_ETH` | 50 x 22 x 15 mm | item 24 |
 | `BMS`, its lead positions | 160 x 105 x 10 mm, leads at the rear end | item 25, before printing the BMS holder |
-| `MIDI_FUSE_XY`, `MIDI_FUSE_H` | 60 x 30 x 26 mm | item 26 |
+| `MIDI_FUSE_XY`, `MIDI_FUSE_H`; `XT90_PAIR`, `XT90_PAIR_C` | 60 x 30 x 26 mm; pair 22 x 12 x 46 mm at (-37, 41) | item 26 |
 | `tim561()` plug lengths | 45 mm | item 12: it decides how long the power board can be |
-| `POWER_L` and `extras.POWER_CONN` | 130 mm (D's layout); connector placeholders | from agent D's layout |
+| `POWER_L` and `extras.POWER_CONN` | 130 mm; D's connector positions (HANDOFF_E), plug heights estimated | the plug heights on the built board |
+| `J601_H`, `J601_PLUG` | 14.5 mm; right-angle head 9 x 12 x 18 mm | item 29, and the cable bought |
+| `PD_TRIGGER`, `PD_RECEPT_DZ`, `CCCV`, `CCCV_X`, `CCCV_Z0` | 24.5 x 20.2 x 4.9 mm, 3.3 mm; 51 x 26.3 x 14 mm | item 30, before printing the right pod |
+| `POD_WINDOWS` (`debug_usbc`, `button` z) | z 17.8 to 27.8; 8 to 17 | item 31 |
+| `CAM_REG` | 43 x 21 x 10 mm (pololu.com) | where the team wants it |
 | `SHEET_T` | 3.0 mm | item 27: measure every laser sheet before cutting the tab-and-slot parts |
 | `FET_BAR` height | 20 mm of live metal above the board | item 28: the shield hangs 2 mm above it |
 
@@ -165,12 +205,12 @@ Solid PETG-CF masses from the model at the 130 mm board; as printed (4 walls, 35
 | `bms_fence` | new (or cut the three `laser_bms_*`) | 29 | 19 |
 | `canopy_leg` | new | 13 | 8 |
 | `stack_canopy` | new outline over the dev kit (or cut the `laser_canopy_*` box) | 54 | 35 |
-| `side_pod_right` | fan window moved, plug slot gone, three new windows | 68 | 44 + supports |
+| `side_pod_right` | fan window moved, plug slot gone, new windows at D's connector positions, room for the charge modules | 65 | 42 + supports |
 | `deck_mid` | new insert positions; a rev A print cannot be converted | 167 | 109 |
 | `deck_rear` | new phase opening, one insert; or convert a rev A print by hand | 180 | 117 |
 | `deck_front` | two inserts, servo slot extended; or convert a rev A print | 171 | 111 |
-| **total** | with `deck_rear` and `deck_front` converted | **370** | **about 240** |
-| **total** | with all three deck pieces reprinted | **721** | **about 470** |
+| **total** | with `deck_rear` and `deck_front` converted | **367** | **about 240** |
+| **total** | with all three deck pieces reprinted | **718** | **about 465** |
 
 Unchanged from rev A: the splices (or cut them), the fit coupons (the rear coupon now includes part of the new phase
 opening; an already printed one is still a valid fit test), the plinth, the bumper, the arch and cradles, the left
@@ -201,18 +241,20 @@ key `laser`). Everything but the shield is optional: it replaces a printed part.
 - With the laser-cut tray: 4 x M3 x 40 female-female + 4 x M3 x 8 male-female standoffs for all four posts, and
   M3 x 6 button heads from under the sheet at the two rear ones.
 - 20 cm MHF4 to RP-SMA pigtails instead of 15 cm.
+- A USB-A to USB-C cable, 0.3 m, with a right-angle USB-A plug whose cable leaves the plug's narrow side (for J601).
+- Zip ties or a printed clip for the camera regulator on the arch; foam tape or a dab of hot glue for the PD trigger
+  in its slot.
 - No aluminium heat spreader any more.
 
 ## Open questions
 
-- The power board's connector positions: D's 130 mm layout moved the fan header to the rear edge and put the ESC
-  and pack leads on wire pads, so `extras.POWER_CONN` (my placeholders) should be updated from
-  `boards/power/layout.py` and the cables rerun. The fan lead then drops from 230 mm to about 60.
+- J601: its real height and face position, and which right-angle USB-A plug the team buys (MEASURE_FIRST 29). If no
+  suitable plug turns up, a short USB-A extension with a right-angle male works too.
+- The CC/CV module: if the one bought is 13 mm deep or less, its inner-wall window can go.
 - Is the 21 mm limit under the acrylic shield fine with D's FET bar as built (MEASURE_FIRST 28)?
-- With wire pads at the rear edge (D's layout), do the ESC's battery leads still need the U-loop (the case's front
-  end is 6.5 mm from the board)?
+- Where the team wants the camera regulator (on the arch as modelled, or on a bracket on the tray as D's notes say).
 - The carrier's holes, heights and header positions; the FSESC case and its ports; the BMS's terminals; the fuse
-  holder; the dongle (MEASURE_FIRST 17 to 26).
+  holder and the XT90 pair; the dongle (MEASURE_FIRST 17 to 26).
 - Which sides the dev kit's heatsink fins exhaust to. The canopy is open below its 4 mm lip on every side, so the
   air can leave anywhere, but the grille sits over the assumed fan position.
 - Is a 105 mm BMS plate on the left side acceptable to the team, or is a smaller BMS (one that fits the lid flat)
