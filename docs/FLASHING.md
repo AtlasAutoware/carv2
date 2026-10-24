@@ -17,7 +17,7 @@ after it (drive board and brain board) are kept as history.
 | Jetson tools | `software/jetson/` | `install.sh` (step B3) | run it again |
 
 Nothing else on the power board is programmable. The JBD BMS is set up once with JBD's phone app
-or PC tool, with the values from the rev B BMS study: cell over-voltage 4.20-4.25 V, cell
+or PC tool, with the values from the rev B BMS study: cell over-voltage 4.25 V, cell
 under-voltage 3.00 V, discharge over-current above the VESC's 90 A battery limit with a 1-2 s
 delay, charge over-current about 20 A, charge over-temperature 50 C, discharge 65 C, design
 capacity 8.4 Ah. The USB-C PD trigger and the CC/CV buck are set with their trimmers and a meter.

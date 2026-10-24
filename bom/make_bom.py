@@ -157,16 +157,16 @@ def revb_table(pack, sensor, other):
     m = lambda v: f'{v:,.2f}'
     rows = [(a, m(v), '', 'PCBWay quote, Oct 2026') for a, v in REVA_QUOTE]
     rows += [
-        ('ATLAS-PWR-1 parts, one board (with the Pico, hub, latch, camera regulator, PD trigger, CC/CV buck)', '',
+        ('ATLAS-PWR-1 parts, one board (with the Pico, hub, latch, camera regulator, PD trigger, CC/CV buck, DIP sockets)', '',
          m(board), f'`bom/revb/power_board_bom.csv` ({m(board_unv)} not verified)'),
-        ('ATLAS-PWR-1 bare boards', '', 'PCBWay estimate', '`boards/power/LAYOUT_NOTES.md` when it exists'),
+        ('ATLAS-PWR-1 bare boards', '', 'PCBWay estimate', 'pending in `boards/power/LAYOUT_NOTES.md`'),
         ('Assembly', 'in the quotes', '0', 'students at school'),
         ('ESC', 'on the drive board', '0', 'owned Flipsky Mini FSESC 6.7 Pro'),
         ('Jetson carrier', 'brain board', '0', 'owned NVIDIA dev-kit carrier'),
     ]
     rows += [(a, '', m(v), s) for a, v, s in REVB_CAR]
     rows += [
-        ('USB leads for the hub (2 x Adafruit 4449, USB-A to USB-C, micro-USB to USB-A, panel-mount USB-C)', '',
+        ('USB leads (Adafruit 4449 for the FSESC, USB-A to USB-C for the dev kit, micro-USB to USB-A, panel-mount USB-C)', '',
          'not priced', ''),
         ('**Electronics for one car**', f'**{m(reva_el)}**', f'**{m(revb_el)} + bare boards**', ''),
         ('18650 pack materials', m(pack), m(pack), 'rev A table above'),

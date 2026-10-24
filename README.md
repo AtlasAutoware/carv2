@@ -26,24 +26,30 @@ The picture is the rev A car; the whole-car renders have not been redone for rev
 
 **24 October 2026: rev B is being designed, and nothing has been ordered or built.**
 
+- An independent pre-order review (`docs/review_revb_2026-10-24.md`) said "fix first, then order; no redesign is
+  needed". Its one blocker and seven majors are fixed in the design and the firmware (`boards/power/DESIGN_FIXED.md`,
+  `firmware/supervisor/NOTES.md`). It asks for three bench tests before ordering; they are listed in `docs/REV_B.md`.
 - The power board's schematic, parts list and placement are done (`boards/power/`). `netcheck.py` finds 0 errors and
-  10 warnings (back-power of 0.05-0.28 mA into unpowered pins, under its 0.5 mA limit). Parts cost $140.67 per board
-  at quantity 1 (`bom/revb/power_board_cost.md`). Layout, routing, DRC and the fab files are in progress
-  (`boards/power/HANDOFF_E.md`); the PCBWay price for the bare boards comes with them.
-- The supervisor firmware (`firmware/supervisor/`) passes its 95 tests on a simulated board. It has not run on a Pico.
+  14 warnings (small back-power currents into unpowered pins, all within its limits). Parts cost $149.37 per board at
+  quantity 1 (`bom/revb/power_board_cost.md`). Layout, routing, DRC and the fab files are in progress
+  (`boards/power/HANDOFF_E.md`, `LAYOUT_NOTES.md`); the PCBWay price for the bare boards comes with them.
+- The supervisor firmware (`firmware/supervisor/`) passes its 119 tests on a simulated board. It has not run on a
+  Pico.
 - The Jetson tools (`software/jetson/`) are rewritten for the dev-kit carrier and the supervisor and pass their tests,
   including the real firmware run against them over a pseudo-terminal. Nothing has run on the car.
 - The printed kit (`mech/`) is redone for the dev-kit tray, the ESC cradle and the BMS holder. With a 130 mm power
-  board both scripts find zero interference. The dev-kit carrier's hole positions are placeholders until the owned
+  board both scripts find zero interference. The tray, the BMS holder, the canopy and the splice plates can also be
+  laser-cut from 3 mm sheet, and a 3 mm acrylic shield over the live FET bar is always cut (`mech/README.md`,
+  "Laser-cut parts"). The dev-kit carrier's hole positions are placeholders until the owned
   board is measured.
-- Still to measure before ordering and printing: `docs/MEASURE_FIRST.md`, items 12 and 17-26. The open questions are
+- Still to measure before ordering and printing: `docs/MEASURE_FIRST.md`, items 12 and 17-28. The open questions are
   at the end of `docs/REV_B.md`.
 
 ## What is in here
 
 | folder | what |
 | --- | --- |
-| `docs/` | `REV_B.md` (the rev B design and why), `BUILD_POWER_BOARD.md` (student assembly guide for the power board), `SOFTWARE.md` (what runs on the car), `FLASHING.md` (programming the Pico, the FSESC and the Jetson), `WIRING.md` (every cable run and its length), `MEASURE_FIRST.md` (numbers to check before printing and ordering), `PACK_BUILD.md` (building the 18650 pack); rev A: `ARCHITECTURE.md`, `TPS25751_CONFIG.md`, `COMPLETE_CAR.md` |
+| `docs/` | `REV_B.md` (the rev B design and why), `review_revb_2026-10-24.md` (the independent pre-order review), `BUILD_POWER_BOARD.md` (student assembly guide for the power board), `SOFTWARE.md` (what runs on the car), `FLASHING.md` (programming the Pico, the FSESC and the Jetson), `WIRING.md` (every cable run and its length), `MEASURE_FIRST.md` (numbers to check before printing and ordering), `PACK_BUILD.md` (building the 18650 pack); rev A: `ARCHITECTURE.md`, `TPS25751_CONFIG.md`, `COMPLETE_CAR.md` |
 | `boards/power/` | rev B power board: `design.py` is the circuit (every value with its reason), `layout.py` the placement and power copper, `PINMAP.md` the Pico pin map, `README.md` the bench tests, `netcheck.py` the electrical checks; the KiCad schematic is generated from them |
 | `firmware/supervisor/` | MicroPython for the Pico on the power board: power sequencing, E-stop latch, BMS reading, the USB link to the Jetson; a simulator and tests that run on a PC |
 | `software/jetson/` | the `atlas` command, services and settings for the Jetson (`system/install.sh`), with tests |
@@ -61,13 +67,13 @@ From `bom/cost_summary.md` and `docs/REV_B.md` (prices from September and Octobe
 
 | | rev A | rev B |
 | --- | ---: | ---: |
-| Electronics for one car (rev A: one assembled PCBWay set; rev B: power board parts, BMS, BEC, fuse, leads, lidar adapter, camera cable) | 1,927.81 | 332.23 + bare boards |
+| Electronics for one car (rev A: one assembled PCBWay set; rev B: power board parts, BMS, BEC, fuse, leads, lidar adapter, camera cable) | 1,927.81 | 340.93 + bare boards |
 | Pack materials, lens, charger, fan, hardware, antennas | 402.55 | 376.56 |
 | Castle Link (one-time, to set the servo BEC) | | 26.99 |
-| **One car, new money** | **2,330.36** | **735.78 + bare boards** |
+| **One car, new money** | **2,330.36** | **744.48 + bare boards** |
 
 The ESC and the Jetson dev kit are owned and cost nothing new. Assembly is done by students at school. The bare-board
-price for the power board comes from the layout step (`boards/power/LAYOUT_NOTES.md` when it exists).
+price for the power board comes from the layout step (`boards/power/LAYOUT_NOTES.md`, pending).
 
 ## Rebuilding
 

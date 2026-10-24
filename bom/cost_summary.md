@@ -32,8 +32,8 @@ Rev A's two boards are the October PCBWay quote here, not the September estimate
 | --- | ---: | ---: | --- |
 | Drive board: 5 PCBs, 1 assembled (PCB 452.05, assembly 380.36, parts 270.50) | 1,102.91 |  | PCBWay quote, Oct 2026 |
 | Brain board: 5 PCBs, 1 assembled (PCB 373.34, assembly 253.58, parts 197.98) | 824.90 |  | PCBWay quote, Oct 2026 |
-| ATLAS-PWR-1 parts, one board (with the Pico, hub, latch, camera regulator, PD trigger, CC/CV buck) |  | 140.67 | `bom/revb/power_board_bom.csv` (11.30 not verified) |
-| ATLAS-PWR-1 bare boards |  | PCBWay estimate | `boards/power/LAYOUT_NOTES.md` when it exists |
+| ATLAS-PWR-1 parts, one board (with the Pico, hub, latch, camera regulator, PD trigger, CC/CV buck, DIP sockets) |  | 149.37 | `bom/revb/power_board_bom.csv` (11.30 not verified) |
+| ATLAS-PWR-1 bare boards |  | PCBWay estimate | pending in `boards/power/LAYOUT_NOTES.md` |
 | Assembly | in the quotes | 0 | students at school |
 | ESC | on the drive board | 0 | owned Flipsky Mini FSESC 6.7 Pro |
 | Jetson carrier | brain board | 0 | owned NVIDIA dev-kit carrier |
@@ -49,14 +49,14 @@ Rev A's two boards are the October PCBWay quote here, not the September estimate
 | Dev-kit DC lead, Tensility 10-01779 |  | 3.87 | tensility.com |
 | USB 3 gigabit adapter for the lidar (ZimaSpace RTL8153) |  | 9.90 | shop.zimaspace.com (sale; list 15.90) |
 | LUCID GPIO-M8-5M-RA2-A camera power cable |  | 40.00 | thinklucid.com |
-| USB leads for the hub (2 x Adafruit 4449, USB-A to USB-C, micro-USB to USB-A, panel-mount USB-C) |  | not priced |  |
-| **Electronics for one car** | **1,927.81** | **332.23 + bare boards** |  |
+| USB leads (Adafruit 4449 for the FSESC, USB-A to USB-C for the dev kit, micro-USB to USB-A, panel-mount USB-C) |  | not priced |  |
+| **Electronics for one car** | **1,927.81** | **340.93 + bare boards** |  |
 | 18650 pack materials | 134.20 | 134.20 | rev A table above |
 | Lens | 144.00 | 144.00 | rev A table above |
 | Charger, cable, fan, hardware, antennas | 124.35 | 98.36 | rev A table above; rev B does without the thermal pad and the stack and canopy standoffs (25.99) |
 | Standoffs: 6 x M3 7 mm and 6 x M3 25 mm | in the line above | not priced | `mech/README.md` |
 | Castle Link V3, sets the BEC to 7.5 V (one-time; skip if the team has one) |  | 26.99 | robotshop.com |
-| **One car, new money** | **2,330.36** | **735.78 + bare boards** |  |
-| **Board electronics for two cars** | **about 2,400** | **664.46 + one bare-board order** | rev A: two assembled PCBWay sets |
+| **One car, new money** | **2,330.36** | **744.48 + bare boards** |  |
+| **Board electronics for two cars** | **about 2,400** | **681.86 + one bare-board order** | rev A: two assembled PCBWay sets |
 
 The Jetson dev kit and NVMe (459.00 on the September sheet) are owned now and left out of both columns, as are the conditional camera cable and the optional spot welder. The rev B charger line keeps rev A's 15 cm antenna pigtails; the routed runs need 20 cm ones, not priced. A second car also needs its own Jetson and pack in either revision; in rev B its ESC is the team's second FSESC. Details: `docs/REV_B.md`, "Cost".
