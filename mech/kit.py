@@ -1,4 +1,4 @@
-"""Atlas car v2 printed kit for the Traxxas Slash 4x4 (6822 chassis).
+"""Atlas car v2 printed kit for the Traxxas Slash 4x4 (6822 chassis), rev B.
 
     python3 kit.py            build every part, run the fit checks, export STEP/STL, render
 
@@ -6,14 +6,23 @@ Frame (same as the car-1 mount set): +x forward, +y car left, +z up. Origin at t
 centre, deck top at z = 0. Every chassis number below comes from the car-1/new-car keep-out
 model in atlasstuff/power_board_v2/case/mounts_src/newcar/board_layout_newcar.py and is an
 ESTIMATE unless marked; docs/MEASURE_FIRST.md lists what to measure before printing.
-Environment variables of the same name override any number in P (e.g. UNDER_CLEARANCE=42).
+Environment variables of the same name override any number in P (e.g. UNDER_CLEARANCE=42,
+POWER_L=130, BMS_MOUNT=flat, DEVKIT_HOLES='[[7,10.5],[93,10.5],[7,68.5],[93,68.5]]').
+
+Rev B (2026-10-24, NOTES_REVB.md): the rev A drive and brain boards are gone. In their place:
+  - ATLAS-PWR-1, a 2-layer through-hole power board (up to 150 x 84 mm) on 7 mm deck standoffs;
+  - the NVIDIA Orin Nano dev-kit carrier on a printed tray (devkit_tray) that stands on the power
+    board's holes with 25 mm standoffs;
+  - the Flipsky FSESC in a printed cradle (esc_cradle) in the ESC bay beside the motor, cooled by the
+    right side pod's fan;
+  - the JBD BMS with the pack, standing on edge in a printed holder (bms_fence) on the pack lid.
 """
 import os, sys, json, math, itertools
 import cadquery as cq
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'out')
-for d in ('stl', 'step', 'renders', 'dxf'):
+for d in ('stl', 'step', 'renders'):
     os.makedirs(os.path.join(OUT, d), exist_ok=True)
 
 # ----------------------------------------------------------------------------- parameters
@@ -37,18 +46,67 @@ P = dict(
     # pack: 12 x Molicel P28A 18650 (18.6 max dia x 65.2 max, 46 g; 18650batterystore.com)
     CELL_D=18.6, CELL_L=65.2, CELL_PITCH=20.0, HOLDER_T=5.0, HOLDER_POCKET=3.5,
     PACK_X0=-62.0, PACK_Y0=17.0,
-    # boards (design package in ../boards)
-    DRIVE=(-60.0, 80.0, -74.0, 16.0), DRIVE_Z=7.0, PCB_T=1.6, STACK_H=20.0, SPREADER_T=4.76,
-    SPREADER=(-35.0, 25.0, -72.0, -24.0),   # 60 x 48 mm under the ESC power stage (drive-local X 25-85, Y 2-50)
-    BRAIN=(-40.0, 80.0, -74.0, 16.0), JETSON_SINK_H=32.0,
+    # power board ATLAS-PWR-1 (scratchpad PHASE2.md, fixed facts): board-local X 0..L forward, Y 0..84 toward
+    # car left; car (x, y) = (X + POWER_X0, Y + POWER_Y0). L is the agent-D layout's final length.
+    POWER_L=150.0, POWER_W=84.0, POWER_X0=-32.0, POWER_Y0=-68.0, POWER_Z=7.0, PCB_T=1.6,
+    POWER_LOW_H=23.0,              # part height limit under the dev-kit tray (board-local X 20..120)
+    POWER_TALL_H=35.0,             # limit in the rear strip (X 0..20) and the front strip (X > 120)
+    STACK_H=25.0,                  # power PCB top to the tray's underside: M3 x 25 standoffs
+    TRAY_T=3.0,
+    # NVIDIA Jetson Orin Nano dev-kit carrier: 100.00 x 79.00 mm, PCB 1.57 mm, top parts 16.70 max, bottom
+    # 4.30 max (carrier spec Fig. 4-1). Dev-kit-local X 0..100 along car +x from its rear edge, Y 0..79 toward
+    # car left; the I/O edge (DC jack, RJ45, 4 x USB-A, USB-C) is Y = 79, facing the pack.
+    DEVKIT=(-12.0, 88.0, -63.0, 16.0), DEVKIT_PCB_T=1.57,
+    # UNMEASURED (MEASURE_FIRST item 17). NVIDIA does not publish the hole positions as text; they are in the
+    # login-only carrier design files and dev-kit STEP model. Placeholder: an 86 x 58 mm rectangle centred on
+    # the board, the pattern recalled (not verified) for the older Jetson Nano / Xavier NX dev-kit carriers.
+    DEVKIT_HOLES=((7.0, 10.5), (93.0, 10.5), (7.0, 68.5), (93.0, 68.5)),
+    DEVKIT_PILOT_D=2.2,            # M2.5 thread-forming screw into the boss (2.6 for M3)
+    DEVKIT_BOSS_D=6.0,
+    DEVKIT_BOSS_H=7.0,             # tray top to carrier underside: DEVKIT_BOTTOM_H + 1 mm
+    DEVKIT_BOTTOM_H=6.0,           # NVMe + Wi-Fi card + screws under the carrier (measure, item 19)
+    DEVKIT_IO_H=16.7,
+    # I/O connectors along the Y = 79 edge: (name, X0, X1, height, depth into the board). ESTIMATES (item 20)
+    DEVKIT_IO=(('dc_jack', 2.0, 11.0, 11.0, 14.0), ('displayport', 13.0, 31.0, 13.0, 16.0),
+               ('usb_a_1', 34.0, 49.0, 16.0, 17.5), ('usb_a_2', 52.0, 67.0, 16.0, 17.5),
+               ('rj45', 69.0, 85.0, 13.5, 21.0), ('usb_c', 88.0, 97.0, 3.5, 7.5)),
+    DEVKIT_J12=(6.0, 57.0, 1.0, 6.0),       # 2 x 20 header, dev-kit-local X0, X1, Y0, Y1 (ESTIMATE, item 20)
+    DEVKIT_J14=(62.0, 92.5, 0.0, 6.0),      # 1 x 12 right-angle header, pins out of the Y = 0 edge (ESTIMATE)
+    JETSON_XY=(10.0, 88.0, 8.0, 56.0),      # module + heatsink + fan footprint, dev-kit-local (ESTIMATE, item 18)
+    JETSON_SINK_H=32.0,                     # carrier top to fan top (measure, item 18)
+    CANOPY_GAP=8.0,                         # fan top to canopy underside
+    # ESC bay beside the motor and the FSESC in its cradle
+    ESC_BAY=(-113.0, -35.0, -68.0, -6.0, 35.0),
+    ESC_CASE=(71.0, 43.0, 22.7),   # PLACEHOLDER, UNMEASURED: Mini FSESC 6.7 Pro bare 67 x 39 x 18.7 + 2 mm a side (item 21)
+    ESC_C=(-74.0, -34.0),          # case centre in plan, long axis along x, motor end toward the rear
+    # phase + hall opening in the deck. C proposed x -94..-82, but that sits over the rear-right splice plate
+    # (x -95..-65) and the joint bolt at (-90, -60); this one is between the rear post slot (ends -115.7) and the
+    # cross rib (x -99..-96), right under the ESC's motor end
+    PHASE_OPENING=(-112.0, -101.0, -70.0, -46.0),
+    ESC_OUT_Y=66.0,                # board-local Y of the ESC output XT60PW on the rear edge (X = 0), agent D
+    # JBD 4S 100 A BMS (PHASE2 decision 2): 160 x 105 x 10 mm. 'edge' = standing on its long edge in bms_fence on
+    # the pack lid's outboard edge; 'flat' = lying on a tray on the lid (only for a BMS that fits the 138 x 51 lid)
+    BMS=(160.0, 105.0, 10.0), BMS_MOUNT='edge',
+    # right side pod: 40 mm fan (x range), and the windows through both pod walls for the plugs and the button at
+    # the power board's Y = 0 edge: (name, car x centre, width, z0, z1). Agent D reports the real positions.
+    FAN_X=(-94.0, -54.0),
+    POD_WINDOWS=(('charge_usbc', 68.0, 16.0, 10.0, 25.0), ('debug_usbc', 88.0, 16.0, 10.0, 25.0),
+                 ('button', -20.0, 12.0, 11.0, 23.0)),
     # sensors
     LIDAR_FRONT_X=238.0, PLINTH_T=6.0,
     CAM_LENS_D=31.0, CAM_LENS_L=30.5, CAM_M12_L=48.0, CAM_PITCH=0.0,   # Kowa LM4NCL 3.5 mm: 31 x 30.5 mm, 60 g (machinevisiondirect.com)
     CAM_HOLE_PITCH=(20.0, 20.0),   # ESTIMATE: 4 corner M3 holes on the Triton bottom, confirm on the camera
+    USB_ETH=(50.0, 22.0, 15.0),    # lidar USB-Ethernet dongle body L x W x H (ESTIMATE; ZimaSpace RTL8153, 180 mm cable)
 )
 for k, v in list(P.items()):
     if k in os.environ:
-        P[k] = type(v)(json.loads(os.environ[k])) if not isinstance(v, (tuple, list)) else tuple(json.loads(os.environ[k]))
+        raw = os.environ[k]
+        if isinstance(v, str):
+            P[k] = raw
+        elif isinstance(v, (tuple, list)):
+            P[k] = tuple(json.loads(raw))
+        else:
+            P[k] = type(v)(json.loads(raw))
 
 OLD_PLATE_UNDERSIDE = -3.175
 Z_RIM = OLD_PLATE_UNDERSIDE - P['UNDER_CLEARANCE']          # -48.175
@@ -58,6 +116,46 @@ FRONT_AXLE = P['FRONT_TOWER_X'] + 10.0
 REAR_AXLE = FRONT_AXLE - P['WHEELBASE']
 DT = P['DECK_T']
 M3_INSERT, M3_CLEAR, M3_HEAD = 4.0, 3.4, 6.2
+M3_CSK = 6.72                    # ISO 10642 M3 countersunk head diameter
+
+# ----------------------------------------------------------------------------- the rev B stack, derived
+POWER = (P['POWER_X0'], P['POWER_X0'] + P['POWER_L'], P['POWER_Y0'], P['POWER_Y0'] + P['POWER_W'])
+Z_POWER_TOP = P['POWER_Z'] + P['PCB_T']                     # 8.6
+Z_TRAY0 = Z_POWER_TOP + P['STACK_H']                        # 33.6, tray underside
+Z_TRAY1 = Z_TRAY0 + P['TRAY_T']                             # 36.6, tray top
+Z_DEVKIT0 = Z_TRAY1 + P['DEVKIT_BOSS_H']                    # 43.6, carrier underside
+Z_DEVKIT1 = Z_DEVKIT0 + P['DEVKIT_PCB_T']                   # 45.17, carrier top
+Z_SINK_TOP = Z_DEVKIT1 + P['JETSON_SINK_H']                 # 77.17, fan top
+Z_CANOPY = Z_SINK_TOP + P['CANOPY_GAP']                     # 85.17, canopy underside
+
+
+def pw(X, Y):
+    """power-board-local (X, Y) -> car (x, y)"""
+    return (X + POWER[0], Y + POWER[2])
+
+
+def dk(X, Y):
+    """dev-kit-local (X, Y) -> car (x, y)"""
+    return (X + P['DEVKIT'][0], Y + P['DEVKIT'][2])
+
+
+_PL, _PW = P['POWER_L'], P['POWER_W']
+POWER_HOLES_LOCAL = [(4.0, 4.0), (4.0, 80.0), (75.0, 4.0), (75.0, 80.0), (_PL - 4.0, 4.0), (_PL - 4.0, 80.0)]
+POWER_HOLES = [pw(*h) for h in POWER_HOLES_LOCAL]          # 7 mm deck standoffs below, 25 mm tray standoffs above
+POWER_HOLE_KEEPOUT = 7.0
+DEVKIT_HOLES_CAR = [dk(*h) for h in P['DEVKIT_HOLES']]
+TRAY_RAIL = 8.0                  # width of the tray's rails and edge arms
+ARM_BAND = 9.0                   # strip along the board's Y = 0 and Y = 84 edges under the tray arms (low parts only)
+LOW_X = (20.0, 120.0)            # board-local X of the dev kit's shadow (PHASE2 height map)
+
+
+def half_w(x):
+    """Deck half-width: full width to TAPER_X, straight taper to the nose."""
+    if x <= P['TAPER_X']:
+        return P['HALF_W']
+    t = (x - P['TAPER_X']) / (P['X_NOSE'] - P['TAPER_X'])
+    return P['HALF_W'] + t * (P['NOSE_HALF_W'] - P['HALF_W'])
+
 
 # ----------------------------------------------------------------------------- helpers
 
@@ -97,12 +195,11 @@ def n_solids(w):
     return len(w.val().Solids()) if hasattr(w.val(), 'Solids') else 1
 
 
-def half_w(x):
-    """Deck half-width: full width to TAPER_X, straight taper to the nose."""
-    if x <= P['TAPER_X']:
-        return P['HALF_W']
-    t = (x - P['TAPER_X']) / (P['X_NOSE'] - P['TAPER_X'])
-    return P['HALF_W'] + t * (P['NOSE_HALF_W'] - P['HALF_W'])
+def csk_hole(x, y, z_top, depth):
+    """M3 countersunk clearance hole from z_top down through `depth` mm"""
+    h = cylz(x, y, z_top - depth - 1, z_top + 1, M3_CLEAR)
+    k = (M3_CSK + 0.3 - M3_CLEAR) / 2
+    return h.union(cone((x, y, z_top - k), M3_CLEAR, M3_CSK + 0.3, k + 0.01))
 
 
 # ----------------------------------------------------------------------------- chassis keep-outs
@@ -151,40 +248,153 @@ def tim561():
     return dict(lidar=union(body, hood), lidar_connectors=union(swivel, plugs)), z0 + 62.46, z0 + 85.75
 
 
+LIDAR_PLUG_END_X = P['LIDAR_FRONT_X'] - 61.0 - 17.37 - 45.0        # 114.63, where the M12 cables leave the plugs
+
+
 def triton(cam_bottom_z, x_mount_face):
     """LUCID Triton TRI023S-CC: 29 x 29 x 45 mm without connectors and lens mount, 67 g,
-    C-mount (edmundoptics.com/p/41817). Lens and M12 plug lengths are parameters."""
+    C-mount (edmundoptics.com/p/41817). Lens and M12 plug lengths are parameters. Rev B adds the
+    8-pin M8 GPIO plug (LUCID GPIO-M8 cable, right angle 'Up' for Triton) that now powers the camera."""
     x0 = x_mount_face - 45.0
     body = box(x0, x_mount_face, -14.5, 14.5, cam_bottom_z, cam_bottom_z + 29)
     lens = cyl((x_mount_face, 0, cam_bottom_z + 14.5), P['CAM_LENS_D'], P['CAM_LENS_L'], (1, 0, 0))
     plug = cyl((x0, 6, cam_bottom_z + 14.5), 16, P['CAM_M12_L'], (-1, 0, 0))
-    return dict(camera=union(body, lens), camera_plug=plug)
+    # M8 right-angle plug envelope at the rear face, beside the M12 (size ESTIMATE: 10 mm body, 16 mm out, cable up)
+    m8 = box(x0 - 16.0, x0, -13.0, -3.0, cam_bottom_z + 4.0, cam_bottom_z + 30.0)
+    return dict(camera=union(body, lens), camera_plug=plug, camera_m8_plug=m8)
+
+
+def power_zones():
+    """The power board's height map as board-local rectangles (name, X0, X1, Y0, Y1, max height). PHASE2: at most
+    POWER_LOW_H under the tray (X 20..120), POWER_TALL_H in the rear strip (X 0..20) and the front strip (X > 120).
+    The tray's edge arms run over the Y 0..9 and Y 75..84 bands of both strips to reach the corner standoffs, so those
+    bands are low too, and so is Y 0..5 under the tray (its right rail)."""
+    L, W = P['POWER_L'], P['POWER_W']
+    lo, hi = P['POWER_LOW_H'], P['POWER_TALL_H']
+    a, b = LOW_X[0], min(LOW_X[1], L)
+    Z = [('low', a, b, 0.0, W, lo),
+         ('tall_rear', 0.0, a, ARM_BAND, W - ARM_BAND, hi),
+         ('low_rear_arm_r', 0.0, a, 0.0, ARM_BAND, lo), ('low_rear_arm_l', 0.0, a, W - ARM_BAND, W, lo)]
+    if L > b:
+        Z += [('tall_front', b, L, ARM_BAND, W - ARM_BAND, hi),
+              ('low_front_arm_r', b, L, 0.0, ARM_BAND, lo), ('low_front_arm_l', b, L, W - ARM_BAND, W, lo)]
+    return Z
+
+
+def servo_notch_local():
+    """PHASE2: if the board reaches past the deck's servo slot, an 8 mm deep notch at car x 98.5..103.5 on Y = 0"""
+    x0, x1 = SERVO_SLOT[0] - POWER[0], SERVO_SLOT[1] - POWER[0]
+    return (x0, x1, 0.0, 8.0) if P['POWER_L'] > x0 else None
+
+
+def _power_keepouts(z0, z1):
+    ko = [cylz(x, y, z0 - 1, z1 + 1, POWER_HOLE_KEEPOUT) for (x, y) in POWER_HOLES]
+    n = servo_notch_local()
+    if n:
+        a, b = pw(n[0], n[2]), pw(n[1], n[3])
+        ko.append(box(a[0], b[0], a[1] - 1, b[1], z0 - 1, z1 + 1))
+    return ko
+
+
+def devkit_io_boxes():
+    """the carrier's I/O connectors on its Y = 79 edge (car y = DEVKIT y1), each with its jack face"""
+    out = {}
+    y_edge = P['DEVKIT'][3]
+    for (name, X0, X1, h, depth) in P['DEVKIT_IO']:
+        x0, _ = dk(X0, 0); x1, _ = dk(X1, 0)
+        out[name] = dict(box=box(x0, x1, y_edge - depth, y_edge + DEVKIT_IO_OVERHANG, Z_DEVKIT1, Z_DEVKIT1 + h),
+                         x=(x0 + x1) / 2, face_y=y_edge + DEVKIT_IO_OVERHANG, h=h)
+    return out
+
+
+DEVKIT_IO_OVERHANG = 1.0         # jacks stand 1 mm proud of the carrier edge (estimate)
+
+
+def devkit_plug_boxes(io):
+    """mating plugs on the I/O edge, with the point where each cable leaves (estimates: RJ45 plug 21 mm + boot
+    11 mm; USB-A overmold 16 x 8 x 28; USB-C overmold 12 x 7 x 25; DC right-angle plug 12 x 12 x 20, cable down)"""
+    out = {}
+    def put(name, port, w, hgt, length, zc, exit_dz=0.0):
+        x = io[port]['x']; y0 = io[port]['face_y']
+        b = box(x - w / 2, x + w / 2, y0, y0 + length, zc - hgt / 2, zc + hgt / 2)
+        out[name] = dict(box=b, end=(x, y0 + length, zc + exit_dz), x=x)
+    z1 = Z_DEVKIT1
+    put('dc_plug', 'dc_jack', 12.0, 12.0, 20.0, z1 + 5.5)
+    put('usb_a_lidar', 'usb_a_1', 16.0, 8.0, 28.0, z1 + 4.0)
+    put('usb_a_pico', 'usb_a_2', 16.0, 8.0, 28.0, z1 + 4.0)
+    put('rj45_camera', 'rj45', 14.0, 10.0, 32.0, z1 + 6.5)
+    put('usb_c_hub', 'usb_c', 12.0, 7.0, 25.0, z1 + 1.8)
+    # the DC plug's cable leaves downward at its far end
+    e = out['dc_plug']['end']; out['dc_plug']['end'] = (e[0], e[1] - 6.0, e[2] - 6.0)
+    return out
 
 
 def boards():
-    """Envelopes of the two boards and their tall parts, from the placed PCBs (../boards: drive-local
-    (X, Y) sits at car (X - 60, Y - 74), brain-local at car (X - 40, Y - 74))."""
-    x0, x1, y0, y1 = P['DRIVE']; z = P['DRIVE_Z']; t = P['PCB_T']
+    """Envelopes of the rev B electronics: the power board with its height map, the dev-kit carrier and what is on
+    and under it, the plugs on its I/O edge, the FSESC, the fan, the battery assembly (BMS, MIDI fuse, XT90-S) and
+    the lidar's USB-Ethernet dongle."""
+    x0, x1, y0, y1 = POWER; z = P['POWER_Z']; t = P['PCB_T']; zt = Z_POWER_TOP
     B = {}
-    B['drive_pcb'] = box(x0, x1, y0, y1, z, z + t)
-    B['drive_fets_bottom'] = box(-30, 20, -70, -26, z - 1.2, z)
-    B['drive_standoffs_7mm'] = union(*[cylz(x, y, 0, z, 5.5) for (x, y) in DRIVE_HOLES])
-    B['esc_heatsink'] = spreader()                                      # 3/16 in 6061, SendCutSend, 1 mm pad above
-    # DC-link bulk caps C525-C528: Panasonic EEH-ZU1V331P, case G12, 10 mm x 12.8 mm (the 470 uF 35 V part is
-    # 16.8 mm tall and would hit the brain board's NVMe SSD)
-    B['drive_bulk_caps'] = union(*[cylz(-36.1 + 12.8 * i, -20.1, z + t, z + t + 12.8, 10) for i in range(4)])
-    B['drive_top_parts'] = box(x0 + 2, x1 - 2, y0 + 2, y1 - 2, z + t, z + t + 3.0)
-    B['usb_c_and_button'] = box(-62, -52, -25, -3, z + t, z + t + 4)
-    zb = z + t + P['STACK_H']
-    bx0, bx1, by0, by1 = P['BRAIN']
-    B['brain_pcb'] = box(bx0, bx1, by0, by1, zb, zb + t)
-    B['brain_standoffs_20mm'] = union(*[cylz(x, y, z + t, zb, 5.5) for (x, y) in BRAIN_HOLES])
-    B['nvme_2280'] = box(-29.2, 51.2, -43.1, -20.8, zb - 4.8, zb)                # under the brain board
-    B['jetson_module_and_sink'] = box(-11.9, 58.0, -66.5, -21.2, zb + t, zb + t + P['JETSON_SINK_H'])
-    B['rj45_poe_camera'] = box(-39.4, -21.6, -73.9, -51.9, zb + t, zb + t + 13.5)  # Antmicro's RJ45, now PoE source
-    B['rj45_lidar'] = box(53.2, 69.6, -6.0, 15.8, zb + t, zb + t + 13.5)          # J1301 behind the LAN7800
-    B['stack_header'] = box(0.0, 51.0, -13.5, -9.5, z + t, zb)                     # SSQ socket + TSW pins, 20 mm
+    pcb = box(x0, x1, y0, y1, z, zt)
+    n = servo_notch_local()
+    if n:
+        a, b = pw(n[0], n[2]), pw(n[1], n[3])
+        pcb = pcb.cut(box(a[0], b[0], a[1] - 1, b[1], z - 1, zt + 1))
+    for (hx, hy) in POWER_HOLES:
+        pcb = pcb.cut(cylz(hx, hy, z - 1, zt + 1, 3.2))
+    B['power_pcb'] = pcb
+    B['power_standoffs_7mm'] = union(*[cylz(x, y, 0, z, 5.5) for (x, y) in POWER_HOLES])
+    low, tall = [], []
+    for (name, X0, X1, Y0, Y1, h) in power_zones():
+        a, b = pw(X0, Y0), pw(X1, Y1)
+        blk = box(a[0], b[0], a[1], b[1], zt, zt + h)
+        for k in _power_keepouts(zt, zt + h):
+            blk = blk.cut(k)
+        (low if name.startswith('low') else tall).append(blk)
+    B['power_parts_low'] = union(*low)
+    B['power_parts_tall'] = union(*tall)
+    B['tray_standoffs_25mm'] = union(*[cylz(x, y, zt, Z_TRAY0, 5.5) for (x, y) in POWER_HOLES])
+    # mating plugs at the board's edges: ESC XT60 on the rear edge (cable to the ESC), pack XT90-S on the pack edge
+    ey = pw(0, P['ESC_OUT_Y'])[1]
+    B['esc_out_plug'] = box(x0 - 16.0, x0, ey - 8.0, ey + 8.0, zt, zt + 9.0)
+    xx = pw(8.0, 0)[0]
+    B['xt90s_pack'] = box(xx - 10.5, xx + 10.5, y1, y1 + 30.0, zt, zt + 17.0)
+    # the dev-kit carrier
+    dx0, dx1, dy0, dy1 = P['DEVKIT']
+    dpcb = box(dx0, dx1, dy0, dy1, Z_DEVKIT0, Z_DEVKIT1)
+    for (hx, hy) in DEVKIT_HOLES_CAR:
+        dpcb = dpcb.cut(cylz(hx, hy, Z_DEVKIT0 - 1, Z_DEVKIT1 + 1, 2.7))
+    B['devkit_pcb'] = dpcb
+    bot = box(dx0, dx1, dy0, dy1, Z_DEVKIT0 - P['DEVKIT_BOTTOM_H'], Z_DEVKIT0)
+    for (hx, hy) in DEVKIT_HOLES_CAR:                       # no parts within 5 mm of a mounting hole
+        bot = bot.cut(cylz(hx, hy, Z_DEVKIT0 - P['DEVKIT_BOTTOM_H'] - 1, Z_DEVKIT0 + 1, 10.0))
+    B['devkit_bottom_parts'] = bot
+    jx0, jx1, jy0, jy1 = P['JETSON_XY']
+    a, b = dk(jx0, jy0), dk(jx1, jy1)
+    B['jetson_module_and_sink'] = box(a[0], b[0], a[1], b[1], Z_DEVKIT1, Z_SINK_TOP)
+    io = devkit_io_boxes()
+    B['devkit_io'] = union(*[v['box'] for v in io.values()])
+    plugs = devkit_plug_boxes(io)
+    B['devkit_plugs'] = union(*[v['box'] for v in plugs.values()])
+    j12, j14 = P['DEVKIT_J12'], P['DEVKIT_J14']
+    a, b = dk(j12[0], j12[2]), dk(j12[1], j12[3])
+    hdr = box(a[0], b[0], a[1], b[1], Z_DEVKIT1, Z_DEVKIT1 + 8.5)
+    a2, b2 = dk(j14[0], j14[2]), dk(j14[1], j14[3])
+    hdr = hdr.union(box(a2[0], b2[0], a2[1], b2[1], Z_DEVKIT1, Z_DEVKIT1 + 2.6))
+    B['devkit_headers'] = hdr
+    # the ribbon's IDC socket on J12 and the J14 Dupont housing on the right-angle pins (out past the edge)
+    idc = box(a[0] - 2.5, b[0] + 2.5, (a[1] + b[1]) / 2 - 4.5, (a[1] + b[1]) / 2 + 4.5, Z_DEVKIT1 + 8.5, Z_DEVKIT1 + 17.5)
+    dup = box(a2[0], b2[0], dy0 - 9.0, dy0, Z_DEVKIT1 + 0.2, Z_DEVKIT1 + 2.8 + 0.2)
+    B['devkit_header_plugs'] = idc.union(dup)
+    # the FSESC in the ESC bay, on the cradle's 3 mm base
+    L_, W_, H_ = P['ESC_CASE']; cx, cy = P['ESC_C']
+    B['esc_case'] = box(cx - L_ / 2, cx + L_ / 2, cy - W_ / 2, cy + W_ / 2, CRADLE_T, CRADLE_T + H_)
     B['fan_40mm'] = box(FAN_X[0], FAN_X[1], -88.4, -78.4, 2.0, 42.0)
+    # battery assembly on the pack lid
+    B['bms'] = bms_solid()
+    B['midi_fuse'] = box(*MIDI_FUSE_XY, PACK_TOP + PACK_LID_T, PACK_TOP + PACK_LID_T + MIDI_FUSE_H)
+    # lidar USB-Ethernet dongle, zip-tied upright to the rear face of the camera arch's left leg, jack down
+    B['usb_eth_adapter'] = box(*USB_ETH_BOX)
     return B
 
 
@@ -212,67 +422,47 @@ PACK_CELL_Z0 = PACK_BOTTOM + PACK_FLOOR + 0.6 + (P['HOLDER_T'] - P['HOLDER_POCKE
 PX0 = P['PACK_X0']; PX1 = PX0 + PACK_IN_X + 2 * PACK_WALL
 PY0 = P['PACK_Y0']; PY1 = PY0 + PACK_IN_Y + 2 * PACK_WALL
 PACK_SCREWS = [(PX0 - 3.5, PY0 + 6), (PX0 - 3.5, PY1 - 6), (PX1 + 3.5, PY0 + 6), (PX1 + 3.5, PY1 - 6), (-30, PY1 + 3.5), (30, PY1 + 3.5)]
+Z_LID_TOP = PACK_TOP + PACK_LID_T               # 6.0
+LID_XY = (PX0 - 7, PX1 + 7, PY0, PY1 + 7)       # the lid in plan
+
+# battery assembly on the lid (rev B): MIDI 125 A fuse holder in B+ (size ESTIMATE, unverified: 60 x 30 x 26 mm)
+MIDI_FUSE_XY = (6.0, 66.0, 22.0, 52.0)
+MIDI_FUSE_H = 26.0
+# lidar dongle, standing upright against the rear face of the camera arch's left leg (x 136, y 36..48 is the leg),
+# jack at the bottom (z 40) facing down, its USB lead leaving the top: (x0, x1, y0, y1, z0, z1)
+USB_ETH_BOX = (136.0 - P['USB_ETH'][2], 136.0, 36.0 - P['USB_ETH'][1], 36.0, 40.0, 40.0 + P['USB_ETH'][0])
 
 
 # ----------------------------------------------------------------------------- deck
-# drive board holes that go to the deck (H1001, H1002, H1003, H1004, H1007, H1008 in boards/drive/layout.py;
-# drive-local (X, Y) -> car (X - 60, Y - 74)), 7 mm standoffs into deck inserts
-_DH = {'H1001': (6.0, 6.0), 'H1002': (135.06, 5.06), 'H1003': (6.0, 84.0), 'H1004': (134.0, 84.0),
-       'H1007': (6.0, 45.0), 'H1008': (134.0, 45.0)}
-DRIVE_HOLES = [(x + P['DRIVE'][0], y + P['DRIVE'][2]) for (x, y) in _DH.values()]
-# brain board corners (brain-local (10.06, 5.06), (115.06, 5.06), (6, 84), (114, 84)) on 20 mm standoffs over
-# drive holes H1005, H1002, H1006, H1004
-BRAIN_HOLES = [(x + P['BRAIN'][0], y + P['BRAIN'][2]) for (x, y) in ((10.06, 5.06), (115.06, 5.06), (6.0, 84.0), (114.0, 84.0))]
-# heat spreader: four tapped M3 holes, screwed to the deck from below (outside the deck vents), and a
-# notch under drive hole H1005 for the nut of the brain board's 20 mm standoff there
-SPREADER_HOLES = [(-32.0, -60.0), (-32.0, -36.0), (22.0, -60.0), (22.0, -36.0)]
-H1005_CAR = (30.06 + P['DRIVE'][0], 5.06 + P['DRIVE'][2])
-SPREADER_NOTCH_R = 4.0
-M3_TAP = 2.5
-
-
-def spreader():
-    x0, x1, y0, y1 = P['SPREADER']
-    s = box(x0, x1, y0, y1, 0.0, P['SPREADER_T'])
-    s = s.cut(cylz(H1005_CAR[0], H1005_CAR[1], -1, P['SPREADER_T'] + 1, 2 * SPREADER_NOTCH_R))
-    for (x, y) in SPREADER_HOLES:
-        s = s.cut(cylz(x, y, -1, P['SPREADER_T'] + 1, M3_TAP))
-    return s
-
-
-def spreader_dxf(path):
-    """Flat pattern for SendCutSend: outline with the notch, 4 x 2.5 mm holes to be tapped M3."""
-    import ezdxf
-    from shapely.geometry import box as sbox, Point
-    x0, x1, y0, y1 = P['SPREADER']
-    g = sbox(x0, y0, x1, y1).difference(Point(*H1005_CAR).buffer(SPREADER_NOTCH_R, 64))
-    doc = ezdxf.new('R2010', setup=True)
-    doc.units = ezdxf.units.MM
-    msp = doc.modelspace()
-    ox, oy = x0, y0                                     # part origin at its lower-left corner
-    msp.add_lwpolyline([(x - ox, y - oy) for x, y in g.exterior.coords], close=True)
-    for (x, y) in SPREADER_HOLES:
-        msp.add_circle((x - ox, y - oy), M3_TAP / 2)
-    doc.saveas(path)
 PLINTH_BOLTS = [(P['LIDAR_FRONT_X'] - 32, 24), (P['LIDAR_FRONT_X'] - 32, -24), (P['LIDAR_FRONT_X'] - 6, 24), (P['LIDAR_FRONT_X'] - 6, -24)]
 ARCH_X = (136.0, 150.0)
 ARCH_Y = 42.0
 ARCH_BOLTS = [(x, sy * ARCH_Y) for x in (ARCH_X[0] - 5, ARCH_X[1] + 5) for sy in (1, -1)]
 POD = dict(x0=-105.0, x1=120.0, y_in=76.0, y_out=94.0, h=50.0, t=2.4)
-# 40 mm side-pod fan (right pod), x range in the car frame. It sat at x -46..-6 until 2026-09-28, right
-# outboard of the camera's RJ45 jack (brain board J6, car x -39.4..-21.6), where the camera plug has to
-# go: the jack opens toward the car's right side, 2 mm from the pod wall. Moved forward, it is also
-# centred on the ESC power stage (car x -30..20) instead of behind it.
-FAN_X = (-16.0, 24.0)
-# the camera plug passes through the right pod here: a slot open at the top, through both walls
-CAM_PLUG_NOTCH = dict(x=(-40.5, -20.5), z0=27.0)
-POD_TIE_SLOTS_X = (4.0, 70.0)       # zip-tie slot pairs on the right pod's top for the camera cable
-SERVO_SLOT = (98.5, 103.5, -52.0, -28.0)    # deck slot for the steering servo lead (x0, x1, y0, y1)
+# 40 mm side-pod fan (right pod), x range in the car frame. Rev B: it moved back from x -16..24 to x -94..-54 so it
+# blows across the FSESC in the ESC bay (case centre x -74). The pod bolt at (-88, -72.5) sits inboard of the window,
+# on the flange, with its head below the window's lower 2.7 mm (kit_report.json pod_bolt_head_in_fan_window_mm).
+FAN_X = tuple(P['FAN_X'])
+# Rev A's camera-plug slot (CAM_PLUG_NOTCH) and the camera-cable tie slots on the right pod are gone: the camera
+# cable now leaves the dev kit's RJ45 over the pack lid.
+# servo lead: a 5 mm slot just ahead of the front splice plates (x 67-97) and behind the cross rib (x 104-107). Rev B
+# extends it outboard to y -67 so it lines up with the power board's servo notch (car x 98.5..103.5 on its Y = 0 edge,
+# y -68..-60); the old y -52..-28 part now lies under the board and is harmless.
+SERVO_SLOT = (98.5, 103.5, -67.0, -28.0)
 POD_BOLTS = {1: [(-88, 72.5), (10, 72.5), (105, 72.5)], -1: [(-88, -72.5), (105, -72.5)]}
 WING = dict(strut_x=(-214.0, -200.0), strut_y=55.0, z=88.0, chord=(-228.0, -183.0), span=95.0)
 WING_BOLTS = [(x, sy * WING['strut_y']) for x in (WING['strut_x'][0] - 5, WING['strut_x'][1] + 5) for sy in (1, -1)]
 SPLICE_Y = [(-74.0, -2.0), (2.0, 74.0)]          # bays between the edge ribs and the centre rib
 JOINT_BOLTS = [(jx + sx * P['SPLICE_L'] / 3, y) for jx in P['JOINTS'] for sx in (-1, 1) for y in (-60.0, -40.0, -20.0, 20.0, 40.0, 60.0)]
+# ESC cradle: two tabs share the rear joint's outboard bolts (M3 x 16 through cradle, deck and splice plate), two go
+# into new deck inserts on the inboard side
+CRADLE_T = 3.0
+ESC_CRADLE_JOINT = [(-90.0, -60.0), (-70.0, -60.0)]
+ESC_CRADLE_INSERTS = [(-104.0, -8.0), (-48.0, -8.0)]
+# canopy leg in zone B (front-left corner of the canopy): a printed post whose foot shares the front joint's two
+# left bolts at (92, 40) and (92, 60) (M3 x 16 through foot, deck and splice plate), so it needs no new inserts
+CANOPY_LEG_XY = (92.0, 50.0)
+CANOPY_LEG_JOINT = [(92.0, 40.0), (92.0, 60.0)]
 
 
 def deck_outline_pts():
@@ -302,25 +492,20 @@ def deck_full():
     for jx in P['JOINTS']:
         for (y0, y1) in SPLICE_Y:
             d = d.cut(box(jx - P['SPLICE_L'] / 2 - 0.3, jx + P['SPLICE_L'] / 2 + 0.3, y0 - 0.3, y1 + 0.3, -DT - 30, -DT))
-    # vents under the ESC heat spreader (which sits directly on the deck)
-    for y in (-64.25, -50.75, -37.25):
-        d = d.cut(box(-28, 18, y - 4, y + 4, -DT - 1, 0.01))
     # pack window, post slots, cable passes
     d = d.cut(box(PX0 - 0.4, PX1 + 0.4, PY0 - 0.4, PY1 + 0.4, -DT - 20, 1))
     for (px, py) in (P['FRONT_POST'], P['REAR_POST']):
         for sy in (1, -1):
             s = P['POST_SLOT']
             d = d.cut(box(px - s / 2, px + s / 2, sy * py - s / 2, sy * py + s / 2, -60, 1))
-    d = d.cut(box(-58, -46, -64, -40, -60, 1))     # motor phases + hall lead, under the drive board's rear edge
-    # servo lead: a 5 x 24 mm slot just ahead of the front splice plates (x 67-97) and behind the cross rib
-    # (x 104-107). Until 2026-09-28 it was x 86-98, over the right front splice plate and around the joint
-    # bolt at (92, -40), so the plate blocked it and the bolt had no deck around it.
+    po = P['PHASE_OPENING']
+    d = d.cut(box(po[0], po[1], po[2], po[3], -60, 1))   # motor phases + hall lead, under the ESC's motor end
     d = d.cut(box(SERVO_SLOT[0], SERVO_SLOT[1], SERVO_SLOT[2], SERVO_SLOT[3], -60, 1))
     d = d.cut(box(100, 112, 36, 50, -60, 1))        # lidar / camera cable drop to the right-hand keeper (spare)
     # holes: inserts (4.0) or clearance (3.4)
     holes = []
-    holes += [(x, y, M3_INSERT, 0) for (x, y) in DRIVE_HOLES]
-    holes += [(x, y, M3_CLEAR, 0) for (x, y) in SPREADER_HOLES]       # M3 x 8 up into the spreader's tapped holes
+    holes += [(x, y, M3_INSERT, 0) for (x, y) in POWER_HOLES]
+    holes += [(x, y, M3_INSERT, 0) for (x, y) in ESC_CRADLE_INSERTS]
     holes += [(x, y, M3_CLEAR, 0) for (x, y) in PLINTH_BOLTS]
     holes += [(x, y, M3_INSERT, 0) for (x, y) in ARCH_BOLTS + PACK_SCREWS + WING_BOLTS]
     holes += [(x, y, M3_INSERT, 0) for s in POD_BOLTS.values() for (x, y) in s]
@@ -478,22 +663,170 @@ def side_pod(sy):
         xv = x0 + 30 + i * 22
         pod = pod.cut(box(xv, xv + 12, yo - 5, yo + 1, 10, h - 20))
     if sy < 0:
-        # fan window on the inner wall, fan behind it (40 mm fan, blows inboard over the ESC heatsink)
+        # fan window on the inner wall, fan behind it (40 mm fan, blows inboard across the FSESC)
         f0, f1 = FAN_X
         pod = pod.cut(box(f0 + 1, f1 - 1, yi - 1, yi + t + 1, 2, 40))
         for (fx, fz) in ((f0 + 4, 5), (f1 - 4, 5), (f0 + 4, 37), (f1 - 4, 37)):     # 32 mm hole pitch
             pod = pod.cut(cyl((fx, yi - 1, fz), 3.4, t + 12, (0, 1, 0)))
-        # the camera's RJ45 plug and its boot run straight out through the pod (the jack opens 2 mm from
-        # the inner wall): a slot open at the top, through both walls
-        n0, n1 = CAM_PLUG_NOTCH['x']
-        pod = pod.cut(box(n0, n1, yi - 1, yo + 1, CAM_PLUG_NOTCH['z0'], h + 5))
-        # zip-tie slots in pairs across the top, to hold the camera cable along the pod
-        for xs in POD_TIE_SLOTS_X:
-            for ys in (yi + 5.5, yo - 5.0):
-                pod = pod.cut(box(xs - 2.75, xs + 2.75, ys - 1.1, ys + 1.1, h - 8, h + 5))
+        # windows through both walls for the charge USB-C, the debug USB-C and the power button at the power board's
+        # Y = 0 edge (a plug's overmold passes through the pod to the board edge 8 mm inboard of the pod)
+        for (name, xc, w, z0, z1) in P['POD_WINDOWS']:
+            pod = pod.cut(box(xc - w / 2, xc + w / 2, yi - 1, yo + 1, z0, z1))
     if sy < 0:
         pod = pod.mirror('XZ')
     return pod
+
+
+# ----------------------------------------------------------------------------- rev B: dev-kit tray
+
+def tray_x1():
+    """the tray's front end: the board's front edge, or 13 mm past the carrier if the board is shorter than that (the
+    tray's arms then overhang the board's front edge, above its front-edge plugs, to carry the front pillars)"""
+    return max(POWER[1], P['DEVKIT'][1] + 13.0)
+
+
+def tray_pillars():
+    """canopy posts printed on the tray's edge arms, outside the carrier: (x, y) car"""
+    xr = P['DEVKIT'][0] - 8.0
+    xf = min(P['DEVKIT'][1] + 8.0, tray_x1() - 5.0)
+    yr, yl = POWER[2] + 4.0, POWER[3] - 4.0
+    return [(xr, yr), (xr, yl), (xf, yr), (xf, yl)]
+
+
+TRAY_PILLAR_D = 10.0
+
+
+def devkit_tray():
+    """Printed frame that carries the dev-kit carrier. It stands on the power board's six holes with M3 x 25
+    standoffs (countersunk M3 x 8 from the top, heads flush) and holds the carrier on four 6 mm bosses at the
+    carrier's own holes (DEVKIT_HOLES, M2.5 thread-forming screws). Rails: a perimeter over the dev kit's shadow
+    (board-local X 20..120), a cross rail at the X 75 standoffs, rails through the carrier's hole lines, and edge arms
+    out to the corner standoffs. Four pillars on the arms carry the canopy. Everything else is open, for air and for
+    the parts under it; all of it sits over the low (23 mm) zones of the power board's height map."""
+    x0, _, y0, y1 = POWER
+    x1 = tray_x1()
+    z0, z1 = Z_TRAY0, Z_TRAY1
+    r = TRAY_RAIL
+    mx0 = pw(LOW_X[0], 0)[0]
+    mx1 = pw(min(LOW_X[1], P['POWER_L']), 0)[0]
+    m = [box(mx0, mx1, y0, y0 + r, z0, z1), box(mx0, mx1, y1 - r, y1, z0, z1),
+         box(mx0, mx0 + r, y0, y1, z0, z1), box(mx1 - r, mx1, y0, y1, z0, z1)]
+    # edge arms over the rear and front strips to the corner standoffs
+    m += [box(x0, mx0 + 0.01, y0, y0 + r, z0, z1), box(x0, mx0 + 0.01, y1 - r, y1, z0, z1)]
+    if x1 > mx1:
+        m += [box(mx1 - 0.01, x1, y0, y0 + r, z0, z1), box(mx1 - 0.01, x1, y1 - r, y1, z0, z1)]
+    cx = pw(75.0, 0)[0]
+    m.append(box(cx - r / 2, cx + r / 2, y0, y1, z0, z1))
+    for (hx, hy) in DEVKIT_HOLES_CAR:
+        m.append(box(mx0, mx1, max(y0, hy - r / 2), min(y1, hy + r / 2), z0, z1))
+        m.append(box(max(mx0, hx - r / 2), min(mx1, hx + r / 2), y0, y1, z0, z1))
+    pads = [cylz(x, y, z0, z1, 10.0) for (x, y) in POWER_HOLES]
+    pads += [cylz(x, y, z0, z1, 12.0) for (x, y) in DEVKIT_HOLES_CAR]
+    bosses = [cylz(x, y, z1 - 0.01, z1 + P['DEVKIT_BOSS_H'], P['DEVKIT_BOSS_D']) for (x, y) in DEVKIT_HOLES_CAR]
+    pillars = [cylz(x, y, z1 - 0.01, Z_CANOPY - 1.0, TRAY_PILLAR_D) for (x, y) in tray_pillars()]
+    t = union(*m, *pads, *bosses, *pillars)
+    # keep the tray inside the board outline (pads at the corner holes would overhang)
+    t = t.intersect(box(x0, x1, y0, y1, z0 - 1, Z_CANOPY + 1))
+    for (x, y) in POWER_HOLES:
+        t = t.cut(csk_hole(x, y, z1, P['TRAY_T']))
+    for (x, y) in DEVKIT_HOLES_CAR:
+        t = t.cut(cylz(x, y, z0 - 1, z1 + P['DEVKIT_BOSS_H'] + 1, P['DEVKIT_PILOT_D']))
+    for (x, y) in tray_pillars():
+        t = t.cut(cylz(x, y, Z_CANOPY - 1.0 - 6.0, Z_CANOPY, M3_INSERT))       # M3 insert at the top for the canopy
+    return t
+
+
+# ----------------------------------------------------------------------------- rev B: ESC cradle
+
+def esc_cradle():
+    """Printed cradle for the cased FSESC in the ESC bay: a 3 mm base frame with a large window, low corner
+    locators, two zip-tie straps over the case (slots and a groove underneath), four tabs to the deck. The rear-right
+    corner is cut away over the phase opening so the motor leads drop straight down from the ESC's motor end."""
+    L_, W_, H_ = P['ESC_CASE']; cx, cy = P['ESC_C']
+    ex0, ex1, ey0, ey1 = cx - L_ / 2, cx + L_ / 2, cy - W_ / 2, cy + W_ / 2
+    t = CRADLE_T
+    base = box(ex0 - 2, ex1 + 2, ey0 - 5, ey1 + 5, 0, t)
+    base = base.cut(box(ex0 + 8, ex1 - 8, ey0 + 8, ey1 - 8, -1, t + 1))
+    tabs = [cylz(x, y, 0, t, 9.0) for (x, y) in ESC_CRADLE_JOINT + ESC_CRADLE_INSERTS]
+    c = union(base, *tabs)
+    # locators, 6 mm tall, 0.3 mm off the case: two on each long side, one on each end (inboard half)
+    loc_h = 6.0
+    for xs in (ex0 + 10, ex1 - 16):
+        c = c.union(box(xs, xs + 6, ey0 - 2.7, ey0 - 0.3, t - 0.01, t + loc_h))
+        c = c.union(box(xs, xs + 6, ey1 + 0.3, ey1 + 2.7, t - 0.01, t + loc_h))
+    for xe in ((ex0 - 2.0, ex0 - 0.3), (ex1 + 0.3, ex1 + 2.0)):
+        c = c.union(box(xe[0], xe[1], ey1 - 14, ey1 - 2, t - 0.01, t + loc_h))
+    # zip-tie straps: slots beside both long sides and a 1.4 mm groove across the underside
+    for xs in (cx - L_ / 4, cx + L_ / 4):
+        for ys in ((ey0 - 3.9, ey0 - 1.7), (ey1 + 1.7, ey1 + 3.9)):
+            c = c.cut(box(xs - 2.6, xs + 2.6, ys[0], ys[1], -1, t + 1))
+        c = c.cut(box(xs - 2.6, xs + 2.6, ey0 - 4.0, ey1 + 4.0, -1, 1.4))
+    # the phase opening: clear the cradle over it (1 mm margin)
+    po = P['PHASE_OPENING']
+    c = c.cut(box(po[0] - 1, po[1] + 1, po[2] - 1, po[3] + 1, -1, t + loc_h + 1))
+    for (x, y) in ESC_CRADLE_JOINT + ESC_CRADLE_INSERTS:
+        c = c.cut(cylz(x, y, -1, t + 1, M3_CLEAR))
+    return c
+
+
+# ----------------------------------------------------------------------------- rev B: the BMS on the pack lid
+
+def bms_place():
+    """the BMS box (x0, x1, y0, y1, z0, z1) for the chosen mount"""
+    Lb, Wb, Tb = P['BMS']
+    if P['BMS_MOUNT'] == 'flat':
+        cy = (LID_XY[2] + LID_XY[3]) / 2
+        return (-Lb / 2, Lb / 2, cy - Wb / 2, cy + Wb / 2, Z_LID_TOP + 2.0, Z_LID_TOP + 2.0 + Tb)
+    # on its long edge along x, against the outboard (left) edge of the lid, inboard of the left pod (y 76)
+    yo = POD['y_in'] - 5.0                  # 71: outboard face
+    return (-Lb / 2, Lb / 2, yo - Tb, yo, Z_LID_TOP + 3.0, Z_LID_TOP + 3.0 + Wb)
+
+
+def bms_solid():
+    return box(*bms_place())
+
+
+def bms_fence():
+    """Holder for the JBD BMS. 'edge': a 3 mm base on the lid's outboard edge with a 12 mm channel the BMS stands in
+    and two 60 mm uprights on its outboard face (zip ties round BMS and upright). It shares the lid's two outboard
+    screws (+-30, 64.7), countersunk M3 x 10 through base and lid into the deck inserts. 'flat': a 2 mm tray with a
+    rim on the lid, on the same two screws."""
+    bx0, bx1, by0, by1, bz0, bz1 = bms_place()
+    c = 0.3
+    if P['BMS_MOUNT'] == 'flat':
+        tr = box(bx0 - 2.4, bx1 + 2.4, by0 - 2.4, by1 + 2.4, Z_LID_TOP, Z_LID_TOP + 2.0)
+        rim = box(bx0 - 2.4, bx1 + 2.4, by0 - 2.4, by1 + 2.4, Z_LID_TOP + 1.99, bz0 + 4.0).cut(
+            box(bx0 - c, bx1 + c, by0 - c, by1 + c, Z_LID_TOP, bz0 + 5.0))
+        f = tr.union(rim)
+        for (x, y) in PACK_SCREWS[4:]:
+            f = f.cut(csk_hole(x, y, Z_LID_TOP + 2.0, 2.0))
+        return f
+    w = 2.4
+    yi, yo = by0 - c - w, by1 + c + w                 # outer faces of the channel walls
+    base = box(bx0 - 2.0, bx1 + 2.0, yi, yo, Z_LID_TOP, Z_LID_TOP + 3.0)
+    walls = [box(bx0 - 2.0, bx1 + 2.0, yi, by0 - c, Z_LID_TOP + 2.99, Z_LID_TOP + 15.0),
+             box(bx0 - 2.0, bx1 + 2.0, by1 + c, yo, Z_LID_TOP + 2.99, Z_LID_TOP + 15.0)]
+    ups = []
+    for xu in (-50.0, 50.0):
+        u = box(xu - 6.0, xu + 6.0, by1 + c, POD['y_in'] - 0.6, Z_LID_TOP + 2.99, Z_LID_TOP + 63.0)
+        # two notches in the outer edge locate the zip ties
+        for zn in (Z_LID_TOP + 30.0, Z_LID_TOP + 55.0):
+            u = u.cut(box(xu - 7.0, xu + 7.0, POD['y_in'] - 1.6, POD['y_in'], zn - 2.0, zn + 2.0))
+        ups.append(u)
+    f = union(base, *walls, *ups)
+    for (x, y) in PACK_SCREWS[4:]:
+        f = f.cut(csk_hole(x, y, Z_LID_TOP + 3.0, 3.0))
+    return f
+
+
+def pack_box_bms_check():
+    """Could the BMS go inside a taller pack box instead? The box cannot grow down (bay floor) and the BMS is larger
+    than the box's inside in plan."""
+    Lb, Wb, Tb = P['BMS']
+    floor_gap = PACK_BOTTOM - Z_FLOOR
+    return dict(bay_floor_gap_mm=round(floor_gap, 2), box_inside_mm=[PACK_IN_X, PACK_IN_Y],
+                bms_mm=[Lb, Wb, Tb], bms_fits_inside_box_plan=bool(max(Lb, Wb) <= PACK_IN_X and min(Lb, Wb) <= PACK_IN_Y),
+                box_can_grow_down_12mm=bool(floor_gap >= 12.0))
 
 
 # ----------------------------------------------------------------------------- rear wing
@@ -583,6 +916,20 @@ def fit_coupon(deck, which):
     return deck.intersect(box(x0, x1, -66, 66, -60, 20))
 
 
+def canopy_leg():
+    """Printed post from the deck in zone B to the canopy's front-left corner: a 12 mm column on a 14 x 30 mm foot
+    that takes the front joint's two left bolts (M3 x 16), an M3 insert at the top for the canopy screw."""
+    x, y = CANOPY_LEG_XY
+    foot = box(x - 7, x + 7, y - 15, y + 15, 0, 4).edges('|Z').fillet(3)
+    col = cylz(x, y, 3.99, Z_CANOPY - 1.0, 12.0)
+    gus = [box(x - 1.5, x + 1.5, y - 14, y + 14, 3.99, 16.0), box(x - 6.5, x + 6.5, y - 1.5, y + 1.5, 3.99, 16.0)]
+    g = union(foot, col, *gus)
+    for (ix, iy) in CANOPY_LEG_JOINT:
+        g = g.cut(cylz(ix, iy, -1, 20, M3_CLEAR)).cut(cylz(ix, iy, 4.0, 20, M3_HEAD + 0.6))
+    g = g.cut(cylz(x, y, Z_CANOPY - 1.0 - 6.0, Z_CANOPY, M3_INSERT))
+    return g
+
+
 # ----------------------------------------------------------------------------- build + checks
 
 def build():
@@ -601,6 +948,7 @@ def build():
         side_pod_left=side_pod(1), side_pod_right=side_pod(-1),
         wing_strut_left=wing_struts()[0], wing_strut_right=wing_struts()[1], wing_blade=wing_blade(),
         pack_box=pack_box(), pack_lid=pack_lid(),
+        devkit_tray=devkit_tray(), esc_cradle=esc_cradle(), bms_fence=bms_fence(), canopy_leg=canopy_leg(),
     )
     comps = dict(L)
     comps.update(cam)
@@ -630,6 +978,16 @@ def inter(a, b):
         return float('nan')
 
 
+# bought parts that touch by design: a part and what it is soldered, plugged or bolted to
+TOUCH = {frozenset(p) for p in (
+    ('lidar', 'lidar_connectors'), ('camera', 'camera_plug'), ('camera', 'camera_m8_plug'),
+    ('power_pcb', 'power_standoffs_7mm'), ('power_pcb', 'tray_standoffs_25mm'),
+    ('power_pcb', 'power_parts_low'), ('power_pcb', 'power_parts_tall'),
+    ('devkit_pcb', 'devkit_bottom_parts'), ('devkit_pcb', 'jetson_module_and_sink'), ('devkit_pcb', 'devkit_io'),
+    ('devkit_pcb', 'devkit_headers'), ('devkit_io', 'devkit_plugs'), ('devkit_headers', 'devkit_header_plugs'),
+    ('devkit_pcb', 'devkit_header_plugs'))}
+
+
 def checks(S, comps, parts, info):
     rows = []
     # expected contacts that are not interference (cells in holders, pack in its bay, towers in slots)
@@ -654,22 +1012,30 @@ def checks(S, comps, parts, info):
             v = inter(a, b)
             if v > 0.5:
                 rows.append((na, nb, round(v, 1)))
-    # the bought parts against each other: tall parts between the two boards, the sensors and their plugs.
-    # 'drive_top_parts' is a 3 mm blanket over the whole drive board, so the parts standing on the drive
-    # board are expected inside it; a sensor and its own plug touch by design.
-    on_drive = {'drive_bulk_caps', 'usb_c_and_button', 'stack_header', 'brain_standoffs_20mm', 'drive_standoffs_7mm', 'drive_pcb'}
-    touch = {frozenset(p) for p in (('lidar', 'lidar_connectors'), ('camera', 'camera_plug'), ('drive_pcb', 'drive_fets_bottom'),
-                                     ('drive_pcb', 'drive_standoffs_7mm'), ('brain_pcb', 'brain_standoffs_20mm'))}
+    # the bought parts against each other: the height-map blocks, the dev kit and what is on and under it, the plugs,
+    # the ESC, the battery assembly, the sensors
     for (na, a), (nb, b) in itertools.combinations(sorted(comps.items()), 2):
-        pair = frozenset((na, nb))
-        if pair in touch or ('drive_top_parts' in pair and (pair - {'drive_top_parts'}) <= on_drive):
+        if frozenset((na, nb)) in TOUCH:
             continue
         v = inter(a, b)
         if v > 0.5:
             rows.append((na, nb, round(v, 1)))
-    # the one tight vertical fit in the stack: the NVMe SSD under the brain board over the drive board's bulk caps
-    nv, bc = comps['nvme_2280'].val().BoundingBox(), comps['drive_bulk_caps'].val().BoundingBox()
-    info['nvme_over_bulk_caps_mm'] = round(nv.zmin - bc.zmax, 2)
+    # the vertical fits in the stack
+    info['devkit_bottom_over_tray_mm'] = round(Z_DEVKIT0 - P['DEVKIT_BOTTOM_H'] - Z_TRAY1, 2)
+    info['tray_over_power_low_parts_mm'] = round(Z_TRAY0 - (Z_POWER_TOP + P['POWER_LOW_H']), 2)
+    info['devkit_bottom_over_power_parts_mm'] = round(Z_DEVKIT0 - P['DEVKIT_BOTTOM_H'] - (Z_POWER_TOP + P['POWER_LOW_H']), 2)
+    # front of the power board against the lidar's M12 plugs (their cables leave the plugs at x 114.63)
+    info['lidar_plug_ends_ahead_of_power_board_mm'] = round(LIDAR_PLUG_END_X - POWER[1], 2)
+    # ESC: air around the case, and the right pod's rear bolt in front of the fan window
+    L_, W_, H_ = P['ESC_CASE']; cx, cy = P['ESC_C']
+    info['esc_case_xyz'] = [round(cx - L_ / 2, 1), round(cx + L_ / 2, 1), round(cy - W_ / 2, 1), round(cy + W_ / 2, 1), CRADLE_T, round(CRADLE_T + H_, 1)]
+    info['esc_case_to_pod_inner_wall_mm'] = round((cy - W_ / 2) + POD['y_in'], 2)
+    info['esc_case_top_under_bay_limit_mm'] = round(P['ESC_BAY'][4] - (CRADLE_T + H_), 2)
+    bolt = [b for b in POD_BOLTS[-1] if FAN_X[0] < b[0] < FAN_X[1]]
+    info['pod_bolt_head_in_fan_window_mm'] = [dict(bolt=b, head_top_z=round(3.0 + 1.65, 2), window_bottom_z=2.0,
+                                                   blocks_mm=round(3.0 + 1.65 - 2.0, 2)) for b in bolt]
+    info['pack_box_bms_check'] = pack_box_bms_check()
+    info['bms_box'] = [round(v, 1) for v in bms_place()]
     # pack footprint inside the battery bay
     bx0, bx1, by0, by1 = P['BATT_BAY']
     pack_in_bay = (PX0 >= bx0 and PX1 <= bx1 and PY0 >= by0 and PY1 <= by1)
@@ -694,6 +1060,13 @@ def checks(S, comps, parts, info):
     return rows, pack_in_bay, fov_hits
 
 
+PRINT_ORIENT = dict(deck_front=((1, 0, 0), 180), deck_mid=((1, 0, 0), 180), deck_rear=((1, 0, 0), 180), bumper=(None, 0), lidar_plinth=(None, 0),
+                    camera_arch=(None, 0), camera_cradle=(None, 0), side_pod_left=((1, 0, 0), 180), side_pod_right=((1, 0, 0), 180),
+                    wing_strut_left=((1, 0, 0), 90), wing_strut_right=((1, 0, 0), -90), wing_blade=((1, 0, 0), 180),
+                    pack_box=((1, 0, 0), 180), pack_lid=((1, 0, 0), 180), cell_holder_bottom=(None, 0), cell_holder_top=((1, 0, 0), 180),
+                    devkit_tray=(None, 0), esc_cradle=(None, 0), bms_fence=(None, 0), canopy_leg=(None, 0))
+
+
 def export(parts, comps, S, extras):
     import cadquery as cq
     res = {}
@@ -703,12 +1076,8 @@ def export(parts, comps, S, extras):
         q = q.translate((-(bb.xmin + bb.xmax) / 2, -(bb.ymin + bb.ymax) / 2, -bb.zmin))
         cq.exporters.export(p, os.path.join(OUT, 'step', f'{name}.step'))
         cq.exporters.export(q, os.path.join(OUT, 'stl', f'{name}.stl'), tolerance=0.05, angularTolerance=0.15)
-    orient = dict(deck_front=((1, 0, 0), 180), deck_mid=((1, 0, 0), 180), deck_rear=((1, 0, 0), 180), bumper=(None, 0), lidar_plinth=(None, 0),
-                  camera_arch=(None, 0), camera_cradle=(None, 0), side_pod_left=((1, 0, 0), 180), side_pod_right=((1, 0, 0), 180),
-                  wing_strut_left=((1, 0, 0), 90), wing_strut_right=((1, 0, 0), -90), wing_blade=((1, 0, 0), 180),
-                  pack_box=((1, 0, 0), 180), pack_lid=((1, 0, 0), 180), cell_holder_bottom=(None, 0), cell_holder_top=((1, 0, 0), 180))
     for name, p in parts.items():
-        ax, ang = orient.get(name, (None, 0))
+        ax, ang = PRINT_ORIENT.get(name, (None, 0))
         q = p
         if ax:
             q = q.rotate((0, 0, 0), ax, ang)
@@ -742,25 +1111,39 @@ def renders(parts, comps, S):
     items = [(p, grey) for p in parts.values()] + [(c, orange if k.startswith(('lidar', 'camera')) else blue) for k, c in comps.items()]
     chassis_items = [(S[k], green) for k in ('tub', 'gearbox', 'motor', 'steering_servo', 'front_tower', 'rear_tower',
                                              'front_tyre_L', 'front_tyre_R', 'rear_tyre_L', 'rear_tyre_R')]
-    render(items, os.path.join(OUT, 'renders', 'kit_iso.png'), views=[(24, -58), (24, 122)], title='Atlas car v2 kit: printed parts (dark), boards and pack (blue), sensors (orange)')
+    render(items, os.path.join(OUT, 'renders', 'kit_iso.png'), views=[(24, -58), (24, 122)], title='Atlas car v2 rev B kit: printed parts (dark), boards, ESC, BMS and pack (blue), sensors (orange)')
     render(items + chassis_items, os.path.join(OUT, 'renders', 'kit_on_chassis.png'), views=[(18, -60)], title='on the Slash 4x4 keep-out model (green, estimated)')
     render(items, os.path.join(OUT, 'renders', 'kit_top.png'), views=[(89.9, -90)], title='top view, nose to the right', zoom=1.25)
     render(items + chassis_items, os.path.join(OUT, 'renders', 'kit_side.png'), views=[(0, -90)], title='right side view', zoom=1.25)
-    render([(p, grey) for k, p in parts.items() if k.startswith(('pack', 'cell'))] + [(comps['cells_4s3p'], blue)],
-           os.path.join(OUT, 'renders', 'pack.png'), views=[(25, -60)], title='4S3P pack: box, holders, lid, 12 cells')
+    render([(p, grey) for k, p in parts.items() if k.startswith(('pack', 'cell', 'bms'))] + [(comps['cells_4s3p'], blue), (comps['bms'], blue), (comps['midi_fuse'], blue)],
+           os.path.join(OUT, 'renders', 'pack.png'), views=[(25, -60)], title='4S3P pack: box, holders, lid, 12 cells; the JBD BMS on edge in its holder, MIDI fuse')
+    stack = ('devkit_tray', 'esc_cradle')
+    stack_c = ('power_pcb', 'power_standoffs_7mm', 'tray_standoffs_25mm', 'power_parts_low', 'power_parts_tall', 'devkit_pcb',
+               'devkit_bottom_parts', 'jetson_module_and_sink', 'devkit_io', 'devkit_plugs', 'devkit_headers', 'devkit_header_plugs',
+               'esc_case', 'fan_40mm', 'esc_out_plug', 'xt90s_pack')
+    render([(parts[k], grey) for k in stack] + [(comps[k], blue) for k in stack_c],
+           os.path.join(OUT, 'renders', 'stack_revb.png'), views=[(24, -58), (24, 122)],
+           title='rev B stack: power board height map, dev-kit tray and carrier, ESC in its cradle')
 
 
 if __name__ == '__main__':
     S, comps, parts, extras, info = build()
     rows, pack_in_bay, fov = checks(S, comps, parts, info)
     res = export(parts, comps, S, extras)
-    spreader_dxf(os.path.join(OUT, 'dxf', 'heat_spreader.dxf'))
     renders(parts, comps, S)
+    keys = ('devkit_bottom_over_tray_mm', 'tray_over_power_low_parts_mm', 'devkit_bottom_over_power_parts_mm',
+            'lidar_plug_ends_ahead_of_power_board_mm', 'esc_case_xyz', 'esc_case_to_pod_inner_wall_mm',
+            'esc_case_top_under_bay_limit_mm', 'pod_bolt_head_in_fan_window_mm', 'pack_box_bms_check', 'bms_box')
     rep = dict(params=P, z_rim=Z_RIM, tower_top=TOWER_TOP, scan_plane_z=round(info['scan_z'], 2), lidar_top_z=round(info['lidar_top'], 2),
                camera_axis_z=round(info['arch_top'] + 4 + 14.5, 2), pack_box_z=[round(PACK_BOTTOM, 2), PACK_TOP], pack_in_bay=pack_in_bay,
-               nvme_over_bulk_caps_mm=info['nvme_over_bulk_caps_mm'], interference=rows, lidar_plane=fov, parts=res)
+               stack_z=dict(power_top=Z_POWER_TOP, tray=[Z_TRAY0, Z_TRAY1], devkit=[round(Z_DEVKIT0, 2), round(Z_DEVKIT1, 2)],
+                            sink_top=round(Z_SINK_TOP, 2), canopy_underside=round(Z_CANOPY, 2)),
+               power_board=dict(outline_car=POWER, holes_car=POWER_HOLES, holes_local=POWER_HOLES_LOCAL,
+                                servo_notch_local=servo_notch_local(), zones_local=power_zones()),
+               devkit_holes_car=DEVKIT_HOLES_CAR, tray_pillars=tray_pillars(),
+               **{k: info[k] for k in keys}, interference=rows, lidar_plane=fov, parts=res)
     with open(os.path.join(OUT, 'kit_report.json'), 'w') as f:
         json.dump(rep, f, indent=1, default=str)
-    print(json.dumps({k: rep[k] for k in ('scan_plane_z', 'lidar_top_z', 'camera_axis_z', 'pack_box_z', 'pack_in_bay', 'nvme_over_bulk_caps_mm', 'interference', 'lidar_plane')}, indent=1))
+    print(json.dumps({k: rep[k] for k in ('scan_plane_z', 'lidar_top_z', 'camera_axis_z', 'pack_box_z', 'pack_in_bay', 'stack_z') + keys + ('interference', 'lidar_plane')}, indent=1, default=str))
     for k, v in res.items():
         print(f'{k:22s} bed {v["bed_xyz"]}  {v["volume_cm3"]:7.1f} cm3  ~{v["mass_g_solid_petgcf"]:.0f} g solid  fits250={v["fits_250_bed"]}  solids={v["solids"]}')

@@ -33,3 +33,39 @@ Plates on the printer (`/carv2/`), all PETG-CF, 0.4 mm hardened nozzle:
 
 Unchanged from before: the three deck pieces, splices + washers, fit coupons, cell holders. The old
 Mounts_Canopy, Bumper, Pods_Wing_Lid and Pack_Box files get renamed `OLD_DONT_PRINT_...` on the card by `upload_fixed.sh`.
+
+## Rev B parts (Oct 24)
+
+Rev B adds four printed parts and changes five (`NOTES_REVB.md` has the reasons). Every new STL in `out/stl` is
+already in its print orientation, and none needs supports. All are PETG-CF on the 0.4 mm hardened nozzle.
+
+| part | orientation in `out/stl` | supports | settings, notes |
+| --- | --- | --- | --- |
+| devkit_tray | as is: frame on the bed, bosses and the four canopy pillars up | none | 4 walls, 40 % gyroid (it is a frame and must not sag between the six standoffs). The pillars are 10 mm wide and 48 mm tall: print the tray alone or with low parts, 5 mm brim. The six countersinks print on top, which is fine. Regenerate it after measuring the carrier's holes (MEASURE_FIRST item 17) |
+| esc_cradle | as is: base on the bed | none | 4 walls, 35 % gyroid. The zip-tie grooves under the base are 1.4 mm deep, so the base bridges 5.2 mm over each one; no support needed. Placeholder size until the FSESC case is measured (item 21) |
+| bms_fence | as is: base on the bed, channel and uprights up | none | 4 walls, 35 % gyroid. The uprights are 60 mm tall and 12 mm wide; brim them. The two countersinks are on top |
+| canopy_leg | as is: foot on the bed | none | 5 walls (the column is mostly walls), 5 mm brim; 84 mm tall and 12 mm across, so slow the last 40 mm down or print it with the tray |
+| stack_canopy | top face down, as in rev A | none | new outline (132 x 129 mm) over the dev kit and its plugs; only the 0.6 mm engraving |
+| side_pod_right | as rev A: upside down, tree supports from the plate | tree | the fan window moved to x -94..-54, the camera-plug slot and the tie slots are gone, and three windows (charge USB-C, debug USB-C, button) go through both walls. The window tops are 16 mm bridges; the tree supports from the plate already reach them |
+| deck_rear, deck_mid, deck_front | top face down, as in rev A | none | new holes and openings (below). Reprint deck_mid in any case |
+
+**Rev A deck pieces already printed?** `deck_mid` has to be reprinted: the new power-board insert at (-28, -64)
+lands on the corner of a rev A heat-spreader vent. The other two can be converted by hand instead (car coordinates,
+from `kit.py`):
+
+- `deck_rear`: cut the phase and hall opening at x -112 to -101, y -70 to -46 (drill the corners, saw, file); drill
+  4.0 mm at (-104, -8) for the ESC cradle's insert.
+- `deck_front`: drill 4.0 mm at the two front power-board standoffs, (POWER_L - 36, -64) and (POWER_L - 36, 12)
+  (114 at a 150 mm board, 94 at 130); extend the servo-lead slot at x 98.5 to 103.5 outboard from y -52 to y -67.
+
+The rev A holes left in those two pieces (old drive-board inserts) are harmless.
+
+Plates for rev B (estimates from the solid volumes, about 65 % as printed; slice before trusting the times):
+
+| plate | parts | filament |
+| --- | --- | --- |
+| P1S_CarV2_RevB_Tray | devkit_tray, canopy_leg | about 35 g |
+| P1S_CarV2_RevB_ESC_BMS | esc_cradle, bms_fence | about 26 g |
+| P1S_CarV2_RevB_Canopy | stack_canopy | about 36 g |
+| P1S_CarV2_RevB_Pod_R | side_pod_right (flipped, tree supports) | about 44 g + supports |
+| P1S_CarV2_RevB_Deck | deck_mid (and deck_rear, deck_front unless converted) | about 109 g each |

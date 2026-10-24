@@ -1,5 +1,5 @@
 {
- "drive": {
+ "reva_drive": {
   "size_mm": [
    140.0,
    90.0
@@ -31,7 +31,7 @@
    ]
   ]
  },
- "brain": {
+ "reva_brain": {
   "size_mm": [
    120.0,
    90.0
@@ -54,5 +54,380 @@
     84.0
    ]
   ]
+ },
+ "power": {
+  "size_mm": [
+   150.0,
+   84.0
+  ],
+  "car_origin": [
+   -32.0,
+   -68.0
+  ],
+  "pcb_z": 7.0,
+  "outline_local": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    130.5,
+    0.0
+   ],
+   [
+    130.5,
+    8.0
+   ],
+   [
+    135.5,
+    8.0
+   ],
+   [
+    135.5,
+    0.0
+   ],
+   [
+    150.0,
+    0.0
+   ],
+   [
+    150.0,
+    84.0
+   ],
+   [
+    0.0,
+    84.0
+   ]
+  ],
+  "holes_local": [
+   [
+    4.0,
+    4.0
+   ],
+   [
+    4.0,
+    80.0
+   ],
+   [
+    75.0,
+    4.0
+   ],
+   [
+    75.0,
+    80.0
+   ],
+   [
+    146.0,
+    4.0
+   ],
+   [
+    146.0,
+    80.0
+   ]
+  ],
+  "hole_d": 3.2,
+  "hole_keepout_d": 7.0,
+  "servo_notch_local": [
+   130.5,
+   135.5,
+   0.0,
+   8.0
+  ],
+  "height_zones_local": [
+   {
+    "name": "low",
+    "x": [
+     20.0,
+     120.0
+    ],
+    "y": [
+     0.0,
+     84.0
+    ],
+    "max_h": 23.0
+   },
+   {
+    "name": "tall_rear",
+    "x": [
+     0.0,
+     20.0
+    ],
+    "y": [
+     9.0,
+     75.0
+    ],
+    "max_h": 35.0
+   },
+   {
+    "name": "low_rear_arm_r",
+    "x": [
+     0.0,
+     20.0
+    ],
+    "y": [
+     0.0,
+     9.0
+    ],
+    "max_h": 23.0
+   },
+   {
+    "name": "low_rear_arm_l",
+    "x": [
+     0.0,
+     20.0
+    ],
+    "y": [
+     75.0,
+     84.0
+    ],
+    "max_h": 23.0
+   },
+   {
+    "name": "tall_front",
+    "x": [
+     120.0,
+     150.0
+    ],
+    "y": [
+     9.0,
+     75.0
+    ],
+    "max_h": 35.0
+   },
+   {
+    "name": "low_front_arm_r",
+    "x": [
+     120.0,
+     150.0
+    ],
+    "y": [
+     0.0,
+     9.0
+    ],
+    "max_h": 23.0
+   },
+   {
+    "name": "low_front_arm_l",
+    "x": [
+     120.0,
+     150.0
+    ],
+    "y": [
+     75.0,
+     84.0
+    ],
+    "max_h": 23.0
+   }
+  ],
+  "devkit_shadow_local": {
+   "x": [
+    20.0,
+    120.0
+   ],
+   "y": [
+    5.0,
+    84.0
+   ]
+  },
+  "tray_underside_above_pcb_top": 25.0,
+  "tray_rails_local": [
+   [
+    20.0,
+    120.0,
+    0,
+    8.0
+   ],
+   [
+    20.0,
+    120.0,
+    76.0,
+    84.0
+   ],
+   [
+    20.0,
+    28.0,
+    0,
+    84.0
+   ],
+   [
+    112.0,
+    120.0,
+    0,
+    84.0
+   ],
+   [
+    0,
+    20.0,
+    0,
+    8.0
+   ],
+   [
+    0,
+    20.0,
+    76.0,
+    84.0
+   ],
+   [
+    71.0,
+    79.0,
+    0,
+    84.0
+   ],
+   [
+    120.0,
+    150.0,
+    0,
+    8.0
+   ],
+   [
+    120.0,
+    150.0,
+    76.0,
+    84.0
+   ],
+   [
+    20.0,
+    120.0,
+    11.5,
+    19.5
+   ],
+   [
+    23.0,
+    31.0,
+    0,
+    84.0
+   ],
+   [
+    20.0,
+    120.0,
+    11.5,
+    19.5
+   ],
+   [
+    109.0,
+    117.0,
+    0,
+    84.0
+   ],
+   [
+    20.0,
+    120.0,
+    69.5,
+    77.5
+   ],
+   [
+    23.0,
+    31.0,
+    0,
+    84.0
+   ],
+   [
+    20.0,
+    120.0,
+    69.5,
+    77.5
+   ],
+   [
+    109.0,
+    117.0,
+    0,
+    84.0
+   ]
+  ],
+  "edges": {
+   "Y=84 (pack side)": "XT90 board-mount for the pack, BMS UART JST-XH 4-pin (isolated), dev-kit DC lead pads",
+   "X=0 (rear, ESC bay)": "ESC output XT60PW/XT90PW, Castle BEC in/out headers, FSESC UART/COMM JST-PH 7-pin",
+   "X=L (front)": "servo 3-pin, lidar power Phoenix 2-pin, camera power JST-XH 2-pin, fan 4-pin, E-stop JST-PH 2-pin, remote button JST-PH 2-pin",
+   "Y=0 (right, pod side, z <= 30)": "charge USB-C (PD trigger module at the edge), debug USB-C, power button (6 mm tactile + remote header)",
+   "middle": "2x20 shrouded box header (J12 ribbon), 1x12 header (J14 harness), Pico in 2 x 20-pin sockets, hub module, console module, Pololu latch, R-78E, FET switch with its heatsink in the rear strip"
+  },
+  "mech_assumed_connectors_local": {
+   "esc_out": [
+    0.0,
+    66.0,
+    4.5
+   ],
+   "vesc_comm": [
+    0.0,
+    14.0,
+    6.0
+   ],
+   "xt90": [
+    8.0,
+    84.0,
+    8.5
+   ],
+   "bms_uart": [
+    22.0,
+    84.0,
+    3.0
+   ],
+   "dc_out": [
+    28.0,
+    84.0,
+    1.5
+   ],
+   "pico_usb": [
+    102.0,
+    84.0,
+    11.0
+   ],
+   "hub": [
+    70.0,
+    40.0,
+    10.0
+   ],
+   "j12_box": [
+    40.0,
+    8.5,
+    18.0
+   ],
+   "j14_hdr": [
+    92.0,
+    13.5,
+    14.0
+   ],
+   "servo": [
+    150.0,
+    14.0,
+    6.0
+   ],
+   "fan": [
+    150.0,
+    24.0,
+    5.0
+   ],
+   "camera_pwr": [
+    150.0,
+    34.0,
+    6.0
+   ],
+   "lidar_pwr": [
+    150.0,
+    58.0,
+    6.0
+   ]
+  },
+  "pod_windows_car_x": {
+   "charge_usbc": [
+    60.0,
+    76.0,
+    10.0,
+    25.0
+   ],
+   "debug_usbc": [
+    80.0,
+    96.0,
+    10.0,
+    25.0
+   ],
+   "button": [
+    -26.0,
+    -14.0,
+    11.0,
+    23.0
+   ]
+  },
+  "lidar_plug_ends_car_x": 114.63
  }
 }
