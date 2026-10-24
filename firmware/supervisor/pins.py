@@ -35,8 +35,8 @@ CHG_PRESENT_N = 15          # Q503 open collector, 10 k pull-up: low = USB-C cha
 FAN_PWM = 16                # fan PWM through a 2N7000, 25 kHz
 LED_STATUS = 17             # on-board LED (green)
 LED_FAULT = 18              # on-board LED (red)
-ESTOP_OK_TO_JETSON = 19     # J12 pin 33 (Jetson input) through 10 k
-CHG_STAT_N_TO_JETSON = 20   # J12 pin 32 (Jetson input) through 10 k; low = charging
+ESTOP_OK_TO_JETSON = 19     # J12 pin 33 (Jetson input) through 1 k (review M1: the dev kit level shifters need it)
+CHG_STAT_N_TO_JETSON = 20   # J12 pin 32 (Jetson input) through 1 k (review M1); low = charging
 LIDAR_REQ = 21              # J12 pin 29 (Jetson output) through 100 k pull-down
 DEVKIT_PWR = 22             # 4.7 k into a 2N3904 that holds the dev-kit feed P-FET on; high = powered (10 k pull-up)
 VM_SENSE = 26               # ADC0: motor bus, 100 k / 18 k divider

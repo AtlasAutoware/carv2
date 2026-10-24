@@ -12,18 +12,25 @@ Structural checks
   5  supply domains: no conductive path (wire, fuse, diode, < 1 kOhm, FET/BJT channel, regulator) from the laptop's
      HUB_VBUS domain into a board supply, or back
   6  dev-kit J12 rules (C_jetson_mech.md section 5): pins 1, 2, 4, 24, 37, 39, 40 open; signal pins touch only
-     resistors; board outputs toward the Jetson behind >= 10k; pull resistors on Jetson pins >= 50k
+     resistors; board outputs toward the Jetson behind a series resistor of 1k to 10k (1k: the dev kit level-shifts
+     these pins with TXB-type translators that hold a pin through about 4k, review M1); pull resistors >= 50k
+ 14  ground splits: CHG_GND (charger side, review B1) joins GND only through the CC/CV module (IN- to OUT-, its
+     current shunt); COMM_GND, SRVIN_GND and VUSB_GND (FSESC signal grounds, review M6) each reach GND through
+     exactly one 2.2-4.7 Ohm resistor and touch nothing but their connector pin
 Operating-point checks (a small piecewise-linear DC solver: resistors, diodes with forward drop and reverse
 breakdown, BJTs and MOSFETs that switch on when driven, optocouplers, the TL431, ESD clamp diodes on IC pins),
 run for every scenario in SCENARIOS (normal run, 30 V spike on the pack bus, 30 V on the charge input,
-everything pulsed, board off with the Jetson/laptop/ESC powered, laptop unplugged, ESC unpowered):
+everything pulsed, board off with the Jetson/laptop/ESC powered, laptop unplugged, ESC unpowered, dev kit off with
+the ESC and the laptop on):
   7  every IC/module pin within its absolute maximum rating (table PIN_LIMITS, sources in the comments)
   8  MOSFET |VGS| and VDS, BJT VCE within rating
   9  resistor power <= 50 % of rating in the nominal scenarios; the precharge resistor's pulse energy separately
  10  capacitor voltage <= rating (electrolytics <= 80 % in the nominal scenarios)
  11  no TVS or zener conducts in a nominal scenario (except the charger-present zener, which is meant to)
  12  LED current <= 20 mA
- 13  back-power: current into an unpowered IC through its pin clamp diodes <= 0.5 mA (warning above 0.05 mA)
+ 13  back-power: current into an unpowered IC through its pin clamp diodes <= 0.5 mA (warning above 0.05 mA).
+     The four 1k-fed dev-kit inputs (BACKPOWER_1K) are allowed up to 3 mA as a warning: TXB0108-class translators
+     list partial power-down (Ioff), so the real current is likely far lower (unverified for the Orin Nano carrier)
 """
 import json
 import os
@@ -244,9 +251,11 @@ def check_j12():
                 err(f'[6] J12 pin {n} ({net}) touches {r} directly; only resistors allowed')
         rs = [PARTS[r] for r, _ in others if kind(PARTS[r]) == 'R' and not PARTS[r]['dnp']]
         if n in outputs:
+            # 1k minimum: the dev kit's TXB-type translators hold a pin through about 4k, so 10k never toggled
+            # them (review M1); 1k bounds back-power into an unpowered dev kit to about 2.8 mA (see [13])
             series = [parse_value(p['value']) for p in rs if 'GND' not in nets_of(p)]
-            if not series or min(series) < 10e3:
-                err(f'[6] J12 pin {n} is a board output toward the Jetson without a >= 10k series resistor')
+            if not series or min(series) < 1e3 or max(series) > 1.5e3:
+                err(f'[6] J12 pin {n} is a board output toward the Jetson without a 1k series resistor')
         for p in rs:
             other = [x for x in nets_of(p) if x != net][0]
             if other in ('GND', '+3V3', '+5V') and parse_value(p['value']) < 50e3:
@@ -254,11 +263,46 @@ def check_j12():
     print('[6] J12: open pins, series resistors and pull values checked')
 
 
+def check_ground_splits():
+    """[14] CHG_GND meets GND only inside the CC/CV module; each FSESC signal ground reaches GND through one
+    2.2-4.7 Ohm resistor."""
+    cc = next(p for p in PARTS.values() if p['value'] == 'CCCV_BUCK_XL4015')
+    if pin_net(cc, 'IN-') != 'CHG_GND' or pin_net(cc, 'OUT-') != 'GND':
+        err(f"[14] {cc['ref']} must have IN- on CHG_GND and OUT- on GND (its current shunt is between them)")
+    for p in PARTS.values():
+        ns = nets_of(p)
+        if 'CHG_GND' in ns and 'GND' in ns and p['ref'] != cc['ref']:
+            err(f"[14] {p['ref']} {p['value']} touches both CHG_GND and GND: the charge current would bypass the shunt")
+    want = {('ADA5807_HUSB238', 'GND'), ('P6KE24A', None), ('10u 50V', None)}
+    on = sorted({p['ref'] for r, _ in NETS.get('CHG_GND', []) for p in [PARTS[r]]})
+    for val, pin in want:
+        hit = [p for p in PARTS.values() if p['value'] == val and 'CHG_IN' in nets_of(p)]
+        if not hit or any('CHG_GND' not in nets_of(p) for p in hit):
+            err(f'[14] {val} on CHG_IN must return to CHG_GND')
+    for q in (p for p in PARTS.values() if p['value'] == '2N3904' and ({'CHG_C', 'CHG_PRESENT_N'} & set(nets_of(p)))):
+        if pin_net(q, 'E') != 'CHG_GND':
+            err(f"[14] charger-present/enable transistor {q['ref']} must have its emitter on CHG_GND")
+    print(f"[14] CHG_GND joins GND only through {cc['ref']} (IN- to OUT-); on CHG_GND: {on}")
+    for net in ('COMM_GND', 'SRVIN_GND', 'VUSB_GND'):
+        users = [PARTS[r] for r, _ in NETS.get(net, [])]
+        rs = [p for p in users if kind(p) == 'R']
+        others = [p['ref'] for p in users if kind(p) not in ('R', 'J')]
+        ok = (len(rs) == 1 and nets_of(rs[0]) == sorted([net, 'GND']) and 2.2 <= parse_value(rs[0]['value']) <= 4.7
+              and not others)
+        if not ok:
+            err(f'[14] {net} must reach GND through exactly one 2.2-4.7 Ohm resistor and touch only its connector')
+        else:
+            print(f"[14] {net}: {', '.join(p['ref'] for p in users if kind(p) == 'J')} -> {rs[0]['ref']} "
+                  f"{rs[0]['value']} Ohm -> GND")
+
+
 # ============================================================================ DC operating point
 VF = {'RED': 1.8, 'GREEN': 2.0, '1N5817': 0.3, 'BAT85': 0.3, 'Si': 0.65}
 # reverse breakdown (V) and dynamic resistance (Ohm) of the TVS/zeners: VBR nominal, (VC - VBR) / IPP
-VBR = {'1.5KE20A': (20.0, 0.14), '1.5KE22A': (22.0, 0.16), 'P6KE20A': (20.0, 0.35), 'P6KE24A': (24.0, 0.62),
-       '1N5247B': (17.0, 30.0)}
+VBR = {'1.5KE20A': (20.0, 0.14), '1.5KE22A': (22.0, 0.16), 'P6KE20A': (20.0, 0.35), 'P6KE22A': (22.0, 0.44),
+       'P6KE24A': (24.0, 0.62), '1N5247B': (17.0, 30.0)}
+PFETS = {'IRF9Z34NPBF', 'IRF4905PBF'}
+RON = {'IRFB7430PBF': 0.002, 'IRF4905PBF': 0.02}      # others 0.1 Ohm (IRF9Z34N at -10 V; 2N7000 is a signal switch)
 TVS_INTENDED = {'1N5247B'}          # the charger-present zener conducts by design
 
 
@@ -303,8 +347,8 @@ def build(fixed, closed=(), ptc_tripped=False):
             if 'B' in names:
                 c.add('BJT', b=names['B'], c=names['C'], e=names['E'], pnp=p['value'] == '2N3906', ref=p['ref'])
             else:
-                c.add('FET', g=names['G'], d=names['D'], s=names['S'], pch=p['value'] == 'IRF9Z34NPBF', ref=p['ref'],
-                      big=p['value'] == 'IRFB7430PBF')
+                c.add('FET', g=names['G'], d=names['D'], s=names['S'], pch=p['value'] in PFETS, ref=p['ref'],
+                      ron=RON.get(p['value'], 0.1))
         elif k == 'U' and v == 'PC817':
             c.add('OPTO', a=names['A'], k=names['K'], c=names['C'], e=names['E'], ref=p['ref'])
         elif k == 'U' and v == 'TL431':
@@ -325,6 +369,9 @@ def build(fixed, closed=(), ptc_tripped=False):
     if 'CHG_SRC' in fixed:
         c.add('D', a='CHG_SRC', k='CHG_OUT', vf=0.01, rd=0.05, vbr=None, ref='ext.buck_out')
         c.add('R', a='CHG_OUT', b='GND', r=10e3, ref='ext.buck_fb')
+    # inside the CC/CV module: its current shunt between IN- (CHG_GND) and OUT- (GND), about 0.05 Ohm (review B1)
+    cc = next(p for p in PARTS.values() if p['value'] == 'CCCV_BUCK_XL4015')
+    c.add('R', a=pin_net(cc, 'IN-'), b=pin_net(cc, 'OUT-'), r=0.05, ref='ext.cccv_shunt')
     # ESD clamp diodes of IC pins toward their supply (and from GND), used for clamp and back-power checks
     for ref, rail, pins in ESD:
         p = PARTS[ref]
@@ -410,7 +457,7 @@ def solve(c, iters=200):
                         cond(cn, en, 1 / 10.0)
             elif typ == 'FET':
                 if state.get(r) == 'on':
-                    cond(kw['d'], kw['s'], 1 / (0.002 if kw['big'] else 0.1))
+                    cond(kw['d'], kw['s'], 1 / kw['ron'])
             elif typ == 'OPTO':
                 if state.get(r + 'led') == 'on':
                     cond(kw['a'], kw['k'], 1 / 20.0, 1.2)
@@ -531,7 +578,15 @@ SCENARIOS = [
      dict(world(esc=False), VESC_KILL=0.0), {'ESTOP_OPEN'}, True),
     ('E-stop open while the Pico still drives MAIN_EN and PRECHARGE_EN high', world(pico=PICO_PULSE),
      {'ESTOP_OPEN'}, True),
+    # review M1: the dev kit off (DEVKIT_PWR low, its 3.3 V down) while the FSESC and the laptop stay on; the
+    # firmware drives ESTOP_OK_TO_JETSON and CHG_STAT_N_TO_JETSON low while the Jetson's 3.3 V is low
+    ('board on, dev kit off; ESC and laptop on', world(jetson=False, pico=dict(
+        PICO_RUN, DEVKIT_PWR=0.0, ESTOP_OK_TO_JETSON=0.0, CHG_STAT_N_TO_JETSON=0.0)), set(), True),
+    ('as above, firmware still driving the two Jetson outputs high (worst case)', world(jetson=False, pico=dict(
+        PICO_RUN, DEVKIT_PWR=0.0)), set(), True),
 ]
+# dev-kit inputs fed through 1k (review M1): back-power into an unpowered dev kit is a warning up to 3 mA
+BACKPOWER_1K = {'J12_RXD', 'J12_ESTOP_OK', 'J12_CHG_STAT_N', 'J14_CON_RXD'}
 
 # --------------------------------------------------------------------------- limits
 # (part value, pin name): (max V relative to GND or to the named net, reference net or None). Sources:
@@ -556,8 +611,8 @@ for nm in PICO_IO:
     PIN_LIMITS[('RPi_Pico', nm)] = (0.5, '3V3')
 for nm in ['URx', 'UTx', '~{RST}', 'D+', 'D-']:
     PIN_LIMITS[('MCP2221A', nm)] = (0.3, 'VDD')
-VGS_MAX = {'IRFB7430PBF': 20.0, 'IRF9Z34NPBF': 20.0, '2N7000': 20.0}
-VDS_MAX = {'IRFB7430PBF': 40.0, 'IRF9Z34NPBF': 55.0, '2N7000': 60.0}
+VGS_MAX = {'IRFB7430PBF': 20.0, 'IRF9Z34NPBF': 20.0, 'IRF4905PBF': 20.0, '2N7000': 20.0}
+VDS_MAX = {'IRFB7430PBF': 40.0, 'IRF9Z34NPBF': 55.0, 'IRF4905PBF': 55.0, '2N7000': 60.0}
 VCE_MAX = {'2N3904': 40.0, '2N3906': 40.0, 'PC817': 35.0}
 
 
@@ -669,7 +724,11 @@ def run_scenarios():
             if typ == 'D' and kw.get('esd'):
                 i = dcur(kw, V, state)
                 ref, nm, rail = kw['esd']
-                if i > 0.5e-3:
+                if ref == 'ext' and nm in BACKPOWER_1K and i <= 3e-3:
+                    if i > 0.05e-3:
+                        warn(f'[13] {tag}: {i * 1000:.2f} mA into the dev kit {nm} (1k series, TXB-type input with '
+                             f'Ioff: likely far less)')
+                elif i > 0.5e-3:
                     err(f'[13] {tag}: {i * 1000:.2f} mA into {ref} {nm} through its clamp to {rail}')
                 elif i > 0.05e-3:
                     warn(f'[13] {tag}: {i * 1000:.2f} mA into {ref} {nm} through its clamp to {rail}')
@@ -696,6 +755,7 @@ def main():
     check_isolation()
     check_domains()
     check_j12()
+    check_ground_splits()
     precharge_pulse()
     worst = run_scenarios()
     print('\nworst cases (value, limit, scenario):')

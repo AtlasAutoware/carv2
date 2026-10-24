@@ -9,22 +9,22 @@ the pack hardware are car-level items in the main cost table.
 | --- | ---: | ---: |
 | A pack input | 4.76 | 0.00 |
 | B BMS link | 1.49 | 0.00 |
-| C main switch, precharge, E-stop gate | 24.27 | 2.50 |
-| D latch and rails (5 V, servo, dev kit, lidar, camera) | 59.17 | 0.00 |
-| E USB-C charging | 19.34 | 8.00 |
-| F debug hub and console | 14.70 | 0.30 |
+| C main switch, precharge, E-stop gate | 24.92 | 2.50 |
+| D latch and rails (5 V, servo, dev kit, lidar, camera) | 61.23 | 0.00 |
+| E USB-C charging | 21.11 | 8.00 |
+| F debug hub and console | 18.76 | 0.30 |
 | G Pico supervisor | 8.97 | 0.50 |
 | H Jetson ribbon and J14 | 4.04 | 0.00 |
-| I ESC interface | 0.86 | 0.00 |
-| J E-stop, fan, holes | 3.07 | 0.00 |
-| **Total per board** | **140.67** | **11.30** |
+| I ESC interface | 1.06 | 0.00 |
+| J E-stop, fan, holes | 3.03 | 0.00 |
+| **Total per board** | **149.37** | **11.30** |
 
 | Assembly class | Parts |
 | --- | ---: |
-| through-hole | 76 |
-| SMD 1206/1210, bottom | 98 |
+| through-hole | 80 |
+| SMD 1206/1210, bottom | 104 |
 | module on sockets | 2 |
 | module off board, wired | 4 |
 | mechanical | 1 |
 
-69 BOM lines; DNP parts are listed in the CSV with quantity 0.
+77 BOM lines; DNP parts are listed in the CSV with quantity 0.

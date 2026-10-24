@@ -20,8 +20,8 @@ sys.path.insert(0, os.path.join(HERE, '..', 'tools'))
 sys.path.insert(0, HERE)
 from eda import Design  # noqa: E402
 from chips import conn  # noqa: E402
-from chips_power import (MIC5014, HCT08, MCP2221A, MCP1700, R78E, TL431, PC817, IRFB7430, IRF9Z34N, NPN, PNP,  # noqa: E402
-                         N7000, PICO, HUB5997, HUSB238, POLOLU2813, S18V20F12, CCCV, HEATSINK)
+from chips_power import (MIC5014, HCT08, MCP2221A, MCP1700, R78E, TL431, PC817, IRFB7430, IRF9Z34N, IRF4905,  # noqa: E402
+                         NPN, PNP, N7000, PICO, HUB5997, HUSB238, POLOLU2813, S18V20F12, CCCV, HEATSINK)
 
 d = Design('atlas_power', 'ATLAS-PWR-1 power board', rev='B', date='2026-10-24')
 
@@ -67,6 +67,10 @@ P_LED_R = src(0.12, FC + 'LTL-4221N', 'yes')         # TME
 P_LED_G = src(0.10, FC + 'LTL-4231N', 'yes')         # TME
 P_H3 = src(0.13, FC + '61300311121', 'yes')          # Mouser, Wurth 1x3 2.54 mm
 P_H4 = src(0.19, FC + '61300411121', 'yes')          # Mouser, Wurth 1x4 2.54 mm
+P_4905 = src(2.71, FC + 'IRF4905PBF', 'yes')       # Mouser
+P_TVS22 = src(0.45, FC + 'P6KE22A', 'yes')           # Newark (Taiwan Semiconductor) Can$0.619
+C10N = dict(mpn='KEMET C1206C103K5RACTU (10 nF 50 V X7R 1206)', mfr='KEMET', **src(0.10, FC + 'C1206C103K5RACTU', 'yes'))
+USBA = 'Connector_USB:USB_A_Wuerth_614004134726_Horizontal'   # WR-COM type A, upright (on its edge), THT
 MINI = 'Fuse:Fuseholder_Blade_Mini_Keystone_3568'
 P_MINI = src(1.48, FC + '3568', 'yes')               # Mouser: Keystone 3568 $1.15 + Littelfuse 0297005.WXNV $0.33
 
@@ -118,8 +122,10 @@ def TPP(net):
 
 # =============================================================================== A. pack input
 d.block('A_PACK', 'Pack input: 10 AWG pads, bulk capacitance, TVS', [
-    'Pack lead: 10 AWG pigtail soldered into J101/J102 with an XT90 male on its end; the pack carries the',
-    'XT90-S anti-spark female, the 125 A MIDI fuse at B+ and the JBD BMS in B-. P- after the BMS is board GND.',
+    'Pack lead: 10 AWG pigtail soldered into J101/J102 with an XT90 male on its end. The pack carries the',
+    'XT90-S female: the anti-spark resistor sits in the female half (probots and myfpvstore listings; one',
+    'esk8.news teardown says male, so check with a meter: the half with a few ohms between two contacts of one',
+    'pole goes on the pack). Also on the pack: 125 A MIDI fuse at B+, JBD BMS in B-. P- after the BMS is board GND.',
     'No XT90PW board-mount: its drawing could not be read and Amass rates it 30 A (UL) / 60 A for 1 min.',
     'Bulk at the pads (review P-M3): 3 x 680 uF 35 V low-ESR, 2 mF, so a main-switch trip or a BMS cut',
     'cannot ring the pack bus up. 1.5KE20A: 17.1 V standoff (above the 16.8 V CV setpoint), 27.7 V clamp.',
@@ -167,9 +173,13 @@ d.block('C_SWITCH', 'Main switch: 3 x IRFB7430 high side, MIC5014, precharge, E-
     '13-17 V above SOURCE. V+ straight from BAT (SOURCE = VM must not exceed V+), 10 uF + 100 nF at pins 1/4.',
     'Turn-on: 1 nF in 90 us at 12 V; 3 x 300 nC -> about 5 ms (VM already precharged). Turn-off: 1 nF in 6 us;',
     'estimate 0.1-0.4 ms for 0.9-1.2 uC incl. Miller: about 0.04 J per FET at 90 A, inside the SOA. BENCH CHECK.',
-    '10 Ohm per gate (sharing, damping), 100k G-S keeps the FETs off with the MIC5014 out of its socket.',
+    '10 Ohm per gate (sharing, damping), 2.2M G-S keeps the FETs off with the MIC5014 out of its socket (100k',
+    'loaded its charge pump, review m1).',
     'Precharge: IRF9Z34N + MF-R050 + 10 Ohm 5 W into VM; tau 20 ms for 2 mF, 0.28 J per start. The MF-R050',
     'trips (1 A, seconds) if precharge is left on into a shorted bus (28 W in the resistor otherwise).',
+    'Review M3: the FSESC and the Castle BEC load VM during precharge (110 mA is the limit at 12 V). If the bench',
+    'test fails: move the BEC lead to J410 (VSYS_SW) and/or fit 4.7 Ohm 5 W (Yageo SQP500JB-4R7, same body) as',
+    'R313; at 4.7 Ohm the peak is 3.6 A for about 10 ms (check that the MF-R050 does not trip).',
     'E-stop in hardware: 74HCT08 at 5 V: MIC_IN = MAIN_EN AND ESTOP_OK; precharge = PRECHARGE_EN AND ESTOP_OK.',
     'Pico enables have 100k pull-downs, so a Pico reset opens the switch. VM TVS 1.5KE22A (18.8 V standoff).',
 ])
@@ -178,7 +188,7 @@ for i in range(1, 4):
            **src(3.69, FC + 'IRFB7430PBF', 'yes'))
 for i in range(1, 4):
     R('R', '10', 'SW_GATE', f'SW_G{i}', 'gate resistor per FET: current sharing, damps the 3-FET gate loop')
-R('R', '100k', 'SW_GATE', 'VM', 'gate-source pull-down: FETs off with the MIC5014 removed')
+R('R', '2.2M', 'SW_GATE', 'VM', 'gate-source pull-down: FETs off with the MIC5014 removed; light load on its pump')
 d.chip('U', MIC5014, {'V+': 'BAT', 'IN': 'MIC_IN', 'GND': 'GND', 'GATE': 'SW_GATE', 'SOURCE': 'VM', 'NC': None},
        desc='high-side driver (socketed)', **src(3.54, FC + 'MIC5014YN', 'yes'))
 C10('BAT', 'GND', 'MIC5014 V+ bypass 10 uF (datasheet), under the socket')
@@ -207,13 +217,14 @@ d.R('R', '10 5W', 'PRE_F', 'VM', size=R5W, mpn='SQP500JB-10R', mfr='Yageo',
 d.D('D', '1.5KE22A', 'GND', 'VM', DO201V, kind='Z', mpn='1.5KE22A', mfr='Diotec',
     desc='motor bus TVS 1500 W, VRWM 18.8 V: regen with the BMS open', **src(0.29, FC + '1.5KE22A', 'yes'))
 d.stock('TH', 'Device:Thermistor_NTC', '10k B3977', 'Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm',
-        {'1': 'FET_NTC', '2': 'GND'}, mpn='NTCLE100E3103JB0', mfr='Vishay',
+        {'1': 'NTC_NODE', '2': 'GND'}, mpn='NTCLE100E3103JB0', mfr='Vishay',
         desc='FET temperature: bent against the heatsink bar with Kapton between (the bar is BAT+)',
         **src(0.53, FC + 'NTCLE100E3103JB0', 'yes'))
-R('R', '10k', '+3V3', 'FET_NTC', 'NTC divider top: 1.65 V at 25 C, 0.3 V at 90 C')
-C('C', '100n', 'FET_NTC', 'GND', desc='NTC filter', **C100N)
+R('R', '10k', '+3V3', 'NTC_NODE', 'NTC divider top: 1.65 V at 25 C, 0.3 V at 90 C')
+C('C', '100n', 'FET_NTC', 'GND', desc='NTC filter at the Pico pin', **C100N)
 d.chip('HS', HEATSINK, {}, **src(1.50, 'https://sendcutsend.com', 'no'))
 R('R', '4.7k', 'VM', 'VM_LED_A', 'VM-live LED: 3 mA at 16.8 V, 60 mW (1206 is 1/4 W)')
+R('R', '10k', 'NTC_NODE', 'FET_NTC', 'series into GP28: limits the current if the NTC chafes through to the BAT+ bar')
 d.stock('D', 'Device:LED', 'RED', LED3, {'1': 'GND', '2': 'VM_LED_A'}, mpn='Lite-On LTL-4221N (3 mm red)',
         mfr='Lite-On', desc='VM live (motor bus energised)', **P_LED_R)
 TPL('VM')
@@ -223,13 +234,14 @@ TPP('SW_GATE')
 d.block('D_RAILS', 'Latch and rails: Pololu #2813, R-78E 5 V, Castle BEC, dev-kit feed, lidar, camera 12 V', [
     'Button (on board or remote) pulls the Pololu ON input high through 33k from BAT (2.0 V at 12 V, 3.9 V max)',
     'and, through Q401, pulls BUTTON_N low for the Pico. The Pico ends power with a LATCH_OFF pulse.',
-    'R-78E5.0-1.0 (8-28 V in) behind 10 Ohm + P6KE20A, so a 30 V spike on VSYS_SW reaches it as <= 22 V.',
+    'R-78E5.0-1.0 (8-28 V in) behind 4.7 Ohm + P6KE20A, so a 30 V spike on VSYS_SW reaches it as <= 22 V.',
     'Pico VSYS through a 1N5817 (Pico datasheet 4.5): the Pico USB cable cannot back-feed the 5 V rail.',
-    'Dev kit: 5 A mini blade fuse -> P6KE20A -> over-voltage cut-off (IRF9Z34N, TL431 trips at 18.6 V, releases 17.9 V)',
+    'Dev kit: 5 A mini blade fuse -> P6KE22A -> over-voltage cut-off (IRF4905, TL431 trips at 18.7 V, releases 17.85 V)',
     '-> 18 AWG pads; the carrier is rated 9-20 V. The cut-off guards the dev kit against regen with the BMS open;',
     'the same P-FET lets the Pico power-cycle a hung Jetson (GP22 DEVKIT_PWR low = off).',
-    'Lidar: IRF9Z34N high side, 10k/10k gate divider, 100 nF soft start, MF-R075, P6KE20A, Phoenix 2-pin.',
-    'Camera: MF-R075 -> wire pads -> Pololu S18V20F12 (off board) -> camera lead. Servo: Castle BEC 2.0 from VM.',
+    'Lidar: IRF9Z34N high side, 10k/10k gate divider, 100 nF soft start, MF-R075, P6KE22A, Phoenix 2-pin.',
+    'Camera: MF-R075 -> P6KE22A -> wire pads -> Pololu S18V20F12 (off board) -> camera lead.',
+    'Servo: Castle BEC 2.0 from VM (J401), or from VSYS_SW (J410) if its start-up load stops the precharge (M3).',
 ])
 d.chip('MOD', POLOLU2813, {'VIN': 'BAT', 'GND': 'GND', 'VOUT': 'VSYS_SW', 'ON': 'LATCH_ON', 'OFF': 'LATCH_OFF_M'},
        desc='push-on latch, mounted on the tray, wired: 18 AWG VIN/VOUT/GND, 24 AWG ON/OFF',
@@ -249,8 +261,9 @@ R('R', '10k', '+3V3', 'BUTTON_N', 'BUTTON_N pull-up (active low)')
 R('R', '1k', 'LATCH_OFF', 'LATCH_OFF_M', 'GP9 to the Pololu OFF input (> 1 V pulse)')
 R('R', '100k', 'LATCH_OFF_M', 'GND', 'OFF stays low while the Pico is off or in reset')
 # 5 V
-R('R', '10', 'VSYS_SW', 'V5_IN', 'R-78E input filter: 0.1 A x 10 Ohm = 1 V; with D404 limits a 30 V spike', fp=RH,
-  mpn='Vishay MBB02070C1009FCT00 (0.6 W metal film)', mfr='Vishay', **src(0.24, FC + 'MBB02070C1009FCT00', 'yes'))
+R('R', '4.7', 'VSYS_SW', 'V5_IN', 'R-78E input filter: 0.5 V drop at 0.1 A (review m9: keeps a sagging pack above the '
+  'R-78E 8 V minimum); with D401 limits a 30 V spike (about 2 A into D401)', fp=RH,
+  mpn='Vishay MBB02070C4708FCT00 (0.6 W metal film)', mfr='Vishay', **src(0.26, FC + 'MBB02070C4708FCT00', 'yes'))
 d.D('D', 'P6KE20A', 'GND', 'V5_IN', DO15, kind='Z', mpn='P6KE20A', mfr='Littelfuse',
     desc='clamp for the R-78E input (28 V max): conducts above 19 V', **src(0.54, FC + 'P6KE20A', 'yes'))
 C10('V5_IN', 'GND', 'R-78E input')
@@ -263,8 +276,8 @@ R('R', '2.2k', '+5V', 'LED5_A', '5 V LED, 1.3 mA')
 d.stock('D', 'Device:LED', 'GREEN', LED3, {'1': 'GND', '2': 'LED5_A'}, mpn='Lite-On LTL-4231N (3 mm green)',
         mfr='Lite-On', desc='5 V on', **P_LED_G)
 # servo: Castle BEC 2.0 on VM, output plugs into J406, servo into J408
-d.chip('J', conn('PAD_BEC_IN+', 1, W16, desc='Castle BEC input + (16 AWG red lead)'), {'1': 'VM'}, value='BEC+',
-       in_bom='no')
+d.chip('J', conn('PAD_BEC_IN+', 1, W16, desc='Castle BEC input + (16 AWG red lead), default: on VM'), {'1': 'VM'},
+       value='BEC+', in_bom='no')
 d.chip('J', conn('PAD_BEC_IN-', 1, W16, desc='Castle BEC input - (16 AWG black lead)'), {'1': 'GND'}, value='BEC-',
        in_bom='no')
 d.chip('J', conn('BEC_OUT', 3, H1.format(3), desc='Castle BEC output plug (servo style); signal pin unused',
@@ -283,12 +296,12 @@ R('R', '220', 'SERVO_BUF', 'SERVO_SIG', 'servo signal series (5 V from the 74HCT
 # dev kit DC feed with over-voltage cut-off
 d.stock('F', 'Device:Fuse', '5A mini', MINI, {'1': 'VSYS_SW', '2': 'VDEV_F'}, mpn='Keystone 3568 + Littelfuse 0297005.WXNV',
         mfr='Keystone / Littelfuse', desc='dev-kit feed fuse: mini blade (ATM) holder with a 5 A fuse', **P_MINI)
-d.D('D', 'P6KE20A', 'GND', 'VDEV_F', DO15, kind='Z', mpn='P6KE20A', mfr='Littelfuse',
-    desc='dev-kit feed TVS 600 W, VRWM 17.1 V', **src(0.54, FC + 'P6KE20A', 'yes'))
-d.chip('Q', IRF9Z34N, {'G': 'OV_G', 'S': 'VDEV_F', 'D': 'VDEV'}, desc='dev-kit over-voltage cut-off',
-       **src(1.08, FC + 'IRF9Z34NPBF', 'yes'))
+d.D('D', 'P6KE22A', 'GND', 'VDEV_F', DO15, kind='Z', mpn='P6KE22A', mfr='Taiwan Semiconductor',
+    desc='dev-kit feed TVS 600 W, VRWM 18.8 V (above the pack TVS band, review m4)', **P_TVS22)
+d.chip('Q', IRF4905, {'G': 'OV_G', 'S': 'VDEV_F', 'D': 'VDEV'}, desc='dev-kit over-voltage cut-off (review M2)',
+       **P_4905)
 R('R', '10k', 'VDEV_F', 'OV_G', 'G-S pull-up')
-R('R', '10k', 'OV_G', 'OV_C', 'gate divider: VGS -8.4 V at 16.8 V, -15 V at 30 V')
+R('R', '6.8k', 'OV_G', 'OV_C', 'gate divider: VGS -7.1 V at 12 V, -10 V at 16.8 V, -17.9 V at 30 V')
 d.chip('Q', NPN, {'B': 'DEV_B', 'C': 'OV_C', 'E': 'GND'}, desc='dev-kit power enable (on unless GP22 is driven low)',
        **P_NPN)
 R('R', '4.7k', 'DEVKIT_PWR', 'DEV_B', 'base drive from GP22')
@@ -297,12 +310,12 @@ R('R', '10k', '+3V3', 'DEVKIT_PWR', 'pull-up: about 2.7 V against the Pico reset
 d.chip('U', TL431, {'REF': 'OV_REF', 'K': 'OV_K', 'A': 'GND'}, desc='over-voltage comparator for the dev-kit feed',
        **src(0.14, FC + 'TL431ACLPR', 'yes'))
 R('R', '100k', 'VDEV_F', 'OV_REF', 'OV divider top (1 %)')
-R('R', '15.0k', 'OV_REF', 'GND', 'OV divider bottom: trips at 18.6 V (2.495 V REF)')
-R('R', '1.2M', 'OV_G', 'OV_REF', 'hysteresis: releases at 17.9 V (above the 17.1 V worst-case charge voltage)')
+R('R', '15.0k', 'OV_REF', 'GND', 'OV divider bottom: trips at about 18.7 V (2.495 V REF)')
+R('R', '1.2M', 'OV_G', 'OV_REF', 'hysteresis: releases at about 17.85 V (above the 16.8 V charge voltage)')
 d.chip('Q', PNP, {'B': 'OV_B', 'E': 'VDEV_F', 'C': 'OV_G'}, desc='pulls the gate to the source on over-voltage',
        **P_PNP)
 R('R', '10k', 'VDEV_F', 'OV_B', 'PNP B-E pull-up')
-R('R', '4.7k', 'OV_B', 'OV_K', 'TL431 cathode current 3.4 mA at 18.6 V, 5.9 mA at 30 V (>= 1 mA needed)')
+R('R', '4.7k', 'OV_B', 'OV_K', 'TL431 cathode current 3.4 mA at 18.7 V, 5.9 mA at 30 V (>= 1 mA needed)')
 d.CP('C', '220u 35V', 'VDEV', 'GND', CP8, mpn='Panasonic EEU-FR1V221', mfr='Panasonic',
      desc='dev-kit lead bulk at the pads', **src(0.73, FC + 'EEU-FR1V221', 'yes'))
 d.chip('J', conn('PAD_DEVKIT+', 1, W18, desc='dev-kit DC lead + (18 AWG, 5.5 x 2.5 mm plug)'), {'1': 'VDEV'},
@@ -313,21 +326,27 @@ d.chip('Q', IRF9Z34N, {'G': 'LID_G', 'S': 'VSYS_SW', 'D': 'LID_SW'}, desc='lidar
        **src(1.08, FC + 'IRF9Z34NPBF', 'yes'))
 R('R', '10k', 'VSYS_SW', 'LID_G', 'G-S pull-up: lidar off by default')
 C('C', '100n', 'VSYS_SW', 'LID_G', desc='gate capacitor: about 0.5 ms soft start', **C100N)
+C('C', '100n', 'VDEV_F', 'OV_G', desc='gate-source capacitor: soft start into the dev kit (review m5)', **C100N)
 R('R', '10k', 'LID_G', 'LID_C', 'gate divider: VGS -8.4 V at 16.8 V, -15 V at 30 V')
 d.chip('Q', NPN, {'B': 'LID_B', 'C': 'LID_C', 'E': 'GND'}, desc='lidar enable', **P_NPN)
 R('R', '4.7k', 'LIDAR_EN', 'LID_B', 'base drive from GP6')
 R('R', '100k', 'LID_B', 'GND', 'base pull-down: lidar off while the Pico is dead (fixes rev A P-m1 by construction)')
 d.stock('F', 'Device:Polyfuse', 'MF-R075', PTC, {'1': 'LID_SW', '2': 'LIDAR_V'}, mpn='MF-R075', mfr='Bourns',
         desc='lidar polyfuse 0.75 A hold, 60 V (TiM561 about 0.33 A)', **src(0.25, FC + 'MF-R075', 'yes'))
-d.D('D', 'P6KE20A', 'GND', 'LIDAR_V', DO15, kind='Z', mpn='P6KE20A', mfr='Littelfuse', desc='lidar output TVS',
-    **src(0.54, FC + 'P6KE20A', 'yes'))
+d.D('D', 'P6KE22A', 'GND', 'LIDAR_V', DO15, kind='Z', mpn='P6KE22A', mfr='Taiwan Semiconductor',
+    desc='lidar output TVS (P6KE22A: above the pack TVS band, review m4)', **P_TVS22)
 d.chip('J', conn('LIDAR_PWR', 2, 'TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-2-3.5-H_1x02_P3.50mm_Horizontal',
                   mpn='1984617', mfr='Phoenix Contact', desc='lidar power (donor M12 cable)', names=['+', '-']),
        {'+': 'LIDAR_V', '-': 'GND'}, **src(0.59, FC + '1984617', 'yes'))
+d.chip('J', conn('PAD_BEC_IN+ALT', 1, W16, desc='alternative BEC input + on VSYS_SW (review M3): solder the red lead '
+                  'here instead of BEC+ only if the BEC start-up stops the precharge; then the latch carries the servo'),
+       {'1': 'VSYS_SW'}, value='BEC+ALT', in_bom='no')
 # camera 12 V
 d.stock('F', 'Device:Polyfuse', 'MF-R075', PTC, {'1': 'VSYS_SW', '2': 'CAM_VIN'}, mpn='MF-R075', mfr='Bourns',
         desc='camera feed polyfuse (1 A class; the camera takes about 0.25 A at the regulator input)',
         **src(0.25, FC + 'MF-R075', 'yes'))
+d.D('D', 'P6KE22A', 'GND', 'CAM_VIN', DO15, kind='Z', mpn='P6KE22A', mfr='Taiwan Semiconductor',
+    desc='camera regulator input TVS (S18V20F12 32 V absolute; review m18), fitted', **P_TVS22)
 d.chip('MOD', S18V20F12, {'VIN': 'CAM_VIN', 'GND': 'GND'},
        desc='camera 12 V regulator, off board on the tray: input wired here (22 AWG), 12 V output straight to the '
             'Triton VAUX lead (M8 pin 1 red +12 V, pin 5 black GND)',
@@ -341,46 +360,52 @@ d.block('E_CHARGE', 'USB-C charging: PD trigger 20 V, CC/CV buck 16.8 V / 2.5 A,
     'Adafruit 5807 (HUSB238) and the CC/CV buck (XL4015 class) sit off the board in the side pod at the charge',
     'window (130 mm board limit), wired to pads. On the 5807 cut the 5V jumper (all open = 20 V) and the 1A',
     'jumper (both current jumpers open = 3 A).',
-    'Reverse block: Q501 P-FET with its body diode toward the pack, turned fully on only while CHG_IN > ~17.5 V',
+    'Charge ground (review B1): the common XL4015 CC/CV module measures current with a shunt between IN- and',
+    'OUT-. So the charger side has its own net CHG_GND (PD trigger GND, CC/CV IN-, D501, C501, the charger-present',
+    'detector) and CC/CV OUT- is its only tie to GND: the charge current returns through the shunt and CC works. A',
+    'module with high-side sensing (IN- and OUT- joined inside) works on the same pads. Bench check in README.',
+    'Reverse block: Q501 IRF4905 with its body diode toward the pack, turned fully on only while CHG_IN > ~17.5 V',
     '(1N5247B 17 V zener + Q502), so a 5/9/12/15 V PD fallback never enables it. No diode drop at the end of',
     'charge, so the buck CV is set to 16.80 V (4.20 V/cell), not 17.1 V (PHASE2 assumed a diode).',
     'Q503 gives the Pico CHG_PRESENT_N (open collector, no back-power into an unpowered Pico).',
     '5 A mini blade fuse into BAT. The pack-side current goes through the XT90 and the BMS common port.',
 ])
-d.chip('MOD', HUSB238, {'VOUT': 'CHG_IN', 'GND': 'GND'},
+d.chip('MOD', HUSB238, {'VOUT': 'CHG_IN', 'GND': 'CHG_GND'},
        desc='USB-C PD trigger set to 20 V (jumpers), off board in the pod; its terminal holes wired here (20 AWG)',
        **src(5.95, 'https://www.adafruit.com/product/5807', 'yes'))
-d.D('D', 'P6KE24A', 'GND', 'CHG_IN', DO15, kind='Z', mpn='P6KE24A', mfr='Littelfuse',
+d.D('D', 'P6KE24A', 'CHG_GND', 'CHG_IN', DO15, kind='Z', mpn='P6KE24A', mfr='Littelfuse',
     desc='charge input TVS, VRWM 20.5 V (PD 20 V + 5 %)', **src(0.54, FC + 'P6KE24A', 'yes'))
-C10('CHG_IN', 'GND', 'charge input, <= 10 uF so PD attach inrush stays small')
-d.chip('MOD', CCCV, {'IN+': 'CHG_IN', 'IN-': 'GND', 'OUT+': 'CHG_OUT', 'OUT-': 'GND'},
+C10('CHG_IN', 'CHG_GND', 'charge input, <= 10 uF so PD attach inrush stays small')
+d.chip('MOD', CCCV, {'IN+': 'CHG_IN', 'IN-': 'CHG_GND', 'OUT+': 'CHG_OUT', 'OUT-': 'GND'},
        desc='CC/CV buck, set 16.80 V / 2.5 A with a meter before wiring OUT+ (README)', **src(8.00, '-', 'no'))
-d.chip('Q', IRF9Z34N, {'G': 'CHG_G', 'S': 'CHG_RB', 'D': 'CHG_OUT'},
-       desc='reverse block: body diode CHG_OUT -> pack; channel on only with 20 V present',
-       **src(1.08, FC + 'IRF9Z34NPBF', 'yes'))
+d.chip('Q', IRF4905, {'G': 'CHG_G', 'S': 'CHG_RB', 'D': 'CHG_OUT'},
+       desc='reverse block: body diode CHG_OUT -> pack; channel on only with 20 V present (review M2)', **P_4905)
 R('R', '10k', 'CHG_RB', 'CHG_G', 'G-S pull-up: off (body diode only) without a charger')
-R('R', '10k', 'CHG_G', 'CHG_C', 'gate divider: VGS -8.4 V')
-d.chip('Q', NPN, {'B': 'CHG_B1', 'C': 'CHG_C', 'E': 'GND'}, desc='reverse-block enable', **P_NPN)
+C('C', '100n', 'CHG_RB', 'CHG_G', desc='gate-source capacitor: about 0.4 ms soft start (review m5)', **C100N)
+R('R', '6.8k', 'CHG_G', 'CHG_C', 'gate divider: VGS -10 V at 16.8 V, -7.1 V at 12 V')
+d.chip('Q', NPN, {'B': 'CHG_B1', 'C': 'CHG_C', 'E': 'CHG_GND'}, desc='reverse-block enable', **P_NPN)
 d.D('D', '1N5247B', 'CHG_Z', 'CHG_IN', DO35, kind='Z', mpn='1N5247BTR', mfr='onsemi',
     desc='17 V zener: 20 V present detector (on above 16.8-18.5 V)', **src(0.17, FC + '1N5247BTR', 'yes'))
 R('R', '47k', 'CHG_Z', 'CHG_B1', 'base drive')
-R('R', '47k', 'CHG_B1', 'GND', 'base pull-down')
-d.chip('Q', NPN, {'B': 'CHG_B2', 'C': 'CHG_PRESENT_N', 'E': 'GND'}, desc='charger present to the Pico (GP15)',
+R('R', '47k', 'CHG_B1', 'CHG_GND', 'base pull-down')
+d.chip('Q', NPN, {'B': 'CHG_B2', 'C': 'CHG_PRESENT_N', 'E': 'CHG_GND'}, desc='charger present to the Pico (GP15)',
        **P_NPN)
 R('R', '47k', 'CHG_Z', 'CHG_B2', 'base drive')
-R('R', '47k', 'CHG_B2', 'GND', 'base pull-down')
+R('R', '47k', 'CHG_B2', 'CHG_GND', 'base pull-down')
 R('R', '10k', '+3V3', 'CHG_PRESENT_N', 'pull-up: high = no charger')
 d.stock('F', 'Device:Fuse', '5A mini', MINI, {'1': 'CHG_RB', '2': 'BAT'}, mpn='Keystone 3568 + Littelfuse 0297005.WXNV',
         mfr='Keystone / Littelfuse', desc='charge path fuse: mini blade (ATM) holder with a 5 A fuse', **P_MINI)
 TPP('CHG_IN')
+TPP('CHG_GND')
 
 # =============================================================================== F. debug hub
 d.block('F_DEBUG', 'One-cable debugging: laptop USB-C -> CH334F hub -> dev kit, FSESC, MCP2221A console', [
     'Adafruit 5997 CH334F 4-port hub on 8.5 mm sockets at the Y=0 edge; its own USB-C (upstream) faces the pod',
     'window and is the laptop port. High speed, bus powered from the laptop. Its VBUS goes to every port',
     'and to nothing else: HUB_VBUS never meets +5V, so the car cannot back-power the laptop and the laptop',
-    'cannot power the car. GND is common. Port 1 -> J601 -> Adafruit 4449 jack lead -> USB-A to C cable ->',
-    'dev-kit USB-C (192.168.55.1, flashing). Port 3 -> J602 -> 4449 -> the FSESC micro-USB cable.',
+    'cannot power the car. GND is common. Port 1 -> J601 USB-A receptacle -> one USB-A to C cable -> dev-kit',
+    'USB-C (192.168.55.1; for flashing NVIDIA documents a direct cable: laptop straight into the dev kit is the',
+    'fallback). Port 3 -> J602 -> 4449 -> the FSESC micro-USB cable, its ground through 3.3 Ohm (M6).',
     'Port 2 -> MCP2221A (PDIP-14, under the hub) at 3.3 V from an MCP1700 on HUB_VBUS -> 10k -> J14 3/4.',
     'Port 4 -> J603 spare (e.g. move the Pico USB here). The upstream header pads (D+/D-) are left open.',
     'Route each D+/D- pair as a coupled pair over unbroken GND, short (USB 2.0 HS; 90 Ohm is not reachable on',
@@ -393,12 +418,17 @@ d.chip('MOD', HUB5997, _hub,
        desc='USB hub module on 2 x Sullins PPTC081LFBN-RC + 1 x PPTC041LFBN-RC female sockets (8.5 mm), so the '
             'MCP2221A fits under it; its own USB-C is the laptop port. $4.95 module (adafruit.com) + $3.30 sockets '
             '(findchips, broker price)', **src(8.25, 'https://www.adafruit.com/product/5997', 'yes'))
-for _p, _nm, _what in ((1, 'DEVKIT_USB', 'dev-kit USB-C (device port)'), (3, 'VESC_USB', 'FSESC micro-USB (VESC Tool)'),
-                       (4, 'HUB_PORT4', 'spare hub port')):
-    d.chip('J', conn(_nm, 4, H1.format(4), desc=f'hub port {_p} to the {_what}; Adafruit 4449 lead: red, white, green, black',
-                      names=['VBUS', 'D-', 'D+', 'GND']),
-           {'VBUS': 'HUB_VBUS', 'D-': f'P{_p}_DM', 'D+': f'P{_p}_DP', 'GND': 'GND'}, mpn='Wurth 61300411121', mfr='Wurth',
-           **P_H4)
+d.chip('J', conn('DEVKIT_USB', 5, USBA, desc='hub port 1: USB-A receptacle for one USB-A to USB-C cable to the dev '
+                  "kit's device port (review M7)", names=['VBUS', 'D-', 'D+', 'GND', 'SHIELD']),
+       {'VBUS': 'HUB_VBUS', 'D-': 'P1_DM', 'D+': 'P1_DP', 'GND': 'GND', 'SHIELD': 'GND'}, mpn='Wurth 614004134726',
+       mfr='Wurth', **src(3.87, FC + '614004134726', 'yes'))
+d.chip('J', conn('VESC_USB', 4, H1.format(4), desc='hub port 3 to the FSESC micro-USB (VESC Tool, full speed); '
+                  'Adafruit 4449 lead: red, white, green, black. Its GND goes through 3.3 Ohm (review M6)',
+                  names=['VBUS', 'D-', 'D+', 'GND']),
+       {'VBUS': 'HUB_VBUS', 'D-': 'P3_DM', 'D+': 'P3_DP', 'GND': 'VUSB_GND'}, mpn='Wurth 61300411121', mfr='Wurth', **P_H4)
+d.chip('J', conn('HUB_PORT4', 4, H1.format(4), desc='hub port 4, spare (e.g. the Pico USB for flashing); Adafruit 4449 lead',
+                  names=['VBUS', 'D-', 'D+', 'GND']),
+       {'VBUS': 'HUB_VBUS', 'D-': 'P4_DM', 'D+': 'P4_DP', 'GND': 'GND'}, mpn='Wurth 61300411121', mfr='Wurth', **P_H4)
 d.chip('U', MCP2221A, {'VDD': 'CON_3V3', 'VUSB': 'CON_3V3', 'D+': 'P2_DP', 'D-': 'P2_DM', '~{RST}': 'CON_RST',
                        'UTx': 'CON_TX', 'URx': 'CON_RX', 'GP0': None, 'GP1': None, 'GP2': None, 'GP3': None,
                        'SDA': None, 'SCL': None, 'VSS': 'GND'},
@@ -410,8 +440,12 @@ d.chip('U', MCP1700, {'VIN': 'HUB_VBUS', 'VOUT': 'CON_3V3', 'GND': 'GND'}, desc=
        **src(0.50, FC + 'MCP1700-3302E%2FTO', 'yes'))
 C('C', '1u', 'HUB_VBUS', 'GND', desc='LDO input (keeps total VBUS capacitance under 10 uF)', **C1U)
 C('C', '1u', 'CON_3V3', 'GND', desc='LDO output', **C1U)
-R('R', '10k', 'CON_TX', 'J14_CON_RXD', 'console TX -> J14 pin 3: limits back-power into an unpowered Jetson to 0.3 mA')
+R('R', '1k', 'CON_TX', 'J14_CON_RXD', 'console TX -> J14 pin 3: 1k so a TXB-type level shifter on the dev kit still '
+  'toggles (review M1)')
 R('R', '10k', 'J14_CON_TXD', 'CON_RX', 'J14 pin 4 -> console RX: same, the other way')
+R('R', '2.2', 'VUSB_GND', 'GND', 'FSESC USB ground: keeps motor current out of the USB cable ground (review M6); 2.2 '
+  'Ohm (not 3.3) because the FSESC may draw its USB VBUS current back through it (0.2 V at 100 mA); a failed ESC- '
+  'joint burns it open like a fuse')
 
 # =============================================================================== G. supervisor
 d.block('G_SUPER', 'Supervisor: Raspberry Pi Pico in sockets (GPIO map: PINMAP.md)', [
@@ -452,8 +486,10 @@ TPP('PICO_RUN')
 # =============================================================================== H. Jetson ribbon and J14
 d.block('H_JETSON', 'Jetson dev kit: J12 40-pin ribbon (2x20 box header) and J14 button-header harness', [
     'J12 per C_jetson_mech.md section 5: pins 1, 2, 4, 24, 37, 39, 40 not connected (a ribbon turned round maps',
-    'pin n to 41-n: nothing then shorts the dev-kit 5 V). Every board output toward the Jetson is behind 10k.',
-    'UART1 (pins 8 TX, 10 RX) passes to the FSESC COMM header, crossed, 10k each way; the VESC 3.3 V pin is not used.',
+    'pin n to 41-n: nothing then shorts the dev-kit 5 V). Board outputs toward the Jetson are behind 1k: the dev',
+    'kit level-shifts these pins (TXB-type, holds a pin through about 4k), so 10k would not toggle them (review M1).',
+    'UART1 (pins 8 TX, 10 RX) passes to the FSESC COMM header, crossed (10k toward the FSESC, 1k toward the Jetson);',
+    'the VESC 3.3 V pin is not used.',
     'I2C1 (pins 3/5, bus 7, 2.2k pull-ups on the dev kit) to the Pico GP4/GP5 through 330 Ohm (DNP), no pull-ups.',
     'J14: PC817s across 12/11 (power key, 150-200 ms) and 8/7 (reset, 100 ms); recovery button 10/9;',
     'console 3/4/7. Pins 1, 2, 5, 6 open (auto power-on stays enabled). Key the 1x12 housing with a printed clip.',
@@ -472,7 +508,7 @@ d.chip('J', conn('J12_RIBBON', 40, 'Connector_IDC:IDC-Header_2x20_P2.54mm_Vertic
 R('R', '330', 'J12_SDA', 'I2C0_SDA', 'I2C series, spare link: DNP (an unpowered Pico would clamp dev-kit bus 7)', dnp=True)
 R('R', '330', 'J12_SCL', 'I2C0_SCL', 'I2C series, spare link: DNP', dnp=True)
 R('R', '10k', 'J12_TXD', 'COMM_RX', 'Jetson UART1 TX -> FSESC RX; limits back-power into an unpowered ESC')
-R('R', '10k', 'COMM_TX', 'J12_RXD', 'FSESC TX -> Jetson UART1 RX: board output toward the Jetson, 10k')
+R('R', '1k', 'COMM_TX', 'J12_RXD', 'FSESC TX -> Jetson UART1 RX: 1k so a TXB-type level shifter toggles (review M1)')
 R('R', '1k', 'J12_CTS', 'GND', 'DNP: ties UART1 CTS low; fit only if vesc_driver keeps hardware flow control (B_esc.md)', dnp=True)
 R('R', '10k', 'J12_3V3', 'JETSON_3V3_SENSE', '3.3 V sense series (never tied to the board 3.3 V)')
 R('R', '100k', 'JETSON_3V3_SENSE', 'GND', '3.3 V sense: 3.0 V at the Pico')
@@ -480,8 +516,8 @@ R('R', '100k', 'J12_JETSON_UP', 'GND', 'JETSON_UP pull-down: reads 0 while the m
 R('R', '10k', 'J12_JETSON_UP', 'JETSON_UP', 'series into GP11: 0.3 mA at most into an unpowered Pico')
 R('R', '100k', 'J12_LIDAR_REQ', 'GND', 'LIDAR_REQ pull-down')
 R('R', '10k', 'J12_LIDAR_REQ', 'LIDAR_REQ', 'series into GP21: 0.3 mA at most into an unpowered Pico')
-R('R', '10k', 'ESTOP_OK_TO_JETSON', 'J12_ESTOP_OK', 'board output toward the Jetson, 10k')
-R('R', '10k', 'CHG_STAT_N_TO_JETSON', 'J12_CHG_STAT_N', 'board output toward the Jetson, 10k')
+R('R', '1k', 'ESTOP_OK_TO_JETSON', 'J12_ESTOP_OK', 'board output toward the Jetson, 1k (TXB-type input, review M1)')
+R('R', '1k', 'CHG_STAT_N_TO_JETSON', 'J12_CHG_STAT_N', 'board output toward the Jetson, 1k (TXB-type input, review M1)')
 TPP('J12_GPIO09')
 TPP('J12_GPIO12')
 _J14N = ['PC_LED-', 'PC_LED+', 'UART2_RXD', 'UART2_TXD', 'AC_OK', 'APO_DIS', 'GND', 'SYS_RESET*', 'GND',
@@ -510,25 +546,31 @@ d.block('I_ESC', 'ESC interface: VM pads, COMM header, servo-signal input', [
     'PIN ORDER UNVERIFIED: read the FSESC silkscreen before crimping; the crimps can be re-ordered in the housing.',
     'ADC2 = VESC_KILL through 1k (VESC kill switch "ADC2 low", 1.65 V threshold; 0 V = kill). 100k pull-down.',
     'SERVO_IN: the FSESC servo/PPM output (3.3 V) -> 10k -> 74HCT08 buffer (5 V) -> 220 Ohm -> servo header.',
+    'Review M6: the FSESC signal grounds (COMM pin 2, the servo lead, its USB) run beside its ESC- lead, which drops',
+    'about 90 mV at 90 A. Each goes to GND through 3.3 Ohm: 20-30 mA of loop current instead of amps, and the',
+    'resistor opens like a fuse if the ESC- joint fails. Run ESC+ and ESC- as one strain-relieved pair.',
 ])
 d.chip('J', conn('PAD_ESC+', 1, W10, desc='ESC + (VM), 10-12 AWG'), {'1': 'VM'}, value='ESC+', in_bom='no')
 d.chip('J', conn('PAD_ESC-', 1, W10, desc='ESC - (GND), 10-12 AWG'), {'1': 'GND'}, value='ESC-', in_bom='no')
 d.chip('J', conn('FSESC_COMM', 7, 'Connector_JST:JST_PH_B7B-PH-K_1x07_P2.00mm_Vertical', mpn='B7B-PH-K-S(LF)(SN)',
                   mfr='JST', desc='FSESC COMM (pin order unverified)',
                   names=['3V3', 'GND', 'TX', 'RX', 'ADC1', 'ADC2', 'PPM']),
-       {'3V3': None, 'GND': 'GND', 'TX': 'COMM_TX', 'RX': 'COMM_RX', 'ADC1': None, 'ADC2': 'COMM_ADC2', 'PPM': None},
+       {'3V3': None, 'GND': 'COMM_GND', 'TX': 'COMM_TX', 'RX': 'COMM_RX', 'ADC1': None, 'ADC2': 'COMM_ADC2', 'PPM': None},
        **src(0.33, FC + 'B7B-PH-K-S', 'yes'))
 R('R', '1k', 'VESC_KILL', 'COMM_ADC2', 'kill line series (B_esc.md)')
 R('R', '100k', 'VESC_KILL', 'GND', 'kill asserted (0 V) while the Pico is in reset')
 d.chip('J', conn('SERVO_IN', 3, H1.format(3), desc='servo signal from the FSESC servo/PPM port (S / + / -; + unused)',
-                  names=['SIG', '5V', 'GND']), {'SIG': 'SERVO_IN_J', '5V': None, 'GND': 'GND'},
+                  names=['SIG', '5V', 'GND']), {'SIG': 'SERVO_IN_J', '5V': None, 'GND': 'SRVIN_GND'},
        mpn='Wurth 61300311121', mfr='Wurth', **P_H3)
 R('R', '10k', 'SERVO_IN_J', 'SERVO_IN', 'input series: 0.3 mA at most into the unpowered 74HCT08 when the ESC runs on USB')
 R('R', '100k', 'SERVO_IN', 'GND', 'defined low while the ESC is off')
+R('R', '3.3', 'COMM_GND', 'GND', 'FSESC COMM ground through 3.3 Ohm (review M6)')
+R('R', '3.3', 'SRVIN_GND', 'GND', 'servo-signal lead ground through 3.3 Ohm (review M6)')
 
 # =============================================================================== J. E-stop, fan, holes
 d.block('J_MISC', 'E-stop loop, fan, mounting holes, board ID', [
-    'E-stop: 3.3 V -> 1k -> normally-closed loop (JST-PH 2) -> 100 Ohm -> ESTOP_OK, 10k + 100 nF to GND.',
+    'E-stop: 3.3 V -> 1k -> normally-closed loop (JST-PH 2) -> 100 Ohm -> ESTOP_OK, 10k + 10 nF to GND (0.1 ms;',
+    'review m3: a slow edge into the non-Schmitt 74HCT08 could chatter the main switch).',
     'Closed = 3.0 V (HCT VIH 2.0 V, Pico VIH 2.0 V); open or unplugged = 0 V = stop. BAT85 clamps on the lead.',
     'Fan 4-pin 5 V: PWM from GP16 through a 2N7000 (open drain); with the Pico off the fan runs at full speed.',
     'Mounting: 6 x M3 at (4,4), (4,80), (75,4), (75,80), (L-4,4), (L-4,80), 7 mm keep-out, not plated.',
@@ -540,7 +582,7 @@ d.chip('J', conn('ESTOP', 2, 'Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertica
 R('R', '1k', '+3V3', 'ESTOP_SRC', 'loop source, 3 mA into a shorted lead')
 R('R', '100', 'ESTOP_IN', 'ESTOP_OK', 'loop filter')
 R('R', '10k', 'ESTOP_OK', 'GND', 'open loop reads low = stop')
-C('C', '100n', 'ESTOP_OK', 'GND', desc='loop filter (1 ms)', **C100N)
+C('C', '10n', 'ESTOP_OK', 'GND', desc='loop filter (0.1 ms)', **C10N)
 d.D('D', 'BAT85', 'GND', 'ESTOP_IN', DO35, kind='S', mpn='BAT85S-TAP', mfr='Vishay', desc='lead clamp to GND',
     **src(0.43, FC + 'BAT85', 'yes'))
 d.D('D', 'BAT85', 'ESTOP_IN', '+3V3', DO35, kind='S', mpn='BAT85S-TAP', mfr='Vishay', desc='lead clamp to 3.3 V',

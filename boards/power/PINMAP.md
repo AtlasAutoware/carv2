@@ -30,7 +30,7 @@ run down the left column from the USB end, 21 to 40 back up the right column. "d
 | GP7 | 10 | out | JETSON_PWR_KEY | 470 Ohm into the LED of PC817 U801, whose transistor shorts J14 pin 12 to pin 11; pulse 150-200 ms |
 | GP8 | 11 | out | JETSON_RESET | 470 Ohm into PC817 U802, J14 pin 8 to pin 7; pulse 100 ms |
 | GP9 | 12 | out | LATCH_OFF | 1k into the Pololu #2813 OFF input; 100k pull-down; a high pulse turns the car off |
-| GP10 | 14 | in | ESTOP_OK | 3.3 V -> 1k -> E-stop loop -> 100 Ohm -> node with 10k + 100 nF to GND; closed = 3.0 V, open = 0 V. Same node feeds the 74HCT08 |
+| GP10 | 14 | in | ESTOP_OK | 3.3 V -> 1k -> E-stop loop -> 100 Ohm -> node with 10k + 10 nF to GND (0.1 ms); closed = 3.0 V, open = 0 V. Same node feeds the 74HCT08 |
 | GP11 | 15 | in | JETSON_UP | J12 pin 31 through 10k series; 100k pull-down on the J12 side |
 | GP12 | 16 | in | JETSON_3V3_SENSE | J12 pin 17 (dev-kit 3.3 V) through 10k series, 100k to GND (reads 3.0 V when the Jetson is up) |
 | GP13 | 17 | in | BUTTON_N | 2N3904 open collector, 10k pull-up; low while the board button or the remote button is held |
@@ -39,13 +39,13 @@ run down the left column from the USB end, 21 to 40 back up the right column. "d
 | GP16 | 21 | out | FAN_PWM | 100 Ohm into a 2N7000 that pulls the fan PWM line low; 100k gate pull-down (fan at full speed with the Pico off). 25 kHz |
 | GP17 | 22 | out | LED_STATUS | green LED D701 through 470 Ohm |
 | GP18 | 24 | out | LED_FAULT | red LED D702 through 470 Ohm |
-| GP19 | 25 | out | ESTOP_OK_TO_JETSON | J12 pin 33 through 10k |
-| GP20 | 26 | out | CHG_STAT_N_TO_JETSON | J12 pin 32 through 10k; low = charging |
+| GP19 | 25 | out | ESTOP_OK_TO_JETSON | J12 pin 33 through 1k (the dev kit's TXB-type level shifter needs it, review M1); drive low while the Jetson's 3.3 V is down |
+| GP20 | 26 | out | CHG_STAT_N_TO_JETSON | J12 pin 32 through 1k (review M1); low = charging; drive low while the Jetson's 3.3 V is down |
 | GP21 | 27 | in | LIDAR_REQ | J12 pin 29 through 10k series; 100k pull-down on the J12 side |
 | GP22 | 29 | out | DEVKIT_PWR | 4.7k into a 2N3904 that holds the dev-kit feed P-FET on (through the over-voltage cut-off); 10k pull-up; low = dev kit off |
 | GP26 | 31 | adc | VM_SENSE | ADC0: motor bus through 100k / 18k (x 0.1525) + 100 nF; 16.8 V reads 2.56 V |
 | GP27 | 32 | adc | BAT_SENSE | ADC1: VSYS_SW (equals the pack while the latch is on) through 100k / 18k + 100 nF |
-| GP28 | 34 | adc | FET_NTC | ADC2: 10k NTC (Vishay NTCLE100E3103JB0, B 3977 K) on the heatsink bar to GND, 10k to 3.3 V, 100 nF; 25 C reads 1.65 V, 90 C about 0.3 V |
+| GP28 | 34 | adc | FET_NTC | ADC2: 10k NTC (Vishay NTCLE100E3103JB0, B 3977 K) on the heatsink bar to GND, 10k to 3.3 V, then 10k in series to the pin (limits the current if the NTC touches the BAT+ bar, review m6), 100 nF at the pin; 25 C reads 1.65 V, 90 C about 0.3 V |
 
 ## Power and other pins
 
@@ -64,4 +64,5 @@ run down the left column from the USB end, 21 to 40 back up the right column. "d
 
 - VM_SENSE and BAT_SENSE: V_bus = V_adc / 0.15254 (18k / 118k). 30 V on the bus would give 4.6 V; the 100k
   limits the clamp current into the pin to about 65 uA.
-- FET_NTC: R_ntc = 10k x V / (3.3 - V); T = 1 / (1/298.15 + ln(R_ntc / 10k) / 3977) - 273.15.
+- FET_NTC: R_ntc = 10k x V / (3.3 - V); T = 1 / (1/298.15 + ln(R_ntc / 10k) / 3977) - 273.15. The 10k series resistor
+  does not change this (no DC current flows into the pin; the 100 nF at the pin feeds the ADC sample capacitor).

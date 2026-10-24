@@ -801,7 +801,7 @@
 },
 {
 "ref": "R304",
-"value": "100k",
+"value": "2.2M",
 "footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
 "pads": {
 "1": "SW_GATE",
@@ -811,9 +811,9 @@
 "dnp": false,
 "side": "B",
 "fields": {
-"MPN": "RC1206FR-07100KL",
+"MPN": "RC1206FR-072M2L",
 "Manufacturer": "Yageo",
-"Description": "gate-source pull-down: FETs off with the MIC5014 removed",
+"Description": "gate-source pull-down: FETs off with the MIC5014 removed; light load on its pump",
 "Price": "0.10",
 "Source": "https://www.findchips.com/search/RC1206FR-0710KL",
 "Verified": "yes"
@@ -1530,7 +1530,7 @@
 "value": "10k B3977",
 "footprint": "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm",
 "pads": {
-"1": "FET_NTC",
+"1": "NTC_NODE",
 "2": "GND"
 },
 "block": "C_SWITCH",
@@ -1565,7 +1565,7 @@
 "footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
 "pads": {
 "1": "+3V3",
-"2": "FET_NTC"
+"2": "NTC_NODE"
 },
 "block": "C_SWITCH",
 "dnp": false,
@@ -1607,7 +1607,7 @@
 "fields": {
 "MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
 "Manufacturer": "Samsung",
-"Description": "NTC filter",
+"Description": "NTC filter at the Pico pin",
 "Price": "0.14",
 "Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
 "Verified": "yes"
@@ -1669,6 +1669,40 @@
 "Verified": "yes"
 },
 "path": "/12f42d0e-4875-559e-a19b-0429f74876f1/e086cacd-a90d-50be-9bab-4592bd577c99",
+"sheetfile": "atlas_power_c_switch.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R316",
+"value": "10k",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "NTC_NODE",
+"2": "FET_NTC"
+},
+"block": "C_SWITCH",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-0710KL",
+"Manufacturer": "Yageo",
+"Description": "series into GP28: limits the current if the NTC chafes through to the BAT+ bar",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/12f42d0e-4875-559e-a19b-0429f74876f1/c6cf7236-7595-5448-88b4-1e2c1071cba6",
 "sheetfile": "atlas_power_c_switch.kicad_sch",
 "pintypes": {
 "1": "passive",
@@ -2167,7 +2201,7 @@
 },
 {
 "ref": "R408",
-"value": "10",
+"value": "4.7",
 "footprint": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
 "pads": {
 "1": "VSYS_SW",
@@ -2177,11 +2211,11 @@
 "dnp": false,
 "side": "F",
 "fields": {
-"MPN": "Vishay MBB02070C1009FCT00 (0.6 W metal film)",
+"MPN": "Vishay MBB02070C4708FCT00 (0.6 W metal film)",
 "Manufacturer": "Vishay",
-"Description": "R-78E input filter: 0.1 A x 10 Ohm = 1 V; with D404 limits a 30 V spike",
-"Price": "0.24",
-"Source": "https://www.findchips.com/search/MBB02070C1009FCT00",
+"Description": "R-78E input filter: 0.5 V drop at 0.1 A (review m9: keeps a sagging pack above the R-78E 8 V minimum); with D401 limits a 30 V spike (about 2 A into D401)",
+"Price": "0.26",
+"Source": "https://www.findchips.com/search/MBB02070C4708FCT00",
 "Verified": "yes"
 },
 "path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/7c237bc2-f874-57bc-9146-7351c050ab07",
@@ -2454,7 +2488,7 @@
 "fields": {
 "MPN": "",
 "Manufacturer": "",
-"Description": "Castle BEC input + (16 AWG red lead)",
+"Description": "Castle BEC input + (16 AWG red lead), default: on VM",
 "in_bom": "no"
 },
 "path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/43c06797-a7b2-5804-8d17-5d4ef07b356c",
@@ -2733,7 +2767,7 @@
 },
 {
 "ref": "D404",
-"value": "P6KE20A",
+"value": "P6KE22A",
 "footprint": "Diode_THT:D_DO-15_P3.81mm_Vertical_KathodeUp",
 "pads": {
 "1": "VDEV_F",
@@ -2743,11 +2777,11 @@
 "dnp": false,
 "side": "F",
 "fields": {
-"MPN": "P6KE20A",
-"Manufacturer": "Littelfuse",
-"Description": "dev-kit feed TVS 600 W, VRWM 17.1 V",
-"Price": "0.54",
-"Source": "https://www.findchips.com/search/P6KE20A",
+"MPN": "P6KE22A",
+"Manufacturer": "Taiwan Semiconductor",
+"Description": "dev-kit feed TVS 600 W, VRWM 18.8 V (above the pack TVS band, review m4)",
+"Price": "0.45",
+"Source": "https://www.findchips.com/search/P6KE22A",
 "Verified": "yes"
 },
 "path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/0e24091e-0095-58b9-bda1-3e5bdd4afdeb",
@@ -2767,7 +2801,7 @@
 },
 {
 "ref": "Q402",
-"value": "IRF9Z34NPBF",
+"value": "IRF4905PBF",
 "footprint": "Package_TO_SOT_THT:TO-220-3_Vertical",
 "pads": {
 "1": "OV_G",
@@ -2778,11 +2812,11 @@
 "dnp": false,
 "side": "F",
 "fields": {
-"MPN": "IRF9Z34NPBF",
+"MPN": "IRF4905PBF",
 "Manufacturer": "Infineon",
-"Description": "dev-kit over-voltage cut-off",
-"Price": "1.08",
-"Source": "https://www.findchips.com/search/IRF9Z34NPBF",
+"Description": "dev-kit over-voltage cut-off (review M2)",
+"Price": "2.71",
+"Source": "https://www.findchips.com/search/IRF4905PBF",
 "Verified": "yes"
 },
 "path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/dd2da6a9-015b-56d3-b19b-34b5749d236e",
@@ -2839,7 +2873,7 @@
 },
 {
 "ref": "R412",
-"value": "10k",
+"value": "6.8k",
 "footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
 "pads": {
 "1": "OV_G",
@@ -2849,9 +2883,9 @@
 "dnp": false,
 "side": "B",
 "fields": {
-"MPN": "RC1206FR-0710KL",
+"MPN": "RC1206FR-076K8L",
 "Manufacturer": "Yageo",
-"Description": "gate divider: VGS -8.4 V at 16.8 V, -15 V at 30 V",
+"Description": "gate divider: VGS -7.1 V at 12 V, -10 V at 16.8 V, -17.9 V at 30 V",
 "Price": "0.10",
 "Source": "https://www.findchips.com/search/RC1206FR-0710KL",
 "Verified": "yes"
@@ -3097,7 +3131,7 @@
 "fields": {
 "MPN": "RC1206FR-0715KL",
 "Manufacturer": "Yageo",
-"Description": "OV divider bottom: trips at 18.6 V (2.495 V REF)",
+"Description": "OV divider bottom: trips at about 18.7 V (2.495 V REF)",
 "Price": "0.10",
 "Source": "https://www.findchips.com/search/RC1206FR-0710KL",
 "Verified": "yes"
@@ -3131,7 +3165,7 @@
 "fields": {
 "MPN": "RC1206FR-071M2L",
 "Manufacturer": "Yageo",
-"Description": "hysteresis: releases at 17.9 V (above the 17.1 V worst-case charge voltage)",
+"Description": "hysteresis: releases at about 17.85 V (above the 16.8 V charge voltage)",
 "Price": "0.10",
 "Source": "https://www.findchips.com/search/RC1206FR-0710KL",
 "Verified": "yes"
@@ -3237,7 +3271,7 @@
 "fields": {
 "MPN": "RC1206FR-074K7L",
 "Manufacturer": "Yageo",
-"Description": "TL431 cathode current 3.4 mA at 18.6 V, 5.9 mA at 30 V (>= 1 mA needed)",
+"Description": "TL431 cathode current 3.4 mA at 18.7 V, 5.9 mA at 30 V (>= 1 mA needed)",
 "Price": "0.10",
 "Source": "https://www.findchips.com/search/RC1206FR-0710KL",
 "Verified": "yes"
@@ -3454,6 +3488,40 @@
 }
 },
 {
+"ref": "C407",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "VDEV_F",
+"2": "OV_G"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
+"Manufacturer": "Samsung",
+"Description": "gate-source capacitor: soft start into the dev kit (review m5)",
+"Price": "0.14",
+"Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/a2e08396-9d2e-5cce-9d7f-e96e0697016c",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
 "ref": "R422",
 "value": "10k",
 "footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
@@ -3629,7 +3697,7 @@
 },
 {
 "ref": "D405",
-"value": "P6KE20A",
+"value": "P6KE22A",
 "footprint": "Diode_THT:D_DO-15_P3.81mm_Vertical_KathodeUp",
 "pads": {
 "1": "LIDAR_V",
@@ -3639,11 +3707,11 @@
 "dnp": false,
 "side": "F",
 "fields": {
-"MPN": "P6KE20A",
-"Manufacturer": "Littelfuse",
-"Description": "lidar output TVS",
-"Price": "0.54",
-"Source": "https://www.findchips.com/search/P6KE20A",
+"MPN": "P6KE22A",
+"Manufacturer": "Taiwan Semiconductor",
+"Description": "lidar output TVS (P6KE22A: above the pack TVS band, review m4)",
+"Price": "0.45",
+"Source": "https://www.findchips.com/search/P6KE22A",
 "Verified": "yes"
 },
 "path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/710c3ef4-0a59-50a7-b9ca-d76d6f0c0422",
@@ -3696,6 +3764,34 @@
 }
 },
 {
+"ref": "J410",
+"value": "BEC+ALT",
+"footprint": "Connector_Wire:SolderWire-1.5sqmm_1x01_D1.7mm_OD3.9mm",
+"pads": {
+"1": "VSYS_SW"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "alternative BEC input + on VSYS_SW (review M3): solder the red lead here instead of BEC+ only if the BEC start-up stops the precharge; then the latch carries the servo",
+"in_bom": "no"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/46b8990b-0d46-55df-a51d-7c46ff5f4b2a",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
 "ref": "F403",
 "value": "MF-R075",
 "footprint": "atlas:Fuse_Bourns_MF-R_P5.08mm",
@@ -3723,6 +3819,40 @@
 "pinnames": {
 "1": "~",
 "2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "D406",
+"value": "P6KE22A",
+"footprint": "Diode_THT:D_DO-15_P3.81mm_Vertical_KathodeUp",
+"pads": {
+"1": "CAM_VIN",
+"2": "GND"
+},
+"block": "D_RAILS",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "P6KE22A",
+"Manufacturer": "Taiwan Semiconductor",
+"Description": "camera regulator input TVS (S18V20F12 32 V absolute; review m18), fitted",
+"Price": "0.45",
+"Source": "https://www.findchips.com/search/P6KE22A",
+"Verified": "yes"
+},
+"path": "/a9507215-2b9d-504c-883b-af84d9cd64bc/385f35e8-e179-5173-b2c3-aa7a417be1cc",
+"sheetfile": "atlas_power_d_rails.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "K",
+"2": "A"
 },
 "pinprimary": {
 "1": "1",
@@ -3859,7 +3989,7 @@
 "footprint": "atlas:WireLand_PD_Trigger",
 "pads": {
 "1": "CHG_IN",
-"2": "GND"
+"2": "CHG_GND"
 },
 "block": "E_CHARGE",
 "dnp": false,
@@ -3893,7 +4023,7 @@
 "footprint": "Diode_THT:D_DO-15_P3.81mm_Vertical_KathodeUp",
 "pads": {
 "1": "CHG_IN",
-"2": "GND"
+"2": "CHG_GND"
 },
 "block": "E_CHARGE",
 "dnp": false,
@@ -3927,7 +4057,7 @@
 "footprint": "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder",
 "pads": {
 "1": "CHG_IN",
-"2": "GND"
+"2": "CHG_GND"
 },
 "block": "E_CHARGE",
 "dnp": false,
@@ -3961,7 +4091,7 @@
 "footprint": "atlas:WireLand_CCCV_Buck",
 "pads": {
 "1": "CHG_IN",
-"2": "GND",
+"2": "CHG_GND",
 "3": "CHG_OUT",
 "4": "GND"
 },
@@ -3999,7 +4129,7 @@
 },
 {
 "ref": "Q501",
-"value": "IRF9Z34NPBF",
+"value": "IRF4905PBF",
 "footprint": "Package_TO_SOT_THT:TO-220-3_Vertical",
 "pads": {
 "1": "CHG_G",
@@ -4010,11 +4140,11 @@
 "dnp": false,
 "side": "F",
 "fields": {
-"MPN": "IRF9Z34NPBF",
+"MPN": "IRF4905PBF",
 "Manufacturer": "Infineon",
-"Description": "reverse block: body diode CHG_OUT -> pack; channel on only with 20 V present",
-"Price": "1.08",
-"Source": "https://www.findchips.com/search/IRF9Z34NPBF",
+"Description": "reverse block: body diode CHG_OUT -> pack; channel on only with 20 V present (review M2)",
+"Price": "2.71",
+"Source": "https://www.findchips.com/search/IRF4905PBF",
 "Verified": "yes"
 },
 "path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/56a481b3-081e-57da-94c4-c43b1d4d7530",
@@ -4070,8 +4200,42 @@
 }
 },
 {
+"ref": "C502",
+"value": "100n",
+"footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+"pads": {
+"1": "CHG_RB",
+"2": "CHG_G"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
+"Manufacturer": "Samsung",
+"Description": "gate-source capacitor: about 0.4 ms soft start (review m5)",
+"Price": "0.14",
+"Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
+"Verified": "yes"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/3ea74122-f8c2-53d4-94ee-bc5c55e47951",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
 "ref": "R502",
-"value": "10k",
+"value": "6.8k",
 "footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
 "pads": {
 "1": "CHG_G",
@@ -4081,9 +4245,9 @@
 "dnp": false,
 "side": "B",
 "fields": {
-"MPN": "RC1206FR-0710KL",
+"MPN": "RC1206FR-076K8L",
 "Manufacturer": "Yageo",
-"Description": "gate divider: VGS -8.4 V",
+"Description": "gate divider: VGS -10 V at 16.8 V, -7.1 V at 12 V",
 "Price": "0.10",
 "Source": "https://www.findchips.com/search/RC1206FR-0710KL",
 "Verified": "yes"
@@ -4110,7 +4274,7 @@
 "pads": {
 "2": "CHG_B1",
 "3": "CHG_C",
-"1": "GND"
+"1": "CHG_GND"
 },
 "block": "E_CHARGE",
 "dnp": false,
@@ -4215,7 +4379,7 @@
 "footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
 "pads": {
 "1": "CHG_B1",
-"2": "GND"
+"2": "CHG_GND"
 },
 "block": "E_CHARGE",
 "dnp": false,
@@ -4250,7 +4414,7 @@
 "pads": {
 "2": "CHG_B2",
 "3": "CHG_PRESENT_N",
-"1": "GND"
+"1": "CHG_GND"
 },
 "block": "E_CHARGE",
 "dnp": false,
@@ -4321,7 +4485,7 @@
 "footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
 "pads": {
 "1": "CHG_B2",
-"2": "GND"
+"2": "CHG_GND"
 },
 "block": "E_CHARGE",
 "dnp": false,
@@ -4446,6 +4610,34 @@
 }
 },
 {
+"ref": "TP502",
+"value": "CHG_GND",
+"footprint": "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm",
+"pads": {
+"1": "CHG_GND"
+},
+"block": "E_CHARGE",
+"dnp": false,
+"side": "F",
+"fields": {
+"MPN": "",
+"Manufacturer": "",
+"Description": "test point",
+"in_bom": "no"
+},
+"path": "/99c1cc93-96e2-5c34-b949-69e2191cfc6f/7f371f32-7781-51b7-938b-ee855a6647a2",
+"sheetfile": "atlas_power_e_charge.kicad_sch",
+"pintypes": {
+"1": "passive"
+},
+"pinnames": {
+"1": "1"
+},
+"pinprimary": {
+"1": "1"
+}
+},
+{
 "ref": "MOD601",
 "value": "ADA5997_CH334F_HUB",
 "footprint": "atlas:Adafruit_5997_CH334F_Hub_Headers",
@@ -4554,22 +4746,23 @@
 {
 "ref": "J601",
 "value": "DEVKIT_USB",
-"footprint": "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical",
+"footprint": "Connector_USB:USB_A_Wuerth_614004134726_Horizontal",
 "pads": {
 "1": "HUB_VBUS",
 "2": "P1_DM",
 "3": "P1_DP",
-"4": "GND"
+"4": "GND",
+"5": "GND"
 },
 "block": "F_DEBUG",
 "dnp": false,
 "side": "F",
 "fields": {
-"MPN": "Wurth 61300411121",
+"MPN": "Wurth 614004134726",
 "Manufacturer": "Wurth",
-"Description": "hub port 1 to the dev-kit USB-C (device port); Adafruit 4449 lead: red, white, green, black",
-"Price": "0.19",
-"Source": "https://www.findchips.com/search/61300411121",
+"Description": "hub port 1: USB-A receptacle for one USB-A to USB-C cable to the dev kit's device port (review M7)",
+"Price": "3.87",
+"Source": "https://www.findchips.com/search/614004134726",
 "Verified": "yes"
 },
 "path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/7d27f574-1932-5600-ab43-a9d94867c745",
@@ -4578,19 +4771,22 @@
 "1": "passive",
 "2": "passive",
 "3": "passive",
-"4": "passive"
+"4": "passive",
+"5": "passive"
 },
 "pinnames": {
 "1": "VBUS",
 "2": "D-",
 "3": "D+",
-"4": "GND"
+"4": "GND",
+"5": "SHIELD"
 },
 "pinprimary": {
 "1": "1",
 "2": "2",
 "3": "3",
-"4": "4"
+"4": "4",
+"5": "5"
 }
 },
 {
@@ -4601,7 +4797,7 @@
 "1": "HUB_VBUS",
 "2": "P3_DM",
 "3": "P3_DP",
-"4": "GND"
+"4": "VUSB_GND"
 },
 "block": "F_DEBUG",
 "dnp": false,
@@ -4609,7 +4805,7 @@
 "fields": {
 "MPN": "Wurth 61300411121",
 "Manufacturer": "Wurth",
-"Description": "hub port 3 to the FSESC micro-USB (VESC Tool); Adafruit 4449 lead: red, white, green, black",
+"Description": "hub port 3 to the FSESC micro-USB (VESC Tool, full speed); Adafruit 4449 lead: red, white, green, black. Its GND goes through 3.3 Ohm (review M6)",
 "Price": "0.19",
 "Source": "https://www.findchips.com/search/61300411121",
 "Verified": "yes"
@@ -4651,7 +4847,7 @@
 "fields": {
 "MPN": "Wurth 61300411121",
 "Manufacturer": "Wurth",
-"Description": "hub port 4 to the spare hub port; Adafruit 4449 lead: red, white, green, black",
+"Description": "hub port 4, spare (e.g. the Pico USB for flashing); Adafruit 4449 lead",
 "Price": "0.19",
 "Source": "https://www.findchips.com/search/61300411121",
 "Verified": "yes"
@@ -4969,7 +5165,7 @@
 },
 {
 "ref": "R602",
-"value": "10k",
+"value": "1k",
 "footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
 "pads": {
 "1": "CON_TX",
@@ -4979,9 +5175,9 @@
 "dnp": false,
 "side": "B",
 "fields": {
-"MPN": "RC1206FR-0710KL",
+"MPN": "RC1206FR-071KL",
 "Manufacturer": "Yageo",
-"Description": "console TX -> J14 pin 3: limits back-power into an unpowered Jetson to 0.3 mA",
+"Description": "console TX -> J14 pin 3: 1k so a TXB-type level shifter on the dev kit still toggles (review M1)",
 "Price": "0.10",
 "Source": "https://www.findchips.com/search/RC1206FR-0710KL",
 "Verified": "yes"
@@ -5021,6 +5217,40 @@
 "Verified": "yes"
 },
 "path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/e99618b4-5295-5dd9-a276-d3e536272c71",
+"sheetfile": "atlas_power_f_debug.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R604",
+"value": "2.2",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "VUSB_GND",
+"2": "GND"
+},
+"block": "F_DEBUG",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-072R2L",
+"Manufacturer": "Yageo",
+"Description": "FSESC USB ground: keeps motor current out of the USB cable ground (review M6); 2.2 Ohm (not 3.3) because the FSESC may draw its USB VBUS current back through it (0.2 V at 100 mA); a failed ESC- joint burns it open like a fuse",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/0d74fdb1-e119-5522-9c65-38a4f2a2450f/b4cc26e4-9f51-5983-8966-d41423f02688",
 "sheetfile": "atlas_power_f_debug.kicad_sch",
 "pintypes": {
 "1": "passive",
@@ -5977,7 +6207,7 @@
 },
 {
 "ref": "R804",
-"value": "10k",
+"value": "1k",
 "footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
 "pads": {
 "1": "COMM_TX",
@@ -5987,9 +6217,9 @@
 "dnp": false,
 "side": "B",
 "fields": {
-"MPN": "RC1206FR-0710KL",
+"MPN": "RC1206FR-071KL",
 "Manufacturer": "Yageo",
-"Description": "FSESC TX -> Jetson UART1 RX: board output toward the Jetson, 10k",
+"Description": "FSESC TX -> Jetson UART1 RX: 1k so a TXB-type level shifter toggles (review M1)",
 "Price": "0.10",
 "Source": "https://www.findchips.com/search/RC1206FR-0710KL",
 "Verified": "yes"
@@ -6249,7 +6479,7 @@
 },
 {
 "ref": "R812",
-"value": "10k",
+"value": "1k",
 "footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
 "pads": {
 "1": "ESTOP_OK_TO_JETSON",
@@ -6259,9 +6489,9 @@
 "dnp": false,
 "side": "B",
 "fields": {
-"MPN": "RC1206FR-0710KL",
+"MPN": "RC1206FR-071KL",
 "Manufacturer": "Yageo",
-"Description": "board output toward the Jetson, 10k",
+"Description": "board output toward the Jetson, 1k (TXB-type input, review M1)",
 "Price": "0.10",
 "Source": "https://www.findchips.com/search/RC1206FR-0710KL",
 "Verified": "yes"
@@ -6283,7 +6513,7 @@
 },
 {
 "ref": "R813",
-"value": "10k",
+"value": "1k",
 "footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
 "pads": {
 "1": "CHG_STAT_N_TO_JETSON",
@@ -6293,9 +6523,9 @@
 "dnp": false,
 "side": "B",
 "fields": {
-"MPN": "RC1206FR-0710KL",
+"MPN": "RC1206FR-071KL",
 "Manufacturer": "Yageo",
-"Description": "board output toward the Jetson, 10k",
+"Description": "board output toward the Jetson, 1k (TXB-type input, review M1)",
 "Price": "0.10",
 "Source": "https://www.findchips.com/search/RC1206FR-0710KL",
 "Verified": "yes"
@@ -6693,7 +6923,7 @@
 "footprint": "Connector_JST:JST_PH_B7B-PH-K_1x07_P2.00mm_Vertical",
 "pads": {
 "1": null,
-"2": "GND",
+"2": "COMM_GND",
 "3": "COMM_TX",
 "4": "COMM_RX",
 "5": null,
@@ -6816,7 +7046,7 @@
 "pads": {
 "1": "SERVO_IN_J",
 "2": null,
-"3": "GND"
+"3": "SRVIN_GND"
 },
 "block": "I_ESC",
 "dnp": false,
@@ -6901,6 +7131,74 @@
 "Verified": "yes"
 },
 "path": "/a0b30b9c-7ff1-5be2-bac0-593ee6535e5b/8878b741-adce-5627-a859-900c17c7af63",
+"sheetfile": "atlas_power_i_esc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R905",
+"value": "3.3",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "COMM_GND",
+"2": "GND"
+},
+"block": "I_ESC",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-073R3L",
+"Manufacturer": "Yageo",
+"Description": "FSESC COMM ground through 3.3 Ohm (review M6)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a0b30b9c-7ff1-5be2-bac0-593ee6535e5b/fead1a6b-da42-534e-be47-b697f3c970f4",
+"sheetfile": "atlas_power_i_esc.kicad_sch",
+"pintypes": {
+"1": "passive",
+"2": "passive"
+},
+"pinnames": {
+"1": "~",
+"2": "~"
+},
+"pinprimary": {
+"1": "1",
+"2": "2"
+}
+},
+{
+"ref": "R906",
+"value": "3.3",
+"footprint": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+"pads": {
+"1": "SRVIN_GND",
+"2": "GND"
+},
+"block": "I_ESC",
+"dnp": false,
+"side": "B",
+"fields": {
+"MPN": "RC1206FR-073R3L",
+"Manufacturer": "Yageo",
+"Description": "servo-signal lead ground through 3.3 Ohm (review M6)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/RC1206FR-0710KL",
+"Verified": "yes"
+},
+"path": "/a0b30b9c-7ff1-5be2-bac0-593ee6535e5b/8b4ad497-2022-5079-814c-0caee1816cf3",
 "sheetfile": "atlas_power_i_esc.kicad_sch",
 "pintypes": {
 "1": "passive",
@@ -7053,7 +7351,7 @@
 },
 {
 "ref": "C1001",
-"value": "100n",
+"value": "10n",
 "footprint": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
 "pads": {
 "1": "ESTOP_OK",
@@ -7063,11 +7361,11 @@
 "dnp": false,
 "side": "B",
 "fields": {
-"MPN": "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)",
-"Manufacturer": "Samsung",
-"Description": "loop filter (1 ms)",
-"Price": "0.14",
-"Source": "https://www.findchips.com/search/CL31B104KBCNNNC",
+"MPN": "KEMET C1206C103K5RACTU (10 nF 50 V X7R 1206)",
+"Manufacturer": "KEMET",
+"Description": "loop filter (0.1 ms)",
+"Price": "0.10",
+"Source": "https://www.findchips.com/search/C1206C103K5RACTU",
 "Verified": "yes"
 },
 "path": "/ee83b628-42e9-56cf-843e-3370940a7fef/094214fa-47c1-5557-9446-2f5c25ac5ce4",
@@ -7537,6 +7835,7 @@
 "CHG_B2",
 "CHG_C",
 "CHG_G",
+"CHG_GND",
 "CHG_IN",
 "CHG_OUT",
 "CHG_PRESENT_N",
@@ -7544,6 +7843,7 @@
 "CHG_STAT_N_TO_JETSON",
 "CHG_Z",
 "COMM_ADC2",
+"COMM_GND",
 "COMM_RX",
 "COMM_TX",
 "CON_3V3",
@@ -7603,6 +7903,7 @@
 "LID_SW",
 "MAIN_EN",
 "MIC_IN",
+"NTC_NODE",
 "OV_B",
 "OV_C",
 "OV_G",
@@ -7631,6 +7932,7 @@
 "SERVO_IN_J",
 "SERVO_SIG",
 "SERVO_V",
+"SRVIN_GND",
 "SW_G1",
 "SW_G2",
 "SW_G3",
@@ -7642,6 +7944,7 @@
 "VM",
 "VM_LED_A",
 "VM_SENSE",
-"VSYS_SW"
+"VSYS_SW",
+"VUSB_GND"
 ]
 }

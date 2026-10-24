@@ -1096,7 +1096,7 @@
 				(font
 					(size 1.27 1.27))
 				(hide yes)))
-		(property "Description" "Castle BEC input + (16 AWG red lead)"
+		(property "Description" "Castle BEC input + (16 AWG red lead), default: on VM"
 			(at 0 0 0)
 			(effects
 				(font
@@ -1442,6 +1442,83 @@
 					(effects
 						(font
 							(size 1.016 1.016)))))))
+(symbol "IRF4905PBF"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "Q"
+			(at 0 8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "IRF4905PBF"
+			(at 0 -8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "P-FET -55 V 20 mOhm, VGS +-20 V, TO-220 (tab = drain)"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "IRF4905PBF_0_1"
+			(rectangle
+				(start -3.81 2.54)
+				(end 3.81 -2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "IRF4905PBF_1_1"
+			(pin input line
+				(at -6.35 0.00 0)
+				(length 2.54)
+				(name "G"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 5.08 270)
+				(length 2.54)
+				(name "S"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -5.08 90)
+				(length 2.54)
+				(name "D"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
 (symbol "TL431"
 		(pin_names
 			(offset 0.508))
@@ -1769,6 +1846,61 @@
 						(font
 							(size 1.016 1.016))))
 				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "PAD_BEC_IN+ALT"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "PAD_BEC_IN+ALT"
+			(at 0 -6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Connector_Wire:SolderWire-1.5sqmm_1x01_D1.7mm_OD3.9mm"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "alternative BEC input + on VSYS_SW (review M3): solder the red lead here instead of BEC+ only if the BEC start-up stops the precharge; then the latch carries the servo"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "PAD_BEC_IN+ALT_0_1"
+			(rectangle
+				(start -5.08 2.54)
+				(end 5.08 -2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "PAD_BEC_IN+ALT_1_1"
+			(pin passive line
+				(at -7.62 0.00 0)
+				(length 2.54)
+				(name "1"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
 					(effects
 						(font
 							(size 1.016 1.016)))))))
@@ -2272,7 +2404,7 @@
 			(effects
 				(font
 					(size 1.27 1.27))))
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical"
+		(property "Footprint" "Connector_USB:USB_A_Wuerth_614004134726_Horizontal"
 			(at 0 0 0)
 			(effects
 				(font
@@ -2284,7 +2416,7 @@
 				(font
 					(size 1.27 1.27))
 				(hide yes)))
-		(property "Description" "hub port 1 to the dev-kit USB-C (device port); Adafruit 4449 lead: red, white, green, black"
+		(property "Description" "hub port 1: USB-A receptacle for one USB-A to USB-C cable to the dev kit's device port (review M7)"
 			(at 0 0 0)
 			(effects
 				(font
@@ -2343,6 +2475,17 @@
 				(number "4"
 					(effects
 						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -5.08 0)
+				(length 2.54)
+				(name "SHIELD"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "5"
+					(effects
+						(font
 							(size 1.016 1.016)))))))
 (symbol "VESC_USB"
 		(pin_names
@@ -2372,7 +2515,7 @@
 				(font
 					(size 1.27 1.27))
 				(hide yes)))
-		(property "Description" "hub port 3 to the FSESC micro-USB (VESC Tool); Adafruit 4449 lead: red, white, green, black"
+		(property "Description" "hub port 3 to the FSESC micro-USB (VESC Tool, full speed); Adafruit 4449 lead: red, white, green, black. Its GND goes through 3.3 Ohm (review M6)"
 			(at 0 0 0)
 			(effects
 				(font
@@ -2460,7 +2603,7 @@
 				(font
 					(size 1.27 1.27))
 				(hide yes)))
-		(property "Description" "hub port 4 to the spare hub port; Adafruit 4449 lead: red, white, green, black"
+		(property "Description" "hub port 4, spare (e.g. the Pico USB for flashing); Adafruit 4449 lead"
 			(at 0 0 0)
 			(effects
 				(font

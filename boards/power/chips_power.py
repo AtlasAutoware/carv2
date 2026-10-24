@@ -71,6 +71,11 @@ IRF9Z34N = Chip('IRF9Z34NPBF', [('1', 'G', P_IN, L), ('3', 'S', PAS, T), ('2', '
                 'Package_TO_SOT_THT:TO-220-3_Vertical', ref='Q',
                 desc='P-FET -55 V 100 mOhm, VGS +-20 V, TO-220 (tab = drain)', mpn='IRF9Z34NPBF', mfr='Infineon',
                 width=7.62)
+# Infineon IRF4905PBF: TO-220AB, pin 1 G, 2 D, 3 S (same as the IRF9Z34N), -55 V, 20 mOhm at -10 V, +-20 V gate
+IRF4905 = Chip('IRF4905PBF', [('1', 'G', P_IN, L), ('3', 'S', PAS, T), ('2', 'D', PAS, B)],
+               'Package_TO_SOT_THT:TO-220-3_Vertical', ref='Q',
+               desc='P-FET -55 V 20 mOhm, VGS +-20 V, TO-220 (tab = drain)', mpn='IRF4905PBF', mfr='Infineon',
+               width=7.62)
 # onsemi 2N3904BU / 2N3906BU (KiCad Transistor_BJT:2N3904, 2N3906): TO-92 1 E, 2 B, 3 C.
 NPN = Chip('2N3904', [('2', 'B', P_IN, L), ('3', 'C', PAS, T), ('1', 'E', PAS, B)], 'Package_TO_SOT_THT:TO-92_Inline',
            ref='Q', desc='NPN 40 V 200 mA, TO-92', mpn='2N3904BU', mfr='onsemi', width=7.62)
