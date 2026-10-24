@@ -34,9 +34,11 @@ EEPROM, USB role) with their tests; the `atlas` command no longer uses them, and
 `firmware/supervisor/README.md` covers it: what each file does, how to flash it with Thonny or
 mpremote, the USB protocol, the state machine and its timings, the LEDs, and what is still
 unverified. In short: at power-on it precharges the motor bus and closes the main switch if the
-E-stop loop is closed; it latches the E-stop until a button press; a short press presses the
-Jetson's power key and waits for its halt; a 5 s press switches off at once; it reports the BMS,
-the buses, the heatsink and the Jetson link once a second. For a hung Jetson, move the Pico's
+E-stop loop is closed; it latches the E-stop until a button press (a press with the loop still
+open is ignored); a short press presses the Jetson's power key and waits for its halt; a 5 s
+press cuts the motor bus, the lidar and the Jetson at once and switches the latch off when the
+button is released; it reports the BMS, the buses, the heatsink and the Jetson link once a
+second. For a hung Jetson, move the Pico's
 USB cable to the debug hub's spare port and send it `reboot hard` (SYS_RESET* pulse) or
 `jetson_power_cycle` (the dev kit's DC feed off for 10 s) from the laptop.
 
@@ -66,6 +68,17 @@ away for 2 s does the same; failing both, the supervisor stops waiting 120 s aft
 after the press if there was no "bye"). `sudo poweroff` and `sudo reboot` on the Jetson work as
 usual: HALT switches the car off, REBOOT keeps it on.
 
+**A lost heartbeat** (atlas-battery.service crashed, or the Pico's USB cable came loose) is not
+a reason to cut a running Jetson. 60 s after the last heartbeat (120 s after a "bye"), if J12's
+3.3 V or JETSON_UP says the Jetson is still powered, the supervisor opens the main switch and
+presses the power key, again every 10 s for up to 60 s, and then waits for HALT or for the 3.3 V
+to go, however long that takes. Only when neither line shows the Jetson as powered does it switch
+the car off at once.
+
+**Low pack while charging.** The supervisor's low-pack shutdown (11.6 V for 10 s) stays active
+with the USB-C charger in, unless the pack voltage is rising: the car at 25 W with the lidar and
+camera can draw more than the 42 W charger gives.
+
 **The J12 lines.** `atlas_hw/gpio.py` uses libgpiod (python3-libgpiod 1.x on JetPack 6, or the
 2.x bindings) and looks the lines up by name, then by offset: JETSON_UP PQ.06 (gpiochip0 line
 106), LIDAR_REQ PQ.05 (105), ESTOP_OK PH.00 (43), CHG_STAT_N PG.06 (41). These are the commonly
@@ -77,8 +90,8 @@ still carries everything they do.
 **Working on the Pico from the Jetson.** `atlas supervisor repl --yes` stops the firmware (motor bus
 off) and makes atlas-battery.service let go of the port; then use Thonny, mpremote or `screen`;
 press Ctrl-D there to restart the firmware, and run `atlas supervisor resume`. Do not just stop
-atlas-battery.service while the firmware runs: 120 s after its "bye" the supervisor switches the
-car off (unless you send `hb_timeout 0`).
+atlas-battery.service while the firmware runs: 120 s after its "bye" the supervisor presses the
+power key and the Jetson shuts down (unless you send `hb_timeout 0`).
 
 **Battery estimate.** Same method as rev A (start from the corrected pack voltage, then count
 coulombs), but the current comes from the JBD BMS through the Pico's status frame (10 mA steps,

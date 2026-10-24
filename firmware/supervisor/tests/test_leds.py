@@ -36,10 +36,13 @@ def test_run_and_lockout_patterns():
     assert main.led_pattern(rig.seq, 100) == (True, True)           # loop closed: press to re-arm
 
 
-def test_off_is_dark():
+def test_off_lights_both_while_held_then_goes_dark():
     rig = Rig()
     rig.run(1000)
     rig.hw.set_input('BUTTON_N', 0)
     rig.run(5200)
     assert rig.state() == Q.OFF
+    assert all(main.led_pattern(rig.seq, t) == (True, True) for t in range(0, 3000, 10))
+    rig.hw.set_input('BUTTON_N', 1)
+    rig.run(100)
     assert not any(any(main.led_pattern(rig.seq, t)) for t in range(0, 3000, 10))

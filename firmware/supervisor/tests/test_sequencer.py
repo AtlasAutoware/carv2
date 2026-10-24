@@ -178,13 +178,16 @@ def test_estop_during_precharge():
     assert rig.state() == Q.LOCKOUT and rises(rig, 'MAIN_EN') == []
 
 
-def test_press_with_loop_still_open_shuts_down():
+def test_press_with_loop_still_open_is_ignored():
+    # review m16: a press in LOCKOUT never shuts the car down; with the loop open it is refused
     rig = up_and_talking()
     rig.hw.set_input('ESTOP_OK', 0)
     rig.run(100)
+    n = len(rises(rig, 'PRECHARGE_EN'))
     rig.press()
-    assert rig.state() == Q.SHUTDOWN_REQUESTED
-    assert len(rig.hw.pulses_of('JETSON_PWR_KEY')) == 1
+    assert rig.state() == Q.LOCKOUT
+    assert rig.events('rearm_refused')[-1]['why'] == 'E-stop loop open'
+    assert rig.hw.pulses_of('JETSON_PWR_KEY') == [] and len(rises(rig, 'PRECHARGE_EN')) == n
 
 
 # ---------------------------------------------------------------- button and Jetson shutdown
@@ -262,15 +265,25 @@ def test_jetson_already_off_goes_straight_to_halting():
     assert rig.hw.pulses_of('JETSON_PWR_KEY') == []
 
 
-def test_long_press_forces_off_at_once():
+def test_long_press_cuts_at_5s_and_releases_the_latch_after_the_button():
+    # review M5: LATCH_OFF never pulses while the button holds the Pololu's ON input
     rig = up_and_talking()
     rig.hw.set_input('BUTTON_N', 0)
     rig.run(4900)
     assert rig.state() == Q.RUN
     rig.run(200)
     assert rig.state() == Q.OFF and rig.seq.why == 'long_press'
-    assert rig.hw.out['MAIN_EN'] == 0
-    assert rig.hw.pulses_of('LATCH_OFF')
+    hw = rig.hw
+    assert hw.out['MAIN_EN'] == 0 and hw.out['PRECHARGE_EN'] == 0 and hw.out['LIDAR_EN'] == 0
+    assert hw.out['DEVKIT_PWR'] == 0                    # the Jetson is cut at once (force off)
+    rig.run(5000)                                       # still held
+    assert hw.pulses_of('LATCH_OFF') == []
+    assert hw.out['LED_STATUS'] == 1 and hw.out['LED_FAULT'] == 1
+    t_release = rig.clock.now()
+    hw.set_input('BUTTON_N', 1)
+    rig.run(200)
+    offs = hw.pulses_of('LATCH_OFF')
+    assert len(offs) == 1 and offs[0][0] >= t_release
 
 
 def test_shutdown_command_from_the_jetson():
@@ -283,14 +296,43 @@ def test_shutdown_command_from_the_jetson():
 
 
 # ---------------------------------------------------------------- halt detection
-def test_heartbeat_timeout_60s():
+def test_heartbeat_lost_with_the_jetson_up_asks_it_to_shut_down():
+    # review M4: a crashed daemon or a loose Pico cable must not hard-cut a running Jetson
     rig = up_and_talking()
     rig.run(59000)
     assert rig.state() == Q.RUN
     rig.run(1100)
-    assert rig.state() == Q.HALTING and rig.seq.why == 'hb_lost'
+    assert rig.state() == Q.SHUTDOWN_REQUESTED and rig.seq.why == 'hb_lost'
+    t0 = rig.seq.t_shutdown
+    rig.run(120000)                                     # the Jetson ignores the key and stays up
+    assert rig.state() == Q.SHUTDOWN_REQUESTED          # no forced cut
+    keys = [p[0] - t0 for p in rig.hw.pulses_of('JETSON_PWR_KEY')]
+    assert keys[0] == 0 and len(keys) == 6 and keys[-1] < 60000     # every 10 s, up to 60 s
+    assert rig.hw.pulses_of('LATCH_OFF') == []
+    rig.hw.set_input('JETSON_3V3_SENSE', 0)             # the module finally powers off
+    rig.hw.set_input('JETSON_UP', 0)
+    rig.run(2100)
+    assert rig.state() == Q.HALTING and rig.seq.why == '3v3_lost'
     rig.run(3100)
     assert rig.state() == Q.OFF
+
+
+def test_heartbeat_lost_then_halt_frame():
+    rig = up_and_talking()
+    rig.run(61000)
+    assert rig.state() == Q.SHUTDOWN_REQUESTED
+    rig.usb.send({'cmd': 'halt', 'verb': 'poweroff'})
+    rig.run(100)
+    assert rig.state() == Q.HALTING
+
+
+def test_heartbeat_lost_with_the_jetson_down_halts():
+    rig = up_and_talking()
+    rig.hw.set_input('JETSON_UP', 0)
+    rig.seq.v33_seen = False                            # a 3.3 V sense that never worked
+    rig.hw.set_input('JETSON_3V3_SENSE', 0)
+    rig.run(61100)
+    assert rig.state() == Q.HALTING and rig.seq.why == 'hb_lost'
 
 
 def test_no_heartbeat_ever_means_no_timeout():
@@ -315,6 +357,9 @@ def test_bye_gives_a_longer_grace():
     rig.run(100000)
     assert rig.state() == Q.RUN
     rig.run(21000)
+    assert rig.state() == Q.SHUTDOWN_REQUESTED and rig.seq.why == 'hb_lost'
+    rig.hw.set_input('JETSON_3V3_SENSE', 0)
+    rig.run(2100)
     assert rig.state() == Q.HALTING
 
 
@@ -347,7 +392,7 @@ def test_reboot_keeps_power_and_ends_on_the_new_boot():
     assert rig.seq.t_grace is None and rig.seq.boots == 1
     assert rig.events('reboot_done')
     rig.run(61000)                                      # normal rules again
-    assert rig.state() == Q.HALTING
+    assert rig.state() == Q.SHUTDOWN_REQUESTED and rig.seq.why == 'hb_lost'
 
 
 def test_reboot_that_never_comes_back_halts():
@@ -393,13 +438,28 @@ def test_low_battery_warns_then_shuts_down():
     assert rig.events('low_battery')[-1]['level'] == 'shutdown'
 
 
-def test_low_battery_ignored_while_charging():
+def test_low_battery_cut_stays_active_while_charging():
+    # review m7: the car can draw more than the charger gives; a flat pack still shuts down
     rig = up_and_talking()
     rig.hw.set_input('CHG_PRESENT_N', 0)
-    rig.hw.bat_v = 11.0
-    rig.run_with_heartbeat(45000)
-    assert rig.state() == Q.RUN and not rig.events('low_battery')
+    rig.hw.bat_v = 11.5
+    rig.run_with_heartbeat(30000)
     assert rig.hw.out['CHG_STAT_N_TO_JETSON'] == 0      # low = charging
+    assert rig.state() == Q.SHUTDOWN_REQUESTED and rig.seq.why == 'low_battery'
+
+
+def test_low_battery_checks_pause_while_the_charger_raises_the_pack():
+    rig = Rig(bat_v=11.3)                               # switched on low, charger already in
+    rig.hw.set_input('CHG_PRESENT_N', 0)
+    rig.run(1000)
+    rig.jetson_boots()
+    for _ in range(60):                                 # +0.01 V per second for a minute
+        rig.run_with_heartbeat(1000)
+        rig.hw.bat_v += 0.01
+    assert rig.state() == Q.RUN and not rig.events('low_battery')
+    rig.hw.set_input('CHG_PRESENT_N', 1)                # charger out at 11.9 V: only a warning later
+    rig.run_with_heartbeat(15000)
+    assert rig.state() == Q.RUN
 
 
 def test_short_sag_does_not_shut_down():
@@ -542,11 +602,11 @@ def test_repl_command_and_ctrl_c():
     rig.usb.send('repl')
     rig.clock.advance(10)
     rig.hw.step(10)
-    assert rig.app.step() is True
+    assert rig.app.step() == 'repl'
     rig = running()
     rig.usb.rx += b'\x03\r\x01'                         # Thonny / mpremote: Ctrl-C then raw REPL
     rig.clock.advance(10)
-    assert rig.app.step() is True
+    assert rig.app.step() == 'repl'
     assert bytes(rig.usb.rx) == b'\r\x01'               # left for the REPL
     rig.seq.make_safe()
     assert rig.hw.out['MAIN_EN'] == 0 and rig.hw.out['VESC_KILL'] == 0
@@ -583,10 +643,75 @@ def test_jetson_power_cycle():
     assert rig.replies('err')[-1]['cmd'] == 'jetson_power_cycle'
 
 
-def test_devkit_power_stays_on_otherwise():
+def test_devkit_power_stays_on_until_off():
     rig = up_and_talking()
     rig.press()
     rig.usb.send({'cmd': 'halt', 'verb': 'poweroff'})
-    rig.run(4000)
-    assert rig.state() == Q.OFF
+    rig.run(2000)
     assert [c for c in rig.hw.changes if c[1] == 'DEVKIT_PWR'] == []
+    rig.run(2000)
+    assert rig.state() == Q.OFF and rig.hw.out['DEVKIT_PWR'] == 0
+
+
+# ---------------------------------------------------------------- review fixes (Oct 24 review)
+@pytest.mark.parametrize('bat', [12.0, 13.0, 14.4, 16.8])
+@pytest.mark.parametrize('load_a', [0.05, 0.10, 0.15, 0.20])
+def test_precharge_with_esc_and_bec_loading_the_bus(bat, load_a):
+    # review M3: the reviewer's cases (10.6 ohm with the PTC and FET) all arm on the first try
+    rig = Rig(bat_v=bat, precharge_ohm=10.6, vm_load_a=load_a)
+    rig.run(1500)
+    assert rig.state() == Q.RUN and not rig.events('precharge_failed')
+    assert rig.seq.precharge_ms <= rig.seq.precharge_timeout_ms()
+
+
+def test_settled_bus_too_far_below_the_pack_still_fails():
+    rig = Rig(bat_v=12.0, vm_load_a=0.4)                # settles 3.5 V short of the pack
+    rig.run(8000)
+    assert rig.state() == Q.FAULT and rig.seq.why == 'slow'
+
+
+def test_off_stops_pulsing_once_the_latch_has_dropped_and_restarts_when_power_returns():
+    # review m8: a Pico on USB power must not switch the car off again when it is switched on
+    rig = up_and_talking()
+    rig.hw.set_input('BUTTON_N', 0)
+    rig.run(5200)
+    rig.hw.set_input('BUTTON_N', 1)
+    rig.run(200)
+    assert rig.hw.pulses_of('LATCH_OFF')
+    rig.hw.bat_v = 0.0                                  # the latch dropped VSYS_SW; USB keeps the Pico up
+    rig.run(3000)
+    n = len(rig.hw.pulses_of('LATCH_OFF'))
+    rig.run(5000)
+    assert len(rig.hw.pulses_of('LATCH_OFF')) == n      # no more pulses
+    assert rig.events('latch_off') and not rig.seq.reset_requested
+    rig.hw.bat_v = 15.5                                 # someone switches the car on again
+    rig.run(300)
+    assert rig.seq.reset_requested and rig.events('power_returned')
+    assert len(rig.hw.pulses_of('LATCH_OFF')) == n
+    rig.clock.advance(10)
+    assert rig.app.step() == 'reset'
+
+
+def test_off_gives_up_after_max_pulses_and_a_click_retries():
+    rig = up_and_talking()
+    rig.hw.set_input('BUTTON_N', 0)
+    rig.run(5200)
+    rig.hw.set_input('BUTTON_N', 1)
+    rig.run(15000)                                      # the latch never drops (sim: pack stays)
+    assert len(rig.hw.pulses_of('LATCH_OFF')) == Q.Settings.OFF_MAX_PULSES
+    assert rig.seq.latch_stuck and rig.events('latch_stuck')
+    rig.press()
+    rig.run(1000)
+    assert len(rig.hw.pulses_of('LATCH_OFF')) > Q.Settings.OFF_MAX_PULSES
+
+
+def test_halting_while_the_button_is_held_waits_for_release():
+    rig = up_and_talking()
+    rig.press()
+    rig.usb.send({'cmd': 'halt', 'verb': 'poweroff'})
+    rig.hw.set_input('BUTTON_N', 0)                     # someone presses again and holds
+    rig.run(3500)
+    assert rig.state() == Q.OFF and rig.hw.pulses_of('LATCH_OFF') == []
+    rig.hw.set_input('BUTTON_N', 1)
+    rig.run(100)
+    assert len(rig.hw.pulses_of('LATCH_OFF')) == 1

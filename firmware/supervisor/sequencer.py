@@ -37,7 +37,10 @@ class Settings:
     VM_CAP_UF = 2000.0              # new: FSESC input capacitance, not published; the rev B ESC study
                                     #   says plan for 2 mF. Measure it and set it here (tau = R x C = 20 ms)
     PRECHARGE_TAUS = 5              # rev A PRECHARGE_MAX_MS 400 (really 460, review F3): rev B spec "within 5 tau"
-    PRECHARGE_DONE_RATIO = 0.90     # rev A "settled above 9 V": rev B spec "VM reaches 90 % of BAT_SENSE"
+    PRECHARGE_DONE_RATIO = 0.90     # rev A "settled above 9 V": rev B spec "VM reaches 90 % of BAT_SENSE" ...
+    PRECHARGE_SETTLED_MARGIN_V = 2.5  # ... or (review M3) VM within 2.5 V of the pack and no longer rising:
+    PRECHARGE_SETTLED_DV = 0.1        #   under 0.1 V per 10 ms. The ESC booting and the Castle BEC load VM
+                                      #   (150-200 mA), so a healthy bus can settle short of 90 % on 10 ohm
     PRECHARGE_SHORT_CHECK_MS = 10   # rev A PRECHARGE_CHECK_MS 10: the short-circuit check comes this early
     PRECHARGE_SHORT_V = 4.0         # rev A 4.0: under this at 10 ms = something on VM is shorted ...
     PRECHARGE_SHORT_FRACTION = 0.5  # new: ... or under half of what R x C predicts at 10 ms, if that is
@@ -57,13 +60,15 @@ class Settings:
                                     #   review MINOR-1: a long press can force a hard power-off)
     RESET_PULSE_MS = 100            # new: J14 SYS_RESET* through PC817 #2 (rev B spec)
     REPRESS_MS = 10000              # rev A 10000: press again this often while the Jetson still runs
-    SHUTDOWN_WAIT_MS = 60000        # rev A 60000: then force off (rev B spec)
+    SHUTDOWN_WAIT_MS = 60000        # rev A 60000: then force off (rev B spec), except after a lost
+                                    #   heartbeat (review M4): then keep waiting for HALT or 3.3 V to go
     SHUTDOWN_WAIT_ACK_MS = 120000   # new: the Jetson said "bye" (its shutdown has started): wait longer
     BOOTING_MS = 90000              # review F6 fix: with no heartbeat ever, re-press only if the Jetson
                                     #   had been on for less than this (it may have missed the press)
-    HB_TIMEOUT_MS = 60000           # new (rev B spec): no heartbeat this long after the first one = halted
+    HB_TIMEOUT_MS = 60000           # new (rev B spec): no heartbeat this long after the first one: if the
+                                    #   Jetson is still powered, ask it to shut down (review M4); if not, halt
     HB_FRESH_MS = 3000              # new: a heartbeat this recent means "running normally"
-    BYE_GRACE_MS = 120000           # new: after "bye" (daemon stopping), wait this long for HALT
+    BYE_GRACE_MS = 120000           # new: after "bye" (daemon stopping), this replaces HB_TIMEOUT_MS
     REBOOT_GRACE_MS = 240000        # new: after REBOOT, ignore a missing heartbeat and 3.3 V this long
     JETSON_CYCLE_OFF_MS = 10000     # new: `jetson_power_cycle` holds the dev kit off this long by default
                                     #   (dev-kit study: let the rails discharge for at least 10 s)
@@ -71,8 +76,13 @@ class Settings:
     V33_LOST_MS = 2000              # new (dev-kit study): J12 3.3 V gone this long = module off
     UP_CONFIRM_MS = 1000            # rev A JETSON_ON_CONFIRM_MS 1000: JETSON_UP steady this long
     HALT_TO_OFF_MS = 3000           # rev A 100 + 10: rev B spec "MAIN_EN off, lidar off, 3 s, LATCH_OFF"
-    LATCH_OFF_PULSE_MS = 100        # new: Pololu #2813 "a high pulse on OFF turns off the switch"
+    LATCH_OFF_PULSE_MS = 100        # new: Pololu #2813 "a high pulse on OFF turns off the switch"; only
+                                    #   with the button released (review M5: ON and OFF never together)
     OFF_RETRY_MS = 500              # rev A re-asserted KILL every 100 ms while the button was held
+    OFF_MAX_PULSES = 20             # new (review m8): stop after 10 s of pulses; a click tries again
+    BAT_GONE_V = 4.0                # new (review m8): VSYS_SW under this = the latch is off; a Pico still
+    BAT_BACK_V = 9.0                #   running (on USB power) restarts when it comes back above this ...
+    BAT_BACK_MS = 200               #   ... for this long (the car was switched on again)
     # ---------------------------------------------------------------- button
     DEBOUNCE_MS = 30                # rev A BUTTON_SAMPLES 3 x 10 ms
     LONG_PRESS_MS = 5000            # new (rev B spec): held this long = force off now
@@ -93,6 +103,8 @@ class Settings:
     BAT_LOW_MS = 30000
     BAT_CUT_V = 11.6                # new (rev B spec): under this for BAT_CUT_MS = clean shutdown
     BAT_CUT_MS = 10000              # judgment call: long enough to ride through motor sag
+    BAT_RISING_V = 0.05             # new (review m7): with a charger in, the low-pack checks pause only
+    BAT_RISING_MS = 10000           #   while the pack rises by more than this per this long
     HISTORY = 20                    # events kept for the `log` command
 
 
@@ -140,12 +152,15 @@ class Sequencer:
         self.events = []
         self.history = []
         self.repl_requested = False
+        self.reset_requested = False    # main.py restarts the Pico (power came back while in OFF)
         # measurements
         self.estop_ok = False
         self._estop_prev = False
         self._estop_irq = False
         self.estops = 0
         self.vm = 0.0
+        self.dv10 = None            # VM change per 10 ms (precharge "stopped rising" test)
+        self._vm_prev = None
         self.bat = 0.0
         self.bat_avg = None
         self.chg = False
@@ -188,7 +203,12 @@ class Sequencer:
         self.t_press = None
         self.presses = 0
         self._age_at_shutdown = 0
+        self.shutdown_force = True  # force off when the shutdown wait runs out (not after a lost heartbeat)
         self._t_off_pulse = None
+        self._off_pulses = 0
+        self._bat_gone = False
+        self._t_bat_back = None
+        self.latch_stuck = False
         # lidar, fan, battery
         self.lidar_on = settings.LIDAR_AT_BOOT
         self._lreq_raw = 0
@@ -199,6 +219,7 @@ class Sequencer:
         self._t_low = None
         self.low_warned = False
         self._t_cut = None
+        self._bat_hist = []
         self._bms_online = False
         self._bms_prot = 0
 
@@ -243,6 +264,10 @@ class Sequencer:
         hw = self.hw
         self.estop_ok = hw.read('ESTOP_OK') == 1
         self.vm = hw.volts('VM_SENSE') * pins.VM_DIVIDER
+        if self._vm_prev is not None:
+            dt = self.clock.since(self._vm_prev[0])
+            self.dv10 = (self.vm - self._vm_prev[1]) * 10.0 / dt if dt > 0 else self.dv10
+        self._vm_prev = (now, self.vm)
         self.bat = hw.volts('BAT_SENSE') * pins.BAT_DIVIDER
         if self.bat_avg is None:
             self.bat_avg = self.bat
@@ -298,21 +323,26 @@ class Sequencer:
             self._long_done = True
             self.event('button', press='long')
             if self.state != OFF:
-                self._force_off('long_press')
+                self._force_off('long_press')   # LATCH_OFF waits for the release (review M5)
 
     def _click(self):
         self.event('button', press='short', state=self.state)
         s = self.state
-        if s == LOCKOUT and self.estop_ok:
+        if s == LOCKOUT:
             refusal = self._rearm_refusal()
             if refusal:
-                self.event('rearm_refused', why=refusal)
+                self.event('rearm_refused', why=refusal)    # review m16: never a shutdown from here
             else:
                 self._start_precharge('button')
-        elif s in (PRECHARGE, RUN, LOCKOUT, FAULT):
+        elif s in (PRECHARGE, RUN, FAULT):
             self.request_shutdown('button')
+        elif s == OFF and self.latch_stuck:
+            self.latch_stuck = False                        # the latch did not drop: try again
+            self._off_pulses = 0
 
     def _rearm_refusal(self):
+        if not self.estop_ok:
+            return 'E-stop loop open'
         if self.fet_c is not None and self.fet_c >= self.S.FET_REARM_C:
             return 'main-switch heatsink at %s C' % self.fet_c
         if self.bat < self.S.BAT_MIN_V:
@@ -348,7 +378,16 @@ class Sequencer:
         if self.v33_seen and not v33 and self.clock.since(self._t_v33_high) >= S.V33_LOST_MS:
             self._halt('3v3_lost')
         elif self._hb_lost():
-            self._halt('hb_lost')
+            # Review M4: a crashed daemon or a loose Pico cable also stops the heartbeat. While the
+            # Jetson is evidently powered, ask it to shut down (power key) instead of cutting it;
+            # the halt then comes from HALT or from its 3.3 V going away.
+            if self.v33 or self.up:
+                if self.state not in (SHUTDOWN_REQUESTED, HALTING, OFF):
+                    self.event('hb_lost', v33=self.v33, up=self.up)
+                    self.request_shutdown('hb_lost')
+            elif not self.v33_seen:
+                self._halt('hb_lost')   # no 3.3 V sense to go by and JETSON_UP low: the Jetson is off
+            # else: the 3.3 V just went; the V33_LOST_MS rule above decides
 
     def _hb_lost(self):
         if not self.hb_seen or self.hb_timeout_ms <= 0:
@@ -391,10 +430,21 @@ class Sequencer:
     # ---------------------------------------------------------------- battery and BMS
     def _battery(self, now):
         S = self.S
-        if self.state in (INIT, HALTING, OFF, SHUTDOWN_REQUESTED) or self.chg:
+        if self.state in (INIT, HALTING, OFF, SHUTDOWN_REQUESTED):
             self._t_low = self._t_cut = None
             return
         v = self.bat_avg
+        hist = self._bat_hist
+        if not hist or self.clock.since(hist[-1][0]) >= S.BAT_RISING_MS // 2:
+            hist.append((now, v))
+            if len(hist) > 3:
+                hist.pop(0)
+        # Review m7: a charger does not mean the pack is gaining (the car can draw more than the
+        # 42 W charger gives). Pause the low-pack checks only while the pack is actually rising,
+        # or for the first BAT_RISING_MS until there is enough history to tell.
+        if self.chg and (len(hist) < 3 or v - hist[0][1] > S.BAT_RISING_V):
+            self._t_low = self._t_cut = None
+            return
         if v < S.BAT_LOW_V:
             if self._t_low is None:
                 self._t_low = now
@@ -468,6 +518,15 @@ class Sequencer:
         S = self.S
         return int(S.PRECHARGE_TAUS * self.tau_ms())
 
+    def _precharged(self, target):
+        """90 % of the pack, or (review M3) within PRECHARGE_SETTLED_MARGIN_V of it and no longer
+        rising, which is where a bus with the ESC and the servo BEC drawing current settles."""
+        S = self.S
+        if self.vm >= target:
+            return True
+        return (self.vm >= self.bat - S.PRECHARGE_SETTLED_MARGIN_V and self.dv10 is not None
+                and self.dv10 < S.PRECHARGE_SETTLED_DV)
+
     def _attempt_failed(self, why):
         self.last_fail = why
         self.event('precharge_failed', why=why, attempt=self.attempt, vm=round(self.vm, 2))
@@ -485,7 +544,7 @@ class Sequencer:
         if self.phase == 'charging':
             if el >= S.PRECHARGE_SHORT_CHECK_MS and self.vm < self.short_threshold_v():
                 self._attempt_failed('short')
-            elif self.vm >= target and self.bat >= S.BAT_MIN_V:
+            elif self.bat >= S.BAT_MIN_V and self._precharged(target):
                 self.precharge_ms = el
                 self.phase = 'overlap'
                 self.t_phase = now
@@ -550,9 +609,42 @@ class Sequencer:
             if self.clock.since(self.t_state) >= S.HALT_TO_OFF_MS:
                 self._force_off(self.why)
         elif s == OFF:
-            if self.clock.since(self._t_off_pulse) >= S.OFF_RETRY_MS:
-                self._t_off_pulse = now
-                self.hw.pulse('LATCH_OFF', S.LATCH_OFF_PULSE_MS)
+            self._off(now)
+
+    def _off(self, now):
+        """LATCH_OFF pulses until the pack bus (VSYS_SW) goes away, but never while the button is
+        held, because the button drives the Pololu's ON input (review M5), and at most
+        OFF_MAX_PULSES (review m8). A Pico that keeps running on USB power after the latch dropped
+        restarts when the pack bus comes back, that is, when someone switches the car on again."""
+        S = self.S
+        if self._bat_gone:
+            if self.bat >= S.BAT_BACK_V:
+                if self._t_bat_back is None:
+                    self._t_bat_back = now
+                elif self.clock.since(self._t_bat_back) >= S.BAT_BACK_MS and not self.reset_requested:
+                    self.reset_requested = True
+                    self.event('power_returned', bat=round(self.bat, 2))
+            else:
+                self._t_bat_back = None
+            return
+        if self.bat < S.BAT_GONE_V:
+            self._bat_gone = True
+            self.event('latch_off', pulses=self._off_pulses)
+            return
+        if self.button_held():
+            return
+        if self._off_pulses >= S.OFF_MAX_PULSES:
+            if not self.latch_stuck:
+                self.latch_stuck = True
+                self.event('latch_stuck', pulses=self._off_pulses)
+            return
+        if self._t_off_pulse is None or self.clock.since(self._t_off_pulse) >= S.OFF_RETRY_MS:
+            self._t_off_pulse = now
+            self._off_pulses += 1
+            self.hw.pulse('LATCH_OFF', S.LATCH_OFF_PULSE_MS)
+
+    def button_held(self):
+        return self._btn_raw == 0 or self._btn_stable == 0
 
     # ---------------------------------------------------------------- shutdown and halt
     def request_shutdown(self, why):
@@ -565,6 +657,7 @@ class Sequencer:
         self._enter(SHUTDOWN_REQUESTED, why)
         self.t_shutdown = now
         self.presses = 0
+        self.shutdown_force = why != 'hb_lost'
         self._age_at_shutdown = self.clock.since(self._t_v33_first) if self._t_v33_first is not None else 0
         if self._jetson_running():
             self._press_key(now)
@@ -586,7 +679,11 @@ class Sequencer:
     def _may_repress(self):
         """Review F6: a press on a Jetson that is already halting can switch it back on. So
         press again only while it is evidently still up and has not said it is going down."""
-        if self._bye_since_shutdown() or not self.v33:
+        if self._bye_since_shutdown():
+            return False
+        if self.why == 'hb_lost':
+            return self.v33 or self.up     # review M4: no heartbeat to judge by; press while it is powered
+        if not self.v33:
             return False
         if self.hb_seen:
             return self.link_alive()
@@ -595,10 +692,13 @@ class Sequencer:
     def _shutdown_wait(self, now):
         S = self.S
         waited = self.clock.since(self.t_shutdown)
-        limit = S.SHUTDOWN_WAIT_ACK_MS if self._bye_since_shutdown() else S.SHUTDOWN_WAIT_MS
-        if waited >= limit:
-            self._halt('shutdown_timeout')
-        elif self.clock.since(self.t_press) >= S.REPRESS_MS and self._may_repress():
+        if self.shutdown_force:
+            limit = S.SHUTDOWN_WAIT_ACK_MS if self._bye_since_shutdown() else S.SHUTDOWN_WAIT_MS
+            if waited >= limit:
+                self._halt('shutdown_timeout')
+                return
+        if (waited < S.SHUTDOWN_WAIT_MS and self.clock.since(self.t_press) >= S.REPRESS_MS
+                and self._may_repress()):
             self._press_key(now)
 
     def _halt(self, why):
@@ -608,10 +708,12 @@ class Sequencer:
         self._enter(HALTING, why)
 
     def _force_off(self, why):
+        """OFF: motor bus, lidar and the dev kit's feed off at once; LATCH_OFF follows in _off()."""
         self.phase = ''
         self._enter(OFF, why)
-        self._t_off_pulse = self.clock.now()
-        self.hw.pulse('LATCH_OFF', self.S.LATCH_OFF_PULSE_MS)
+        self._t_off_pulse = None
+        self._off_pulses = 0
+        self._off(self.clock.now())
 
     def _reboot(self, hard, now):
         if hard:
@@ -648,7 +750,7 @@ class Sequencer:
         # Signals into the Jetson's 40-pin header only while its 3.3 V rail is up (no back-powering)
         hw.write('ESTOP_OK_TO_JETSON', self.v33 and ok)
         hw.write('CHG_STAT_N_TO_JETSON', self.v33 and not self.chg)
-        hw.write('DEVKIT_PWR', self.t_cycle is None)       # 1 = dev kit powered
+        hw.write('DEVKIT_PWR', self.t_cycle is None and s != OFF)     # 1 = dev kit powered
         duty = self._fan()
         if duty != self.fan_duty:
             self.fan_duty = duty

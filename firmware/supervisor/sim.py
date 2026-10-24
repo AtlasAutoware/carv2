@@ -41,14 +41,18 @@ def ntc_volts(celsius):
 
 
 class SimHardware:
-    IDLE_LOAD_OHM = 330.0       # ESC + BEC idle draw on VM, about 50 mA at 16 V
+    IDLE_LOAD_OHM = 330.0       # default VM load: about 50 mA at 16 V
 
-    def __init__(self, clock, bat_v=16.0, vm_cap_uf=2000.0, precharge_ohm=10.0):
+    def __init__(self, clock, bat_v=16.0, vm_cap_uf=2000.0, precharge_ohm=10.0, vm_load_a=None):
+        """vm_load_a: what the ESC (booting) and the Castle BEC with the servo draw from VM, in A at
+        the pack voltage, modelled as a resistor (the review measured the case for 150-200 mA).
+        Without it, IDLE_LOAD_OHM. load_ohm adds a fault (a short or partial short) in parallel."""
         self.clock = clock
         self.bat_v = bat_v
         self.vm = 0.0
         self.vm_cap_uf = vm_cap_uf
         self.precharge_ohm = precharge_ohm
+        self.vm_load_a = vm_load_a
         self.load_ohm = None            # extra load on VM (a short or partial short), ohms
         self.main_switch_works = True
         self.fet_c = 25.0
@@ -116,6 +120,8 @@ class SimHardware:
             return
         c = self.vm_cap_uf * 1e-6
         r_load = self.IDLE_LOAD_OHM
+        if self.vm_load_a:
+            r_load = max(self.bat_v, 1.0) / self.vm_load_a
         if self.load_ohm is not None:
             r_load = 1.0 / (1.0 / r_load + 1.0 / max(self.load_ohm, 1e-3))
         if self.out['PRECHARGE_EN'] and self.inp['ESTOP_OK']:     # the 74HCT08 gates it too

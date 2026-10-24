@@ -41,9 +41,10 @@ Written Oct 24, 2026 with atlas_hw 0.2.0. The user-facing description is in docs
    at the very end anyway.
 3. **"bye" when the daemon stops.** Without it, a slow shutdown (a unit holding systemd for 90 s)
    would hit the supervisor's 60 s heartbeat timeout before the file systems are synced. With
-   it the supervisor waits up to 120 s for HALT and stops pressing the power key. The price: if
-   someone stops atlas-battery.service by hand, the car switches off 120 s later unless the
-   service comes back or `hb_timeout 0` is sent. The CLI's `supervisor repl` / `resume` exist so
+   it the supervisor waits 120 s instead of 60 s and stops pressing the power key. If the
+   heartbeat does not come back, the supervisor (since the Oct 24 review, M4) presses the power key
+   while the Jetson is still powered rather than cutting it, so a service stopped by hand ends in a
+   clean shutdown 120 s later unless the service comes back or `hb_timeout 0` is sent. The CLI's `supervisor repl` / `resume` exist so
    nobody needs to stop the service.
 4. **The daemon lets go of the port when the Pico is in its REPL** (it sees the REPL banner or
    prompt, or forwards a `repl` ack) and takes it back on `atlas supervisor resume`, so Thonny or

@@ -17,12 +17,14 @@ import time
 import hal
 from jbd import JbdClient
 from link import LineLink
-from sequencer import (FAULT, HALTING, INIT, LOCKOUT, PRECHARGE, RUN, SHUTDOWN_REQUESTED, Sequencer,
-                       Settings)
+from sequencer import (FAULT, HALTING, INIT, LOCKOUT, OFF, PRECHARGE, RUN, SHUTDOWN_REQUESTED,
+                       Sequencer, Settings)
 
 WATCHDOG_MS = 3000          # well above the worst USB write stall (MicroPython's CDC timeout)
 REPL_HOLD_MS = 3000         # hold the button this long at start-up to stay in the REPL
 LOCKOUT_FLAG = 'lockout.flag'   # written when leaving for the REPL: the next start waits for a press
+COLD_FLAG = 'coldstart.flag'    # written before a restart because the car was switched on again (OFF,
+                                # Pico on USB power): the next start behaves like a power-on
 
 # Fault LED blink counts (FAULT state): count the red flashes
 FAULT_BLINKS = {'short': 2, 'slow': 3, 'bat_sense': 4, 'main_switch': 5}
@@ -38,7 +40,8 @@ def led_pattern(seq, t):
                            5 main switch)
       SHUTDOWN_REQUESTED,  green blink 2 Hz
       HALTING
-      OFF                  both off
+      OFF                  both off; both on while the button is still held (release it to switch
+                           off); red fast blink if the latch did not drop after 10 s of pulses
       low battery          red double flash every 3 s on top of the above (RUN, LOCKOUT)
     """
     s = seq.state
@@ -56,6 +59,11 @@ def led_pattern(seq, t):
         red = k < n * 600 and k % 600 < 300
     elif s in (SHUTDOWN_REQUESTED, HALTING):
         green = t % 500 < 250
+    elif s == OFF:
+        if seq.button_held():
+            green = red = True
+        elif seq.latch_stuck:
+            red = t % 200 < 100
     if seq.low_warned and s in (RUN, LOCKOUT):
         k = t % 3000
         if k < 600:
@@ -77,7 +85,8 @@ class App:
         self.seq.start()
 
     def step(self):
-        """Returns True when the supervisor should stop and leave for the REPL."""
+        """Returns 'repl' when the supervisor should stop and leave for the REPL, 'reset' when the
+        Pico should restart (the car was switched on again while it was in OFF), else None."""
         seq = self.seq
         for msg in self.link.poll():
             reply = seq.command(msg)
@@ -93,7 +102,11 @@ class App:
         green, red = led_pattern(seq, self.clock.since(seq.t_start))
         self.hw.write('LED_STATUS', green)
         self.hw.write('LED_FAULT', red)
-        return seq.repl_requested
+        if seq.repl_requested:
+            return 'repl'
+        if seq.reset_requested:
+            return 'reset'
+        return None
 
 
 def _file_exists(name):
@@ -135,9 +148,10 @@ def start():
         _write_lockout_flag()
         print('ATLAS supervisor: button held at start-up, staying in the REPL (motor bus off).')
         return
-    cold = hal.cold_start() and not _file_exists(LOCKOUT_FLAG)
-    if _file_exists(LOCKOUT_FLAG):
-        os.remove(LOCKOUT_FLAG)
+    cold = (hal.cold_start() or _file_exists(COLD_FLAG)) and not _file_exists(LOCKOUT_FLAG)
+    for name in (LOCKOUT_FLAG, COLD_FLAG):
+        if _file_exists(name):
+            os.remove(name)
     app = App(hw, clock, hal.UsbSerial(), hal.BmsUart(), cold_start=cold)
     hal.keyboard_interrupt(False)
     wdt = hal.start_watchdog(WATCHDOG_MS)
@@ -145,7 +159,16 @@ def start():
     next_t = time.ticks_ms()
     try:
         while True:
-            if app.step():
+            what = app.step()
+            if what == 'reset':
+                app.seq.make_safe()
+                try:
+                    with open(COLD_FLAG, 'w') as f:
+                        f.write('the car was switched on again\n')
+                except OSError:
+                    pass
+                machine.reset()
+            if what == 'repl':
                 break
             wdt.feed()
             next_t = time.ticks_add(next_t, tick)

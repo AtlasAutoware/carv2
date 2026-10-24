@@ -5,11 +5,11 @@ boards/power/PINMAP.md, which is the single source of truth for the hardware: if
 changes, change PINMAP.md first, then this file. tests/test_pins.py compares this file with
 PINMAP.md and with the Pico's net list in boards/power/design.py whenever they exist.
 
-Two pins differ from the first map of Oct 24, following boards/power/design.py: GP15 is
+Two pins differ from the first map of Oct 24 (PINMAP.md, "Changes from the PHASE2 map"): GP15 is
 CHG_PRESENT_N (an open-collector transistor, low = charger present) instead of an active-high
-divider, and GP22 is DEVKIT_PWR (an output that can switch the dev kit's DC feed off to
-power-cycle a hung Jetson; pulled up, so the dev kit stays on while the Pico is in reset)
-instead of the spare VM_OK input.
+divider, and GP22 is DEVKIT_PWR, an output that can switch the dev kit's DC feed off to
+power-cycle a hung Jetson, instead of the spare VM_OK input. A 10 k pull-up holds GP22 at about
+2.7 V, so the dev kit stays on while the Pico is in reset.
 
 Directions are from the Pico's side. "Safe" levels are what the pins take at start-up and after
 any fault: main switch and precharge off, VESC killed, lidar off, no key presses.
@@ -38,7 +38,7 @@ LED_FAULT = 18              # on-board LED (red)
 ESTOP_OK_TO_JETSON = 19     # J12 pin 33 (Jetson input) through 10 k
 CHG_STAT_N_TO_JETSON = 20   # J12 pin 32 (Jetson input) through 10 k; low = charging
 LIDAR_REQ = 21              # J12 pin 29 (Jetson output) through 100 k pull-down
-DEVKIT_PWR = 22             # Q407 -> dev-kit feed P-FET; high = dev kit powered (47 k pull-up)
+DEVKIT_PWR = 22             # 4.7 k into a 2N3904 that holds the dev-kit feed P-FET on; high = powered (10 k pull-up)
 VM_SENSE = 26               # ADC0: motor bus, 100 k / 18 k divider
 BAT_SENSE = 27              # ADC1: pack bus (taken from VSYS_SW), 100 k / 18 k divider
 FET_NTC = 28                # ADC2: 10 k NTC (Vishay NTCLE100E3103JB0) on the main-switch heatsink, 10 k to 3.3 V

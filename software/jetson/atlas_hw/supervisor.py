@@ -11,7 +11,8 @@ Only one process may read the port, so:
                 the 1 Hz heartbeat, holds JETSON_UP (and LIDAR_REQ) high, writes the latest status
                 to /run/atlas/supervisor.json, logs the Pico's events to the journal, and answers
                 other programs on /run/atlas/supervisor.sock. When it stops it sends "bye", which
-                gives the Jetson's shutdown 120 s before the supervisor stops waiting for HALT.
+                stretches the supervisor's heartbeat timeout to 120 s (after it, with the Jetson
+                still powered, the supervisor presses the power key; it does not cut power).
   DaemonClient  a request through that socket (the CLI and the ROS node use this).
   Link          a direct connection to /dev/atlas_supervisor: the daemon itself, the shutdown hook
                 (the daemon is gone by then), and the CLI when the daemon is not running.
@@ -315,7 +316,7 @@ class Daemon:
         self.server = s
 
     def stop(self):
-        """Say bye (the supervisor then waits up to 120 s for HALT instead of 60 s for a heartbeat)."""
+        """Say bye (the supervisor's heartbeat timeout becomes 120 s instead of 60 s)."""
         if self.link is not None:
             try:
                 self.link.send({'cmd': 'bye'})
