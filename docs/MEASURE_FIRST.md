@@ -32,7 +32,7 @@ towers with the posts through the slots, the deck will too.
 
 Rev B puts the NVIDIA dev-kit carrier on a printed tray over the new power board, the FSESC in a cradle beside the
 motor and the JBD BMS on the pack lid (`mech/NOTES_REVB.md`). Items 17 to 24 come from the Phase 1 mechanical
-report (C, section 9); 25 and 26 are estimates the rev B model added. Each parameter is in `mech/kit.py` unless
+report (C, section 9); 25 to 28 are estimates the rev B model added (28 for the acrylic shield over the FET bar). Each parameter is in `mech/kit.py` unless
 another file is named. Change it, rerun `python3 mech/kit.py` and `python3 mech/extras.py`, and the tray, the cradle,
 the canopy and the cable lengths follow.
 
@@ -48,3 +48,5 @@ the canopy and the cable lengths follow.
 | 24 | `zcat /proc/config.gz \| grep -E 'RTL8152\|LAN78XX\|AX88179'` on the car's JetPack, and the adapter's driver in `ethtool -i`; the adapter's body size and cable length | `USB_ETH` | 50 x 22 x 15 mm body, 180 mm cable (estimates) | which adapter to buy, the NetworkManager match; the dongle stands against the camera arch's left leg |
 | 25 | JBD BMS: outline (160 x 105 x 10 mm in two listings), where B-, P-, the balance connector, the NTC and the UART port leave the board, any heat plate | `BMS`, `BMS_MOUNT`; lead ends in `extras.cable_defs()` | 160 x 105 x 10 mm, standing on edge on the pack lid; all leads assumed at its rear end | the BMS holder and the 10 AWG lead lengths. A board that fits the 138 x 51 mm lid could lie flat instead (`BMS_MOUNT=flat`) |
 | 26 | MIDI 125 A fuse holder size and stud positions; XT90-S plug length with its leads | `MIDI_FUSE_XY`, `MIDI_FUSE_H`; `xt90s_pack` in `boards()` | 60 x 30 x 26 mm holder on the lid (estimate); XT90-S 30 mm out from the board edge | the B+ lead lengths and the space under the dev kit's plugs |
+| 27 | Each laser sheet's real thickness (calipers, several places; "3 mm" acrylic and plywood run 2.7 to 3.2 mm) | `SHEET_T` | 3.0 | the tab-and-slot parts (canopy box, BMS holder) are drawn from it; set it, rerun `kit.py` and `extras.py`, then cut |
+| 28 | FET heatsink bar on the assembled power board: the highest live (BAT+) point above the board | `FET_BAR` (its last number) | 20 mm (TO-220 tabs with about 3 mm of lead) | the acrylic shield hangs 2 mm above it; parts under the shield must stay at `FET_SHIELD_MAX_H` (21 mm) or less |

@@ -12,9 +12,12 @@ of them against the kit and writes `out/extras_report.json`. The cable lengths f
     pip install cadquery ezdxf shapely matplotlib
     python3 kit.py                 # about 1 minute; writes out/ and out/kit_report.json
     UNDER_CLEARANCE=42 python3 kit.py    # any number in P can be overridden the same way
-    POWER_L=130 python3 kit.py     # e.g. the power board's final length from the layout
+    POWER_L=150 python3 kit.py     # e.g. another power board length (the layout's is 130, the default)
+    SHEET_PARTS=all python3 kit.py # check the laser-cut versions in place of the printed ones (also tray,bms,canopy,splices)
     python3 extras.py              # about 2 minutes; canopy, bench stand, plugs and cables, out/extras_report.json
     python3 ../boards/board_outlines.py   # the power board outline, holes, keep-outs and height map
+
+Both scripts also write the laser-cut parts as DXF and SVG profiles to `out/laser/` (see Laser-cut parts below).
 
 ## Rev B (24 October)
 
@@ -28,34 +31,43 @@ calls, the parameters still to measure and the print list. In the model:
   edges where the tray's arms run.
 - A printed **dev-kit tray** stands on the same six holes with M3 x 25 standoffs, so its underside is 25 mm above
   the board. It is a 3 mm frame. The carrier sits on four 7 mm bosses at its own holes (`DEVKIT_HOLES`, not yet
-  measured), with its I/O edge toward the pack. Four pillars on the tray carry the canopy.
+  measured), with its I/O edge toward the pack. The canopy sits on two pillars printed on the tray's rear arms and
+  two M3 standoff stacks over the board's front standoffs (on a board this short the front pillars would sit on the
+  front standoffs' screw heads), plus a printed leg in zone B.
+- A 3 mm **acrylic shield** hangs under the tray over the FET heatsink bar, which is live at pack voltage, because
+  the CF-filled tray conducts.
 - The **FSESC** sits in a printed cradle in the ESC bay beside the motor (x -113 to -35). The right pod's fan
   (x -94 to -54) blows across it, and the motor leads drop straight through a new deck opening at its motor end.
 - The **JBD BMS** (160 x 105 x 10 mm) stands on its long edge in a printed holder on the pack lid's outboard edge.
   It is too big to lie on the 138 x 51 mm lid or to go inside the pack box.
 - The aluminium heat spreader, its deck vents and DXF, the right pod's camera-plug slot and its tie slots are gone.
   The right pod gets windows for the charge USB-C, the debug USB-C and the power button.
+- The default board length is the layout's 130 mm (`boards/power/layout.py`). At 150 mm the board's front-left
+  corner sits inside the lidar's M12 plugs.
 
 ![kit](out/renders/kit_on_chassis.png)
 ![stack](out/renders/stack_revb.png)
 
 ## Last run (24 October, rev B)
 
-- **At the default `POWER_L` of 150 mm**, `kit.py` finds four overlaps, all between the lidar's M12 plug envelope
-  and the front of the power board. The plugs end at x 114.6 (an estimate, MEASURE_FIRST item 12); a 150 mm board
-  reaches x 118, so its front 3.4 mm and its front-left 25 mm standoff sit inside the plugs. `extras.py` then also
-  finds the lidar Ethernet cable running through the board's front. Everything else is clear.
-- **At `POWER_L=130`**, both scripts report zero interference: printed parts, bought parts, the height-map blocks,
-  the chassis keep-outs, the plugs and all 31 cable runs. The lidar plugs end 16.6 mm ahead of the board, which is
-  room for the cables to turn into the board's front-edge terminal and the dongle. The longest clean length found
-  is reported in `NOTES_REVB.md`.
-- In both runs, nothing crosses another cable, and everything that crosses the lidar's scan plane (the camera arch
-  legs, the wing, the tray's pillars, the BMS and its holder, the canopy leg, the dongle, a few cables) sits inside
-  its rear blind sector.
+- **At the default `POWER_L` of 130 mm**, both scripts report zero interference: printed parts, bought parts, the
+  height-map blocks, the acrylic shield, the chassis keep-outs, the plugs and all 31 cable runs. No cable crosses
+  another. The lidar plugs end 16.6 mm ahead of the board.
+- **With `SHEET_PARTS=all`** (laser-cut tray, BMS holder, canopy box and splice plates in place of the printed ones),
+  the result is the same: zero everywhere.
+- **At `POWER_L=150`**, `kit.py` finds four overlaps, all between the lidar's M12 plug envelope and the front of the
+  board (the plugs end at x 114.6, an estimate, MEASURE_FIRST item 12; a 150 mm board reaches x 118), and the lidar
+  Ethernet cable runs through the board's front.
+- Everything that crosses the lidar's scan plane (the camera arch legs, the wing, the tray's pillars, the BMS and its
+  holder, the canopy leg, the dongle, a few cables) sits inside its rear blind sector.
 - Stack heights: power board top z 8.6, tray 33.6 to 36.6, carrier 43.6 to 45.2, fan top 77.2 (32 mm heatsink,
-  unmeasured), canopy underside 85.2 (8 mm over the fan), canopy top 87.6. The carrier's underside parts clear the
-  tray by 1 mm, the tray clears the board's 23 mm parts by 2 mm.
+  unmeasured), canopy posts 48 mm above the tray (top z 84.6), canopy underside 85.6 (8.4 mm over the fan), canopy
+  top 88.0. The carrier's underside parts clear the tray by 1 mm, the tray clears the board's 23 mm parts by 2 mm,
+  and the shield (z 30.6 to 33.6) is 2 mm over the bar's live metal (20 mm high, an estimate, MEASURE_FIRST 28).
 - The pack box is unchanged: inside the battery bay with 2.8 mm under it.
+- Two fixes from this run: the printed canopy's corner radius went from 12 to 6 mm (its inner corner fillet reached
+  the right-hand posts, a 6.5 mm3 overlap that an over-broad "touching by design" list had hidden), and the canopy leg
+  moved to y 44.
 
 ## Parts
 
@@ -80,16 +92,16 @@ gyroid expect about 65 % of it. Everything fits a 250 x 250 bed (Bambu P1S: 256)
 | `pack_lid` | 1 | 138 x 51 x 4 | 27 g | ribs up |
 | `cell_holder_bottom`, `_top` | 1 each | 120 x 40 x 5 | 12 g | pockets up |
 | `post_washer` | 4 | 30 x 30 x 3 | 3 g | body clips sit on these above the deck |
-| `devkit_tray` (rev B) | 1 | 150 x 84 x 51 | 40 g | frame down, bosses and canopy pillars up, no supports. Carries the dev-kit carrier over the power board |
+| `devkit_tray` (rev B) | 1 | 130 x 84 x 51 | 29 g | frame down, bosses and canopy pillars up, no supports. Carries the dev-kit carrier over the power board; or cut it (`laser_devkit_tray`) |
 | `esc_cradle` (rev B) | 1 | 75 x 61 x 9 | 10 g | base down. Placeholder size until the cased FSESC is measured |
 | `bms_fence` (rev B) | 1 | 164 x 17 x 63 | 29 g | base down. Holds the JBD BMS on edge on the pack lid |
-| `canopy_leg` (rev B) | 1 | 14 x 30 x 84 | 14 g | foot down; the canopy's front-left post, on the front joint's two left bolts |
-| `stack_canopy` (extras.py, rev B outline) | 1 | 132 x 129 x 6.4 | 56 g | top face down, no supports; cover over the dev kit and its plugs with the antenna jacks and the fan grille |
+| `canopy_leg` (rev B) | 1 | 14 x 29 x 85 | 13 g | foot down; the canopy's front-left post, on the front joint's two left bolts |
+| `stack_canopy` (extras.py, rev B outline) | 1 | 128 x 129 x 6.4 | 54 g | top face down, no supports; cover over the dev kit and its plugs with the antenna jacks and the fan grille; or cut it as a box (`laser_canopy_*`) |
 | `bench_stand` (extras.py) | 1, PLA | 173 x 123 x 128 | 267 g solid (PETG-CF density) | pad face down; a workshop tool, not on the car |
 
 Total about 1.3 kg solid for the parts on the car, about 0.85 kg of filament as printed. The rev B prints alone
-are about 0.38 kg solid (0.25 kg printed) if a printed rev A `deck_rear` and `deck_front` are converted by hand, and
-0.74 kg solid (0.48 kg printed) if all three deck pieces are reprinted (`NOTES_REVB.md`).
+are about 0.37 kg solid (0.24 kg printed) if a printed rev A `deck_rear` and `deck_front` are converted by hand, and
+0.72 kg solid (0.47 kg printed) if all three deck pieces are reprinted (`NOTES_REVB.md`).
 
 ## Material and settings
 
@@ -110,15 +122,16 @@ its case) on, and no bare copper against the holder.
 
 ## Hardware
 
-- M3 brass heat-set inserts (4.0 mm hole, 5 mm deep), about 36: in the deck for the power board 6, the ESC cradle
+- M3 brass heat-set inserts (4.0 mm hole, 5 mm deep), about 34: in the deck for the power board 6, the ESC cradle
   2, the pack box 6, the camera arch 4, the side pods 5 and the wing 4; in the plinth 4; at the tops of the tray's
-  four pillars and the canopy leg 5. Buy 50.
+  two rear pillars and the canopy leg 3. Buy 50.
 - Deck joints: 24 x M3 socket screws and nylocs through the deck and the four splice plates: 20 x M3 x 12, and
   4 x M3 x 16 where a part shares a joint bolt (the ESC cradle's two outboard tabs at (-90, -60) and (-70, -60),
   the canopy leg's foot at (92, 40) and (92, 60)).
 - Stack: 6 x M3 x 7 mm male-female standoffs from the deck inserts to the power board, and 6 x M3 x 25 mm
-  male-female standoffs whose male ends screw through the power board into the 7 mm ones. 6 x M3 x 8 countersunk
-  screws (ISO 10642) through the tray into the 25 mm standoffs; their heads sit flush, under the carrier.
+  male-female standoffs whose male ends screw through the power board into the 7 mm ones. M3 x 8 countersunk screws
+  (ISO 10642) through the tray into the 25 mm standoffs, heads flush under the carrier: four at a 130 mm board,
+  where the front two standoffs take the canopy's front post stacks instead (six at a 150 mm board).
   4 x M2.5 x 10 thread-forming screws for plastic through the carrier into the tray's bosses (if the carrier's holes
   turn out to be M3, use M3 x 10 and set `DEVKIT_PILOT_D=2.6`).
 - ESC cradle: 2 x M3 x 8 into the new inserts, the 2 shared joint bolts above, 2 zip ties (3.6 mm, 200 mm) over
@@ -126,7 +139,11 @@ its case) on, and no bare copper against the holder.
 - BMS: 2 x M3 x 10 countersunk through the holder's base and the pack lid into the lid's two outboard inserts (they
   replace the lid's own screws there), 4 zip ties round the BMS and the uprights. The MIDI fuse holder goes on the
   lid with VHB tape or two zip ties.
-- Canopy: 5 x M3 x 8 button heads into the tray's pillars and the leg.
+- Canopy: 5 x M3 x 8 button heads into the two rear tray pillars, the leg and the two front posts. The front posts
+  are M3 hex standoffs, 40 mm male-female plus 8 mm male-female: the 40 mm one's male end goes through the tray into
+  the front 25 mm standoff in place of the countersunk screw there.
+- FET shield: 3 mm acrylic (`out/laser/laser_fet_shield.dxf`), 2 x M3 x 10 nylon countersunk screws down through the
+  tray, nylon nuts under the shield.
 - Lidar USB-Ethernet dongle: 2 zip ties round it and the camera arch's left leg.
 - M3 socket screws 6-16 mm for the rest, and the chassis's own body clips over the post washers.
 - Two RP-SMA antennas and two pigtails from the Wi-Fi card to the canopy (20 cm: the routed runs are 104 and 161
@@ -151,13 +168,31 @@ its case) on, and no bare copper against the holder.
    front edges and on its right edge now (ESC XT60 and COMM, FSESC USB, servo, lidar power, camera power, fan,
    E-stop): the tray's arms run over those edges. The ribbon and the J14 harness go onto the board's box header and
    1 x 12 header now as well.
-9. The tray (6 countersunk M3 x 8). Clip the two Wi-Fi pigtails onto the M.2 card and lead them out under the
+9. The acrylic shield under the tray (2 nylon screws, nuts underneath), then the tray (countersunk M3 x 8 at the
+   rear and middle standoffs, the two 40 mm front post standoffs at the front). Clip the two Wi-Fi pigtails onto the M.2 card and lead them out under the
    carrier's I/O edge, then put the carrier on the bosses (4 M2.5 x 10). Ribbon onto J12, harness onto J14 (pin 1
    marked, printed key clip), DC lead, the two USB-A leads (Pico, dongle), the USB-C lead to the hub, the camera's
    RJ45.
 10. Side pods (fan in the right one), wing. The runs are in `docs/WIRING.md`.
 11. Canopy leg (M3 x 16 through the front joint's two left holes), then the canopy (5 x M3 x 8), with the pigtails'
     RP-SMA jacks nutted into its two holes. Screw the antennas on last.
+
+## Laser-cut parts
+
+The school's CO2 laser can cut five rev B parts from 3 mm sheet instead of printing them. `kit.py` and `extras.py`
+write each as a 2D profile to `out/laser/` (DXF with CUT and ENGRAVE layers, and SVG), drawn kerf-neutral with M3
+holes at 3.2 mm:
+
+- `laser_fet_shield`: 3 mm cast acrylic, new, always fitted (the printed tray is CF-filled and conducts; the FET bar
+  under it is at pack voltage);
+- `laser_devkit_tray` (with printed `devkit_spacers` or stacked `laser_spacer_disc`), in place of `devkit_tray`;
+- `laser_bms_base`, `laser_bms_wall_in`, `laser_bms_wall_out`, in place of `bms_fence`;
+- `laser_canopy_top` and four `laser_canopy_skirt_*`, a slot-and-tab box in place of `stack_canopy`;
+- `laser_splice` (4 off), in place of the four splice plates.
+
+`SHEET_T` (the measured sheet thickness, default 3.0) sets every tab and slot; `SHEET_PARTS` swaps the printed parts
+for the sheet ones in the checks. Material, which parts are better cut than printed, the tab and slot sizing rule and
+the parts that stay printed are in [PRINTING.md](PRINTING.md), section "Laser-cut parts".
 
 ## What the model does not know
 

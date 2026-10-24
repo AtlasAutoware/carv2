@@ -19,6 +19,8 @@ Rev B (2026-10-24, NOTES_REVB.md): the rev A drive and brain boards are gone. In
 """
 import os, sys, json, math, itertools
 import cadquery as cq
+from shapely.geometry import box as sbox, Point, Polygon
+from shapely.ops import unary_union
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'out')
@@ -48,7 +50,7 @@ P = dict(
     PACK_X0=-62.0, PACK_Y0=17.0,
     # power board ATLAS-PWR-1 (scratchpad PHASE2.md, fixed facts): board-local X 0..L forward, Y 0..84 toward
     # car left; car (x, y) = (X + POWER_X0, Y + POWER_Y0). L is the agent-D layout's final length.
-    POWER_L=150.0, POWER_W=84.0, POWER_X0=-32.0, POWER_Y0=-68.0, POWER_Z=7.0, PCB_T=1.6,
+    POWER_L=130.0, POWER_W=84.0, POWER_X0=-32.0, POWER_Y0=-68.0, POWER_Z=7.0, PCB_T=1.6,
     POWER_LOW_H=23.0,              # part height limit under the dev-kit tray (board-local X 20..120)
     POWER_TALL_H=35.0,             # limit in the rear strip (X 0..20) and the front strip (X > 120)
     STACK_H=25.0,                  # power PCB top to the tray's underside: M3 x 25 standoffs
@@ -74,7 +76,7 @@ P = dict(
     DEVKIT_J14=(62.0, 92.5, 0.0, 6.0),      # 1 x 12 right-angle header, pins out of the Y = 0 edge (ESTIMATE)
     JETSON_XY=(10.0, 88.0, 8.0, 56.0),      # module + heatsink + fan footprint, dev-kit-local (ESTIMATE, item 18)
     JETSON_SINK_H=32.0,                     # carrier top to fan top (measure, item 18)
-    CANOPY_GAP=8.0,                         # fan top to canopy underside
+    CANOPY_GAP=8.0,                         # minimum fan top to canopy underside (checked)
     # ESC bay beside the motor and the FSESC in its cradle
     ESC_BAY=(-113.0, -35.0, -68.0, -6.0, 35.0),
     ESC_CASE=(71.0, 43.0, 22.7),   # PLACEHOLDER, UNMEASURED: Mini FSESC 6.7 Pro bare 67 x 39 x 18.7 + 2 mm a side (item 21)
@@ -97,6 +99,22 @@ P = dict(
     CAM_LENS_D=31.0, CAM_LENS_L=30.5, CAM_M12_L=48.0, CAM_PITCH=0.0,   # Kowa LM4NCL 3.5 mm: 31 x 30.5 mm, 60 g (machinevisiondirect.com)
     CAM_HOLE_PITCH=(20.0, 20.0),   # ESTIMATE: 4 corner M3 holes on the Triton bottom, confirm on the camera
     USB_ETH=(50.0, 22.0, 15.0),    # lidar USB-Ethernet dongle body L x W x H (ESTIMATE; ZimaSpace RTL8153, 180 mm cable)
+    # FET switch: agent D's layout (boards/power/layout.py, 24 Oct) puts the 40 x 15 x 3 mm heatsink bar, live at BAT+, on
+    # the three IRFB7430 tabs at board-local X 10.54..50.54, Y 62.92..65.92, with the FET bodies just south of it. Live
+    # metal reaches about 20 mm above the board (TO-220 tab tops with about 3 mm of lead; ESTIMATE). (X0, X1, Y0, Y1, h)
+    FET_BAR=(10.54, 50.54, 57.4, 65.92, 20.0),
+    # insulating shield: 3 mm cast acrylic hung under the tray where the tray's CF rails pass over the bar. FET_SHIELD=0
+    # leaves it out. Parts under it must stay at FET_SHIELD_MAX_H or below (1 mm under the shield).
+    FET_SHIELD=1, FET_SHIELD_XY=(20.0, 54.0, 49.0, 72.0), FET_SHIELD_SCREWS=((22.5, 51.0), (25.5, 58.0)),
+    FET_SHIELD_MAX_H=21.0,
+    # laser-cut sheet parts (school CO2 laser: acrylic, plywood, MDF up to about 6 mm). DXF and SVG profiles always go to
+    # out/laser/. SHEET_PARTS picks which printed parts the model replaces with the sheet versions for the checks:
+    # 'none', 'all', or a comma list of tray, bms, canopy, splices. SHEET_T is the MEASURED sheet thickness.
+    SHEET_T=3.0, SHEET_PARTS='none',
+    TAB_L=10.0, SLOT_CLEAR_W=0.1, SLOT_CLEAR_L=0.2,   # tab/slot rule: slot = (SHEET_T + 0.1) x (TAB_L + 0.2), drawn kerf-neutral
+    LASER_HOLE_M3=3.2, LASER_HOLE_M25=2.7,
+    CANOPY_POST_H=48.0,            # tray top to the canopy posts' tops: printed pillars, or M3 hex standoffs 40 + 8 mm
+    CANOPY_SKIRT_H=10.0,           # sheet canopy: skirt depth under the top plate
 )
 for k, v in list(P.items()):
     if k in os.environ:
@@ -122,11 +140,16 @@ M3_CSK = 6.72                    # ISO 10642 M3 countersunk head diameter
 POWER = (P['POWER_X0'], P['POWER_X0'] + P['POWER_L'], P['POWER_Y0'], P['POWER_Y0'] + P['POWER_W'])
 Z_POWER_TOP = P['POWER_Z'] + P['PCB_T']                     # 8.6
 Z_TRAY0 = Z_POWER_TOP + P['STACK_H']                        # 33.6, tray underside
-Z_TRAY1 = Z_TRAY0 + P['TRAY_T']                             # 36.6, tray top
+_sp = str(P['SHEET_PARTS']).strip().lower()
+SHEET = {'tray', 'bms', 'canopy', 'splices'} if _sp == 'all' else ({w.strip() for w in _sp.split(',')} - {'', 'none'})
+Z_TRAY1 = Z_TRAY0 + (P['SHEET_T'] if 'tray' in SHEET else P['TRAY_T'])   # 36.6, tray top
 Z_DEVKIT0 = Z_TRAY1 + P['DEVKIT_BOSS_H']                    # 43.6, carrier underside
 Z_DEVKIT1 = Z_DEVKIT0 + P['DEVKIT_PCB_T']                   # 45.17, carrier top
 Z_SINK_TOP = Z_DEVKIT1 + P['JETSON_SINK_H']                 # 77.17, fan top
-Z_CANOPY = Z_SINK_TOP + P['CANOPY_GAP']                     # 85.17, canopy underside
+# every canopy post (printed pillar or bought standoff stack) ends CANOPY_POST_H above the tray top; the printed canopy
+# has 1 mm pads under its posts, the laser one sits directly on them
+Z_POST_TOP = Z_TRAY1 + P['CANOPY_POST_H']                   # 84.6
+Z_CANOPY = Z_POST_TOP + (0.0 if 'canopy' in SHEET else 1.0) # 85.6, canopy underside (8.4 over the fan)
 
 
 def pw(X, Y):
@@ -278,6 +301,9 @@ def power_zones():
     if L > b:
         Z += [('tall_front', b, L, ARM_BAND, W - ARM_BAND, hi),
               ('low_front_arm_r', b, L, 0.0, ARM_BAND, lo), ('low_front_arm_l', b, L, W - ARM_BAND, W, lo)]
+    if P['FET_SHIELD']:              # under the acrylic shield: 1 mm below it (cut out of the zones it overlaps)
+        a, b, c, d = P['FET_SHIELD_XY']
+        Z.append(('low_shield', a, b, c, d, P['FET_SHIELD_MAX_H']))
     return Z
 
 
@@ -345,15 +371,26 @@ def boards():
     B['power_pcb'] = pcb
     B['power_standoffs_7mm'] = union(*[cylz(x, y, 0, z, 5.5) for (x, y) in POWER_HOLES])
     low, tall = [], []
+    sh = None
+    if P['FET_SHIELD']:
+        a, b = pw(P['FET_SHIELD_XY'][0], P['FET_SHIELD_XY'][2]), pw(P['FET_SHIELD_XY'][1], P['FET_SHIELD_XY'][3])
+        sh = box(a[0], b[0], a[1], b[1], zt - 1, zt + 50)
     for (name, X0, X1, Y0, Y1, h) in power_zones():
         a, b = pw(X0, Y0), pw(X1, Y1)
         blk = box(a[0], b[0], a[1], b[1], zt, zt + h)
         for k in _power_keepouts(zt, zt + h):
             blk = blk.cut(k)
+        if sh is not None and name != 'low_shield' and bb_overlap(blk, sh):
+            blk = blk.cut(sh)
         (low if name.startswith('low') else tall).append(blk)
     B['power_parts_low'] = union(*low)
     B['power_parts_tall'] = union(*tall)
     B['tray_standoffs_25mm'] = union(*[cylz(x, y, zt, Z_TRAY0, 5.5) for (x, y) in POWER_HOLES])
+    fb = P['FET_BAR']
+    a, b = pw(fb[0], fb[2]), pw(fb[1], fb[3])
+    B['fet_bar'] = box(a[0], b[0], a[1], b[1], zt, zt + fb[4])     # heatsink bar + FET tabs, live at BAT+
+    if bought_posts():               # canopy posts that are bought M3 hex standoff stacks (40 + 8 mm)
+        B['canopy_standoffs'] = union(*[cylz(x, y, Z_TRAY1, Z_POST_TOP, 6.35) for (x, y) in bought_posts()])
     # mating plugs at the board's edges: ESC XT60 on the rear edge (cable to the ESC), pack XT90-S on the pack edge
     ey = pw(0, P['ESC_OUT_Y'])[1]
     B['esc_out_plug'] = box(x0 - 16.0, x0, ey - 8.0, ey + 8.0, zt, zt + 9.0)
@@ -461,7 +498,7 @@ ESC_CRADLE_JOINT = [(-90.0, -60.0), (-70.0, -60.0)]
 ESC_CRADLE_INSERTS = [(-104.0, -8.0), (-48.0, -8.0)]
 # canopy leg in zone B (front-left corner of the canopy): a printed post whose foot shares the front joint's two
 # left bolts at (92, 40) and (92, 60) (M3 x 16 through foot, deck and splice plate), so it needs no new inserts
-CANOPY_LEG_XY = (92.0, 50.0)
+CANOPY_LEG_XY = (92.0, 44.0)
 CANOPY_LEG_JOINT = [(92.0, 40.0), (92.0, 60.0)]
 
 
@@ -679,60 +716,101 @@ def side_pod(sy):
 
 # ----------------------------------------------------------------------------- rev B: dev-kit tray
 
+def _front_post():
+    """(x, kind) of the canopy's front posts. Wanted 8 mm ahead of the carrier; when the board's front standoffs are
+    closer than 9 mm to that (boards of about 126 to 141 mm), the post stands on the standoff itself: a bought M3 hex
+    standoff stack whose bottom male thread clamps the tray instead of the countersunk screw ('coaxial')."""
+    want = P['DEVKIT'][1] + 8.0
+    sx = POWER[1] - 4.0
+    if abs(want - sx) < 9.0 and sx > P['DEVKIT'][1] + 4.0:
+        return sx, 'coaxial'
+    return min(want, max(POWER[1], P['DEVKIT'][1] + 13.0) - 5.0), 'pillar'
+
+
 def tray_x1():
-    """the tray's front end: the board's front edge, or 13 mm past the carrier if the board is shorter than that (the
-    tray's arms then overhang the board's front edge, above its front-edge plugs, to carry the front pillars)"""
-    return max(POWER[1], P['DEVKIT'][1] + 13.0)
+    """the tray's front end: the board's front edge, or 13 mm past the carrier if the board is shorter than that and
+    the front posts are printed pillars (the tray's arms then overhang the board's front edge, above its front-edge
+    plugs)"""
+    return POWER[1] if _front_post()[1] == 'coaxial' else max(POWER[1], P['DEVKIT'][1] + 13.0)
+
+
+def canopy_posts():
+    """[(x, y, kind)]: the canopy's posts on the tray, outside the carrier. kind 'pillar' = printed on the tray,
+    'standoff' = bought M3 hex standoffs (all four on a laser-cut tray), 'coaxial' = bought, on a tray standoff"""
+    xr = P['DEVKIT'][0] - 6.0
+    xf, kf = _front_post()
+    yr, yl = POWER[2] + 4.0, POWER[3] - 4.0
+    kr = 'standoff' if 'tray' in SHEET else 'pillar'
+    if 'tray' in SHEET and kf == 'pillar':
+        kf = 'standoff'
+    return [(xr, yr, kr), (xr, yl, kr), (xf, yr, kf), (xf, yl, kf)]
 
 
 def tray_pillars():
-    """canopy posts printed on the tray's edge arms, outside the carrier: (x, y) car"""
-    xr = P['DEVKIT'][0] - 8.0
-    xf = min(P['DEVKIT'][1] + 8.0, tray_x1() - 5.0)
-    yr, yl = POWER[2] + 4.0, POWER[3] - 4.0
-    return [(xr, yr), (xr, yl), (xf, yr), (xf, yl)]
+    """canopy post positions (x, y) car"""
+    return [(x, y) for (x, y, _) in canopy_posts()]
+
+
+def printed_pillars():
+    return [(x, y) for (x, y, k) in canopy_posts() if k == 'pillar']
+
+
+def bought_posts():
+    return [(x, y) for (x, y, k) in canopy_posts() if k != 'pillar']
 
 
 TRAY_PILLAR_D = 10.0
 
 
-def devkit_tray():
-    """Printed frame that carries the dev-kit carrier. It stands on the power board's six holes with M3 x 25
-    standoffs (countersunk M3 x 8 from the top, heads flush) and holds the carrier on four 6 mm bosses at the
-    carrier's own holes (DEVKIT_HOLES, M2.5 thread-forming screws). Rails: a perimeter over the dev kit's shadow
-    (board-local X 20..120), a cross rail at the X 75 standoffs, rails through the carrier's hole lines, and edge arms
-    out to the corner standoffs. Four pillars on the arms carry the canopy. Everything else is open, for air and for
-    the parts under it; all of it sits over the low (23 mm) zones of the power board's height map."""
+def tray_rects():
+    """the tray's rails and edge arms in plan, car (x0, x1, y0, y1): a perimeter over the dev kit's shadow (board-local
+    X 20..120), a cross rail at the X 75 standoffs, rails through the carrier's hole lines, and edge arms out to the
+    corner standoffs. Shared by the printed tray and the laser-cut one."""
     x0, _, y0, y1 = POWER
     x1 = tray_x1()
-    z0, z1 = Z_TRAY0, Z_TRAY1
     r = TRAY_RAIL
     mx0 = pw(LOW_X[0], 0)[0]
     mx1 = pw(min(LOW_X[1], P['POWER_L']), 0)[0]
-    m = [box(mx0, mx1, y0, y0 + r, z0, z1), box(mx0, mx1, y1 - r, y1, z0, z1),
-         box(mx0, mx0 + r, y0, y1, z0, z1), box(mx1 - r, mx1, y0, y1, z0, z1)]
-    # edge arms over the rear and front strips to the corner standoffs
-    m += [box(x0, mx0 + 0.01, y0, y0 + r, z0, z1), box(x0, mx0 + 0.01, y1 - r, y1, z0, z1)]
+    R = [(mx0, mx1, y0, y0 + r), (mx0, mx1, y1 - r, y1), (mx0, mx0 + r, y0, y1), (mx1 - r, mx1, y0, y1),
+         (x0, mx0 + 0.01, y0, y0 + r), (x0, mx0 + 0.01, y1 - r, y1)]
     if x1 > mx1:
-        m += [box(mx1 - 0.01, x1, y0, y0 + r, z0, z1), box(mx1 - 0.01, x1, y1 - r, y1, z0, z1)]
+        R += [(mx1 - 0.01, x1, y0, y0 + r), (mx1 - 0.01, x1, y1 - r, y1)]
     cx = pw(75.0, 0)[0]
-    m.append(box(cx - r / 2, cx + r / 2, y0, y1, z0, z1))
+    R.append((cx - r / 2, cx + r / 2, y0, y1))
     for (hx, hy) in DEVKIT_HOLES_CAR:
-        m.append(box(mx0, mx1, max(y0, hy - r / 2), min(y1, hy + r / 2), z0, z1))
-        m.append(box(max(mx0, hx - r / 2), min(mx1, hx + r / 2), y0, y1, z0, z1))
+        R.append((mx0, mx1, max(y0, hy - r / 2), min(y1, hy + r / 2)))
+        R.append((max(mx0, hx - r / 2), min(mx1, hx + r / 2), y0, y1))
+    return R
+
+
+def fet_shield_screws_car():
+    return [pw(X, Y) for (X, Y) in P['FET_SHIELD_SCREWS']] if P['FET_SHIELD'] else []
+
+
+def devkit_tray():
+    """Printed frame that carries the dev-kit carrier. It stands on the power board's six holes with M3 x 25
+    standoffs (countersunk M3 x 8 from the top, heads flush) and holds the carrier on four 6 mm bosses at the
+    carrier's own holes (DEVKIT_HOLES, M2.5 thread-forming screws). Rails as in tray_rects(). Four pillars on the
+    arms carry the canopy. Everything else is open, for air and for the parts under it; all of it sits over the low
+    (23 mm) zones of the power board's height map. Two more countersunk holes take the acrylic FET shield's screws."""
+    x0, _, y0, y1 = POWER
+    x1 = tray_x1()
+    z0 = Z_TRAY0
+    z1 = Z_TRAY0 + P['TRAY_T']
+    m = [box(a, b, c, d, z0, z1) for (a, b, c, d) in tray_rects()]
     pads = [cylz(x, y, z0, z1, 10.0) for (x, y) in POWER_HOLES]
     pads += [cylz(x, y, z0, z1, 12.0) for (x, y) in DEVKIT_HOLES_CAR]
     bosses = [cylz(x, y, z1 - 0.01, z1 + P['DEVKIT_BOSS_H'], P['DEVKIT_BOSS_D']) for (x, y) in DEVKIT_HOLES_CAR]
-    pillars = [cylz(x, y, z1 - 0.01, Z_CANOPY - 1.0, TRAY_PILLAR_D) for (x, y) in tray_pillars()]
+    pillars = [cylz(x, y, z1 - 0.01, Z_POST_TOP, TRAY_PILLAR_D) for (x, y) in printed_pillars()]
     t = union(*m, *pads, *bosses, *pillars)
     # keep the tray inside the board outline (pads at the corner holes would overhang)
     t = t.intersect(box(x0, x1, y0, y1, z0 - 1, Z_CANOPY + 1))
-    for (x, y) in POWER_HOLES:
+    for (x, y) in POWER_HOLES + fet_shield_screws_car():
         t = t.cut(csk_hole(x, y, z1, P['TRAY_T']))
     for (x, y) in DEVKIT_HOLES_CAR:
         t = t.cut(cylz(x, y, z0 - 1, z1 + P['DEVKIT_BOSS_H'] + 1, P['DEVKIT_PILOT_D']))
-    for (x, y) in tray_pillars():
-        t = t.cut(cylz(x, y, Z_CANOPY - 1.0 - 6.0, Z_CANOPY, M3_INSERT))       # M3 insert at the top for the canopy
+    for (x, y) in printed_pillars():
+        t = t.cut(cylz(x, y, Z_POST_TOP - 6.0, Z_POST_TOP + 1.0, M3_INSERT))     # M3 insert at the top for the canopy
     return t
 
 
@@ -779,7 +857,10 @@ def bms_place():
         return (-Lb / 2, Lb / 2, cy - Wb / 2, cy + Wb / 2, Z_LID_TOP + 2.0, Z_LID_TOP + 2.0 + Tb)
     # on its long edge along x, against the outboard (left) edge of the lid, inboard of the left pod (y 76)
     yo = POD['y_in'] - 5.0                  # 71: outboard face
-    return (-Lb / 2, Lb / 2, yo - Tb, yo, Z_LID_TOP + 3.0, Z_LID_TOP + 3.0 + Wb)
+    if 'bms' in SHEET:                      # the laser holder's base needs 2.5 mm outboard of its wall (closed slots)
+        yo -= 2.5
+    bt = P['SHEET_T'] if 'bms' in SHEET else 3.0            # holder base thickness
+    return (-Lb / 2, Lb / 2, yo - Tb, yo, Z_LID_TOP + bt, Z_LID_TOP + bt + Wb)
 
 
 def bms_solid():
@@ -920,14 +1001,243 @@ def canopy_leg():
     """Printed post from the deck in zone B to the canopy's front-left corner: a 12 mm column on a 14 x 30 mm foot
     that takes the front joint's two left bolts (M3 x 16), an M3 insert at the top for the canopy screw."""
     x, y = CANOPY_LEG_XY
-    foot = box(x - 7, x + 7, y - 15, y + 15, 0, 4).edges('|Z').fillet(3)
-    col = cylz(x, y, 3.99, Z_CANOPY - 1.0, 12.0)
-    gus = [box(x - 1.5, x + 1.5, y - 14, y + 14, 3.99, 16.0), box(x - 6.5, x + 6.5, y - 1.5, y + 1.5, 3.99, 16.0)]
+    ya, yb = min(b[1] for b in CANOPY_LEG_JOINT) - 5.0, max(b[1] for b in CANOPY_LEG_JOINT) + 3.5
+    foot = box(x - 7, x + 7, ya, yb, 0, 4).edges('|Z').fillet(3)
+    col = cylz(x, y, 3.99, Z_POST_TOP, 12.0)
+    gus = [box(x - 1.5, x + 1.5, ya + 1, yb - 1, 3.99, 16.0), box(x - 6.5, x + 6.5, y - 1.5, y + 1.5, 3.99, 16.0)]
     g = union(foot, col, *gus)
     for (ix, iy) in CANOPY_LEG_JOINT:
         g = g.cut(cylz(ix, iy, -1, 20, M3_CLEAR)).cut(cylz(ix, iy, 4.0, 20, M3_HEAD + 0.6))
-    g = g.cut(cylz(x, y, Z_CANOPY - 1.0 - 6.0, Z_CANOPY, M3_INSERT))
+    g = g.cut(cylz(x, y, Z_POST_TOP - 6.0, Z_POST_TOP + 1.0, M3_INSERT))
     return g
+
+
+# ----------------------------------------------------------------------------- laser-cut sheet parts
+# Each sheet part is a 2D profile (shapely, mm) cut from SHEET_T sheet, drawn kerf-neutral (nominal sizes; the laser's
+# kerf of about 0.1-0.2 mm adds clearance to every hole and slot and takes it off every outline and tab). M3 holes are
+# 3.2 mm. Tab/slot rule: tabs TAB_L long and SHEET_T deep; slots (SHEET_T + SLOT_CLEAR_W) x (TAB_L + SLOT_CLEAR_L);
+# at least two tabs per edge, at most 40 mm apart, the end ones 8 mm in from the corners. Holes that must take a
+# countersunk head are cut at 3.2 mm and countersunk by hand (a laser cannot).
+LASER_DIR = os.path.join(OUT, 'laser')
+
+
+class Sheet:
+    """a laser-cut part: `poly` (outline with any non-circular holes), `circles` [(x, y, d)], `engrave`
+    [(text, x, y, height)] in its own 2D frame; `place` maps the extruded profile into the car"""
+
+    def __init__(self, name, poly, circles=(), engrave=(), material='', qty=1, place=None, note=''):
+        self.name, self.poly, self.circles, self.engrave = name, poly, list(circles), list(engrave)
+        self.material, self.qty, self.place, self.note = material, qty, place, note
+
+    def cut_poly(self):
+        if not self.circles:
+            return self.poly
+        return self.poly.difference(unary_union([Point(x, y).buffer(d / 2, 24) for (x, y, d) in self.circles]))
+
+    def solid(self):
+        s = poly_solid(self.cut_poly(), P['SHEET_T'])
+        return self.place(s) if self.place else s
+
+
+def _clean_ring(coords):
+    """drop repeated and near-repeated points (shapely unions leave zero-length edges OCC cannot make faces from)"""
+    pts = []
+    for p in coords[:-1]:
+        if not pts or math.dist(p, pts[-1]) > 1e-3:
+            pts.append(p)
+    if len(pts) > 1 and math.dist(pts[0], pts[-1]) <= 1e-3:
+        pts.pop()
+    return pts
+
+
+def poly_solid(poly, t):
+    poly = poly.simplify(0.002)
+    polys = [poly] if poly.geom_type == 'Polygon' else list(poly.geoms)
+    out = None
+    for pg in polys:
+        sol = cq.Workplane('XY').polyline(_clean_ring(list(pg.exterior.coords))).close().extrude(t)
+        hs = [cq.Workplane('XY').polyline(_clean_ring(list(r.coords))).close().extrude(t + 2).translate((0, 0, -1)) for r in pg.interiors]
+        if hs:
+            sol = sol.cut(union(*hs))
+        out = sol if out is None else out.union(sol)
+    return out
+
+
+def at_z(z0):
+    """a horizontal sheet whose 2D frame is car (x, y), bottom face at z0"""
+    return lambda s: s.translate((0, 0, z0))
+
+
+def in_xz(y_lo):
+    """a vertical sheet whose 2D frame is car (x, z), occupying y_lo..y_lo + SHEET_T"""
+    return lambda s: s.rotate((0, 0, 0), (1, 0, 0), 90).translate((0, y_lo + P['SHEET_T'], 0))
+
+
+def in_yz(x_lo):
+    """a vertical sheet whose 2D frame is car (y, z), occupying x_lo..x_lo + SHEET_T"""
+    return lambda s: s.rotate((0, 0, 0), (1, 0, 0), 90).rotate((0, 0, 0), (0, 0, 1), 90).translate((x_lo, 0, 0))
+
+
+def tab_centres(a, b, pitch=40.0, end=8.0):
+    """tab centres along an edge from a to b"""
+    L = P['TAB_L']
+    span = (b - a) - 2 * end - L
+    n = max(2, int(span // pitch) + 2) if span > 0 else 1
+    if n == 1:
+        return [(a + b) / 2]
+    return [a + end + L / 2 + i * span / (n - 1) for i in range(n)]
+
+
+def slot(c, band0, along_x=True):
+    """slot for a tab centred at c along an edge whose sheet band starts at band0 (a SHEET_T wide band)"""
+    w, l = P['SHEET_T'] + P['SLOT_CLEAR_W'], P['TAB_L'] + P['SLOT_CLEAR_L']
+    m = band0 + P['SHEET_T'] / 2
+    return sbox(c - l / 2, m - w / 2, c + l / 2, m + w / 2) if along_x else sbox(m - w / 2, c - l / 2, m + w / 2, c + l / 2)
+
+
+def tabs_on(edge_v, a, b, up=True):
+    """tabs (SHEET_T deep) on a horizontal edge at v = edge_v of a vertical plate, between u = a and b"""
+    t = P['SHEET_T']
+    return [sbox(c - P['TAB_L'] / 2, edge_v if up else edge_v - t, c + P['TAB_L'] / 2, edge_v + t if up else edge_v)
+            for c in tab_centres(a, b)]
+
+
+def sheet_devkit_tray():
+    """the dev-kit tray as one 3 mm sheet: the printed tray's frame, flat, with pads at every hole. The carrier stands on
+    four DEVKIT_BOSS_H spacers (printed devkit_spacers, glued on, M2.5 thread-forming screws from the top; or three
+    stacked laser_spacer_disc each, which makes 9 mm). The canopy posts are M3 hex standoffs (CANOPY_POST_H)."""
+    x0, _, y0, y1 = POWER
+    rects = [sbox(a, c, b, d) for (a, b, c, d) in tray_rects()]
+    pads = [Point(p).buffer(5.0, 24) for p in POWER_HOLES] + [Point(p).buffer(6.0, 24) for p in DEVKIT_HOLES_CAR]
+    pads += [Point(p).buffer(4.5, 24) for p in tray_pillars()]      # 9 mm: stays out of the rear and front 35 mm strips
+    poly = unary_union(rects + pads).intersection(sbox(x0, y0, tray_x1(), y1))
+    hm3 = P['LASER_HOLE_M3']
+    circles = [(x, y, hm3) for (x, y) in POWER_HOLES + fet_shield_screws_car()]
+    circles += [(x, y, hm3) for (x, y) in tray_pillars() if min(math.dist((x, y), h) for h in POWER_HOLES) > 1.0]
+    circles += [(x, y, P['LASER_HOLE_M25']) for (x, y) in DEVKIT_HOLES_CAR]
+    return Sheet('laser_devkit_tray', poly, circles, [], '3 mm laser-grade birch plywood (or 3 mm cast acrylic)', 1,
+                 at_z(Z_TRAY0), 'countersink the six standoff holes and the two shield-screw holes by hand (90 deg, 6.7 mm)')
+
+
+def devkit_spacers():
+    """printed spacers for the sheet tray: 8 mm round, DEVKIT_BOSS_H tall, M2.5 pilot, glued to the sheet"""
+    return union(*[cylz(x, y, Z_TRAY1, Z_TRAY1 + P['DEVKIT_BOSS_H'], 8.0).cut(
+        cylz(x, y, Z_TRAY1 - 1, Z_TRAY1 + P['DEVKIT_BOSS_H'] + 1, P['DEVKIT_PILOT_D'])) for (x, y) in DEVKIT_HOLES_CAR])
+
+
+def sheet_spacer_disc():
+    return Sheet('laser_spacer_disc', Point(0, 0).buffer(4.0, 48), [(0.0, 0.0, P['LASER_HOLE_M25'])], [],
+                 '3 mm cast acrylic or birch plywood', 12, None,
+                 'alternative to the printed spacers: 3 per carrier hole = 9 mm, so set DEVKIT_BOSS_H=9 (carrier 2 mm higher)')
+
+
+def sheet_fet_shield():
+    """3 mm acrylic plate hung under the tray, between the BAT+ heatsink bar and the tray's CF rails"""
+    X0, X1, Y0, Y1 = P['FET_SHIELD_XY']
+    a, b = pw(X0, Y0), pw(X1, Y1)
+    poly = sbox(a[0], a[1], b[0], b[1]).buffer(-2.0).buffer(2.0, 12)
+    circles = [(x, y, P['LASER_HOLE_M3']) for (x, y) in fet_shield_screws_car()]
+    eng = [('BAT+ BELOW', (a[0] + b[0]) / 2 + 3.0, (a[1] + b[1]) / 2 + 4.0, 3.0)]
+    return Sheet('laser_fet_shield', poly, circles, eng, '3 mm cast acrylic (PMMA) only', 1, at_z(Z_TRAY0 - P['SHEET_T']),
+                 '2 x M3 x 10 nylon countersunk screws from the tray top, nylon nuts under the shield')
+
+
+def sheet_bms():
+    """the BMS holder as three 3 mm sheets: a base on the lid with two rows of slots, an inboard channel wall and an
+    outboard wall whose two ears are the uprights; tabs into the base, glue. Same lid screws as the printed holder."""
+    bx0, bx1, by0, by1, bz0, bz1 = bms_place()
+    t, c = P['SHEET_T'], 0.3
+    yi, yo = by0 - c - t, by1 + c + t
+    xa, xb = bx0 - 2.0, bx1 + 2.0
+    zb = Z_LID_TOP + t                                           # base top
+    cs = tab_centres(xa, xb)
+    base = sbox(xa, yi - 2.5, xb, yo + 2.5).difference(unary_union([slot(cc, yi) for cc in cs] + [slot(cc, yo - t) for cc in cs]))
+    base_c = [(x, y, P['LASER_HOLE_M3']) for (x, y) in PACK_SCREWS[4:]]
+    S = {'laser_bms_base': Sheet('laser_bms_base', base, base_c, [('FRONT >', xb - 20, (yi + yo) / 2, 3.0)],
+                                 '3 mm birch plywood or cast acrylic', 1, at_z(Z_LID_TOP),
+                                 'countersink the two lid-screw holes by hand; the BMS edge sits over them')}
+    wall_h = 12.0
+    w_in = unary_union([sbox(xa, zb, xb, zb + wall_h)] + tabs_on(zb, xa, xb, up=False))
+    S['laser_bms_wall_in'] = Sheet('laser_bms_wall_in', w_in, [], [], '3 mm birch plywood or cast acrylic', 1, in_xz(yi))
+    ears = []
+    for xu in (-50.0, 50.0):
+        e = sbox(xu - 6.0, zb, xu + 6.0, Z_LID_TOP + 63.0)
+        for zn in (Z_LID_TOP + 30.0, Z_LID_TOP + 55.0):         # zip-tie notches on both sides of each ear
+            e = e.difference(sbox(xu - 7.0, zn - 2.0, xu - 4.6, zn + 2.0)).difference(sbox(xu + 4.6, zn - 2.0, xu + 7.0, zn + 2.0))
+        ears.append(e)
+    w_out = unary_union([sbox(xa, zb, xb, zb + wall_h)] + ears + tabs_on(zb, xa, xb, up=False))
+    S['laser_bms_wall_out'] = Sheet('laser_bms_wall_out', w_out, [], [], '3 mm birch plywood or cast acrylic', 1, in_xz(yo - t))
+    return S
+
+
+def sheet_splices():
+    """one profile for the four splice plates (the left and right plates are the same part turned over)"""
+    out = {}
+    for (name, jx, (y0, y1)) in (('splice_rear_right', P['JOINTS'][0], SPLICE_Y[0]), ('splice_rear_left', P['JOINTS'][0], SPLICE_Y[1]),
+                                 ('splice_front_right', P['JOINTS'][1], SPLICE_Y[0]), ('splice_front_left', P['JOINTS'][1], SPLICE_Y[1])):
+        poly = sbox(jx - P['SPLICE_L'] / 2, y0, jx + P['SPLICE_L'] / 2, y1).buffer(-3.0).buffer(3.0, 12)
+        circles = [(x, y, P['LASER_HOLE_M3']) for (x, y) in JOINT_BOLTS if abs(x - jx) < P['SPLICE_L'] and y0 < y < y1]
+        out[name] = Sheet('laser_splice', poly, circles, [], '3 mm laser-grade birch plywood (not acrylic, not MDF)', 4,
+                          at_z(-DT - P['SHEET_T']))
+    return out
+
+
+def kit_sheets():
+    """every laser-cut part kit.py knows (the canopy box is in extras.py)"""
+    S = {'laser_devkit_tray': sheet_devkit_tray(), 'laser_spacer_disc': sheet_spacer_disc()}
+    if P['FET_SHIELD']:
+        S['laser_fet_shield'] = sheet_fet_shield()
+    if P['BMS_MOUNT'] == 'edge':
+        S.update(sheet_bms())
+    sp = sheet_splices()
+    S['laser_splice'] = sp['splice_rear_right']
+    return S, sp
+
+
+def _rings(poly):
+    polys = [poly] if poly.geom_type == 'Polygon' else list(poly.geoms)
+    for pg in polys:
+        yield list(pg.exterior.coords)
+        for r in pg.interiors:
+            yield list(r.coords)
+
+
+def export_laser(sheets):
+    """DXF (layers CUT and ENGRAVE, mm) and SVG (red hairline = cut, black text = engrave) for each sheet part, each in
+    its own frame moved to start at (0, 0). Returns the part list for the report."""
+    import ezdxf
+    os.makedirs(LASER_DIR, exist_ok=True)
+    info = []
+    for name, sh in sheets.items():
+        minx, miny, maxx, maxy = sh.poly.bounds
+        W, H = maxx - minx, maxy - miny
+        doc = ezdxf.new('R2010')
+        doc.units = ezdxf.units.MM
+        doc.layers.add('CUT', color=1)
+        doc.layers.add('ENGRAVE', color=5)
+        msp = doc.modelspace()
+        paths = []
+        for ring in _rings(sh.poly):
+            pts = [(x - minx, y - miny) for (x, y) in ring[:-1]]
+            msp.add_lwpolyline(pts, close=True, dxfattribs={'layer': 'CUT'})
+            paths.append('M ' + ' L '.join(f'{x:.3f} {H - y:.3f}' for (x, y) in pts) + ' Z')
+        circ = []
+        for (x, y, d) in sh.circles:
+            msp.add_circle((x - minx, y - miny), d / 2, dxfattribs={'layer': 'CUT'})
+            circ.append(f'<circle cx="{x - minx:.3f}" cy="{H - (y - miny):.3f}" r="{d / 2:.3f}" fill="none" stroke="#ff0000" stroke-width="0.1"/>')
+        txt = []
+        for (text, x, y, h) in sh.engrave:
+            msp.add_text(text, height=h, dxfattribs={'layer': 'ENGRAVE'}).set_placement((x - minx, y - miny), align=ezdxf.enums.TextEntityAlignment.MIDDLE_CENTER)
+            txt.append(f'<text x="{x - minx:.3f}" y="{H - (y - miny):.3f}" font-family="DejaVu Sans" font-size="{h:.2f}" '
+                       f'text-anchor="middle" dominant-baseline="middle" fill="#000000">{text}</text>')
+        doc.saveas(os.path.join(LASER_DIR, f'{name}.dxf'))
+        svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W:.3f}mm" height="{H:.3f}mm" viewBox="0 0 {W:.3f} {H:.3f}">\n'
+               f'<path d="{" ".join(paths)}" fill="none" stroke="#ff0000" stroke-width="0.1"/>\n' + '\n'.join(circ + txt) + '\n</svg>\n')
+        with open(os.path.join(LASER_DIR, f'{name}.svg'), 'w') as f:
+            f.write(svg)
+        info.append(dict(name=name, material=sh.material, sheet_t=P['SHEET_T'], size_mm=[round(W, 1), round(H, 1)], qty=sh.qty,
+                         holes=len(sh.circles), note=sh.note))
+    return info
 
 
 # ----------------------------------------------------------------------------- build + checks
@@ -960,7 +1270,22 @@ def build():
     parts['cell_holder_top'] = holder_t
     extras = dict(post_washer=post_washer(), fit_coupon_front=fit_coupon(deck, 'front'), fit_coupon_rear=fit_coupon(deck, 'rear'),
                   camera_cradle_down5=camera_cradle(-5.0), camera_cradle_down10=camera_cradle(-10.0))
-    return S, comps, parts, extras, dict(scan_z=scan_z, lidar_top=lidar_top, arch_top=ARCH_TOP)
+    # laser-cut parts: the FET shield is always fitted; SHEET_PARTS swaps printed parts for their sheet versions
+    sheets, splices = kit_sheets()
+    if P['FET_SHIELD']:
+        parts['laser_fet_shield'] = sheets['laser_fet_shield'].solid()
+    if 'tray' in SHEET:
+        del parts['devkit_tray']
+        parts['laser_devkit_tray'] = sheets['laser_devkit_tray'].solid()
+        parts['devkit_spacers'] = devkit_spacers()
+    if 'bms' in SHEET and P['BMS_MOUNT'] == 'edge':
+        del parts['bms_fence']
+        for k in ('laser_bms_base', 'laser_bms_wall_in', 'laser_bms_wall_out'):
+            parts[k] = sheets[k].solid()
+    if 'splices' in SHEET:
+        for k, sh in splices.items():
+            parts[k] = sh.solid()                                # same names, so the checks and joints are unchanged
+    return S, comps, parts, extras, dict(scan_z=scan_z, lidar_top=lidar_top, arch_top=ARCH_TOP, sheets=sheets)
 
 
 def bb_overlap(a, b, pad=0.0):
@@ -985,7 +1310,8 @@ TOUCH = {frozenset(p) for p in (
     ('power_pcb', 'power_parts_low'), ('power_pcb', 'power_parts_tall'),
     ('devkit_pcb', 'devkit_bottom_parts'), ('devkit_pcb', 'jetson_module_and_sink'), ('devkit_pcb', 'devkit_io'),
     ('devkit_pcb', 'devkit_headers'), ('devkit_io', 'devkit_plugs'), ('devkit_headers', 'devkit_header_plugs'),
-    ('devkit_pcb', 'devkit_header_plugs'))}
+    ('devkit_pcb', 'devkit_header_plugs'), ('fet_bar', 'power_parts_low'), ('fet_bar', 'power_parts_tall'),
+    ('fet_bar', 'power_pcb'))}
 
 
 def checks(S, comps, parts, info):
@@ -1064,7 +1390,7 @@ PRINT_ORIENT = dict(deck_front=((1, 0, 0), 180), deck_mid=((1, 0, 0), 180), deck
                     camera_arch=(None, 0), camera_cradle=(None, 0), side_pod_left=((1, 0, 0), 180), side_pod_right=((1, 0, 0), 180),
                     wing_strut_left=((1, 0, 0), 90), wing_strut_right=((1, 0, 0), -90), wing_blade=((1, 0, 0), 180),
                     pack_box=((1, 0, 0), 180), pack_lid=((1, 0, 0), 180), cell_holder_bottom=(None, 0), cell_holder_top=((1, 0, 0), 180),
-                    devkit_tray=(None, 0), esc_cradle=(None, 0), bms_fence=(None, 0), canopy_leg=(None, 0))
+                    devkit_tray=(None, 0), esc_cradle=(None, 0), bms_fence=(None, 0), canopy_leg=(None, 0), devkit_spacers=(None, 0))
 
 
 def export(parts, comps, S, extras):
@@ -1077,6 +1403,9 @@ def export(parts, comps, S, extras):
         cq.exporters.export(p, os.path.join(OUT, 'step', f'{name}.step'))
         cq.exporters.export(q, os.path.join(OUT, 'stl', f'{name}.stl'), tolerance=0.05, angularTolerance=0.15)
     for name, p in parts.items():
+        if name.startswith('laser_') or (name.startswith('splice_') and 'splices' in SHEET):
+            cq.exporters.export(p, os.path.join(OUT, 'step', f'{name}.step'))      # cut, not printed: DXF/SVG in out/laser
+            continue
         ax, ang = PRINT_ORIENT.get(name, (None, 0))
         q = p
         if ax:
@@ -1130,6 +1459,7 @@ if __name__ == '__main__':
     S, comps, parts, extras, info = build()
     rows, pack_in_bay, fov = checks(S, comps, parts, info)
     res = export(parts, comps, S, extras)
+    laser = export_laser(info['sheets'])
     renders(parts, comps, S)
     keys = ('devkit_bottom_over_tray_mm', 'tray_over_power_low_parts_mm', 'devkit_bottom_over_power_parts_mm',
             'lidar_plug_ends_ahead_of_power_board_mm', 'esc_case_xyz', 'esc_case_to_pod_inner_wall_mm',
@@ -1140,10 +1470,17 @@ if __name__ == '__main__':
                             sink_top=round(Z_SINK_TOP, 2), canopy_underside=round(Z_CANOPY, 2)),
                power_board=dict(outline_car=POWER, holes_car=POWER_HOLES, holes_local=POWER_HOLES_LOCAL,
                                 servo_notch_local=servo_notch_local(), zones_local=power_zones()),
-               devkit_holes_car=DEVKIT_HOLES_CAR, tray_pillars=tray_pillars(),
-               **{k: info[k] for k in keys}, interference=rows, lidar_plane=fov, parts=res)
+               devkit_holes_car=DEVKIT_HOLES_CAR, canopy_posts=canopy_posts(), sheet_parts_in_checks=sorted(SHEET),
+               canopy_over_fan_mm=round(Z_CANOPY - Z_SINK_TOP, 2), canopy_gap_ok=bool(Z_CANOPY - Z_SINK_TOP >= P['CANOPY_GAP']),
+               fet_shield=dict(on=bool(P['FET_SHIELD']), shield_z=[round(Z_TRAY0 - P['SHEET_T'], 2), Z_TRAY0],
+                               live_metal_top_z=round(Z_POWER_TOP + P['FET_BAR'][4], 2),
+                               gap_bar_to_shield_mm=round(Z_TRAY0 - P['SHEET_T'] - Z_POWER_TOP - P['FET_BAR'][4], 2)),
+               **{k: info[k] for k in keys}, interference=rows, lidar_plane=fov, parts=res, laser=laser)
     with open(os.path.join(OUT, 'kit_report.json'), 'w') as f:
         json.dump(rep, f, indent=1, default=str)
-    print(json.dumps({k: rep[k] for k in ('scan_plane_z', 'lidar_top_z', 'camera_axis_z', 'pack_box_z', 'pack_in_bay', 'stack_z') + keys + ('interference', 'lidar_plane')}, indent=1, default=str))
+    print(json.dumps({k: rep[k] for k in ('scan_plane_z', 'lidar_top_z', 'camera_axis_z', 'pack_box_z', 'pack_in_bay', 'stack_z',
+                                         'sheet_parts_in_checks', 'fet_shield') + keys + ('interference', 'lidar_plane')}, indent=1, default=str))
+    for l in laser:
+        print(f"laser {l['name']:22s} {l['size_mm']} mm x{l['qty']}  {l['material']}")
     for k, v in res.items():
         print(f'{k:22s} bed {v["bed_xyz"]}  {v["volume_cm3"]:7.1f} cm3  ~{v["mass_g_solid_petgcf"]:.0f} g solid  fits250={v["fits_250_bed"]}  solids={v["solids"]}')

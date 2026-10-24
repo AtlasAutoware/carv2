@@ -32,7 +32,9 @@ import cadquery as cq
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import kit  # noqa: E402
+from shapely.geometry import Polygon  # noqa: E402
 from kit import P, box, cylz, cyl, union, volume, n_solids, inter, bb_overlap, M3_CLEAR, pw, dk  # noqa: E402
+from kit import Sheet, sbox, Point, unary_union, at_z, in_xz, in_yz, tab_centres, slot, tabs_on  # noqa: E402
 
 OUT = kit.OUT
 
@@ -42,15 +44,16 @@ Z_TRAY_TOP = kit.Z_TRAY1                        # 36.6
 Z_DEVKIT_BOT = kit.Z_DEVKIT0                    # 43.6
 Z_DEVKIT_TOP = kit.Z_DEVKIT1                    # 45.17
 Z_SINK_TOP = kit.Z_SINK_TOP                     # 77.17, top of the dev kit's heatsink and fan
-Z_CANOPY = kit.Z_CANOPY                         # 85.17, canopy underside: CANOPY_GAP over the fan
+Z_CANOPY = kit.Z_CANOPY                         # 85.6, canopy underside: 8.4 mm over the fan
 
 # ----------------------------------------------------------------------------- canopy
-CANOPY_T = 2.4
-CANOPY_LIP = 4.0                # stiffening lip hanging down around the edge
+SHEET_CANOPY = 'canopy' in kit.SHEET
+CANOPY_T = P['SHEET_T'] if SHEET_CANOPY else 2.4
+CANOPY_LIP = 4.0                # stiffening lip hanging down around the edge (printed canopy)
 CANOPY_POSTS = kit.tray_pillars() + [kit.CANOPY_LEG_XY]
 _px = [p[0] for p in kit.tray_pillars()]
 CANOPY_XY = (min(_px) - 8.0, max(_px) + 8.0, kit.POWER[2] - 4.0, 57.0)   # y1: 1.3 mm inboard of the BMS holder
-CANOPY_R = 12.0
+CANOPY_R = 6.0                  # (12 until 24 Oct: its inner corner fillet reached the right-hand posts)
 _j = P['JETSON_XY']
 JETSON_BOX = (dk(_j[0], 0)[0], dk(_j[1], 0)[0], dk(0, _j[2])[1], dk(0, _j[3])[1])
 FAN_C = ((JETSON_BOX[0] + JETSON_BOX[1]) / 2, (JETSON_BOX[2] + JETSON_BOX[3]) / 2)
@@ -59,6 +62,59 @@ GRILLE_R = 25.0                 # hex grille over the dev-kit fan (about 40 mm)
 ANTENNAS = [(CANOPY_XY[0] + 7.0, -4.0), (CANOPY_XY[0] + 7.0, -50.0)]
 RPSMA_HOLE, RPSMA_FLAT = 6.5, 5.8
 ANTENNA_L = 120.0               # Bingfu 3 dBi dual-band swivel dipole (Amazon B082SHKT3Q), 12 cm
+# laser-cut canopy: a slot-and-tab box in SHEET_T sheet. The skirts stand 2.5 mm in from the top plate's edge so the
+# slots are closed, which makes the box 4 mm bigger a side than the printed canopy and keeps 1.5 mm from the posts.
+SHEET_CANOPY_XY = (CANOPY_XY[0] - 4.0, CANOPY_XY[1] + 4.0, CANOPY_XY[2] - 4.0, CANOPY_XY[3])
+SKIRT_INSET = 2.5
+
+
+def grille_holes():
+    af, pitch = 5.0, 6.6
+    cx, cy = FAN_C
+    holes = []
+    rows = int(GRILLE_R / (pitch * math.sqrt(3) / 2)) + 1
+    for j in range(-rows, rows + 1):
+        yy = cy + j * pitch * math.sqrt(3) / 2
+        off = (pitch / 2) if j % 2 else 0.0
+        for i in range(-6, 7):
+            xx = cx + i * pitch + off
+            if math.hypot(xx - cx, yy - cy) <= GRILLE_R - af / 2:
+                holes.append((xx, yy))
+    return holes, af
+
+
+def sheet_canopy():
+    """the canopy as a 3 mm slot-and-tab box: a top plate (posts, RP-SMA D-holes, hex grille, engraved name) and four
+    skirts CANOPY_SKIRT_H deep whose top tabs go through closed slots in the top; the corners are a three-finger box
+    joint (the long skirts keep the top and bottom thirds, the short skirts' fingers fill the middle third)"""
+    t, H = P['SHEET_T'], P['CANOPY_SKIRT_H']
+    x0, x1, y0, y1 = SHEET_CANOPY_XY
+    xs0, xs1, ys0, ys1 = x0 + SKIRT_INSET, x1 - SKIRT_INSET, y0 + SKIRT_INSET, y1 - SKIRT_INSET
+    zt, zb = kit.Z_CANOPY, kit.Z_CANOPY - H
+    fz0, fz1 = zb + H / 3, zb + 2 * H / 3                        # the middle third: the short skirts' fingers
+    hx, af = grille_holes()
+    hexes = [Polygon([(xx + af / math.sqrt(3) * math.cos(math.radians(60 * k)), yy + af / math.sqrt(3) * math.sin(math.radians(60 * k)))
+                      for k in range(6)]) for (xx, yy) in hx]
+    dholes = [Point(x, y).buffer(RPSMA_HOLE / 2, 32).intersection(sbox(x - RPSMA_HOLE, y - RPSMA_FLAT / 2, x + RPSMA_HOLE, y + RPSMA_FLAT / 2))
+              for (x, y) in ANTENNAS]
+    slots = [slot(c, ys0) for c in tab_centres(xs0, xs1)] + [slot(c, ys1 - t) for c in tab_centres(xs0, xs1)]
+    slots += [slot(c, xs0, along_x=False) for c in tab_centres(ys0 + t, ys1 - t)]
+    slots += [slot(c, xs1 - t, along_x=False) for c in tab_centres(ys0 + t, ys1 - t)]
+    top = sbox(x0, y0, x1, y1).buffer(-2.0).buffer(2.0, 8).difference(unary_union(hexes + dholes + slots))
+    mat = '3 mm laser-grade birch plywood (tougher in a roll) or 3 mm clear cast acrylic'
+    S = {'laser_canopy_top': Sheet('laser_canopy_top', top, [(x, y, P['LASER_HOLE_M3']) for (x, y) in CANOPY_POSTS],
+                                   [('ATLAS', 40.0, 34.0, 13.0)], mat, 1, at_z(zt))}
+    # long skirts (along x, right and left): notches at both ends in the middle third
+    lng = sbox(xs0, zb, xs1, zt).difference(sbox(xs0 - 1, fz0, xs0 + t, fz1)).difference(sbox(xs1 - t, fz0, xs1 + 1, fz1))
+    lng = unary_union([lng] + tabs_on(zt, xs0, xs1))
+    S['laser_canopy_skirt_right'] = Sheet('laser_canopy_skirt_right', lng, [], [], mat, 1, in_xz(ys0))
+    S['laser_canopy_skirt_left'] = Sheet('laser_canopy_skirt_left', lng, [], [], mat, 1, in_xz(ys1 - t))
+    # short skirts (along y, rear and front): fingers into the long skirts' notches
+    sht = unary_union([sbox(ys0 + t, zb, ys1 - t, zt), sbox(ys0, fz0, ys0 + t + 0.01, fz1), sbox(ys1 - t - 0.01, fz0, ys1, fz1)]
+                      + tabs_on(zt, ys0 + t, ys1 - t))
+    S['laser_canopy_skirt_rear'] = Sheet('laser_canopy_skirt_rear', sht, [], [], mat, 1, in_yz(xs0))
+    S['laser_canopy_skirt_front'] = Sheet('laser_canopy_skirt_front', sht, [], [], mat, 1, in_yz(xs1 - t))
+    return S
 
 
 def canopy_outline():
@@ -67,6 +123,7 @@ def canopy_outline():
 
 
 def stack_canopy():
+    """the printed canopy"""
     x0, x1, y0, y1 = CANOPY_XY
     top = box(x0, x1, y0, y1, Z_CANOPY, Z_CANOPY + CANOPY_T).edges('|Z').fillet(CANOPY_R)
     outer = box(x0, x1, y0, y1, Z_CANOPY - CANOPY_LIP, Z_CANOPY).edges('|Z').fillet(CANOPY_R)
@@ -226,11 +283,11 @@ def cable_defs():
     D['camera'] = dict(d=7.0, spec='M12 X-coded 8-pin to RJ45, Cat6a, data only (0.5 m cable)',
                        ends=('dev kit RJ45', 'camera M12'),
                        pts=[pe['rj45_camera'], (66.0, 54.0, 53.0), (72.0, 46.0, 54.0), (88.0, 30.0, 57.0), (100.0, 24.0, 63.0),
-                            (105.0, 20.0, 70.0), (110.0, 16.0, 80.0), (111.0, 11.0, 100.0), (112.0, 8.0, 116.0), cam_start])
+                            (108.0, 22.0, 66.0), (113.5, 18.0, 74.0), (114.0, 14.0, 95.0), (113.0, 9.0, 112.0), (113.5, 7.0, 118.0), cam_start])
     D['camera_power'] = dict(d=4.5, spec='LUCID GPIO-M8-5M-RA2-A cut to length: red (VAUX) and black (GND) to the board, other six tied back',
                              ends=('camera M8 GPIO (right angle, up)', 'power board camera 2-pin (front edge)'),
                              pts=[m8_top, (m8_top[0] - 2, -8.0, m8_top[2] + 7.0), (138.0, -13.0, m8_top[2] + 8.0),
-                                  (122.0, -22.0, 130.0), (112.0, -30.0, 104.0), (108.0, -33.0, 70.0),
+                                  (122.0, -22.0, 130.0), (114.0, -30.0, 104.0), (112.5, -33.0, 72.0),
                                   (max(xf + 8.0, 106.0), -34.0, 32.0), (xf + 6.0, -34.0, zt + 9.0), pc('camera_pwr')])
     # ---- lidar: Ethernet through the USB dongle on the arch, power from the board's front edge
     D['lidar_ethernet'] = dict(d=6.0, spec='donor SICK M12 D-coded 4-pin to RJ45 (TiM561 Ethernet), into the USB dongle',
@@ -240,7 +297,7 @@ def cable_defs():
     D['lidar_usb'] = dict(d=4.0, spec="the dongle's own USB 3 lead (180 mm on the ZimaSpace RTL8153 adapter)",
                           ends=('USB-Ethernet dongle', 'dev kit USB-A (port 1)'),
                           pts=[(LID_JACK[0], LID_JACK[1], _ue[5] + 1.0), (LID_JACK[0], LID_JACK[1], _ue[5] + 4.0), (125.0, 30.0, 93.0),
-                               (117.0, 40.0, 88.0), (106.0, 41.0, 77.0), (90.0, 40.0, 70.0), (60.0, 50.0, 60.0), (40.0, 54.0, 54.0),
+                               (117.0, 40.0, 88.0), (110.0, 41.0, 72.0), (88.0, 35.0, 68.0), (60.0, 48.0, 60.0), (40.0, 54.0, 54.0),
                                (pe['usb_a_lidar'][0], pe['usb_a_lidar'][1] + 7.0, pe['usb_a_lidar'][2] + 1.0), pe['usb_a_lidar']])
     lp = pc('lidar_pwr')
     lpts = [(lp[0] + 2.0, lid_pwr[1], lp[2]), (lp[0] + 8.0, lid_pwr[1], lp[2] + 0.2), (lid_pwr[0] - 4.0, lid_pwr[1], lid_pwr[2]), lid_pwr]
@@ -272,7 +329,7 @@ def cable_defs():
     hub = pc('hub')
     D['devkit_usbc'] = dict(d=4.5, spec='USB-C to USB-C (or to the hub module socket) 0.25 m, USB 2.0',
                             ends=('dev kit USB-C (device mode, 192.168.55.1)', 'power board USB hub'),
-                            pts=[pe['usb_c_hub'], (pe['usb_c_hub'][0] + 3.0, pe['usb_c_hub'][1] + 3.0, pe['usb_c_hub'][2] - 6.0),
+                            pts=[pe['usb_c_hub'], (pe['usb_c_hub'][0] + 1.0, pe['usb_c_hub'][1] + 3.0, pe['usb_c_hub'][2] - 6.0),
                                  (86.0, 28.0, 30.0), (84.0, 17.0, 26.0), (70.0, 5.0, 25.0), (hub[0] + 6.0, hub[1] + 10.0, hub[2] + 4.0), hub])
     pu = pc('pico_usb')
     D['pico_usb'] = dict(d=4.0, spec='micro-USB to USB-A, 0.3 m (supervisor USB CDC to the Jetson)',
@@ -447,6 +504,7 @@ def bench_stand():
 def build(kit_build=None):
     S, comps, parts, extras, info = kit_build or kit.build()
     canopy, n_hex = stack_canopy()
+    canopy_sheets = sheet_canopy()
     ant_under, ant_over = antennas()
     lid_plug, _ = rj45_plug_down(*LID_JACK)
     chg, _ = usbc_through_pod('charge_usbc')
@@ -454,18 +512,19 @@ def build(kit_build=None):
     zc = (dw[3] + dw[4]) / 2
     # panel-mount USB-C socket in the debug window (12 x 7 mm body, flange on the outer wall) with the cable plug
     dbg_panel = box(dw[0] - 6.0, dw[0] + 6.0, -kit.POD['y_out'] - 15.0, -kit.POD['y_in'] - 6.0, zc - 3.5, zc + 3.5)
-    new_parts = dict(stack_canopy=canopy)
+    new_parts = dict(stack_canopy=canopy) if not SHEET_CANOPY else {k: sh.solid() for k, sh in canopy_sheets.items()}
     new_comps = dict(antenna_jacks=ant_under, antennas=ant_over, rj45_plug_lidar=lid_plug,
                      usbc_plug_charge=chg, usbc_panel_debug=dbg_panel)
     cables = cable_defs()
     stand = bench_stand()
+    info['canopy_sheets'] = canopy_sheets
     return (S, comps, parts, extras, info), new_parts, new_comps, cables, stand, n_hex
 
 
 # expected contacts: a part and the thing it is fastened to or plugged into
 TOUCH = {frozenset(p) for p in (
-    ('stack_canopy', 'devkit_tray'), ('stack_canopy', 'canopy_leg'), ('antenna_jacks', 'stack_canopy'),
-    ('antennas', 'stack_canopy'), ('antenna_jacks', 'antennas'), ('rj45_plug_lidar', 'usb_eth_adapter'),
+    ('antenna_jacks', 'stack_canopy'), ('antennas', 'stack_canopy'), ('antenna_jacks', 'antennas'),
+    ('antenna_jacks', 'laser_canopy_top'), ('antennas', 'laser_canopy_top'), ('rj45_plug_lidar', 'usb_eth_adapter'),
     ('usbc_plug_charge', 'power_parts_low'), ('usbc_panel_debug', 'side_pod_right'))}
 _BOARD = {'power_parts_low', 'power_parts_tall'}
 _PACK = {'pack_lid', 'pack_box', 'cells_4s3p', 'cell_holder_top'}
@@ -572,10 +631,11 @@ def checks(kb, new_parts, new_comps, cables):
     win = {n: (xc, w, z0, z1) for (n, xc, w, z0, z1) in P['POD_WINDOWS']}
     chg_bb = new_comps['usbc_plug_charge'].val().BoundingBox()
     xc, w, z0, z1 = win['charge_usbc']
-    cl = dict(canopy_over_jetson_fan_mm=round(Z_CANOPY - Z_SINK_TOP, 2),
-              canopy_over_devkit_plugs_mm=round(Z_CANOPY - CANOPY_LIP - plug_top, 2),
+    cxy = SHEET_CANOPY_XY if SHEET_CANOPY else CANOPY_XY
+    cl = dict(canopy=('laser box' if SHEET_CANOPY else 'printed'), canopy_over_jetson_fan_mm=round(Z_CANOPY - Z_SINK_TOP, 2),
+              canopy_over_devkit_plugs_mm=round(Z_CANOPY - (0.0 if SHEET_CANOPY else CANOPY_LIP) - plug_top, 2),
               canopy_over_j12_idc_mm=round(Z_CANOPY - idc_top, 2),
-              canopy_to_bms_mm=round(kit.bms_place()[2] - CANOPY_XY[3], 2),
+              canopy_to_bms_mm=round(kit.bms_place()[2] - cxy[3], 2),
               charge_plug_in_window_side_gap_mm=round(min(chg_bb.xmin - (xc - w / 2), (xc + w / 2) - chg_bb.xmax), 2),
               charge_plug_in_window_z_gap_mm=round(min(chg_bb.zmin - z0, z1 - chg_bb.zmax), 2))
     return rows, cable_hits, cable_cross, fov, cl
@@ -585,6 +645,9 @@ def export(new_parts, new_comps, stand):
     res = {}
     orient = dict(stack_canopy=((1, 0, 0), 180), bench_stand=((1, 0, 0), 180))
     for name, p in list(new_parts.items()) + [('bench_stand', stand)]:
+        if name.startswith('laser_'):
+            cq.exporters.export(p, os.path.join(OUT, 'step', f'{name}.step'))
+            continue
         ax, ang = orient.get(name, (None, 0))
         q = p.rotate((0, 0, 0), ax, ang) if ax else p
         bb = q.val().BoundingBox()
@@ -607,8 +670,10 @@ def renders(kb, new_parts, new_comps, stand):
     grey = (0.22, 0.22, 0.25); blue = (0.25, 0.5, 0.95); light = (0.75, 0.75, 0.78)
     keys = ('power_pcb', 'power_parts_low', 'power_parts_tall', 'tray_standoffs_25mm', 'power_standoffs_7mm', 'devkit_pcb',
             'devkit_bottom_parts', 'jetson_module_and_sink', 'devkit_io', 'devkit_plugs', 'devkit_headers', 'devkit_header_plugs')
-    items = [(parts[k], grey) for k in ('devkit_tray', 'canopy_leg', 'pack_lid', 'bms_fence')] + [(comps[k], blue) for k in keys + ('bms',)]
-    items += [(new_parts['stack_canopy'], light), (new_comps['antenna_jacks'], grey), (new_comps['antennas'], grey)]
+    items = [(v, grey) for k, v in parts.items() if k in ('devkit_tray', 'laser_devkit_tray', 'devkit_spacers', 'canopy_leg', 'pack_lid',
+                                                           'bms_fence', 'laser_bms_base', 'laser_bms_wall_in', 'laser_bms_wall_out', 'laser_fet_shield')]
+    items += [(comps[k], blue) for k in keys + ('bms', 'fet_bar') + (('canopy_standoffs',) if 'canopy_standoffs' in comps else ())]
+    items += [(v, light) for k, v in new_parts.items() if 'canopy' in k] + [(new_comps['antenna_jacks'], grey), (new_comps['antennas'], grey)]
     render(items, os.path.join(OUT, 'renders', 'stack_canopy.png'), views=[(28, -58), (28, 122)],
            title='rev B canopy over the dev kit and its plugs, on the tray pillars and the zone B leg; BMS on edge behind')
     render([(stand, grey)], os.path.join(OUT, 'renders', 'bench_stand.png'), views=[(22, -60)], title='bench stand (PLA)')
@@ -629,12 +694,14 @@ if __name__ == '__main__':
     kb, new_parts, new_comps, cables, stand, n_hex = build()
     rows, cable_hits, cable_cross, fov, cl = checks(kb, new_parts, new_comps, cables)
     res = export(new_parts, new_comps, stand)
+    laser = kit.export_laser(kb[4]['canopy_sheets'])
     renders(kb, new_parts, new_comps, stand)
     wt = wiring_table(cables)
     rep = dict(z=dict(power_top=Z_POWER_TOP, tray_top=Z_TRAY_TOP, devkit_bottom=Z_DEVKIT_BOT, devkit_top=Z_DEVKIT_TOP,
                       sink_top=Z_SINK_TOP, canopy_underside=Z_CANOPY),
                power_L=P['POWER_L'], canopy_xy=CANOPY_XY, canopy_posts=CANOPY_POSTS, antennas=ANTENNAS, fan_centre=FAN_C,
                grille_holes=n_hex, power_conn_local=POWER_CONN, clearances=cl,
+               sheet_parts_in_checks=sorted(kit.SHEET), laser=laser,
                interference=rows, cable_interference=cable_hits, cable_crossings=cable_cross, lidar_plane=fov, parts=res, wiring=wt,
                cables={k: dict(d=c['d'], pts=[[round(v, 2) for v in p] for p in c['path']]) for k, c in cables.items()})
     with open(os.path.join(OUT, 'extras_report.json'), 'w') as f:

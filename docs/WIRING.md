@@ -4,24 +4,26 @@
 
 The lengths come from the cable paths in `mech/extras.py`, drawn through the rev B model: the power board's height
 map, the dev-kit tray and carrier with the plugs on its I/O edge, the FSESC in its cradle, the BMS on the pack lid,
-the sensors and the chassis keep-outs (`mech/NOTES_REVB.md`). "Routed" is the length of the modelled path, at the
-two board lengths the model was run at; the board's length only changes the runs that end on its front edge. The
-last column adds 10 % and 20 mm to the longer of the two: for a lead you make it is the length to cut, for a part's
-own lead or a bought cable it is the shortest that reaches.
+the sensors and the chassis keep-outs (`mech/NOTES_REVB.md`). "Routed" is the length of the modelled path at the
+layout's 130 mm board (the default), with the 150 mm figures for reference; the board's length only changes the runs
+that end on its front edge. The last column adds 10 % and 20 mm to the 130 mm figure: for a lead you make it is the
+length to cut, for a part's own lead or a bought cable it is the shortest that reaches. The same paths clear the
+laser-cut canopy and BMS holder (`SHEET_PARTS=all`).
 
-Three things make these numbers provisional. The connector positions on the power board are placeholders until the
-layout reports them (`extras.POWER_CONN`). The dev kit's headers and ports, the FSESC's ports and the BMS's terminals
+Three things make these numbers provisional. The connector positions on the power board are placeholders from before
+the layout (`extras.POWER_CONN`); agent D's 130 mm layout has since moved some of them (the fan header to the rear
+edge, the ESC and pack leads onto wire pads), so update that dict from `boards/power/layout.py` and rerun. The dev kit's headers and ports, the FSESC's ports and the BMS's terminals
 are estimates (MEASURE_FIRST items 20, 21 and 25). And at a 150 mm board the lidar's Ethernet cable has no clean
 path: the board's front-left corner sits inside the lidar's M12 plugs (MEASURE_FIRST item 12). At 130 mm every run
 below is clear of every part and of every other cable.
 
-| cable | from | to | what | routed mm (L 150) | routed mm (L 130) | length mm |
+| cable | from | to | what | routed mm (L 130) | routed mm (L 150) | length mm |
 | --- | --- | --- | --- | ---: | ---: | --- |
-| Camera data | dev kit RJ45 | camera M12 | M12 X-coded 8-pin to RJ45, Cat6a, data only (0.5 m cable) | 119 | 119 | needs at least 160 |
-| Camera power (M8) | camera M8 GPIO (right angle, up) | power board camera 2-pin (front edge) | LUCID GPIO-M8-5M-RA2-A cut to length: red (VAUX) and black (GND) to the board, other six tied back | 176 | 171 | cut to 220 |
+| Camera data | dev kit RJ45 | camera M12 | M12 X-coded 8-pin to RJ45, Cat6a, data only (0.5 m cable) | 122 | 122 | needs at least 160 |
+| Camera power (M8) | camera M8 GPIO (right angle, up) | power board camera 2-pin (front edge) | LUCID GPIO-M8-5M-RA2-A cut to length: red (VAUX) and black (GND) to the board, other six tied back | 170 | 173 | cut to 210 |
 | Lidar Ethernet | USB-Ethernet dongle RJ45 (on the arch leg) | lidar Ethernet M12 | donor SICK M12 D-coded 4-pin to RJ45 (TiM561 Ethernet), into the USB dongle | 41 | 41 | needs at least 70 |
-| Lidar dongle USB | USB-Ethernet dongle | dev kit USB-A (port 1) | the dongle's own USB 3 lead (180 mm on the ZimaSpace RTL8153 adapter) | 130 | 130 | needs at least 170 |
-| Lidar power | power board lidar Phoenix 2-pin (front edge) | lidar power M12 | donor SICK M12 power cable, cut and stripped into the terminal | 5 | 15 | cut to 40 |
+| Lidar dongle USB | USB-Ethernet dongle | dev kit USB-A (port 1) | the dongle's own USB 3 lead (180 mm on the ZimaSpace RTL8153 adapter) | 137 | 137 | needs at least 180 |
+| Lidar power | power board lidar Phoenix 2-pin (front edge) | lidar power M12 | donor SICK M12 power cable, cut and stripped into the terminal | 15 | 5 | cut to 40 |
 | Dev-kit DC lead | power board DC pads (pack edge) | dev kit DC jack | Tensility 10-01779 5.5 x 2.5 mm right-angle plug, 18 AWG pair, cut to length | 40 | 40 | cut to 70 |
 | 40-pin ribbon | dev kit J12 (40-pin) | power board 2 x 20 box header | 2 x 20 IDC ribbon, 150 mm (Adafruit #1988); modelled as three lines across its width | 62 | 62 | needs at least 90 |
 | J14 harness | dev kit J14 (button header) | power board 1 x 12 header | 1 x 12 Dupont housing, 8 crimped wires (keyed with a printed clip) | 42 | 42 | cut to 70 |
@@ -36,16 +38,16 @@ below is clear of every part and of every other cable.
 | Motor hall sensor | FSESC hall port (motor end) | motor sensor port | motor's own 6-pin sensor lead into the FSESC's hall port | 132 | 132 | needs at least 170 |
 | ESC battery + | FSESC battery end | power board XT60PW (rear edge) | FSESC 12 AWG battery + lead to an XT60 female | 62 | 62 | cut to 90 |
 | ESC battery - | FSESC battery end | power board XT60PW (rear edge) | FSESC 12 AWG battery - lead to an XT60 female | 85 | 85 | cut to 120 |
-| Steering servo | power board servo header (front edge) | steering servo | servo's own 3-wire lead | 125 | 86 | needs at least 160 |
+| Steering servo | power board servo header (front edge) | steering servo | servo's own 3-wire lead | 86 | 125 | needs at least 120 |
 | Pack + to fuse | pack + strip (under the lid) | MIDI 125 A fuse, input stud | 10 AWG silicone, pack + (G4 end strip) to the MIDI fuse holder input | 59 | 59 | cut to 90 |
 | Fuse to XT90-S | MIDI fuse, output stud | XT90-S male, + (into the board XT90) | 10 AWG silicone, fuse output stud to the XT90-S male (B+) | 64 | 64 | cut to 100 |
 | Pack - to BMS | pack - strip (under the lid) | JBD BMS B- | 10 AWG silicone, pack - (G1 end strip) to the BMS B- | 88 | 88 | cut to 120 |
 | BMS P- to XT90-S | JBD BMS P- | XT90-S male, - (into the board XT90) | 10 AWG silicone, BMS P- to the XT90-S male (system ground) | 96 | 96 | cut to 130 |
 | Balance lead | pack taps B0-B4 and NTC | JBD BMS balance connector | pack's 7-wire sense lead (JST-XH 7-pin) and the adapter harness to the BMS balance and NTC inputs | 163 | 163 | needs at least 200 |
 | BMS UART | JBD BMS UART port | power board BMS UART (pack edge) | JBD 4-pin UART lead to the board JST-XH 4-pin (opto-isolated on the board) | 144 | 144 | needs at least 180 |
-| Side-pod fan | 40 mm fan (right pod) | power board fan 4-pin (front edge) | fan lead, 4-pin (fan to the power board) | 250 | 230 | needs at least 300 |
+| Side-pod fan | 40 mm fan (right pod) | power board fan 4-pin (front edge) | fan lead, 4-pin (fan to the power board) | 230 | 250 | needs at least 280 |
 | Wi-Fi antenna 1 | M.2 Wi-Fi card (under the carrier) | antenna jack 1, canopy rear edge | MHF4 to RP-SMA bulkhead pigtail, 1.13 mm coax (order 20 cm) | 104 | 104 | needs at least 140 |
-| Wi-Fi antenna 2 | M.2 Wi-Fi card (under the carrier) | antenna jack 2, canopy rear edge | MHF4 to RP-SMA bulkhead pigtail, 1.13 mm coax (order 20 cm) | 161 | 161 | needs at least 200 |
+| Wi-Fi antenna 2 | M.2 Wi-Fi card (under the carrier) | antenna jack 2, canopy rear edge | MHF4 to RP-SMA bulkhead pigtail, 1.13 mm coax (order 20 cm) | 160 | 160 | needs at least 200 |
 
 ### How each one runs (rev B)
 

@@ -10,7 +10,9 @@ the decisions of 24 October) and the Phase 1 mechanical plan (dev-kit carrier, s
 The power board (car x -32 to -32 + `POWER_L`, y -68 to 16) sits on six 7 mm deck standoffs. A printed tray stands on
 the same six holes with M3 x 25 standoffs and carries the NVIDIA dev-kit carrier (car x -12 to 88, y -63 to 16) on
 four bosses, I/O edge toward the pack. The plugs on that edge (DC, RJ45, two USB-A, USB-C) sit over the pack lid. A
-canopy covers the dev kit and the plugs, on four pillars printed on the tray and one leg in zone B. The FSESC sits
+canopy covers the dev kit and the plugs, on two pillars printed on the tray, two M3 standoff stacks over the
+board's front standoffs and one leg in zone B. A 3 mm acrylic shield hangs under the tray over the FET heatsink bar,
+which is live at pack voltage. The FSESC sits
 in a cradle in the ESC bay beside the motor (x -113 to -35), the right pod's fan blows across it, and the motor leads
 drop through a new deck opening at its motor end. The JBD BMS stands on its long edge in a holder on the pack lid's
 outboard edge, with the MIDI fuse holder on the lid beside the dev kit's plugs. The lidar's USB-Ethernet dongle is
@@ -20,24 +22,24 @@ zip-tied behind the camera arch's left leg.
 
 | run | printed and bought parts (`kit.py`) | new parts, plugs (`extras.py`) | cables (31 runs) | cable against cable | lidar plane |
 | --- | --- | --- | --- | --- | --- |
-| `POWER_L` 150 (the default) | 4 overlaps, all the lidar's M12 plug envelope against the board's front: the PCB, its height-map blocks and the front-left 25 mm standoff | 0 | the lidar Ethernet cable runs through the board's front-left corner | 0 | all inside the rear blind sector |
-| `POWER_L` 140 | 0 | 0 | the lidar Ethernet cable bends over the front-left standoff; the servo lead (notch route) touches the front-right standoffs | 0 | all inside |
-| `POWER_L` 130 | 0 | 0 | 0 | 0 | all inside |
-| `POWER_L` 120 | 0 | 0 | the dev kit's USB-C lead and the debug pigtail pass the front standoffs, which move under the carrier at this length (the placeholder connector positions would move with the layout) | 0 | all inside |
+| `POWER_L` 130 (the default, agent D's layout) | 0 | 0 | 0 | 0 | all inside the rear blind sector |
+| `POWER_L` 130, `SHEET_PARTS=all` (laser-cut tray, BMS holder, canopy box, splices) | 0 | 0 | 0 | 0 | all inside |
+| `POWER_L` 150 | 4 overlaps, all the lidar's M12 plug envelope against the board's front: the PCB, its height-map blocks and the front-left 25 mm standoff | 0 | the lidar Ethernet cable runs through the board's front-left corner | 0 | all inside |
 
 The lidar's two M12 plugs end at x 114.6 (an estimate: 45 mm straight plugs behind the swivel unit, MEASURE_FIRST item
-12). A 150 mm board reaches x 118, so its front 3.4 mm is inside them. **Recommendation to the layout (agent D): keep
-the board at 130 mm or shorter, or measure the plugs first, or use right-angle M12 plugs.** At 130 mm the plug ends
-are 16.6 mm ahead of the board, the lidar power cable goes straight into a front-edge terminal, the servo lead goes
-straight down the deck slot just ahead of the board, and the board needs no servo notch. Everything that is
-parametric follows `POWER_L`: the tray, the inserts, the outline and keep-outs in `boards/outlines.json`.
+12). A 150 mm board reaches x 118, so its front 3.4 mm is inside them. Agent D took the recommendation and laid the
+board out at 130 mm, which is now the default. At 130 mm the plug ends are 16.6 mm ahead of the board, the lidar
+power cable goes straight into a front-edge terminal, the servo lead goes straight down the deck slot just ahead of
+the board, and the board needs no servo notch. Everything that is parametric follows `POWER_L`: the tray, the
+inserts, the canopy posts, the outline and keep-outs in `boards/outlines.json`.
 
 Other numbers from `out/kit_report.json` and `out/extras_report.json`:
 
-- Stack: board top z 8.6; tray 33.6 to 36.6; carrier 43.6 to 45.17; fan top 77.17; canopy underside 85.17 (8.0 mm
-  over the fan), top 87.57. The carrier's 6 mm underside allowance clears the tray by 1.0 mm; the tray clears the
-  board's 23 mm parts by 2.0 mm.
-- Canopy: 24.5 mm over the dev kit's plugs, 22.5 mm over the ribbon's IDC socket, 4.0 mm inboard of the BMS.
+- Stack: board top z 8.6; tray 33.6 to 36.6; carrier 43.6 to 45.17; fan top 77.17; canopy posts 48 mm above the
+  tray (top z 84.6); canopy underside 85.6 (8.4 mm over the fan), top 88.0. The carrier's 6 mm underside allowance
+  clears the tray by 1.0 mm; the tray clears the board's 23 mm parts by 2.0 mm.
+- FET shield: z 30.6 to 33.6, 2.0 mm over the bar's live metal (20 mm above the board, an estimate).
+- Canopy: 24.9 mm over the dev kit's plugs, 22.9 mm over the ribbon's IDC socket, 4.0 mm inboard of the BMS.
 - ESC: case (placeholder) x -109.5 to -38.5, y -55.5 to -12.5, z 3 to 25.7: 20.5 mm of air to the pod wall where the
   fan blows in, 9.3 mm under the 35 mm bay limit.
 - The right pod's rear bolt at (-88, -72.5) sits inboard of the new fan window, on the flange. Its head (top z 4.65)
@@ -74,11 +76,14 @@ Other numbers from `out/kit_report.json` and `out/extras_report.json`:
    `power.height_zones_local`).
 7. **Countersunk tray screws.** Two of the six tray standoffs are under the carrier (the X 75 pair is at y 12, under
    the I/O edge). M3 x 8 countersunk heads sit flush, so the 1 mm under the carrier is enough.
-8. **The canopy's supports.** Four pillars printed on the tray's arms outside the carrier, and one printed leg in
-   zone B whose foot takes the front joint's two left bolts (no new inserts). Zone C is behind the canopy, so it has
-   no leg. The canopy's left part cantilevers 45 mm over the plugs from the y 12 pillars; the leg takes the front
-   corner. On a board shorter than 136 mm the tray's arms overhang the board's front edge to keep the front pillars
-   outside the carrier.
+8. **The canopy's supports.** Two pillars printed on the tray's rear arms (x -18, 10 mm clear of the rear standoff
+   screws), and one printed leg in zone B (92, 44) whose foot takes the front joint's two left bolts (no new
+   inserts). At the front, a 130 mm board's front standoffs (x 94) sit 2 mm from where front pillars would go (x 96),
+   so a printed pillar would cover their screw heads. There the front posts are M3 hex standoff stacks (40 + 8 mm,
+   male-female) screwed straight into the front tray standoffs, clamping the tray in place of the countersunk screws
+   (`canopy_posts()`, kind 'coaxial'). On a board 9 mm or more away from that (120 mm, 150 mm) the front posts are
+   printed pillars again. Every post ends 48 mm above the tray, so bought and printed posts mix. Zone C is behind the
+   canopy, so it has no leg.
 9. **Lidar dongle behind the arch's left leg**, not on the deck in zone B. Zone B has no room for a 50 mm dongle
    whose RJ45 plug and boot need another 32 mm (the arch feet, the BMS holder's front end, the pack lid). Upright
    behind the leg, jack down, the lidar cable is 41 mm and the dongle's own 180 mm lead reaches the dev kit with
@@ -107,6 +112,21 @@ Other numbers from `out/kit_report.json` and `out/extras_report.json`:
     at -20, all z 10 to 25. When D reports the real positions, edit those two dicts and rerun.
 17. **The JBD's leads** are assumed to leave its rear end (x -80). The B+ path is pack + up the lid's front slot, the
     MIDI fuse on the lid, then the XT90-S; the B- path is pack - up the rear slot to the BMS, P- to the XT90-S.
+18. **Acrylic FET shield.** D's layout puts the 40 x 15 x 3 mm heatsink bar (live at BAT+, the three FET tabs are its
+    drains) at board X 10.5 to 50.5, Y 63 to 66, under the tray's CF rear rails, 5 mm below them. A 3 mm cast acrylic
+    plate (34 x 23 mm, board X 20 to 54, Y 49 to 72) hangs under the tray there on two nylon countersunk M3 screws,
+    2 mm above the bar. Under its footprint the height map drops to 21 mm (`low_shield` in `boards/outlines.json`);
+    D's tallest parts there are the 21 mm 680 uF caps and the FET tabs (about 20 mm). Its two nylon nuts need parts at
+    18 mm or less under the two screw points. Acrylic softens at about 100 C; the supervisor cuts the main switch at
+    a FET temperature of 90 C.
+19. **Printed canopy corner radius 12 to 6 mm.** The 12 mm radius gave an inner lip fillet that overlapped the
+    right-hand posts by 6.5 mm3 each. The checks had not reported it because the canopy-to-tray contact was on a
+    "touching by design" list; face contacts never count, so that list entry is gone and the checks see it now.
+20. **Laser-cut versions** of the tray, the BMS holder, the canopy (as a slot-and-tab box) and the splice plates, plus
+    the shield, from the same parameters (PRINTING.md, "Laser-cut parts"). They are better than CF prints wherever a
+    part must insulate. The laser BMS holder moves the BMS 2.5 mm inboard (its base needs closed slots and the left
+    pod is 1.7 mm away), and the laser canopy is 4 mm bigger a side so its skirts, inset 2.5 mm for closed slots, stay
+    1.5 mm off every post.
 
 ## Parameters that must be measured
 
@@ -122,7 +142,9 @@ Other numbers from `out/kit_report.json` and `out/extras_report.json`:
 | `BMS`, its lead positions | 160 x 105 x 10 mm, leads at the rear end | item 25, before printing the BMS holder |
 | `MIDI_FUSE_XY`, `MIDI_FUSE_H` | 60 x 30 x 26 mm | item 26 |
 | `tim561()` plug lengths | 45 mm | item 12: it decides how long the power board can be |
-| `POWER_L` and `extras.POWER_CONN` | 150 mm; placeholders | from agent D's layout |
+| `POWER_L` and `extras.POWER_CONN` | 130 mm (D's layout); connector placeholders | from agent D's layout |
+| `SHEET_T` | 3.0 mm | item 27: measure every laser sheet before cutting the tab-and-slot parts |
+| `FET_BAR` height | 20 mm of live metal above the board | item 28: the shield hangs 2 mm above it |
 
 **Where the dev-kit hole default comes from.** NVIDIA's carrier board specification (Fig. 4-1, read through the
 uelectronics.com mirror) gives the outline (100.00 x 79.00 mm, PCB 1.57 mm, 16.70 mm top and 4.30 mm bottom maximum)
@@ -134,38 +156,61 @@ tray is printed. The tray regenerates from the four numbers. The power board no 
 
 ## Parts to print for rev B
 
-Solid PETG-CF masses from the model; as printed (4 walls, 35-40 % gyroid) expect about 65 %.
+Solid PETG-CF masses from the model at the 130 mm board; as printed (4 walls, 35-40 % gyroid) expect about 65 %.
 
 | part | why | solid g | printed g (about) |
 | --- | --- | ---: | ---: |
-| `devkit_tray` | new | 40 | 26 |
+| `devkit_tray` | new (or cut `laser_devkit_tray`) | 29 | 19 |
 | `esc_cradle` | new (placeholder size until the FSESC case is measured) | 10 | 7 |
-| `bms_fence` | new | 29 | 19 |
-| `canopy_leg` | new | 14 | 9 |
-| `stack_canopy` | new outline over the dev kit | 56 | 36 |
+| `bms_fence` | new (or cut the three `laser_bms_*`) | 29 | 19 |
+| `canopy_leg` | new | 13 | 8 |
+| `stack_canopy` | new outline over the dev kit (or cut the `laser_canopy_*` box) | 54 | 35 |
 | `side_pod_right` | fan window moved, plug slot gone, three new windows | 68 | 44 + supports |
 | `deck_mid` | new insert positions; a rev A print cannot be converted | 167 | 109 |
 | `deck_rear` | new phase opening, one insert; or convert a rev A print by hand | 180 | 117 |
 | `deck_front` | two inserts, servo slot extended; or convert a rev A print | 171 | 111 |
-| **total** | with `deck_rear` and `deck_front` converted | **384** | **about 250** |
-| **total** | with all three deck pieces reprinted | **735** | **about 480** |
+| **total** | with `deck_rear` and `deck_front` converted | **370** | **about 240** |
+| **total** | with all three deck pieces reprinted | **721** | **about 470** |
 
-Unchanged from rev A: the splices, the fit coupons (the rear coupon now includes part of the new phase opening;
-an already printed one is still a valid fit test), the plinth, the bumper, the arch and cradles, the left pod, the wing, the pack box, the lid and
-the cell holders, the washers and the bench stand.
+Unchanged from rev A: the splices (or cut them), the fit coupons (the rear coupon now includes part of the new phase
+opening; an already printed one is still a valid fit test), the plinth, the bumper, the arch and cradles, the left
+pod, the wing, the pack box, the lid and the cell holders, the washers and the bench stand.
+
+## Parts to cut for rev B
+
+All 3 mm, kerf-neutral DXF and SVG in `out/laser/` (sizes in mm, from `kit_report.json` and `extras_report.json`,
+key `laser`). Everything but the shield is optional: it replaces a printed part.
+
+| file | material | size | qty |
+| --- | --- | --- | ---: |
+| `laser_fet_shield` | cast acrylic only | 34 x 23 | 1 |
+| `laser_devkit_tray` | birch plywood (or cast acrylic) | 130 x 84 | 1 |
+| `laser_spacer_disc` | acrylic or plywood (option to the printed spacers) | 8 x 8 | 12 |
+| `laser_bms_base`, `laser_bms_wall_in`, `laser_bms_wall_out` | birch plywood or cast acrylic | 164 x 22, 164 x 15, 164 x 63 | 1 each |
+| `laser_canopy_top` | birch plywood or clear cast acrylic | 136 x 133 | 1 |
+| `laser_canopy_skirt_left`, `_right` | same | 131 x 13 | 1 each |
+| `laser_canopy_skirt_rear`, `_front` | same | 128 x 13 | 1 each |
+| `laser_splice` | birch plywood (not acrylic, not MDF) | 30 x 72 | 4 |
 
 ## Bought parts the kit now needs
 
-- 6 x M3 x 25 mm male-female standoffs (new), 6 x M3 x 8 countersunk, 4 x M2.5 x 10 thread-forming screws for plastic,
-  2 x M3 x 10 countersunk (BMS holder), 4 x M3 x 16 (shared joint bolts), 5 x M3 x 8 button heads (canopy), about 36
-  M3 inserts in all (rev A: about 30), zip ties.
+- 6 x M3 x 25 mm male-female standoffs (new), 4 x M3 x 8 countersunk, 2 x M3 x 40 and 2 x M3 x 8 male-female
+  standoffs (the front canopy posts), 4 x M2.5 x 10 thread-forming screws for plastic, 2 x M3 x 10 countersunk (BMS
+  holder), 4 x M3 x 16 (shared joint bolts), 5 x M3 x 8 button heads (canopy), 2 x M3 x 10 nylon countersunk
+  screws and nylon nuts (shield), about 34 M3 inserts in all (rev A: about 30), zip ties.
+- With the laser-cut tray: 4 x M3 x 40 female-female + 4 x M3 x 8 male-female standoffs for all four posts, and
+  M3 x 6 button heads from under the sheet at the two rear ones.
 - 20 cm MHF4 to RP-SMA pigtails instead of 15 cm.
 - No aluminium heat spreader any more.
 
 ## Open questions
 
-- The power board's final length and connector positions (agent D). At 150 mm it hits the lidar's plugs.
-- Can the fan header move to the board's rear edge, and the ESC XT60 to the inboard end of the rear edge?
+- The power board's connector positions: D's 130 mm layout moved the fan header to the rear edge and put the ESC
+  and pack leads on wire pads, so `extras.POWER_CONN` (my placeholders) should be updated from
+  `boards/power/layout.py` and the cables rerun. The fan lead then drops from 230 mm to about 60.
+- Is the 21 mm limit under the acrylic shield fine with D's FET bar as built (MEASURE_FIRST 28)?
+- With wire pads at the rear edge (D's layout), do the ESC's battery leads still need the U-loop (the case's front
+  end is 6.5 mm from the board)?
 - The carrier's holes, heights and header positions; the FSESC case and its ports; the BMS's terminals; the fuse
   holder; the dongle (MEASURE_FIRST 17 to 26).
 - Which sides the dev kit's heatsink fins exhaust to. The canopy is open below its 4 mm lip on every side, so the
