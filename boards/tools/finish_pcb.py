@@ -2,6 +2,9 @@
 GND fills and the inner planes, silkscreen cleanup, refill, save.
 
     flatpak run --command=python3 --filesystem=home org.kicad.KiCad finish_pcb.py drive [--no-stitch] [--no-silk]
+        [--via 0.8/0.4] [--pitch 3.0]
+
+--via D/H sets the stitching via (default 0.6/0.3 mm), --pitch its grid (default 3 mm).
 
 Stitching: a via goes on a 3 mm grid wherever a 0.6 mm GND via plus 0.25 mm fits inside the GND
 copper of every layer (so it touches no other net anywhere) and keeps 1 mm from other holes
@@ -16,6 +19,9 @@ import sys
 
 import pcbnew
 from pcbnew import VECTOR2I, FromMM as MM, ToMM
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kicompat as kc  # noqa: E402  (KiCad 7 / KiCad 10 API differences)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 bdir = os.path.abspath(os.path.join(HERE, '..', sys.argv[1]))
@@ -117,7 +123,7 @@ def silk():
                 if pd.IsOnLayer(cl):
                     pads[sl].append((rect(pd.GetBoundingBox(), MM(0.1)), fp.GetReference()))
         for it in fp.GraphicalItems():
-            if it.GetLayer() in SILK and it.Type() != pcbnew.PCB_TEXT_T:
+            if it.GetLayer() in SILK and not kc.is_text(it):
                 outl[it.GetLayer()].append((rect(it.GetBoundingBox(), MM(0.05)), fp.GetReference(), it))
     # 1) outline strokes over another footprint's pads: remove
     cut = 0
@@ -192,7 +198,7 @@ MODEL_BY_MPN = {
 def models():
     n = 0
     for fp in b.GetFootprints():
-        new = MODEL_BY_MPN.get(fp.GetFieldText('MPN') if fp.HasField('MPN') else '')
+        new = MODEL_BY_MPN.get(kc.get_field(fp, 'MPN'))
         if new and len(fp.Models()):
             fp.Models()[0].m_Filename = new
             n += 1
@@ -201,9 +207,15 @@ def models():
 
 print('3D models swapped:', models())
 if '--no-stitch' not in args:
-    print('stitching vias:', stitch())
+    kw = {}
+    if '--via' in args:
+        d_, h_ = (float(v) for v in args[args.index('--via') + 1].split('/'))
+        kw.update(dia=d_, drill=h_)
+    if '--pitch' in args:
+        kw['pitch'] = float(args[args.index('--pitch') + 1])
+    print('stitching vias:', stitch(**kw))
 if '--no-silk' not in args:
     print('silk: outline strokes removed %d, references moved %d, references to fab %d' % silk())
 filler.Fill(b.Zones())
-pcbnew.SaveBoard(path, b)
+kc.save(path, b)
 print('saved', path)

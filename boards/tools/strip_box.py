@@ -14,6 +14,9 @@ import sys
 import pcbnew
 from pcbnew import ToMM
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kicompat as kc  # noqa: E402  (KiCad 7 / KiCad 10 API differences)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 board, net = sys.argv[1], sys.argv[2]
 x0, y0, x1, y1 = map(float, sys.argv[3:7])
@@ -46,5 +49,5 @@ for t in list(b.GetTracks()):
         b.Remove(t)
         gone.append(t)
 pcbnew.ZONE_FILLER(b).Fill(b.Zones())
-pcbnew.SaveBoard(path, b)
+kc.save(path, b)
 print('removed %d pieces of %s' % (len(gone), net))

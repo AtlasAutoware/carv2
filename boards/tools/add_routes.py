@@ -4,6 +4,9 @@ add its new ones, refill every zone, trim what is left of the taken-up routes, a
     flatpak run --command=python3 --filesystem=home org.kicad.KiCad add_routes.py drive ROUTES.json
 
 New tracks and vias go on unlocked, like the autorouter's, so strip_routes.py can take them off again.
+--lock puts them on locked instead: copper routed before the autorouter (the power board's USB pairs) that
+the autorouter must keep as it is (locked items go to the DSN as fixed wiring). --trim-new also takes away new
+pieces that end in nothing (a stub past a pad), one at a time, as long as nothing comes apart.
 """
 import json
 import os
@@ -12,12 +15,16 @@ import sys
 import pcbnew
 from pcbnew import VECTOR2I, FromMM as MM, ToMM
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kicompat as kc  # noqa: E402  (KiCad 7 / KiCad 10 API differences)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 bdir = os.path.abspath(os.path.join(HERE, '..', sys.argv[1]))
 name = [f for f in os.listdir(bdir) if f.endswith('.kicad_pcb')][0][:-len('.kicad_pcb')]
 path = os.path.join(bdir, name + '.kicad_pcb')
 b = pcbnew.LoadBoard(path)
 R = json.load(open(sys.argv[2]))
+LOCK = '--lock' in sys.argv[3:]
 layer = {b.GetLayerName(l): l for l in b.GetEnabledLayers().CuStack()}
 close = lambda a, c: abs(a - c) < 0.002
 
@@ -60,6 +67,7 @@ for t in R.get('tracks', []):
     tr.SetWidth(MM(t['w']))
     tr.SetLayer(layer[t['layer']])
     tr.SetNet(net)
+    tr.SetLocked(LOCK)
     b.Add(tr)
     fresh.add(tr.m_Uuid.AsString())
     nt += 1
@@ -71,6 +79,7 @@ for v in R.get('vias', []):
     via.SetWidth(MM(v['dia']))
     via.SetDrill(MM(v['drill']))
     via.SetNet(net)
+    via.SetLocked(LOCK)
     b.Add(via)
     fresh.add(via.m_Uuid.AsString())
     nv += 1
@@ -115,10 +124,30 @@ for _ in range(50):
         break
 if trimmed:
     pcbnew.ZONE_FILLER(b).Fill(b.Zones())
+if '--trim-new' in sys.argv[3:]:
+    # new pieces that end in nothing (a pair router's stub past the pad): take them away one at a time, keeping
+    # each removal only when the board stays exactly as connected
+    base = unconnected()
+    for _ in range(20):
+        b.BuildConnectivity()
+        conn = b.GetConnectivity()
+        dang = [t for t in b.GetTracks() if t.m_Uuid.AsString() in fresh and t.Type() != pcbnew.PCB_VIA_T
+                and conn.TestTrackEndpointDangling(t, False)]
+        cut = 0
+        for t in dang:
+            b.Remove(t)
+            if unconnected() <= base:
+                held.append(t)
+                cut += 1
+            else:
+                b.Add(t)
+        trimmed += cut
+        if not cut:
+            break
 b.BuildConnectivity()
 conn = b.GetConnectivity()
 loose = [t for t in b.GetTracks() if t.m_Uuid.AsString() in fresh and conn.TestTrackEndpointDangling(t, False)]
-pcbnew.SaveBoard(path, b)
+kc.save(path, b)
 print('took away %d, added %d tracks and %d vias, trimmed %d dangling pieces, %d new pieces left dangling; '
       'still open: %s' % (gone, nt, nv, trimmed, len(loose), ' '.join(R.get('still_open', [])) or 'none'))
 for t in loose[:20]:

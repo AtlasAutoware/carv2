@@ -1,0 +1,481 @@
+** Drc report for /home/claude/carv2/boards/power/atlas_power.kicad_pcb **
+** Created on 2026-10-25 14:14:03 **
+
+** Found 79 DRC violations **
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(135.5100 mm, 33.8700 mm): Line on F.Silkscreen
+    @(136.5000 mm, 33.6500 mm): Footprint Text 'USB' of MOD701
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(136.5000 mm, 33.6500 mm): Footprint Text 'USB' of MOD701
+    @(136.5100 mm, 33.8700 mm): Arc on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(141.6500 mm, 33.8100 mm): Line on F.Silkscreen
+    @(136.5000 mm, 33.6500 mm): Footprint Text 'USB' of MOD701
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(136.5000 mm, 33.6500 mm): Footprint Text 'USB' of MOD701
+    @(139.1600 mm, 33.8700 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(136.5100 mm, 32.8700 mm): Reference 'U302'
+    @(136.5000 mm, 33.6500 mm): Footprint Text 'USB' of MOD701
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(126.2400 mm, 32.1500 mm): Rect on F.Silkscreen
+    @(128.6600 mm, 113.1900 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(103.8949 mm, 86.9000 mm): Reference 'TP402'
+    @(103.2000 mm, 86.7100 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(103.8949 mm, 86.9000 mm): Reference 'TP402'
+    @(107.1949 mm, 86.1000 mm): Reference 'TP1002'
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(103.8949 mm, 86.9000 mm): Reference 'TP402'
+    @(105.0000 mm, 84.8600 mm): Arc on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(100.2000 mm, 85.6200 mm): Circle on F.Silkscreen
+    @(101.3000 mm, 87.6300 mm): Footprint Text 'K' of D402
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(107.1949 mm, 86.1000 mm): Reference 'TP1002'
+    @(105.0000 mm, 84.8600 mm): Arc on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(107.1949 mm, 86.1000 mm): Reference 'TP1002'
+    @(128.6600 mm, 113.1900 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(122.0000 mm, 36.8500 mm): Reference 'J407'
+    @(108.9400 mm, 36.5100 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(122.0000 mm, 36.8500 mm): Reference 'J407'
+    @(121.5600 mm, 36.5100 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(42.4200 mm, 52.7400 mm): Line on F.Silkscreen
+    @(60.5400 mm, 52.5800 mm): Footprint Text 'HEATSINK = BAT+  INSULATE' of HS301
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(52.6600 mm, 51.2300 mm): Line on F.Silkscreen
+    @(60.5400 mm, 52.5800 mm): Footprint Text 'HEATSINK = BAT+  INSULATE' of HS301
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(60.5400 mm, 52.5800 mm): Footprint Text 'HEATSINK = BAT+  INSULATE' of HS301
+    @(55.4200 mm, 51.2300 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(60.5400 mm, 52.5800 mm): Footprint Text 'HEATSINK = BAT+  INSULATE' of HS301
+    @(55.4200 mm, 52.7400 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(32.5949 mm, 51.7500 mm): Reference 'TP102'
+    @(36.2500 mm, 48.4000 mm): Circle on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(32.5949 mm, 54.2500 mm): Circle on F.Silkscreen
+    @(35.0000 mm, 55.0000 mm): Reference 'J902'
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(60.5400 mm, 52.5800 mm): Footprint Text 'HEATSINK = BAT+  INSULATE' of HS301
+    @(58.6900 mm, 51.2300 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(60.5400 mm, 52.5800 mm): Footprint Text 'HEATSINK = BAT+  INSULATE' of HS301
+    @(62.3910 mm, 51.2300 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(65.6600 mm, 51.2300 mm): Line on F.Silkscreen
+    @(60.5400 mm, 52.5800 mm): Footprint Text 'HEATSINK = BAT+  INSULATE' of HS301
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(60.5400 mm, 52.5800 mm): Footprint Text 'HEATSINK = BAT+  INSULATE' of HS301
+    @(68.4200 mm, 51.2300 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(60.5400 mm, 52.5800 mm): Footprint Text 'HEATSINK = BAT+  INSULATE' of HS301
+    @(68.4200 mm, 52.7400 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(146.6100 mm, 109.3000 mm): Line on F.Silkscreen
+    @(146.7900 mm, 105.9450 mm): Reference 'D701'
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(142.8200 mm, 88.2500 mm): Rect on F.Silkscreen
+    @(150.8400 mm, 87.2500 mm): Reference 'J409'
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(153.5500 mm, 59.0000 mm): Reference 'J1001'
+    @(152.0000 mm, 58.3300 mm): Circle on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(156.9500 mm, 42.3450 mm): Footprint Text 'K' of D406
+    @(155.7500 mm, 40.4350 mm): Circle on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(150.5949 mm, 39.6000 mm): Circle on F.Silkscreen
+    @(150.5949 mm, 41.5000 mm): Reference 'TP403'
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(149.3000 mm, 62.6700 mm): Footprint Text 'K' of D1001
+    @(148.8000 mm, 70.3400 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(152.0000 mm, 62.6700 mm): Footprint Text 'K' of D1002
+    @(148.8000 mm, 70.3400 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(149.3000 mm, 58.3300 mm): Circle on F.Silkscreen
+    @(152.0000 mm, 58.3300 mm): Circle on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(141.2700 mm, 88.5950 mm): Footprint Text 'K' of D405
+    @(140.0700 mm, 86.6850 mm): Circle on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(115.8000 mm, 77.0100 mm): Line on F.Silkscreen
+    @(117.6000 mm, 76.6000 mm): Reference 'U402'
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(118.7000 mm, 68.3050 mm): Footprint Text 'K' of D404
+    @(117.5000 mm, 66.3950 mm): Circle on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(102.8000 mm, 95.3050 mm): Footprint Text 'K' of D401
+    @(101.6000 mm, 93.3950 mm): Circle on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(107.4000 mm, 90.2700 mm): Reference 'J603'
+    @(107.1949 mm, 88.6000 mm): Circle on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(106.0700 mm, 93.8700 mm): Line on F.Silkscreen
+    @(128.6600 mm, 113.1900 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(106.0700 mm, 101.5500 mm): Line on F.Silkscreen
+    @(128.6600 mm, 113.1900 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(128.6600 mm, 113.1900 mm): Rect on F.Silkscreen
+    @(105.0000 mm, 110.0000 mm): Circle on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(128.6600 mm, 113.1900 mm): Rect on F.Silkscreen
+    @(107.1949 mm, 88.6000 mm): Circle on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(128.6600 mm, 113.1900 mm): Rect on F.Silkscreen
+    @(107.4000 mm, 90.2700 mm): Reference 'J603'
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(118.5000 mm, 103.9500 mm): Footprint Text 'USB HUB 5997' of MOD601
+    @(113.3500 mm, 88.9950 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(118.5000 mm, 107.2000 mm): Reference 'U602'
+    @(113.3500 mm, 107.0150 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(118.4900 mm, 107.9550 mm): Reference 'U601'
+    @(118.5000 mm, 107.2000 mm): Reference 'U602'
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(118.5000 mm, 107.2000 mm): Reference 'U602'
+    @(115.8400 mm, 106.9550 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(118.5000 mm, 107.2000 mm): Reference 'U602'
+    @(118.4900 mm, 106.9550 mm): Arc on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(118.4900 mm, 107.9550 mm): Reference 'U601'
+    @(118.5000 mm, 110.7600 mm): Arc on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(118.4900 mm, 107.9550 mm): Reference 'U601'
+    @(118.5000 mm, 110.7600 mm): Arc on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(118.5000 mm, 107.2000 mm): Reference 'U602'
+    @(119.4900 mm, 106.9550 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(118.5000 mm, 103.9500 mm): Footprint Text 'USB HUB 5997' of MOD601
+    @(121.1400 mm, 106.9550 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(123.7000 mm, 106.8500 mm): Footprint Text 'P1' of MOD601
+    @(113.3500 mm, 107.0150 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(123.7000 mm, 106.8500 mm): Footprint Text 'P1' of MOD601
+    @(123.6300 mm, 107.0150 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(118.5000 mm, 103.9500 mm): Footprint Text 'USB HUB 5997' of MOD601
+    @(123.6300 mm, 107.0150 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(113.3500 mm, 107.0150 mm): Line on F.Silkscreen
+    @(113.3000 mm, 106.8500 mm): Footprint Text 'P2' of MOD601
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(123.6300 mm, 107.0150 mm): Line on F.Silkscreen
+    @(123.7000 mm, 96.6500 mm): Footprint Text 'P3' of MOD601
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(37.8700 mm, 85.9100 mm): Line on F.Silkscreen
+    @(39.2000 mm, 86.4700 mm): Reference 'J403'
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(52.2000 mm, 83.1050 mm): Footprint Text 'K' of D501
+    @(51.0000 mm, 81.1950 mm): Circle on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(51.9949 mm, 43.1000 mm): Reference 'TP101'
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(60.5400 mm, 52.5800 mm): Footprint Text 'HEATSINK = BAT+  INSULATE' of HS301
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(49.5000 mm, 34.4000 mm): Circle on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(139.3000 mm, 91.8200 mm): Reference 'J602'
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(53.6829 mm, 34.4250 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(107.1949 mm, 86.1000 mm): Reference 'TP1002'
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(146.7900 mm, 105.9450 mm): Reference 'D701'
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(52.0000 mm, 68.8500 mm): Reference 'J401'
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(46.5000 mm, 38.8000 mm): Footprint Text 'K' of D101
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(32.5949 mm, 51.7500 mm): Reference 'TP102'
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(35.0000 mm, 67.0000 mm): Reference 'J901'
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(35.0000 mm, 72.0000 mm): Circle on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(118.5000 mm, 103.9500 mm): Footprint Text 'USB HUB 5997' of MOD601
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(123.7000 mm, 106.8500 mm): Footprint Text 'P1' of MOD601
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(128.6600 mm, 113.1900 mm): Rect on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(55.9949 mm, 59.5000 mm): Reference 'TP301'
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(39.2000 mm, 77.1700 mm): Reference 'J904'
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.3000 mm; actual 0.2624 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(160.0000 mm, 112.0000 mm): Line on Edge.Cuts
+    @(159.3376 mm, 74.4752 mm): Via [SERVO_SIG] on F.Cu - B.Cu
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(30.0000 mm, 32.0000 mm): Line on Edge.Cuts
+    @(30.0500 mm, 100.4000 mm): Reference 'J1003'
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(30.0000 mm, 32.0000 mm): Line on Edge.Cuts
+    @(29.8000 mm, 86.4000 mm): Reference 'J903'
+
+** Found 43 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(101.7000 mm, 62.3400 mm): PTH pad 2 [BAT] of F501
+    @(143.4500 mm, 111.5000 mm): Pad 1 [BAT] of R401 on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(155.7500 mm, 44.2450 mm): PTH pad 1 [CAM_VIN] of D406
+    @(150.5000 mm, 63.9600 mm): PTH pad 2 [CAM_VIN] of F403
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(99.8125 mm, 75.7500 mm): Pad 2 [CHG_G] of C502 on B.Cu
+    @(74.8000 mm, 89.2775 mm): Track [CHG_G] on B.Cu, length 2.7775 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(69.7300 mm, 95.7600 mm): PTH pad 1 [CHG_GND] of Q503
+    @(72.5500 mm, 92.7500 mm): Pad 2 [CHG_GND] of R506 on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(67.1300 mm, 81.7600 mm): PTH pad 1 [CHG_GND] of Q502
+    @(56.3068 mm, 77.5809 mm): Track [CHG_GND] on B.Cu, length 13.5741 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(72.5500 mm, 92.7500 mm): Pad 2 [CHG_GND] of R506 on B.Cu
+    @(67.1300 mm, 81.7600 mm): PTH pad 1 [CHG_GND] of Q502
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(56.9000 mm, 92.5400 mm): PTH pad 3 [CHG_OUT] of MOD502
+    @(70.0000 mm, 89.4450 mm): PTH pad 2 [CHG_OUT] of Q501
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(72.5400 mm, 89.4450 mm): Track [CHG_RB] on B.Cu, length 2.3019 mm
+    @(96.6875 mm, 75.7500 mm): Pad 1 [CHG_RB] of C502 on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(145.3900 mm, 76.7000 mm): PTH pad 23 [GND] of MOD701
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(107.4000 mm, 100.2200 mm): PTH pad 4 [GND] of J603
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+    @(77.4800 mm, 108.0000 mm): PTH pad 25 [GND] of J801
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(140.3200 mm, 64.9400 mm): PTH pad 3 [GND] of U802
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+    @(132.7000 mm, 58.1400 mm): PTH pad 2 [GND] of U801
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(123.0000 mm, 77.0000 mm): PTH pad 11 [GND] of J802
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(123.0000 mm, 71.9200 mm): PTH pad 9 [GND] of J802
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(132.7000 mm, 50.4400 mm): PTH pad 7 [GND] of U302
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(132.7000 mm, 50.4400 mm): PTH pad 7 [GND] of U302
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(117.5000 mm, 66.3950 mm): PTH pad 2 [GND] of D404
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(30.3000 mm, 78.0000 mm): Zone [GND] on B.Cu
+    @(30.3000 mm, 78.0000 mm): Zone [GND] on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+    @(140.3200 mm, 37.7400 mm): PTH pad 13 [GND] of U302
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(30.3000 mm, 78.0000 mm): Zone [GND] on B.Cu
+    @(30.3000 mm, 78.0000 mm): Zone [GND] on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+    @(135.5200 mm, 101.9000 mm): PTH pad 5 [GND] of J601
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(149.3000 mm, 58.3300 mm): PTH pad 2 [GND] of D1001
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(155.1000 mm, 71.3050 mm): PTH pad 2 [GND] of MOD402
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(127.6100 mm, 51.3000 mm): PTH pad 8 [GND] of MOD701
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+    @(30.3000 mm, 30.3000 mm): Zone [GND] on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(123.0000 mm, 79.5400 mm): PTH pad 12 [J14_PWR_KEY_N] of J802
+    @(140.3200 mm, 55.6000 mm): PTH pad 4 [J14_PWR_KEY_N] of U801
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(76.7000 mm, 100.7500 mm): Pad 1 [LATCH_OFF] of R406 on B.Cu
+    @(127.6100 mm, 61.4600 mm): PTH pad 12 [LATCH_OFF] of MOD701
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(135.5000 mm, 39.4500 mm): Pad 2 [MIC_IN] of R305 on B.Cu
+    @(95.9019 mm, 42.7400 mm): Track [MIC_IN] on B.Cu, length 0.1151 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(100.2000 mm, 89.4300 mm): PTH pad 1 [PICO_VSYS] of D402
+    @(145.3900 mm, 36.0600 mm): PTH pad 39 [PICO_VSYS] of MOD701
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(39.2000 mm, 79.5000 mm): PTH pad 1 [SERVO_IN_J] of J904
+    @(139.2000 mm, 72.5000 mm): Pad 1 [SERVO_IN_J] of R903 on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(44.6000 mm, 81.0000 mm): PTH pad 1 [SERVO_V] of J404
+    @(39.2000 mm, 91.3400 mm): PTH pad 2 [SERVO_V] of J403
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(155.6944 mm, 97.0796 mm): Track [SERVO_V] on B.Cu, length 1.7660 mm
+    @(150.5949 mm, 44.0000 mm): PTH pad 1 [SERVO_V] of TP403
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(44.6000 mm, 81.0000 mm): PTH pad 1 [SERVO_V] of J404
+    @(147.0950 mm, 97.6000 mm): PTH pad 1 [SERVO_V] of C404
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(118.4450 mm, 57.6000 mm): PTH pad 2 [VDEV] of Q402
+    @(122.0000 mm, 40.0000 mm): PTH pad 1 [VDEV] of J407
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(108.7449 mm, 77.8000 mm): PTH pad 1 [VDEV] of C405
+    @(118.4450 mm, 57.6000 mm): PTH pad 2 [VDEV] of Q402
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(117.5000 mm, 70.2050 mm): PTH pad 1 [VDEV_F] of D404
+    @(110.1875 mm, 64.5000 mm): Track [VDEV_F] on B.Cu, length 2.9279 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(103.8000 mm, 50.7500 mm): Pad 2 [VM] of R304 on B.Cu
+    @(93.7403 mm, 44.3203 mm): Track [VM] on B.Cu, length 1.3572 mm
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(149.2000 mm, 55.5000 mm): Pad 1 [VM] of R701 on B.Cu
+    @(103.8000 mm, 50.7500 mm): Pad 2 [VM] of R304 on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(148.9375 mm, 85.2500 mm): Pad 1 [VSYS_SW] of C406 on B.Cu
+    @(150.7000 mm, 82.0000 mm): Pad 1 [VSYS_SW] of R421 on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(151.4450 mm, 73.9600 mm): Track [VSYS_SW] on B.Cu, length 2.2544 mm
+    @(150.7000 mm, 82.0000 mm): Pad 1 [VSYS_SW] of R421 on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; Severity: error
+    @(150.5000 mm, 69.0400 mm): Track [VSYS_SW] on B.Cu, length 2.2019 mm
+    @(108.9000 mm, 67.9600 mm): Track [VSYS_SW] on F.Cu, length 3.4000 mm
+
+** Found 0 Footprint errors **
+
+** End of Report **

@@ -22,7 +22,8 @@ default) that the report lists as unconnected. Next to each it tries a through v
 joined to the pad by a short track on the pad's layer. A spot counts only if the via and the track
 clear every other net on every layer (outer-layer pours included; an inner plane of another net just
 gets an antipad), keep hole-to-hole clearance and the board edge, and the via lands inside a fill of
-the pad's own net on some inner layer, so it really reaches the plane. Refills and saves.
+the pad's own net on some inner layer, so it really reaches the plane (on a 2-layer board: in the net's
+fill on the other outer layer). Refills and saves.
 """
 import math
 import os
@@ -31,6 +32,9 @@ import sys
 
 import pcbnew
 from pcbnew import VECTOR2I, FromMM as MM, ToMM
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kicompat as kc  # noqa: E402  (KiCad 7 / KiCad 10 API differences)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 argv = sys.argv[1:]
@@ -87,8 +91,7 @@ if force:                   # pads named on the command line (the DRC may name t
     want = force
 print(f'{len(want)} unconnected surface pads on {sorted(nets)}')
 
-outline = pcbnew.SHAPE_POLY_SET()
-b.GetBoardPolygonOutlines(outline, True)
+outline = kc.board_outline(b)
 
 
 def near(item_bb, x, y, r):
@@ -188,11 +191,13 @@ def spot_ok(pad, net, x, y, obs, in_pad=False):
             return False
         if not in_pad and z.GetDoNotAllowTracks() and z.IsOnLayer(play) and ol.Collide(pcbnew.SEG(pad.GetPosition(), c), 0):
             return False
-    # it has to land in a plane of its own net
+    # it has to land in a plane of its own net (a 2-layer board has no inner planes: then in the net's
+    # fill on the other outer layer)
+    land = inner or [l for l in OUTER if l != play]
     for z in b.Zones():
         if z.GetIsRuleArea() or z.GetNetname() != net:
             continue
-        for l in inner:
+        for l in land:
             if z.IsOnLayer(l) and z.GetFilledPolysList(l).Contains(c):
                 return True
     return False
@@ -296,14 +301,14 @@ def island_vias(max_area=200.0):
 if '--zone-islands' in sys.argv:
     print('island vias:', island_vias())
     pcbnew.ZONE_FILLER(b).Fill(b.Zones())
-    pcbnew.SaveBoard(path, b)
+    kc.save(path, b)
     sys.exit(0)
 
 if eps:
     for ref, num in eps:
         print('%s pad %s: %s vias' % (ref, num, ep_vias(ref, num)))
     pcbnew.ZONE_FILLER(b).Fill(b.Zones())
-    pcbnew.SaveBoard(path, b)
+    kc.save(path, b)
     sys.exit(0)
 
 added, failed = 0, []
@@ -348,5 +353,5 @@ for ref, num in want:
     if not done:
         failed.append(f'{ref}.{num}')
 pcbnew.ZONE_FILLER(b).Fill(b.Zones())
-pcbnew.SaveBoard(path, b)
+kc.save(path, b)
 print(f'pad vias: {added} added; no room next to {len(failed)}: {" ".join(failed)}')

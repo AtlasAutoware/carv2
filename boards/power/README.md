@@ -100,7 +100,7 @@ Do this before U401 (R-78E) is fitted, so the bench supply does not feed the reg
    120 mA with the fan unplugged. TP701 (+3V3) reads 3.2-3.4 V once the Pico runs.
 2. E-stop: with a jumper lead in J1001, GP10 (ESTOP_OK) reads about 3.0 V; without it, 0 V.
 3. From the Pico REPL drive GP3 (MAIN_EN) high: U301 pin 2 (MIC5014 IN) reads about 4.9 V with the loop closed and
-   0 V with it open. Same for GP2: Q305's base gets about 0.7 V only with the loop closed.
+   0 V with it open. Same for GP2: Q305's base gets about 0.7 V only with the loop closed. Set both low again.
 4. GP17 and GP18 light the status and fault LEDs; GP14 sets FSESC COMM pin 6 to 3.3 V; GP16 drives the fan.
 5. BMS link loop-back: power J201's BMS side from a separate 3.3-5 V source (a USB power bank: J201 pin 1 = +,
    pin 4 = -, never joined to board GND) and bridge J201 pins 2 and 3. Bytes sent on UART0 at 9600 baud come back.
@@ -113,24 +113,32 @@ Do this before U401 (R-78E) is fitted, so the bench supply does not feed the reg
 ### 2. Pack bus from a current-limited 14 V at 0.5 A: latch, precharge, main switch
 
 Fit U401 and wire the Pololu #2813 (VIN, VOUT, GND, ON, OFF). Bench supply 14.0 V, limit 0.5 A, on J101/J102.
-Dummy load on the ESC pads: 1000 uF 35 V in parallel with 100 Ohm 2 W.
+Dummy load on the ESC pads: 1000 uF 35 V in parallel with 100 Ohm 2 W. Drive the Pico's pins from its REPL
+(MicroPython only, before the supervisor files are copied), as in `docs/BUILD_POWER_BOARD.md`.
 
-1. Off state: record the supply current (Pololu off current plus leakage). Nothing on VSYS_SW (TP401).
+1. Off state: record the supply current (Pololu off current plus leakage). Nothing on VSYS_SW (TP401). If the latch
+   switches itself on when the supply is applied, write that down (review m17).
 2. Press SW401: TP401 = 14 V, TP402 = 5 V, the Pico boots.
-3. Precharge (GP2 high, loop closed): VM (TP301) rises with a time constant of about 10 ms and settles near 12.7 V
+3. Precharge (loop in J1001, GP2 high): VM (TP301) rises with a time constant of about 10 ms and settles near 12.7 V
    (10.5 Ohm against the 100 Ohm load). Then GP3 high: TP302 (SW_GATE) reads 13-17 V above VM and VM = 14 V; GP2
-   low. Open the E-stop: VM falls to 0 V. Close it: VM stays off until the firmware enables it again. Repeat at
-   12.0 V: SW_GATE must still be at least 10 V above VM (review m1).
-4. Dev-kit feed: DEV+ = 14 V; GP22 low cuts it. Raise the supply slowly: DEV+ drops to 0 V at about 18.7 V and
-   returns at about 17.85 V on the way down. Stop at 19.0 V (the pack TVS starts to conduct above 19 V).
-5. GP6 high puts 14 V on the lidar terminal; the camera pads carry 14 V through F403.
-6. GP9 pulse: the latch turns everything off.
-7. Precharge into the real loads (review M3): at 12.0 V, replace the dummy load with the FSESC, the Castle BEC (set
-   to 7.5 V) with the servo and the 1000 uF, scope on VM. Precharge must bring VM to within 2.5 V of the supply and
-   stop rising. If the BEC's start-up holds VM down, move the BEC's red lead from BEC+ (J401, on VM) to BEC+ALT
-   (J410, on VSYS_SW; the latch, rated 6 A continuous, then carries the servo as well as the dev kit, lidar and
-   camera, so check that sum at a 12 V pack), or fit a 4.7 Ohm 5 W cement resistor (Yageo SQP500JB-4R7, same body) as R313 (3.6 A peak for about
-   10 ms; check that F301, the MF-R050, does not trip).
+   low.
+4. Open the E-stop loop: VM falls to 0 V. **Set GP3 low before the loop closes again**: at the REPL nothing drops
+   GP3, and with GP3 still high the 74HCT08 recloses the switch the moment the loop closes. (The supervisor firmware
+   drops MAIN_EN as soon as the loop opens and waits for a button press.)
+5. At 12.0 V, repeat step 3: SW_GATE must still be at least 10 V above VM (review m1). Back to 14.0 V, GP3 low.
+6. Dev-kit feed, with a load of about 1 kOhm 0.5 W or more across DEV+ and DEV- (without one, C405 holds DEV+ up
+   after the feed is cut): DEV+ = 14 V; GP22 low cuts it to 0 V. With GP3 low, raise the supply slowly: DEV+ drops to
+   0 V at about 18.7 V and returns at about 17.85 V on the way down. Stop at 19.0 V (the pack TVS starts to conduct
+   above 19 V).
+7. GP6 high puts 14 V on the lidar terminal; the camera pads carry 14 V through F403.
+8. GP9 pulse: the latch turns everything off.
+9. Precharge into the real loads (review M3; test 4 in `docs/BUILD_POWER_BOARD.md`): at 12.0 V, with the supply's
+   limit above the precharge peak (about 1.1 A), replace the dummy load with the FSESC, the Castle BEC (set to 7.5 V)
+   with the servo and the 1000 uF, scope on VM. Precharge must bring VM to within 2.5 V of the supply and stop rising.
+   If the BEC's start-up holds VM down, move the BEC's red lead from BEC+ (J401, on VM) to BEC+ALT (J410, on
+   VSYS_SW; the latch, rated 6 A continuous, then carries the servo as well as the dev kit, lidar and camera, so
+   check that sum at a 12 V pack), or fit a 4.7 Ohm 5 W cement resistor (Yageo SQP500JB-4R7, same body) as R313
+   (3.6 A peak for about 10 ms; check that F301, the MF-R050, does not trip).
 
 ### 3. Main switch under load: 50 A, then 70 A pulses, thermocouple on the FETs
 
@@ -139,13 +147,19 @@ ESC pads (about 0.33 Ohm for 50 A, 0.24 Ohm for 70 A, rated for the pulse energy
 Kapton to the middle FET's tab (the bar is BAT+). Two people, eye protection, and a way to open the E-stop loop
 from a distance.
 
+The pulses come from the load's own switch (a switch or contactor rated for 70 A DC, or an electronic load's pulse
+mode), never from the main switch. With the load's switch open, switch the car on, precharge and close the main
+switch (GP2, then GP3, then GP2 low; or the supervisor firmware); it then stays closed for the whole test, as in the
+car, where it closes after precharge with the ESC idle and only opens under load when the E-stop is pulled.
+
 1. 50 A for 2 s, 20 s off, ten times. Watch SW_GATE minus VM (at least 10 V), the drop from BAT to VM (expect
    tens of mV), and the tab temperature (it should not climb more than about 20 C over the run). Compare the
    FET_NTC reading with the thermocouple.
 2. 70 A for 1 s, 30 s off, five times, same checks.
 3. Open the E-stop during a 50 A pulse with a scope on TP101 (BAT) and TP301 (VM): the spike must stay well under
    the TVS clamps (27.7 V at full TVS current); expect a few volts.
-4. Pass: no FET tab above 80 C, no hot spot on the VM pour (a thermal camera helps), switch-off clean.
+4. Pass: no FET tab above 80 C, no hot spot on the VM pour (a thermal camera helps, review m20), switch-off clean.
+   Note the capacitor temperature too (review m21).
 
 ## Cost per block
 

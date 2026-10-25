@@ -6,6 +6,9 @@
   class change needs no board rebuild before the next routing round.
 - --ignore-gnd moves GND into a class of its own, GndPlane, for Freerouting's -inc option: every GND
   pad reaches its plane through a fixed via already, and the router then spends its passes on signals.
+- layout.DSN_CLASS_CLEARANCE = {'CLASS': mm, ...} (optional): a Specctra class_class rule between that class
+  and every other class, so the router keeps an isolation gap that KiCad holds with a custom .kicad_dru rule
+  (the power board's BMS domain: 2 mm). Freerouting reads class_class (NetClass.ClassClass).
 """
 import importlib.util
 import os
@@ -61,9 +64,22 @@ for k, b in enumerate(blocks):
     out += s[b['end']:blocks[k + 1]['start']] if k + 1 < len(blocks) else ''
 last = blocks[-1]['end']
 if '--ignore-gnd' in sys.argv:
-    via = re.search(r'\(use_via "([^"]+)"\)', s).group(1)
+    via = re.search(r'\(use_via "?([^"\s()]+)"?\)', s).group(1)       # KiCad 7 writes it unquoted
     out += ('\n    (class GndPlane GND\n      (circuit\n        (use_via "%s")\n      )\n      (rule\n'
             '        (width 250)\n        (clearance 200)\n      )\n    )' % via)
+cc = getattr(L, 'DSN_CLASS_CLEARANCE', {})
+if cc:
+    unit = re.search(r'\(resolution (\w+) (\d+)\)', s)
+    scale = {'um': 1000.0, 'mm': 1.0, 'mil': 1 / 0.0254, 'inch': 1 / 25.4}[unit.group(1)] if unit else 1000.0
+    names = [s[b['start'] + 7:s.index(' ', b['start'] + 7)] for b in blocks]
+    if '--ignore-gnd' in sys.argv:
+        names.append('GndPlane')
+    for cname, mm in cc.items():
+        for other in names:
+            if other != cname and cname in names:
+                out += ('\n    (class_class (classes %s %s)\n      (rule\n        (clearance %.1f)\n      )\n    )'
+                        % (cname, other, mm * scale))
+    print('class_class clearance:', ', '.join(f'{k} {v} mm to every other class' for k, v in cc.items()))
 out += s[last:]
 open(dst, 'w').write(out)
 print('moved %d nets between classes%s' % (moved, '; GND ignored' if '--ignore-gnd' in sys.argv else ''))

@@ -236,6 +236,7 @@ def place_all(B):
     c(find(value='1k', nets=['BMS_VDD', 'BMS_OPT1_A']), 82.6, 73.0, 90, 'B')
     c(find(value='4.7k', nets=['BMS_VDD', 'BMS_RXD']), 82.6, 67.0, 90, 'B')
     c(find(value='100n', nets=['BMS_VDD', 'BMS_GND']), 82.6, 62.0, 90, 'B')   # 2 mm from F401
+    c(find(value='470', nets=['+3V3', 'BMS_OPT2_A']), 88.5, 62.25, 0, 'B')   # (E) R203 2 mm east of the BMS_VDD track
     pin(find(value='DEV+'), '1', 92.0, 74.0)
     pin(find(value='DEV-'), '1', 92.0, 68.2)
     c(find(value='5A mini', nets=['VDEV_F']), 80.6, 51.0, 90)
@@ -334,11 +335,11 @@ def finish(B):
 
 
 # ----------------------------------------------------------------------------- markings (agent E, inside KiCad)
-FIDUCIAL_NEAR = [(10.0, 4.5), (121.0, 4.5), (121.0, 79.5)]     # three top fiducials, non-collinear
+FIDUCIAL_NEAR = [[(15.75, 14.25), (10.0, 4.5), (9.75, 77.5)], [(127.0, 10.0), (121.0, 4.5), (114.0, 12.0)], [(121.0, 79.5)]]   # three, non-collinear
 TEXTS = [  # (text, [(near X, near Y), ...], height mm, layer 'F'/'B', bold)
     ('FET bar is at pack voltage', [(21.6, 56.9), (30.5, 56.9)], 1.0, 'F', True),     # across the FET row from the bar
     ('ATLAS-PWR-1 rev B  2026-10-24', [(34.0, 38.0)], 1.2, 'F', True),
-    ('Atlas Autoware   S/N ____', [(34.0, 36.2), (88.0, 32.6), (60.0, 36.5)], 0.9, 'F', False),
+    ('Atlas Autoware   S/N ____', [(30.0, 44.0)], 1.2, 'B', False),       # the top has no free strip for it
     ('ATLAS-PWR-1 rev B  2026-10-24', [(30.0, 50.0)], 1.5, 'B', True),
     ('bottom: 1206/1210 chips, solder these first', [(30.0, 47.0)], 1.0, 'B', False),
 ]
@@ -506,8 +507,8 @@ def marks(B):
 
     # fiducials: 1 mm copper dot, 2 mm mask opening; keep 1.5 mm round them free of pads and part bodies
     n_fid = 0
-    for i, (tx, ty) in enumerate(FIDUCIAL_NEAR):
-        for x, y in spiral(tx, ty):
+    for i, targets in enumerate(FIDUCIAL_NEAR):
+        for x, y in (q for tx, ty in targets for q in spiral(tx, ty, reach=6.0)):
             r = (x - 2.0, y - 2.0, x + 2.0, y + 2.0)
             if free(r, 'F', edge=1.0, courtyards=True):
                 fp = B.load_fp('Fiducial:Fiducial_1mm_Mask2mm')
@@ -522,6 +523,14 @@ def marks(B):
                 crt['F'].append(r)
                 n_fid += 1
                 break
+        else:
+            if os.environ.get('MARKS_DEBUG'):
+                x, y = targets[0]
+                r = (x - 2.0, y - 2.0, x + 2.0, y + 2.0)
+                print('   debug fiducial', targets[0], 'pads', [o for o in pads['F'] if hit(r, [o])][:3],
+                      'silk', [o for o in silk['F'] if hit(r, [o])][:3], 'crt', [o for o in crt['F'] if hit(r, [o])][:3],
+                      'strokes', [q for q in strokes['F'] if seg_rect(q[0], q[1], q[2], q[3], r) < q[4] + 0.15][:3],
+                      'opening', on_opening(r, 'F'))
 
     def add_text(s, targets, size, side, bold=False, reach=12.0, own=None):
         """the first free spot near the first target that has one; text stays off part bodies (courtyards,
@@ -733,7 +742,14 @@ def copper(B, C):
         if p['footprint'].startswith(('atlas:WirePad', 'Connector_Wire:')) and set(p['pads'].values()) & {'BAT', 'VM'}:
             bb_ = max((bb for n_, c_, bb, d_ in B.pads(ref)), key=lambda q: q[2] - q[0])
             cx_, cy_, r_ = (bb_[0] + bb_[2]) / 2, (bb_[1] + bb_[3]) / 2, (bb_[2] - bb_[0]) / 2
-            keep.append(box(cx_ + r_ + 0.2, cy_ - 2.0, cx_ + r_ + 3.8, cy_ + 2.0))
+            bodies_ = [box(*B.crt(o)) for o in B.pos if o != ref and B.pos[o][3] == 'F']
+            for sq in (box(cx_ + r_ + 0.2, cy_ - 2.0, cx_ + r_ + 3.8, cy_ + 2.0),
+                       box(cx_ - r_ - 3.8, cy_ - 2.0, cx_ - r_ - 0.2, cy_ + 2.0),
+                       box(cx_ - 2.0, cy_ + r_ + 0.2, cx_ + 2.0, cy_ + r_ + 3.8),
+                       box(cx_ - 2.0, cy_ - r_ - 3.8, cx_ + 2.0, cy_ - r_ - 0.2)):
+                if edge.contains(sq) and not any(sq.intersects(o) for o in bodies_):
+                    keep.append(sq)              # the first side of the pad clear of other parts
+                    break
     bodies = [box(*B.crt(r, 0.3)) for r in B.pos if B.pos[r][3] == 'F' and not B.is_hole(r) and
               not B.parts[r]['footprint'].startswith(('atlas:WirePad', 'Connector_Wire:'))]
     no_open = unary_union([box(b_[0] - 0.5, b_[1] - 0.5, b_[2] + 0.5, b_[3] + 0.5) for b_ in bar] + keep + bodies)

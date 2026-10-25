@@ -16,6 +16,9 @@ import sys
 
 import pcbnew
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kicompat as kc  # noqa: E402  (KiCad 7 / KiCad 10 API differences)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 bdir = os.path.abspath(os.path.join(HERE, '..', sys.argv[1]))
 args = sys.argv[2:]
@@ -44,6 +47,6 @@ for t in list(b.GetTracks()):
         keep.append(t)
         removed += 1
 pcbnew.ZONE_FILLER(b).Fill(b.Zones())
-pcbnew.SaveBoard(path, b)
+kc.save(path, b)
 print(f'stripped {removed} unlocked tracks/vias on {len(nets) + len(pats)} nets/patterns:',
       ' '.join(sorted(nets - {'GND'}) + pats))

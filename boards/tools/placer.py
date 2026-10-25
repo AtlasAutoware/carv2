@@ -61,6 +61,8 @@ def build_library(geom, parts):
     """footprint id -> {'crt': box, 'pads': [(num, box, drill)]} at rotation 0, top side"""
     lib = {}
     for f in geom['fps']:
+        if f['ref'] not in parts:
+            continue                        # board-only footprints (fiducials) have no part
         fid = parts[f['ref']]['footprint']
         if fid in lib:
             continue
@@ -125,10 +127,12 @@ class Board:
         self.pos[ref] = (x, y, round(deg) % 360, side)
 
     def pad_xy(self, ref, num):
-        for n, c, _, _ in self.pads(ref):
-            if n == num:
-                return c
-        raise KeyError(f'{ref} pad {num}')
+        """centre of pad `num`; when several pads share the number (a wire pad with its ring of small via
+        pads), the largest one, whatever order the footprint dump lists them in"""
+        hits = [(-(bb[2] - bb[0]) * (bb[3] - bb[1]), i, c) for i, (n, c, bb, _) in enumerate(self.pads(ref)) if n == num]
+        if not hits:
+            raise KeyError(f'{ref} pad {num}')
+        return min(hits)[2]
 
     def face(self, ref, x, y, pads, direction, side='F'):
         want = {'up': (0, 1), 'down': (0, -1), 'left': (-1, 0), 'right': (1, 0)}[direction]
@@ -355,7 +359,7 @@ class Copper:
 
     def __init__(self, B):
         self.B = B
-        self.zones, self.vias, self.tracks, self.rules = [], [], [], []
+        self.zones, self.vias, self.tracks, self.rules, self.masks = [], [], [], [], []
         self._pads = None
 
     # ---- obstacles
@@ -434,6 +438,17 @@ class Copper:
         self.rules.append({'name': name, 'layers': layers, 'rings': rings, 'no_tracks': tracks, 'no_vias': vias,
                            'no_zones': zones, 'dsn_only': dsn_only, 'geom': geom})
 
+    def mask(self, name, layer, geom):
+        """solder mask opening (bare copper, tinned by the HASL) over a shapely region: build_pcb.py draws it as a
+        filled polygon on F.Mask or B.Mask"""
+        polys = [geom] if geom.geom_type == 'Polygon' else list(getattr(geom, 'geoms', []))
+        for i, p in enumerate(polys):
+            if p.is_empty or p.area < 1.0:
+                continue
+            ring = [(round(x, 4), round(y, 4)) for x, y in list(p.exterior.coords)[:-1]]
+            holes = [[(round(x, 4), round(y, 4)) for x, y in list(h.coords)[:-1]] for h in p.interiors]
+            self.masks.append({'name': f'{name}_{i}', 'layer': layer, 'rings': [ring] + holes})
+
     def pad_box(self, ref, num, grow=0.0):
         bs = [bb for n, c, bb, d in self.B.pads(ref) if n == num]
         if not bs:
@@ -446,7 +461,8 @@ class Copper:
 
     def dump(self, path):
         rules = [{k: v for k, v in r.items() if k != 'geom'} for r in self.rules]
-        json.dump({'zones': self.zones, 'vias': self.vias, 'tracks': self.tracks, 'rules': rules}, open(path, 'w'))
+        json.dump({'zones': self.zones, 'vias': self.vias, 'tracks': self.tracks, 'rules': rules, 'masks': self.masks},
+                  open(path, 'w'))
 
 
 def seg_dist(px, py, x0, y0, x1, y1):

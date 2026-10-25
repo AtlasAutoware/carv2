@@ -6,7 +6,20 @@
   "board": {
     "design_settings": {
       "defaults": {},
-      "rules": {}
+      "rules": {
+        "min_clearance": 0.2,
+        "min_track_width": 0.25,
+        "min_via_diameter": 0.8,
+        "min_via_annular_width": 0.15,
+        "min_through_hole_diameter": 0.3,
+        "min_hole_clearance": 0.25,
+        "min_hole_to_hole": 0.4,
+        "min_copper_edge_clearance": 0.3
+      },
+      "rule_severities": {
+        "lib_footprint_issues": "ignore",
+        "lib_footprint_mismatch": "ignore"
+      }
     }
   },
   "erc": {
@@ -27,17 +40,262 @@
     "classes": [
       {
         "name": "Default",
-        "clearance": 0.15,
-        "track_width": 0.2,
-        "via_diameter": 0.6,
-        "via_drill": 0.3,
+        "clearance": 0.25,
+        "track_width": 0.3,
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
         "diff_pair_width": 0.2,
         "diff_pair_gap": 0.15
+      },
+      {
+        "name": "Supply",
+        "clearance": 0.3,
+        "track_width": 2.0,
+        "via_diameter": 1.2,
+        "via_drill": 0.6,
+        "diff_pair_width": 0.2,
+        "diff_pair_gap": 0.25,
+        "wire_width": 6,
+        "bus_width": 12,
+        "line_style": 0,
+        "priority": 1
+      },
+      {
+        "name": "Servo",
+        "clearance": 0.3,
+        "track_width": 2.5,
+        "via_diameter": 1.2,
+        "via_drill": 0.6,
+        "diff_pair_width": 0.2,
+        "diff_pair_gap": 0.25,
+        "wire_width": 6,
+        "bus_width": 12,
+        "line_style": 0,
+        "priority": 2
+      },
+      {
+        "name": "Pulse",
+        "clearance": 0.3,
+        "track_width": 1.0,
+        "via_diameter": 1.0,
+        "via_drill": 0.5,
+        "diff_pair_width": 0.2,
+        "diff_pair_gap": 0.25,
+        "wire_width": 6,
+        "bus_width": 12,
+        "line_style": 0,
+        "priority": 3
+      },
+      {
+        "name": "Rail5",
+        "clearance": 0.25,
+        "track_width": 1.0,
+        "via_diameter": 1.0,
+        "via_drill": 0.5,
+        "diff_pair_width": 0.2,
+        "diff_pair_gap": 0.25,
+        "wire_width": 6,
+        "bus_width": 12,
+        "line_style": 0,
+        "priority": 4
+      },
+      {
+        "name": "Power",
+        "clearance": 0.25,
+        "track_width": 0.6,
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
+        "diff_pair_width": 0.2,
+        "diff_pair_gap": 0.25,
+        "wire_width": 6,
+        "bus_width": 12,
+        "line_style": 0,
+        "priority": 5
+      },
+      {
+        "name": "USB",
+        "clearance": 0.25,
+        "track_width": 0.4,
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
+        "diff_pair_width": 0.2,
+        "diff_pair_gap": 0.25,
+        "wire_width": 6,
+        "bus_width": 12,
+        "line_style": 0,
+        "priority": 6
+      },
+      {
+        "name": "BMS",
+        "clearance": 0.3,
+        "track_width": 0.3,
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
+        "diff_pair_width": 0.2,
+        "diff_pair_gap": 0.25,
+        "wire_width": 6,
+        "bus_width": 12,
+        "line_style": 0,
+        "priority": 7
       }
     ],
     "meta": {
       "version": 3
-    }
+    },
+    "netclass_patterns": [
+      {
+        "netclass": "Supply",
+        "pattern": "VSYS_SW"
+      },
+      {
+        "netclass": "Supply",
+        "pattern": "VDEV_F"
+      },
+      {
+        "netclass": "Supply",
+        "pattern": "VDEV"
+      },
+      {
+        "netclass": "Supply",
+        "pattern": "LID_SW"
+      },
+      {
+        "netclass": "Supply",
+        "pattern": "LIDAR_V"
+      },
+      {
+        "netclass": "Supply",
+        "pattern": "CHG_IN"
+      },
+      {
+        "netclass": "Supply",
+        "pattern": "CHG_OUT"
+      },
+      {
+        "netclass": "Supply",
+        "pattern": "CHG_RB"
+      },
+      {
+        "netclass": "Supply",
+        "pattern": "CAM_VIN"
+      },
+      {
+        "netclass": "Supply",
+        "pattern": "BAT"
+      },
+      {
+        "netclass": "Supply",
+        "pattern": "CHG_GND"
+      },
+      {
+        "netclass": "Servo",
+        "pattern": "SERVO_V"
+      },
+      {
+        "netclass": "Pulse",
+        "pattern": "PRE_D"
+      },
+      {
+        "netclass": "Pulse",
+        "pattern": "PRE_F"
+      },
+      {
+        "netclass": "Pulse",
+        "pattern": "V5_IN"
+      },
+      {
+        "netclass": "Pulse",
+        "pattern": "VM"
+      },
+      {
+        "netclass": "Rail5",
+        "pattern": "+5V"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "+3V3"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "PICO_VSYS"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "CON_3V3"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "SW_GATE"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "SW_G1"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "SW_G2"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "SW_G3"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "HUB_VBUS"
+      },
+      {
+        "netclass": "USB",
+        "pattern": "P1_DP"
+      },
+      {
+        "netclass": "USB",
+        "pattern": "P1_DM"
+      },
+      {
+        "netclass": "USB",
+        "pattern": "P2_DP"
+      },
+      {
+        "netclass": "USB",
+        "pattern": "P2_DM"
+      },
+      {
+        "netclass": "USB",
+        "pattern": "P3_DP"
+      },
+      {
+        "netclass": "USB",
+        "pattern": "P3_DM"
+      },
+      {
+        "netclass": "USB",
+        "pattern": "P4_DP"
+      },
+      {
+        "netclass": "USB",
+        "pattern": "P4_DM"
+      },
+      {
+        "netclass": "BMS",
+        "pattern": "BMS_VDD"
+      },
+      {
+        "netclass": "BMS",
+        "pattern": "BMS_TXD"
+      },
+      {
+        "netclass": "BMS",
+        "pattern": "BMS_RXD"
+      },
+      {
+        "netclass": "BMS",
+        "pattern": "BMS_GND"
+      },
+      {
+        "netclass": "BMS",
+        "pattern": "BMS_OPT1_A"
+      }
+    ]
   },
   "schematic": {
     "meta": {

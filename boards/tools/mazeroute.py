@@ -52,6 +52,9 @@ afterwards is the check.
     --clash-log FILE      append each round's failed nets and clash spots (JSON lines), to find the
                           bottleneck when rounds stop improving
     --res MM              grid step (0.05)
+    --min-width W, --min-via D/H   floors of the last-resort try, a thinner track and via (0.15, 0.5/0.25:
+                          the rev A boards' fine pitch); the power board uses 0.25 and 0.8/0.4 (PCBWay standard)
+    --thin-max W          nets wider than W never take the thin last-resort try (power rails keep their width)
 """
 import fnmatch
 import importlib.util
@@ -79,6 +82,9 @@ def opt(name, default):
 
 
 RES = float(opt('--res', 0.05))
+MIN_W = float(opt('--min-width', 0.15))                                  # floor of the thin last-resort track
+MIN_VIA = tuple(float(v) for v in opt('--min-via', '0.5/0.25').split('/'))  # and of its via
+THIN_MAX = float(opt('--thin-max', 1e9))                                 # wider nets never go thin
 bdir = os.path.join(HERE, '..', board)
 spec = importlib.util.spec_from_file_location('layout', os.path.join(bdir, 'layout.py'))
 L = importlib.util.module_from_spec(spec)
@@ -1125,10 +1131,15 @@ def join(net, fresh, soft_ok=True, limit=40):
         w = width(net)
         vd, vh = via_size(net)
         res = None
-        tries = [(w, vd, vh, 6, None), (w, vd, vh, 20, None),
-                 (max(0.15, min(w, 0.2)), min(vd, 0.5), min(vh, 0.25), 20, None)]
+        tries = [(w, vd, vh, 6, None), (w, vd, vh, 20, None)]
+        # the last resort: thinner track and smaller via (floors --min-width, --min-via); a net wider than
+        # --thin-max keeps its own width and via
+        thin = (max(MIN_W, min(w, 0.2)), max(MIN_VIA[0], min(vd, 0.5)), max(MIN_VIA[1], min(vh, 0.25)))
+        if w > THIN_MAX:
+            thin = (w, vd, vh)
+        tries.append(thin + (20, None))
         if soft_ok:
-            tries.append((max(0.15, min(w, 0.2)), min(vd, 0.5), min(vh, 0.25), 20, Movable(net)))
+            tries.append(thin + (20, Movable(net)))
         if any(fnmatch.fnmatchcase(net, pat) for pat in WIDE):
             # the nearest copper of the other island may be walled in (a bus between two others on an
             # inner layer): look over the whole board for a place to join it

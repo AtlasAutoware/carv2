@@ -10,6 +10,9 @@ import sys
 import pcbnew
 from pcbnew import VECTOR2I, FromMM as MM
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kicompat as kc  # noqa: E402  (KiCad 7 / KiCad 10 API differences)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 board = sys.argv[1]
 names = sys.argv[2:]
@@ -43,5 +46,5 @@ for zn in b.Zones():
                 ol.Append(MM(OX + x), MM(OY - y), oi, hi)
     done.append(z['name'])
 pcbnew.ZONE_FILLER(b).Fill(b.Zones())
-pcbnew.SaveBoard(path, b)
+kc.save(path, b)
 print('new outlines:', ', '.join(done) or 'none', '; not on the board:', ', '.join(set(names) - set(done)) or 'none')

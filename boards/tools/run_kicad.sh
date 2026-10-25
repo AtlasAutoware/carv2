@@ -36,6 +36,8 @@ for step in "$@"; do
     sestrim-*) b=${step#sestrim-}; (cd boards/tools && $KPY ses_import.py $b --trim) ;;
     padvia-drive) (cd boards/tools && $KPY pad_vias.py drive) ;;
     padvia-brain) (cd boards/tools && $KPY pad_vias.py brain --via 0.45/0.2 --track 0.15) ;;
+    padvia-power) (cd boards/tools && $KPY pad_vias.py power --via 0.8/0.4 --track 0.3) ;;
+    finish-power) (cd boards/tools && $KPY finish_pcb.py power --via 0.8/0.4 --pitch 3.0) ;;
     finish-*) b=${step#finish-}; (cd boards/tools && $KPY finish_pcb.py $b) ;;
     addroutes-*) b=${step#addroutes-}; (cd boards/tools && $KPY add_routes.py $b ../$b/out/maze_routes.json) ;;
     dump-*) b=${step#dump-}; (cd boards/$b && $KPY ../tools/dump_board.py atlas_$b.kicad_pcb out/atlas_${b}_dump.json | tail -1) ;;
@@ -55,7 +57,7 @@ for step in "$@"; do
              $R --perspective --rotate '-130,0,-35' --zoom 0.85 -w 2400 -h 1600 -o out/render/${b}_iso_bottom.png atlas_$b.kicad_pcb >/dev/null && \
              ls -la out/render) ;;
     glb-*) b=${step#glb-}; (cd boards/$b && mkdir -p out/render && \
-             O=$([ $b = drive ] && echo 30x120mm || echo 29.75x128.75mm) && \
+             O=$(case $b in drive) echo 30x120mm ;; power) echo 30x114mm ;; *) echo 29.75x128.75mm ;; esac) && \
              $KCLI pcb export glb --force --subst-models --include-tracks --include-pads --include-zones \
                 --include-silkscreen --include-soldermask --user-origin $O -o out/render/atlas_$b.glb atlas_$b.kicad_pcb | tail -1 && \
              ls -la out/render/atlas_$b.glb) ;;
