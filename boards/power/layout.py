@@ -44,7 +44,7 @@ CORNER_R = 2.0
 HOLES = {'H1001': (4.0, 4.0), 'H1002': (4.0, 80.0), 'H1003': (75.0, 4.0), 'H1004': (75.0, 80.0),
          'H1005': (L_BOARD - 4.0, 4.0), 'H1006': (L_BOARD - 4.0, 80.0)}
 AUTO_MARGIN = 0.2                # 0.4 mm between auto-placed courtyards
-KEEP_AUTO = False
+KEEP_AUTO = True                 # (E2) routed: auto-placed parts stay where the last run put them
 IC_RING = 0.4
 SMD_UNDER_THT = True             # bottom chips may sit under through-hole bodies, clear of their pads
 PAD_CLEAR = 0.5
@@ -176,6 +176,17 @@ def place_all(B):
     pin(find(value='BEC-'), '1', 12.0, 50.2)               # in the GND corner
     c(find(pre='TP', nets=['VM']), 26.0, 52.0)              # (E) 0.6 mm down: room for the FET bar warning
     c(find(value='MIC5014'), 68.5, 70.0)
+    # (E2) MIC5014 IN pull-down beside pin 2, north of the heatsink-NTC track that leaves under the DIP between pins 2/3
+    c(find(value='100k', nets=['MIC_IN', 'GND']), 62.0, 72.9, 90, 'B')
+    # (E2) the VM_SENSE divider's top resistor on the VM link north of F501 (VM itself, a 0.3 mm class, cannot pass
+    # between the J802 and Pico pins; VM_SENSE, a signal, can)
+    c(find(value='100k', nets=['VM', 'VM_SENSE']), 70.0, 56.0, 270, 'B')
+    # (E2) the power button's 33k from BAT beside F501's BAT pin (it was at the button, which took a thin BAT track
+    # across the middle of the board; BTN_HI, a signal, now makes that run)
+    c(find(value='33k', nets=['BAT', 'BTN_HI']), 76.5, 49.8, 0, 'B')
+    # (E2) the dev-kit cut-off's VDEV_F-to-OV_G resistor between F401 and Q402, beside R412 and Q402's gate (it sat
+    # in the 2.5 mm gap west of F401 that the signals from the MIC5014 side, MIC_IN and NTC_NODE, have to use)
+    c(find(value='10k', nets=['VDEV_F', 'OV_G']), 85.7, 54.4, 270, 'B')
     for i, r in enumerate(sorted(r for r, p in parts.items() if p['value'] == '10' and 'SW_GATE' in p['pads'].values())):
         c(r, 15.0 + 13.0 * i, 63.6, 270, 'B')              # bottom, north of each G pin, SW_GATE runs east at Y 66
     c(find(value='1u 50V', nets=['BAT']), 30.5, 71.6, 0, 'B')   # under C101: HF bypass across its pins
@@ -212,6 +223,8 @@ def place_all(B):
     c(find(value='2N3904', nets=['CHG_C']), 38.4, 32.6)
     c(find(value='2N3904', nets=['CHG_PRESENT_N']), 41.0, 18.6)
     c(find(value='IRF4905PBF', nets=['CHG_OUT']), 40.0, 25.5)
+    # (E2) Q501's 100 nF gate-source capacitor beside its gate pin (the auto placer had put it 28 mm away, by F501)
+    c(find(value='100n', nets=['CHG_RB', 'CHG_G']), 33.6, 22.5, 90, 'B')
     c(find(value='5A mini', nets=['CHG_RB']), 70.0, 46.7, 90)   # into the BAT pour at its north end
     c(find(pre='TP', nets=['CHG_IN']), 34.2, 18.6)
     c(find(value='POLOLU_2813'), 50.0, 25.0)
@@ -238,7 +251,8 @@ def place_all(B):
     c(find(value='100n', nets=['BMS_VDD', 'BMS_GND']), 82.6, 62.0, 90, 'B')   # 2 mm from F401
     c(find(value='470', nets=['+3V3', 'BMS_OPT2_A']), 88.5, 62.25, 0, 'B')   # (E) R203 2 mm east of the BMS_VDD track
     pin(find(value='DEV+'), '1', 92.0, 74.0)
-    pin(find(value='DEV-'), '1', 92.0, 68.2)
+    pin(find(value='DEV-'), '1', 93.28, 68.2)               # (E2) 1.28 mm east: room for the 2 mm VDEV track to DEV+ west of it
+    #     (and its courtyard just clear of the Pico's)
     c(find(value='5A mini', nets=['VDEV_F']), 80.6, 51.0, 90)
     c(find(value='IRF4905PBF', nets=['VDEV']), 87.5, 56.4, 90)
     c(find(value='P6KE22A', nets=['VDEV_F']), 87.5, 46.0, 90)
@@ -276,7 +290,7 @@ def place_all(B):
     c(find(value='BAT85', nets=['+3V3']), 122.0, 54.5, 90)
     c(find(value='BAT85', nets=['GND']), 119.3, 54.5, 90)
     c(find(value='BTN_REMOTE'), 125.3, 64.0, 90)
-    c(find(pre='TP', nets=['SERVO_V']), 120.6, 70.0)
+    c(find(pre='TP', nets=['SERVO_V']), 44.0, 14.1)         # (E2) on the servo supply run (was at X 120.6 Y 70, 50 mm from it)
 
     # ------------------------------------------------------------ holes
     for ref, (x, y) in HOLES.items():
@@ -620,8 +634,31 @@ def marks(B):
                     break
             if done:
                 break
+        if not done and os.environ.get('MARKS_DEBUG'):
+            rad = ToMM(pd.GetBoundingBox().GetWidth()) / 2 + 0.6 + 0.8
+            for ang in range(0, 360, 30):
+                x = px + rad * math.cos(math.radians(ang))
+                y = py + rad * math.sin(math.radians(ang))
+                r = (x - 1.05, y - 1.05, x + 1.05, y + 1.05)
+                why = [('pad', o) for o in pads['F'] if hit(r, [o])][:1] + [('silk', o) for o in silk['F'] if hit(r, [o])][:1]
+                why += [('crt', o) for o in others if hit(r, [o])][:1] + (['opening'] if on_opening(r, 'F') else [])
+                why += [('stroke', q[:4]) for q in strokes['F'] if seg_rect(q[0], q[1], q[2], q[3], r) < q[4] + 0.15][:1]
+                print('   debug sign', ref, ang, [round(v, 1) for v in r], why)
         if not done:
-            print('marks: no room for the sign of', ref)
+            # (E2) no room beside the pad (its own reference sits there, the neighbours are close): the reference
+            # text itself becomes the pad's name with its sign ("SRV+", "DEV+"), and the reference goes to the fab layer
+            ref_t, val_t = fp.Reference(), fp.Value()
+            if ref_t.IsVisible() and ref_t.GetLayer() == pcbnew.F_SilkS:
+                val_t.SetLayer(pcbnew.F_SilkS)
+                val_t.SetPosition(ref_t.GetPosition())
+                val_t.SetTextSize(ref_t.GetTextSize())
+                val_t.SetTextThickness(max(ref_t.GetTextThickness(), MM(0.2)))
+                val_t.SetVisible(True)
+                ref_t.SetLayer(pcbnew.F_Fab)
+                done = ('value text', B.parts[ref]['value'])
+                print('marks: the sign of %s is its value text %r in place of the reference' % (ref, B.parts[ref]['value']))
+            else:
+                print('marks: no room for the sign of', ref)
         placed.append((ref + sign, done))
     # pin-1 dot (0.7 mm, filled) beside pad 1 of every polarised top-side part
     n_dot = 0
@@ -723,6 +760,12 @@ def copper(B, C):
                 for j, piece in enumerate([g] if g.geom_type == 'Polygon' else list(getattr(g, 'geoms', []))):
                     if piece.area > 1.0:
                         C.keepout(f"D:{z['name'][2:]}_{i}_{j}", [z['layer']], piece, tracks=True, vias=False)
+    # (E2) two more router guides (gone with the other 'D:' areas once routing is done): the bottom GND plane under
+    # the bulk caps, the FETs and the VM pour stays whole for the routers (the gate drive and the MIC5014 links that
+    # must cross it are routed first, by hand); and no top track under J601's metal shell, which sits on the mask
+    C.keepout('D:GND_PWR_B_0_0', ['B'], box(0.0, 36.0, 58.0, 84.0).intersection(edge).difference(keep_holes),
+              tracks=True, vias=False)
+    C.keepout('D:J601_shell_0_0', ['F'], box(99.25, 0.3, 106.35, 19.8), tracks=True, vias=True)
     # (E, review m20) solder mask open over the main current paths of the BAT and VM pours, so they can be tinned
     # or strapped with copper wire: 1 mm inside the pour, 1.5 mm from every pad of another net, off the part bodies
     # (their outlines are silkscreen; the heatsink bar rests there) and off the strips kept for markings

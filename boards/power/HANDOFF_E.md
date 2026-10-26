@@ -124,7 +124,7 @@ measured.
 | Fan J1003 (moved to the rear edge) | 3.6, 13.4 (pins at Y 9.6-17.2) | -28.4, -54.6 | rear edge, above | 4-pin fan header, pin 1 (GND) at Y 9.6 |
 | Pack BAT+ / BAT- pads (replaces the XT90 board-mount) | 19.5, 79.6 / 6.25, 65.6 | -12.5, 11.6 / -25.75, -2.4 | pack edge, leads over the Y = 84 edge near X 5-22 | 10 AWG pigtail to an XT90 male that mates with the pack's XT90-S |
 | BMS UART J201 | 85.3, 81.0 | 53.3, 13.0 | pack edge, above | JST-XH 4 vertical |
-| Dev-kit DC lead DEV+ / DEV- | 92.0, 74.0 / 92.0, 68.2 | 60.0, 6.0 / 60.0, 0.2 | pack side | 18 AWG pads |
+| Dev-kit DC lead DEV+ / DEV- | 92.0, 74.0 / 93.28, 68.2 | 60.0, 6.0 / 61.28, 0.2 | pack side | 18 AWG pads (DEV- moved 1.28 mm east in routing, LAYOUT_NOTES.md) |
 | Pico micro-USB | 106.5, 83.4 | 74.5, 15.4 | pack edge, facing +Y | about 13.9 mm above the board (8.5 mm socket + 2.5 mm header spacer + PCB) |
 | Hub USB-C (laptop port) | 88.5, -0.4 | 56.5, -68.4 | pod edge (Y = 0), facing -Y | centre about 14.2 mm above the board, car z about 22.8 (est.: module on 8.5 mm sockets) |
 | Dev-kit USB-A J601 (review M7) | 102.8, face at Y 0.5 | 70.8, -67.5 | pod edge (Y = 0), opening facing -Y | one standard USB-A to USB-C cable to the dev kit's USB-C. The plug and its cable need about 40 mm beyond the edge (est.), or use a cable with a right-angle (up or down) USB-A plug. Height of the opening not verified (see above) |

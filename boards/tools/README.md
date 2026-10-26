@@ -36,6 +36,18 @@ it sits in; a first argument ending in `.tar.gz` is a sync tarball in `.work/` t
    `mazeroute.py` then routes what is still open: coupled differential pairs first, then everything
    else in negotiated rounds. It works on the dump and writes a routes JSON, which `add_routes.py`
    (**K**) applies. Its docstring lists the options.
+   - `mazeroute.py` reaches as far as the widest rule needs (it used to stop at 1.0 mm, so no track wider than
+     1.4 mm could start: the power board's 2.0 and 2.5 mm supply nets all failed with "no open cell on start"),
+     keeps a layout's `DSN_CLASS_CLEARANCE` (the power board's 2 mm BMS isolation) between that class and every
+     other net, and takes `--skip REF,...` to leave the low-current branches of a wide net (a sense resistor, a
+     test point) for a later, narrower pass (`--width NET=W`). `--win NET,...` makes those nets win every clash:
+     the other net's piece is taken up and routed again (for one long net across a board full of short ones; on the
+     power board the pushed nets did not always find a new way, so check the open count after it).
+   - A board the autorouter leaves with a few dozen open nets can often be closed net by net with
+     `mazeroute.py --only NET`: many of them route in one round through space the autorouter did not use.
+   - Copper that has to be placed by hand (a supply trunk along a planned corridor, a link through a gap the
+     router cannot see) goes in as a routes JSON with `add_routes.py --lock`; the power board's are listed in
+     `boards/power/LAYOUT_NOTES.md`.
    - `strip_routes.py` and `strip_box.py` (**K**) take routed copper off so it can be routed again.
    - `move_parts.py` (**K**) moves parts on a routed board to their new placement.
    - `update_zone.py` (**K**) gives a pour a new outline.

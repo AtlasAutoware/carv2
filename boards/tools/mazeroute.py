@@ -46,7 +46,11 @@ afterwards is the check.
     --reserve PAT=X,...   route matching nets as if X mm wider on each side except near their ends, so
                           the other half of a pair finds room beside them
     --width PAT=W,...     track width for matching nets (else the net class)
+    --skip REF,...        leave these parts' pads out of the connections (route them later, thinner)
     --strip NET,...       take up these nets' unlocked copper first and route them again
+    --win NET,...         these nets win every clash: their new copper stays and the other net's piece is taken
+                          up and routed again (a long net finished across a board that is already full of short
+                          ones, which then find their way round it)
     --gnd                 join GND islands too; --gnd-pads REF.PAD,... only islands with these pads;
                           --gnd-movable also lets routes take up unlocked GND tracks
     --clash-log FILE      append each round's failed nets and clash spots (JSON lines), to find the
@@ -110,6 +114,10 @@ for name, c in getattr(L, 'NETCLASSES', {}).items():
         VIA[n] = (c.get('via', 0.6), c.get('drill', 0.3))
 NC = D.get('netclass', {})
 WOVER = [kv.split('=') for kv in opt('--width', '').split(',') if '=' in kv]
+# isolation rules (the router's copy of a .kicad_dru rule, layout.DSN_CLASS_CLEARANCE): between a net of
+# such a class and any net outside it, this clearance
+ISO_NET = {n: v for cls, v in getattr(L, 'DSN_CLASS_CLEARANCE', {}).items()
+           for n in getattr(L, 'NETCLASSES', {}).get(cls, {}).get('nets', [])}
 RESERVE = [kv.split('=') for kv in opt('--reserve', '').split(',') if '=' in kv]
 WIDE = [n for n in opt('--wide', '').split(',') if n]
 GND_MOVABLE = '--gnd-movable' in opts   # unlocked GND tracks may be taken up too (their pads then get joined
@@ -199,6 +207,9 @@ def poly_shape(polys):
     return unary_union(out) if out else None
 
 
+# --skip REF,...: these parts' pads are left out of the nets being joined (a low-current branch of a wide net,
+# routed afterwards in a pass of its own with a narrower --width)
+SKIP_REFS = set(r for r in opt('--skip', '').split(',') if r)
 GND_PADS = []
 for rp in opt('--gnd-pads', '').split(','):
     if '.' in rp:
@@ -230,7 +241,7 @@ def net_items(net):
     """[(layers, kind, geometry)] of all copper of a net"""
     out = []
     for p in pads:
-        if p['net'] == net:
+        if p['net'] == net and p['ref'] not in SKIP_REFS:
             k, g = pad_geo(p)
             out.append((p['layers'], k, g))
     for t in tracks:
@@ -365,6 +376,13 @@ class Field:
             self._put(p, np.hypot(p[4] - x, p[5] - y) - r - extra)
 
 
+# The distance fields must reach beyond the widest rule: a track of width w needs clearance + w / 2 of room.
+# With the old fixed 1.0 mm cap no track wider than 2 x (1.0 - clearance) (1.4 mm at 0.3 mm) could ever start
+# (the power board's 2.0 and 2.5 mm supply tracks failed with "no open cell on start").
+Field.CAP = max(1.0, max([width(n) for n in NC] + [float(w_) for _, w_ in WOVER] + [0.3]) / 2
+                + max([c_[1] for c_ in NC.values()] + list(ISO_NET.values()) + [CLR]) + 0.15)
+
+
 def maps(win, net, w, vd, vh, soft=None, clr=None):
     """free[l] (a track of width w may run here), via_free, dfree[l] (room beyond the rules), and with
     soft = set of movable nets, their tracks and vias turned into penalties: pen[l], pen_via.
@@ -373,7 +391,11 @@ def maps(win, net, w, vd, vh, soft=None, clr=None):
     def ex(n):
         if n == PARTNER.get(net):             # the other half of a pair: its gap is the rule
             return -max(0.0, clr - PGAP[net])
-        return max(0.0, clearance(n) - clr) if n in NC or n in PARTNER else 0.0   # the other class wants more
+        e_ = max(0.0, clearance(n) - clr) if n in NC or n in PARTNER else 0.0   # the other class wants more
+        a_, b_ = ISO_NET.get(net), ISO_NET.get(n)
+        if n and (a_ is None) != (b_ is None):   # an isolated domain (layout.DSN_CLASS_CLEARANCE) and the rest
+            e_ = max(e_, (a_ or b_) - clr)
+        return e_
     cu = {l: Field(win) for l in ALL_CU}          # other nets' fixed copper per layer
     su = {l: Field(win) for l in ALL_CU} if soft is not None else None   # movable copper
     holes = Field(win)                             # every drilled hole, any net
@@ -1081,7 +1103,7 @@ for n in STRIP + sorted(PAIRNETS):
 nets = [n for n in nets if len(islands(n)) > 1]
 nets.sort(key=lambda n: (rank(n), min((j[3] for j in jobs_for(n)), default=0)))
 print('%d nets to finish: %s' % (len(nets), ' '.join(nets)))
-PROTECT_DYN = set()
+PROTECT_DYN = set(n for n in opt('--win', '').split(',') if n)   # these keep their new copper; what they cross moves
 _protected = protected
 
 

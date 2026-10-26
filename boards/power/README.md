@@ -55,7 +55,9 @@ python3 ../power/netcheck.py                                                 # e
 python3 ../../bom/revb/make_power_bom.py                                     # bom/revb: BOM CSV and cost per block
 ```
 
-The PCB itself (build_pcb.py inside KiCad, routing, DRC, fab files) is the layout step: see `HANDOFF_E.md`.
+The PCB itself (build_pcb.py inside KiCad, routing, DRC, fab files) is the layout step: `LAYOUT_NOTES.md` has how
+the board was built and routed, the DRC result, the high-current numbers and what to run again on the laptop
+(KiCad 10); `HANDOFF_E.md` has the placement brief it started from.
 
 ## Assembly order (short; the student guide is docs/BUILD_POWER_BOARD.md)
 
@@ -66,7 +68,8 @@ The PCB itself (build_pcb.py inside KiCad, routing, DRC, fab files) is the layou
 3. Low through-hole parts, then sockets and headers, then the TO-92s, TVS diodes, LEDs, fuse holders, R313 and the
    electrolytics (watch the polarity), then the three main FETs bolted to the bar before their legs are soldered.
 4. Wire pads last: pack pigtail (10 AWG), ESC (10-12 AWG), BEC and servo leads (16 AWG), dev-kit lead (18 AWG),
-   then the off-board modules.
+   then the off-board modules. The four 10 AWG pads (J101, J102, J901, J902) sit solid in 2 oz pours: preheat the
+   board to about 100 C on a hot plate or use a 100-150 W iron; a 70 W iron may not wet them (review m19).
 
 ## Settings that must be made before the first drive
 
@@ -138,26 +141,30 @@ Dummy load on the ESC pads: 1000 uF 35 V in parallel with 100 Ohm 2 W. Drive the
    If the BEC's start-up holds VM down, move the BEC's red lead from BEC+ (J401, on VM) to BEC+ALT (J410, on
    VSYS_SW; the latch, rated 6 A continuous, then carries the servo as well as the dev kit, lidar and camera, so
    check that sum at a 12 V pack), or fit a 4.7 Ohm 5 W cement resistor (Yageo SQP500JB-4R7, same body) as R313
-   (3.6 A peak for about 10 ms; check that F301, the MF-R050, does not trip).
+   (3.6 A peak for about 10 ms; check that F301, the MF-R050, does not trip). Then, with only the laptop on the
+   FSESC's USB (everything else off), measure VM: above 1 V means the FSESC feeds its USB power back into the motor
+   bus; cut the VBUS wire in the FSESC's USB lead (review m14).
 
 ### 3. Main switch under load: 50 A, then 70 A pulses, thermocouple on the FETs
 
 Use the real pack (its BMS, 125 A fuse and XT90-S in place) or a supply that can deliver 70 A, a load bank on the
 ESC pads (about 0.33 Ohm for 50 A, 0.24 Ohm for 70 A, rated for the pulse energy), and a thermocouple taped with
-Kapton to the middle FET's tab (the bar is BAT+). Two people, eye protection, and a way to open the E-stop loop
-from a distance.
+Kapton to the middle FET's tab (the bar is BAT+; a second one on C101 if you have it). Two people, eye protection,
+an adult supervising, and a way to open the E-stop loop from a distance.
 
 The pulses come from the load's own switch (a switch or contactor rated for 70 A DC, or an electronic load's pulse
 mode), never from the main switch. With the load's switch open, switch the car on, precharge and close the main
 switch (GP2, then GP3, then GP2 low; or the supervisor firmware); it then stays closed for the whole test, as in the
-car, where it closes after precharge with the ESC idle and only opens under load when the E-stop is pulled.
+car, where it closes after precharge with the ESC idle and only opens under load when the E-stop is pulled. Closing
+the main switch straight into a 50 A load is not part of the test.
 
 1. 50 A for 2 s, 20 s off, ten times. Watch SW_GATE minus VM (at least 10 V), the drop from BAT to VM (expect
    tens of mV), and the tab temperature (it should not climb more than about 20 C over the run). Compare the
    FET_NTC reading with the thermocouple.
 2. 70 A for 1 s, 30 s off, five times, same checks.
 3. Open the E-stop during a 50 A pulse with a scope on TP101 (BAT) and TP301 (VM): the spike must stay well under
-   the TVS clamps (27.7 V at full TVS current); expect a few volts.
+   the TVS clamps (27.7 V at full TVS current); expect a few volts. The FETs' turn-off time (0.1-0.4 ms in
+   `design.py`, not verified) shows up here.
 4. Pass: no FET tab above 80 C, no hot spot on the VM pour (a thermal camera helps, review m20), switch-off clean.
    Note the capacitor temperature too (review m21).
 

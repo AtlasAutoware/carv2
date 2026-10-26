@@ -235,7 +235,7 @@ POWER_CONN = dict(
     fan=(3.6, 13.4, 11.0),                  # J1003 4-pin fan header, rear edge (pins Y 9.6-17.2)
     bat_plus=(19.5, 79.6, 1.5), bat_minus=(6.25, 65.6, 1.5),   # pack pigtail pads, 10 AWG over the Y = 84 edge
     bms_uart=(85.3, 81.0, 10.0),            # J201 JST-XH 4 vertical, pack edge
-    dev_plus=(92.0, 74.0, 1.5), dev_minus=(92.0, 68.2, 1.5),   # dev-kit DC lead pads, 18 AWG
+    dev_plus=(92.0, 74.0, 1.5), dev_minus=(93.28, 68.2, 1.5),  # dev-kit DC lead pads, 18 AWG (DEV- moved 1.28 mm east by E2)
     pico_usb=(106.5, 83.4, 13.9),           # the Pico's micro-USB, facing +Y (D: 13.9 mm above the board)
     hub_usbc=(88.5, -0.4, 14.2),            # the hub module's USB-C, facing -Y: the laptop port (D: centre about 14.2)
     j601=(102.8, 0.5, P['J601_H'] / 2),     # USB-A on its edge, face at Y 0.5, opening facing -Y (height: estimate)
