@@ -4,6 +4,12 @@ Board-local coordinates in mm, top view: X forward from the rear edge (0..130), 
 pod edge (0..84). Car coordinates: (x, y) = (X - 32, Y - 68). Heights are above the board's top surface; the
 board top sits at car z 8.6 (7 mm standoffs on the 1.6 mm deck datum used by `mech/kit.py`).
 
+E2b (2026-10-26): the board is now **4 layers**, still 1.6 mm thick, so nothing changes for the mech model: F.Cu and
+B.Cu 2 oz as before (parts, power pours, hand routes), In1.Cu a 1 oz solid GND plane (cut out under the BMS domain,
+X 76-85, Y 58-84 and X 76-92.5, Y 76.6-84), In2.Cu 1 oz signals. The placement is the one in this file with eight of the J12
+series resistors (R801, R802, R806, R807, R809, R811, R812, R813) moved under and beside the Pico (LAYOUT_NOTES.md);
+J802 did not move (table below). Why four layers, the stackup and the routing: LAYOUT_NOTES.md.
+
 ## What is in this folder
 
 | File | What it is |
@@ -133,7 +139,7 @@ measured.
 | Recovery button SW801 | 102.9, 25.8 | 70.9, -42.2 | middle, pressed from above | 6 mm tactile, 5 mm tall, just south of the Pico |
 | Power button SW401 (right angle) | 112.75, 5.6; plunger tip at Y -0.25 | 80.75, -68.3 | pod edge, pressed from -Y | plunger about 3.5 mm above the board, car z about 12 (est.) |
 | J12 box header J801 | 41.1, 7.3 (pins X 17.0-65.3, rows Y 6.0 / 8.5) | 9.1, -60.7 | middle, ribbon up | 2x20 shrouded; header plus IDC plug about 18 mm (est.) |
-| J14 header J802 | 93.0, 48.4 (pin 1 at Y 62.4, pin 12 at Y 34.5) | 61.0, -19.6 | middle, above | 1x12 vertical, Dupont housing |
+| J14 header J802 | 93.0, 48.4 (pin 1 at Y 62.4, pin 12 at Y 34.5) | 61.0, -19.6 | middle, above | 1x12 vertical, Dupont housing; unchanged by E2b (no other spot on the board takes its 3.6 x 31.6 mm courtyard without moving a pinned part, LAYOUT_NOTES.md) |
 | Servo J406 | 127.6, 17.1 (signal at Y 19.6) | 95.6, -50.9 | front edge, above | 1x3 2.54 mm |
 | Lidar power J409 | 125.0, 26.8 (+ at Y 25.0) | 93.0, -41.2 | front edge, wires enter from +X | Phoenix PT 1,5/2-3,5-H |
 | Camera regulator input pads (MOD402) | 125.1, 44.6 (VIN at Y 46.5, GND at Y 42.7) | 93.1, -23.4 | front edge | 22 AWG pair to the Pololu S18V20F12 on the tray; its 12 V output goes straight to the Triton's M8 lead (pin 1 red +12 V, pin 5 black GND). No camera connector on the board; D406 (P6KE22A) guards the regulator input |

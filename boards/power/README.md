@@ -14,7 +14,8 @@ the layout and routing step needs.
 
 | | |
 | --- | --- |
-| Size | 130 x 84 mm, 2 layers, 2 oz copper, 1.6 mm, HASL. Six M3 holes at (4,4), (4,80), (75,4), (75,80), (126,4), (126,80) with 7 mm keep-outs |
+| Size | 130 x 84 mm, 4 layers, 1.6 mm, HASL lead-free. Six M3 holes at (4,4), (4,80), (75,4), (75,80), (126,4), (126,80) with 7 mm keep-outs |
+| Layers | 4: F.Cu and B.Cu 2 oz (parts, the BAT/VM/GND power pours), In1.Cu 1 oz solid GND plane (cut out under the BMS domain), In2.Cu 1 oz signals. Four because on two layers the logic half round the Pico could not be routed (21 connections still open after two full attempts) and its ground had no path to the pack (LAYOUT_NOTES.md) |
 | Parts | 80 through-hole parts on the top (3 of them DIP sockets); 104 chip resistors and capacitors (1206, five 1210) on the bottom; Pico and USB hub modules on 8.5 mm sockets; 4 modules wired off the board (Pololu latch, camera 12 V regulator, PD trigger, CC/CV buck); a 40 x 15 x 3 mm aluminium bar; plus 11 wire pads, 7 bare test pads and 6 holes |
 | Tallest parts | the three 680 uF capacitors (12.5 x 20 mm, about 21 mm installed) and the FETs on their bar (about 20 mm). Everything is under the 23 mm limit of the dev-kit tray |
 | Parts cost | USD 149.37 per board at quantity 1 (USD 11.30 of it not verified), table below; the bare PCB is quoted by the layout step |

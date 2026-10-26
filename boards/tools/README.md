@@ -22,7 +22,9 @@ it sits in; a first argument ending in `.tar.gz` is a sync tarball in `.work/` t
    F.Mask/B.Mask). `check_copper.py` checks that copper before KiCad sees it. A layout may set
    `DEFAULT_CLASS` (the Default net class) and `BOARD_RULES` (the board-wide DRC floors) next to
    `NETCLASSES` and `DRU`; `layout.finish()` runs inside KiCad after placement (outline, texts,
-   fiducials, markings).
+   fiducials, markings). `COPPER_LAYERS` and `LAYER_TYPES` set the layer count and which inner layers are
+   planes; `STACKUP` (copper and dielectric thickness per layer, surface finish) is written into the board's
+   setup as a `(stackup ...)` block, since KiCad 7's Python has no stackup API (the power board, 4 layers).
 4. **Autorouting.** `dsn_export.py` (**K**) and `dsn_patch.py` feed Freerouting, and
    `ses_import.py` (**K**) brings the result back. `route_prep.py` holds the view of the board that
    the router sees. `dsn_patch.py` also writes Specctra `class_class` clearances from
@@ -75,13 +77,14 @@ it sits in; a first argument ending in `.tar.gz` is a sync tarball in `.work/` t
    - `pour_resistance.py` (plain Python) computes the resistance of a high-current path through the
      real filled copper (`dump_board.py BOARD OUT.json --fills BAT,VM,GND` first), with FETs or other
      parts as `--link` resistors, and reports the drop at a given current and the narrowest neck.
+     `--cu-um` is the outer copper, `--cu-um-inner` the inner layers (2 oz outside, 1 oz inside: 70 and 35).
 7. **Outputs.** `run_kicad.sh fab-<board>` writes Gerbers, drill files, CPL and BOM.
    `render-<board>` and `glb-<board>` write the pictures and the 3D model.
    `check_stack.py` checks the connector between the two boards. `fab_outputs.py <board>` (plain
    Python around `kicad-cli`, KiCad 7 or later, no schematic needed) writes the same fab set for a
-   2-layer board: Gerbers with F/B.Fab, Excellon PTH/NPTH with a map, a zip of the layers a fab needs,
+   2- or 4-layer board: Gerbers (the inner copper layers too, from `COPPER_LAYERS`) with F/B.Fab, Excellon PTH/NPTH with a map, a zip of the layers a fab needs,
    the bottom SMD CPL and the top parts list, a fab BOM from the board's BOM CSV, and 2D PNG renders
-   (PDF plot, `pdftoppm`, ImageMagick trim).
+   (PDF plot, `pdftoppm`, ImageMagick trim), one per inner layer as well.
 
 The brain board starts from Antmicro's board rather than step 3: `fork_pcb.py` (**K**) deletes the
 removed parts, renets the rest and places the new ones.
@@ -105,6 +108,7 @@ each helper keeps the KiCad 10 call and falls back to the KiCad 7 one (`kicompat
 | Texts in a footprint | `PCB_TEXT` / `PCB_FIELD` | `FP_TEXT` (`PCB_FP_TEXT_T`) | `kc.is_text` |
 | Net classes | `NET_SETTINGS.SetNetclass`, `SetNetclassPatternAssignment`, `GetDefaultNetclass` | `m_DefaultNetClass`, `m_NetClasses`; pattern assignments live only in the project file, so each net gets its class with `NETINFO_ITEM.SetNetClass` and the `.kicad_pro` carries the patterns | `kc.netclass_setup` |
 | Saving | `SaveBoard(path, b)` | `SaveBoard(path, b, True)`: without the flag KiCad 7 also rewrites the `.kicad_pro` from the board's project, which for a board made in Python is empty | `kc.save` (every K tool) |
+| Board stackup | `BOARD_STACKUP` from `GetStackupDescriptor()` | not wrapped (a SwigPyObject with no methods): `build_pcb.py` writes the `(stackup ...)` block into the saved file before it reloads it, and KiCad keeps it on every later save | `build_pcb.py` |
 | Zone fill on a new board | works on a `BOARD()` made in Python | segfaults (no DRC engine until a board is loaded from file): `build_pcb.py` saves, writes the `.kicad_pro`, reloads with `LoadBoard` (which also reads the `.kicad_dru`), then fills | `build_pcb.py` |
 | Session import | `ImportSpecctraSES(board, file)` | `ImportSpecctraSES(file)` only works inside the board editor: `ses_import.py` reads the session itself (wires and vias of `network_out`, sizes from the padstack names) | `ses_import.py` |
 | DRC | `kicad-cli pcb drc` | none in `kicad-cli`: `pcbnew.WriteDRCReport` | `drc.py` |

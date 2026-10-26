@@ -100,3 +100,5 @@ VDEV F 1.0 78.74,36.2 80.2,37.8 83.5,37.8 84.5,37.25 89.9,37.25 90.7,38.05 90.7,
 # F401-to-Q402 track
 VDEV_F B 0.5 85.7,55.93 86.3,57.8
 via VDEV_F 86.3,57.8 0.8/0.4
+# (E2b) R419 to C407 on VDEV_F: the router could not join R419's stub to C407 pin 1 at the class width (2 mm)
+VDEV_F B 1.0 80.6,51.66 81.19,49.5

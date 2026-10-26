@@ -1,9 +1,10 @@
-"""Fabrication outputs for a 2-layer board with kicad-cli (KiCad 7 or later) and pdftoppm (plain Python).
+"""Fabrication outputs for a 2- or 4-layer board with kicad-cli (KiCad 7 or later) and pdftoppm (plain Python).
 
     python3 fab_outputs.py power [--bom ../../bom/revb/power_board_bom.csv] [--dpi 300]
 
 Writes into boards/<board>/out/fab/:
-  gerbers/                 F.Cu, B.Cu, F/B.Paste, F/B.Silkscreen (mask subtracted), F/B.Mask, Edge.Cuts, F/B.Fab,
+  gerbers/                 F.Cu, the inner copper layers (In1.Cu, In2.Cu on a 4-layer board), B.Cu, F/B.Paste,
+                           F/B.Silkscreen (mask subtracted), F/B.Mask, Edge.Cuts, F/B.Fab,
                            Excellon drill files (PTH and NPTH apart, mm) and a Gerber X2 drill map
   <name>_gerbers_pcbway.zip   what the fab needs: copper, mask, paste, silkscreen, outline, drill (no Fab layers,
                            no map)
@@ -12,7 +13,8 @@ Writes into boards/<board>/out/fab/:
   <name>_bom.csv              fab BOM: designators, qty, value, footprint, MPN, manufacturer, side, DNP
   <name>_bom_bottom_smd.csv   the same for the bottom SMD chips only (an assembly quote for that side)
 and into boards/<board>/out/render/: top.png, bottom.png (mirrored, seen from below), copper_top.png,
-copper_bottom.png: KiCad's PDF plot rasterised with pdftoppm and trimmed with ImageMagick. KiCad 8+
+copper_bottom.png (and copper_in1.png, copper_in2.png ... for the inner layers): KiCad's PDF plot rasterised
+with pdftoppm and trimmed with ImageMagick. KiCad 8+
 can also make 3D renders (`kicad-cli pcb render`,
 run_kicad.sh render-<board>); KiCad 7 has no renderer.
 """
@@ -55,8 +57,9 @@ os.makedirs(ger)
 os.makedirs(ren, exist_ok=True)
 
 # ---------------------------------------------------------------- gerbers and drill
-LAYERS = ['F.Cu', 'B.Cu', 'F.Paste', 'B.Paste', 'F.Silkscreen', 'B.Silkscreen', 'F.Mask', 'B.Mask', 'Edge.Cuts',
-          'F.Fab', 'B.Fab']
+INNER = ['In%d.Cu' % k for k in range(1, getattr(L, 'COPPER_LAYERS', 2) - 1)]
+LAYERS = ['F.Cu'] + INNER + ['B.Cu', 'F.Paste', 'B.Paste', 'F.Silkscreen', 'B.Silkscreen', 'F.Mask', 'B.Mask',
+                             'Edge.Cuts', 'F.Fab', 'B.Fab']
 run(['kicad-cli', 'pcb', 'export', 'gerbers', '--layers', ','.join(LAYERS), '--subtract-soldermask',
      '-o', ger + '/', pcb])
 run(['kicad-cli', 'pcb', 'export', 'drill', '--format', 'excellon', '--excellon-separate-th', '--generate-map',
@@ -123,6 +126,8 @@ VIEWS = {
     'copper_top': (['F.Cu', 'Edge.Cuts'], False),
     'copper_bottom': (['B.Cu', 'Edge.Cuts'], True),
 }
+for lay in INNER:                                   # inner layers seen from the top
+    VIEWS['copper_' + lay.split('.')[0].lower()] = ([lay, 'Edge.Cuts'], False)
 tmp = os.path.join(ren, '_tmp')
 os.makedirs(tmp, exist_ok=True)
 for view, (lays, mirror) in VIEWS.items():

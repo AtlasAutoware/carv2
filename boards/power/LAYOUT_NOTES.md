@@ -1,10 +1,11 @@
 # ATLAS-PWR-1 rev B: layout notes (agents E and E2)
 
-Status (E2, 2026-10-26): **not ready to order.** The board is built on the post-review design (`design.py` after
-f270903) and routed except for 18 signal connections and 10 ground pins (DRC section). Copper, mask, markings and the
-high-current numbers below are final for the power section; the open connections are all in the logic half (the
-Pico, the J14 header, the hub and the dev-kit feed), and finishing them needs the placement change described under
-"Routing".
+Status (E2b, 2026-10-26): **routed, 4 layers.** The board is built on the post-review design (`design.py` after
+f270903) and fully routed: `tools/drc.py` finds 0 unconnected items and 0 clearance, short, crossing, hole, edge or
+courtyard errors (DRC section). It went from 2 to 4 layers on 2026-10-26: on two layers the logic half could not be
+routed (21 connections still open after two full attempts on the placement below, 18 at 8803cd2) and its ground had
+no path to the pack ("Why four layers"). Still to do before ordering: the KiCad 10 checks on the laptop (ERC, DRC with
+schematic parity, last section) and a look at the files in out/fab. PCBWay prices are under "PCBWay quote".
 
 ## What changed in the layout and why
 
@@ -36,6 +37,19 @@ Placement (`layout.py`, no part removed, no net changed):
   39.5, 15.5), R811 (42.5, 11.75 to 60.0, 19.0), R813 (56.75, 17.0 to 41.75, 11.25), TP802 (37.0, 14.25 to 34.75,
   14.5). `KEEP_AUTO` is now True, so the next run keeps them. A move of D501 was tried and taken back (its courtyard
   overlapped MOD501's).
+- E2b (2026-10-26), the placement change asked for after 8803cd2:
+  - J802 (the 1x12 J14 harness header) stays at 93.0, 48.4. A search of the whole board on a 0.5 mm grid, both
+    orientations, for a spot where its 3.6 x 31.6 mm courtyard clears every top-side courtyard and the locked power
+    copper found only the spot it has. In the rear half (X below 65, where the 75 mm harness reaches) every
+    spot overlaps the J801 ribbon header, and with J801 left out every spot still overlaps at least six pinned top
+    parts (the best: U401, Q503, MOD401, TP501, TP802, TP403 at 48.5, 16.0). Elsewhere the nearest spots overlap the
+    Pico or J408. Moving it would mean moving pinned parts, which was not asked for.
+  - The J12 ribbon's series resistors whose far side is a Pico pin moved from the J801 header to the Pico (bottom,
+    `layout.py` "(E2b)"): R801 (330, I2C0_SDA) 100.25, 67.75; R802 (330, I2C0_SCL) 100.25, 62.5; R809 (10k,
+    JETSON_UP) 100.25, 50.0; R806 (10k, JETSON_3V3_SENSE) 106.75, 40.5 with its 100k pull-down R807 at 109.5, 34.5;
+    R812 (1k, ESTOP_OK_TO_JETSON) 112.75, 48.25; R811 (10k, LIDAR_REQ) 112.75, 53.5; all turned 90. R813 (1k,
+    CHG_STAT_N_TO_JETSON) went to 127.75, 45.0, turned 90 (its first spot, 119.25, 47.5, sat on a locked VSYS_SW
+    track). R803/R804 (to the FSESC COMM header) and the pull-downs R805, R808, R810 stay at J801.
 
 Copper:
 
@@ -45,8 +59,21 @@ Copper:
   mm of copper (`pour_resistance.py`, 0.2 mm grid, 90 A). The final numbers are under "High-current path".
 - Review m20: solder mask open over the main current paths of the BAT and VM pours (`layout.copper()`, `C.mask`),
   1 mm inside the pour, 1.5 mm from every pad of another net, off the part bodies and the strips kept for the
-  markings. On the final board: 9 openings on F.Mask, 665 mm2, exposing 327.8 mm2 of BAT and 337.4 mm2 of VM copper
+  markings. On the final board: 9 openings on F.Mask, 665 mm2, exposing 327.7 mm2 of BAT and 337.4 mm2 of VM copper
   and no copper of any other net; nothing on B.Mask.
+
+## Stackup (E2b)
+
+| Layer | Copper | What is on it |
+| --- | --- | --- |
+| F.Cu | 2 oz (70 um) | all through-hole parts and modules; the BAT, VM and GND power pours; the hand routes and power runs, locked as at 8803cd2; signals; a GND fill after routing |
+| In1.Cu | 1 oz (35 um) | one solid GND plane (`P:GND_In1`) over the whole board except the BMS domain and its 2 mm band (X 76-85, Y 58-84 and X 76-92.5, Y 76.6-84: the `BMS_DOMAIN` boxes, also a keep-out on In1 and In2, `K:bms_in1`), so BMS_GND stays an island of its own; every through-hole GND pin joins it, J408 (DEV-) without thermal spokes (`FULL_CONNECT`) |
+| In2.Cu | 1 oz (35 um) | signals, and most of the +3V3, +5V and PICO_VSYS runs (85, 163 and 61 mm of them) |
+| B.Cu | 2 oz (70 um) | the bottom chips; the GND pour under the power section; signals; a GND fill after routing |
+
+Dielectrics as written into the board's stackup (`layout.STACKUP`, nominal; the fab sets its own): 0.2 mm prepreg,
+0.97 mm core, 0.2 mm prepreg, 1.6 mm finished, HASL lead-free. The mounting-hole keep-outs (3.5 mm) are on all four
+layers. The BMS isolation rule (2 mm from every other net, DRU) applies on every layer as before.
 
 ## Net classes and rules
 
@@ -62,12 +89,15 @@ Copper:
 | BMS | 0.3 | 0.3 | 0.8 / 0.4 | BMS_VDD, BMS_TXD, BMS_RXD, BMS_GND, BMS_OPT1_A; 2 mm to every other net (DRU rule, and a class_class rule for Freerouting) |
 
 Board floors (PCBWay capabilities page, Oct 2026, 2 oz normal process): 0.2 mm clearance (8 mil), 0.25 mm track,
-0.8 mm via, 0.15 mm annular ring, 0.3 mm drill, 0.4 mm hole to hole, 0.3 mm copper to edge. KiCad's TO-92 land
+0.8 mm via, 0.15 mm annular ring, 0.3 mm drill, 0.4 mm hole to hole, 0.3 mm copper to edge. They are kept for all
+four layers (the inner 1 oz layers would allow less; the quote below is for 8/8 mil). KiCad's TO-92 land
 pattern has 0.22 mm between pads and a 0.15 mm ring; a DRU rule allows 0.2 mm between the pads of each TO-92 part.
 The class widths are targets: where a track could not get through at its class width the routers went down to the
 board floor (list under "For the reviewer").
 
-## Routing (E2, 2026-10-25 and 26)
+## Routing, two layers (E2, 2026-10-25 and 26)
+
+This section is the history: the board as built now is the four-layer one ("Routing, four layers").
 
 Where it started: the first pass (Freerouting 1.9, 19 minutes, then 13 rounds of mazeroute) left 44 unconnected
 items, about 25 of them on the 2.0 and 2.5 mm supply nets. Two causes:
@@ -109,95 +139,189 @@ again, power first:
    further: the pushed nets could not be routed again. A local reroute round R412 and R419 (OV_B and OV_C, whose
    pads the locked crossing nets box in) traded two open nets for three and was not kept.
 
-What is left (18 nets, see DRC) is a capacity problem in one place, not a tool problem. Twelve of them are long runs
-from the J12 header's series resistors and the rear connectors (FAN_PWM, SERVO_IN_J, VESC_KILL, I2C0_SCL/SDA,
-JETSON_3V3_SENSE, LATCH_OFF, LIDAR_REQ, ESTOP_OK_TO_JETSON, +5V to U302) to the Pico, and all of them have to get
-into a strip about 20 mm wide that is already walled by the J14 header J802 (a 1x12 column 4.6 mm west of the
-Pico's left pin column), the hub module's pin ring and the dev-kit feed. A 0.3 mm track fits once between two
-pins of J802 or of the Pico, so every net that reaches the Pico from the west spends one of J802's 11 gaps per
-layer and then one of the Pico's. The others (J14_CON_RXD, J14_PWR_KEY_N, JETSON_RESET, SERVO_BUF, OV_B, OV_C,
-PRE_G, HUB_VBUS) are short pins that the long ones boxed in. Ways to finish it, in the order I would try them:
+That pass (8803cd2) left 18 nets: long runs from the J12 header's series resistors and the rear connectors to the
+Pico, which all have to get into a strip about 20 mm wide walled by the J14 header J802 (a 1x12 column 4.6 mm west
+of the Pico's left pin column), the hub module's pin ring and the dev-kit feed, and short pins they boxed in. A
+0.3 mm track fits once between two pins of J802 or of the Pico. The two fixes proposed then were to move J802 and to
+put R801-R813 next to the Pico; only the second was possible (placement above).
 
-- Move J802 off the Pico's left side, if the J14 harness in `mech/` allows another spot. That opens the 4.6 mm
-  channel and J802's 11 gaps at once; then rerun step 6.
-- Or put the J801 series resistors (R801-R813) next to the Pico instead of next to J801: the long runs then become
-  the J12_* nets, which start at the header pins and can be routed as one bus over the top side south of the power
-  section (X 15-75, Y 13-33), which is still largely free.
-- Either way, reroute the logic half from the state after step 5 (`out/hand_routes.txt` plus the locked crossing
-  nets), not from this board.
+### Second routing pass (E2b, 2026-10-26)
+
+The board was built again from the new placement (`build_pcb.py`) and the routing redone from the state after step 5:
+the locked copper of 8803cd2 (323 tracks and 17 vias: the USB pairs, `out/hand_routes.txt` and the power runs,
+without the GND stitching vias and without the seven crossing nets), then the 17 crossing and dev-kit nets (MIC_IN,
+NTC_NODE, VM_SENSE, PRE_B, BTN_HI, OV_G, OV_REF, OV_B, OV_C, OV_K, DEV_B, DEVKIT_PWR, PRE_G, PRE_C, PRE_D, LED5_A,
+LEDS_A) with mazeroute, one round with no clash (248 tracks, 27 vias), locked. Two full attempts from there:
+
+1. Freerouting 1.9, 45 passes (47 minutes), left 43 open signal connections; `mazeroute.py --only NET` net by net
+   (kept only when the open count went down with no copper error) took that to 22; a second net-by-net pass with the
+   other long nets protected closed none. The R419-to-C407 link of VDEV_F, which the router could not make at the
+   2 mm class width, went in by hand at 1.0 mm (`out/hand_routes.txt`): 21. This is the board here.
+2. To give the J12 nets a way into the Pico from the south on the top, the VSYS_SW front branch was taken to the
+   bottom for X 99.0-110.9 under the Pico's south edge (two 1.2/0.6 vias) and R603 moved beside U601 to clear that
+   bottom run. The six J12 nets were routed first, as a bus kept on the top by router guides except where it crosses
+   SERVO_V and inside the hub and the Pico (16 negotiation rounds for four of them, one more run for J12_3V3 and
+   J12_SCL), and locked; then the 17 crossing nets around it (15 routed; OV_C and OV_G left with 2 clashes after
+   12 rounds); then Freerouting (45 passes, 48 minutes) left 55 open connections and the net-by-net pass 37, on 29
+   nets. The bus has to cross the hub area to reach the Pico's south edge, and there it closed off the console and
+   hub nets (CON_TX and J14_CON_RXD found no path at all). Worse than attempt 1, so attempt 1 was kept and the R603
+   move and the VSYS_SW change were taken back.
+
+What is left on attempt 1 (21 connections on 19 nets; the numbers in brackets are how many pieces of other nets the
+net's best path crossed in the net-by-net pass):
+
+- The J12 bus, 64 to 101 mm from J801 to the resistors under the Pico: J12_SDA (11), J12_SCL (10), J12_JETSON_UP (13),
+  J12_ESTOP_OK (14), J12_LIDAR_REQ (4). Under the Pico there is room, but the way in is only between the Pico's pins
+  (one track per 2.54 mm gap and layer, the same gaps J802 uses) or across its south edge, where the VSYS_SW front
+  branch runs on the top at Y 30.45 from X 96.6 to 115.4 and the bottom holds R603, R705, R807, R1001 and the locked
+  BTN_HI and DEVKIT_PWR tracks.
+- Long runs from the rear connectors to the Pico through the same strip: +5V (R409 to U302 pin 10; 5), BUTTON_N (12),
+  CHG_PRESENT_N (5), LATCH_OFF (23), PICO_VSYS (20), SERVO_IN_J (19), SERVO_SIG (R410 to J406; 13) and three
+  pieces of +3V3 (to R203 and R1001; the router found no path for them, even at 0.25 mm).
+- Short connections boxed in around the Pico's south and east sides: J14_RECOVERY_N (J802 pin 10 to SW801, 13 mm; 8),
+  J14_CON_RXD (J802 pin 3 to R602; 3), JETSON_3V3_SENSE (R807 to R806, 9 mm; 10), LIDAR_REQ (R811 to Pico pin 27,
+  8 mm; 2), LID_G (R422 to Q405's gate track, 5 mm; 4), HUB_VBUS (C603 to the hub, 17 mm; partly routed).
+
+### Why four layers
+
+Both two-layer attempts end at the same wall: with J802 pinned 4.6 mm west of the Pico, two layers do not have room
+for the J12 nets, the rear-connector nets and the J14/hub nets to all reach the Pico. And the ground fill round the
+Pico (574 mm2 on the top, 734 mm2 on the bottom on attempt 1, with J408's DEV- pad in it) touched the pack ground
+nowhere: no spot where it lay over the main ground on the other side with room for a via, and no path even for a
+0.6 mm ground track through the finished routing. The dev kit's 5 A return had no ground path. Moving J802 would
+have meant moving six pinned parts (U401, Q503, MOD401, TP501, TP802, TP403); a GND plane and a signal layer inside
+fix both problems without touching the placement.
 
 Tool changes (`tools/README.md`, step 5): the mazeroute reach fix, `DSN_CLASS_CLEARANCE` kept by mazeroute,
 `--skip REF,...`, `--win NET,...`; `tools/hand_routes.py` is new.
 
+## Routing, four layers (E2b, 2026-10-26)
+
+1. Built from the placement above (`placer.py` for the copper JSON, then `build_pcb.py`; see "Regenerating" for the
+   five parts `placer.py` moves when it runs again) with `COPPER_LAYERS = 4`, `LAYER_TYPES` (In1 a plane, In2 a
+   signal layer) and `STACKUP`.
+2. The locked copper of 8803cd2 again, unchanged and still locked (323 tracks, 17 vias: the USB pairs,
+   `out/hand_routes.txt` and the power runs), with the MIC_IN/NTC hand pieces and the R419-C407 VDEV_F link, and the
+   11 locked GND vias of the GND corner.
+3. Freerouting 1.9 on everything else at once (In1 a plane, not routed; 45 passes and the optimiser, 18 minutes):
+   4 open connections left (BAT to C302, ESTOP_IN, PRE_G twice), 0 copper errors.
+4. `mazeroute.py --only ESTOP_IN,PRE_G,BAT`, one round, no clash, with the router guides and the BAT/VM solder mask
+   openings given back to it as keep-outs (Freerouting's session import takes the guides off the board; a first try
+   without them put a PRE_G via and a BAT track inside the mask openings).
+5. Ground: every through-hole GND pin is on the plane. 22 vias from `pad_vias.py --zone-islands` join small pieces of
+   the outer GND fills; four bottom pieces under the Pico (with the GND pads of R704, R1003, C603 and C704) had no
+   room for a via and got GND tracks to the nearest ground from `mazeroute.py --gnd-pads` (it moved 11 pieces of
+   other nets to make room; one BAT_SENSE via pair it left 0.27 mm apart was routed again). `finish_pcb.py` then put
+   284 GND stitching vias between the outer fills and the plane (62 on a 3 mm grid, 222 more on a 1.5 mm grid), where
+   a via lands in GND on F, In1 and B and clears In2's copper.
+
+Tool changes for four layers (`tools/README.md`): `build_pcb.py` writes `layout.STACKUP` into the board (KiCad 7's
+Python has no stackup API); `finish_pcb.py` stitches through an inner signal layer that has no GND fill, clearing
+its copper; `pour_resistance.py --cu-um-inner` (1 oz inside); `fab_outputs.py` writes the inner layers' Gerbers and
+renders.
+
 ## High-current path
 
-`pour_resistance.py` on the final fills (`dump_board.py --fills BAT,VM,GND`), 0.1 mm grid, 70 um copper, 90 A.
-Copper only (no FET leads, solder or wire). "Peak" is the highest current per mm of copper width on the grid, at a
-pad edge or a corner; "p99" is the 99th percentile.
+`pour_resistance.py` on the final four-layer fills (`dump_board.py --fills BAT,VM,GND`), 0.1 mm grid, 70 um copper
+outside and 35 um inside (`--cu-um 70 --cu-um-inner 35`), 90 A. Copper only (no FET leads, solder or wire). "Peak" is
+the highest current per mm of copper width on the grid, at a pad edge or a corner; "p99" is the 99th percentile.
 
 | Path | Resistance | Drop at 90 A | Peak current density | Narrowest copper |
 | --- | --- | --- | --- | --- |
 | BAT pour: J101 (pack +) to the three FET drains | 0.196 mOhm | 17.7 mV | 23.5 A/mm at Q301's drain pin (18.6, 60.6), p99 6.5 | 36.8 mm (cut across the pour at Y 75.5) |
 | VM pour: the three FET sources to J901 (ESC+) | 0.391 mOhm | 35.2 mV | 27.3 A/mm at Q301's source pin (21.0, 58.4), p99 9.5 | 11.6 mm (the ESC+ strip, cut at X 9.0) |
-| GND: J902 (ESC-) to J102 (pack -), both layers | 0.037 mOhm | 3.3 mV | 10.7 A/mm at (3.4, 59.0), p99 3.0 top, 1.7 bottom | 12.9 mm top (cut at Y 60.6), 13.1 mm bottom (Y 57.0) |
+| GND: J902 (ESC-) to J102 (pack -), all four layers | 0.025 mOhm (two layers: 0.037) | 2.3 mV (3.3) | 8.8 A/mm on F and B at (7.8, 59.0), 4.2 A/mm on the In1 plane at (7.0, 59.0) (two layers: 10.7 A/mm) | 12.9 mm top (cut at Y 60.6), 13.1 mm bottom (Y 57.0), plus the plane |
 | Whole path J101 to J901, each FET at its 1.3 mOhm maximum | 1.035 mOhm | 93.2 mV | 22.1 A/mm by J101 (23.2, 75.8), 24.5 A/mm at the ESC+ corner (13.8, 47.6) | |
 
 In the whole-path run the three FETs share the current as 33.8 A (Q301, nearest the pack and ESC pads), 29.9 A
 (Q302) and 26.3 A (Q303). On the 0.2 mm grid of the dry run the same path was 1.022 mOhm; the finer grid resolves
-the corners better.
+the corners better. The BAT, VM and whole-path rows are the same as on two layers (the top pours did not change, so
+the narrowest-copper cuts were not measured again); the GND return gained the plane.
+
+The dev kit's return, J408 (DEV-) to J102 (pack -) at 5 A (F401's rating): 0.976 mOhm, 4.9 mV, peak 1.2 A/mm on the
+In1 plane at (85.0, 58.2), the corner of the BMS cut-out, 0.8 A/mm on the top and 0.7 A/mm on the bottom. J408 is
+joined to the plane and both outer fills without thermal spokes. On two layers this path did not exist.
 
 ## DRC
 
 `tools/drc.py` (KiCad 7.0.11, `boards/power/drc.rpt`), final board:
 
-- 31 unconnected items: 18 signal connections, one per net: +5V (R409 to U302), ESTOP_OK_TO_JETSON, FAN_PWM,
-  HUB_VBUS (U602 pin 2), I2C0_SCL, I2C0_SDA, J14_CON_RXD, J14_PWR_KEY_N, JETSON_3V3_SENSE, JETSON_RESET, LATCH_OFF,
-  LIDAR_REQ, OV_B, OV_C, PRE_G, SERVO_BUF, SERVO_IN_J, VESC_KILL; and 13 ground items: through-hole GND pins whose
-  pieces of fill are cut off by the routing (J408 DEV-, J802 pins 7 and 11, U302 pins 7 and 12, U402 pin 2, U801
-  pin 2, U802 pins 2 and 3, MOD402 pin 2).
-- 0 clearance, short, crossing, hole, edge and courtyard errors.
-- Warnings (silkscreen only): 31 silk_overlap, all footprint texts against footprint graphics: the heatsink's
-  "HEATSINK = BAT+ INSULATE" over its own outline (9), the Pico's and the hub's printed labels ("USB", "USB HUB 5997",
-  "P1"-"P3", "UP") over their outlines (11), the "K" cathode marks of D401, D402, D404-D406, D501, D1001, D1002 over
-  their body outlines, "CAM REG" against J1001's reference; and 12 silk_over_copper (the J401, J901, J904, TP101 and
-  TP301 references, two of the hub's labels, D101's "K", the heatsink text, two circles and one line touching
-  copper). The fab clips silkscreen off pads and openings.
-- Copper: 1869 track segments and 247 vias (224 at 0.8/0.4, 12 at 1.0/0.5, 11 at 1.2/0.6), of which 52 are GND
-  stitching vias (`finish_pcb.py`, 3 mm grid) and 36 join GND fill islands (`pad_vias.py --zone-islands`).
+- 0 unconnected items (two layers, attempt 1: 21 signal connections and 9 ground pieces).
+- 0 clearance, short, crossing, hole, edge, courtyard and solder mask bridge errors.
+- Warnings (silkscreen only): 33 silk_overlap, footprint texts against footprint graphics: the heatsink's "HEATSINK =
+  BAT+ INSULATE" over its own outline (9), the Pico's and the hub's printed labels ("USB", "USB HUB 5997", "P1"-"P3")
+  over their outlines (11), the hub's "UP" against U601's reference, the "K" cathode marks of D401, D402, D404-D406,
+  D501, D1001, D1002 over their body outlines (8), J407's "DEV+" (its sign, see "Markings") over its outline (2), "CAM
+  REG" against J1001's reference, one circle over another; and 12 silk_over_copper (the J401, J901, J904, TP101 and
+  TP301 references, two of the hub's labels, D101's "K", the heatsink text, two circles and one line touching copper).
+  The fab clips silkscreen off pads and openings.
+- Copper per layer: F.Cu 474 track segments (1214 mm, 50 nets), In1.Cu none (the plane), In2.Cu 545 segments
+  (2209 mm, 57 nets), B.Cu 925 segments (1799 mm, 116 nets); 1944 segments in all. 435 vias (412 at 0.8/0.4, 11 at
+  1.0/0.5, 12 at 1.2/0.6), 317 of them GND: 284 stitching, 22 joining fill pieces, the 11 of the GND corner. Fills:
+  In1 GND plane 8228 mm2, top GND 4076 + 409 mm2, bottom GND 3498 + 2600 mm2, BAT 1356 mm2, VM 1088 mm2.
 
 ## Markings
 
-Three fiducials (top), board name, revision and date (top and bottom), "FET bar is at pack voltage" next to the
-FET row across from the bar (the heatsink footprint also carries "HEATSINK = BAT+ INSULATE"), + and - beside the
-pack, ESC, BEC and dev-kit wire pads, and a pin-1 dot beside every polarised top-side part that has room (59 dots;
-D702 and J1002 have none, no room). Where a wire pad had no free side for its sign, the pad's name with the sign
-("BAT+", "SRV+", "SRV-") replaces the reference (J101, J404, J405). The bottom carries the board name, a serial
-number box and "bottom: 1206/1210 chips, solder these first", reading correctly from below. The bottom chips'
-references are on B.Fab, not on the silkscreen (build_pcb.py keeps only J, SW, TP, U and LED references on silk).
+Three fiducials (top), board name, revision and date "ATLAS-PWR-1 rev B  2026-10-26" (top at 34.0, 38.0 and
+bottom at 30.0, 38.0), "FET bar is at pack voltage" next to the FET row across from the bar (the heatsink footprint
+also carries "HEATSINK = BAT+ INSULATE"), + and - beside the pack, ESC, BEC and dev-kit wire pads, and a pin-1 dot
+beside every polarised top-side part that has room (59 dots; D702 and J1002 have none, no room). Where a wire pad had
+no free side for its sign, the pad's name with the sign ("BAT+", "SRV+", "SRV-", "DEV+") replaces the reference
+(J101, J404, J405, J407). The bottom carries the board name, a serial number box and "bottom: 1206/1210 chips,
+solder these first", reading correctly from below.
+
+Bottom chip references (E2b): 69 of the 107 bottom parts have their reference on B.Silkscreen (0.8 mm text, placed
+after the markings, each where it clears pads, other text and outlines, by `finish_pcb.py`'s silk pass). The other
+38 had no free spot and stay on B.Fab: C1001, C303, C402, C407, C603, C702, C704, R1001, R1003, R1004, R203, R314,
+R316, R401, R402, R411, R412, R413, R417, R421, R422, R501, R503, R506, R602, R603, R705, R806, R807, R811, R812,
+R813, R814, R815, R903, R904, R905, R906 (mostly the parts packed under the Pico and the hub). The fab layer is in
+the gerbers (atlas_power-B_Fab.gbr) and can be printed as the assembly drawing for those.
 
 ## For the reviewer
 
-- Not orderable yet: 18 open signal connections and 10 GND pins (DRC). The files in out/fab and out/render were
-  regenerated from this board so they match it, not so they can be ordered.
-- J408 (DEV-, the dev kit's return, fused at 5 A on the feed side by F401) is one of the GND pins not reached by a
-  fill; whoever finishes the routing should give it a wide GND connection, not just a via.
+- Before ordering: the KiCad 10 checks (last section), then a look at out/fab (14 files in the PCBWay zip: four
+  copper layers, both masks, pastes and silkscreens, the outline, PTH and NPTH drill files, the Gerber job file with
+  the stackup).
+- The USB pairs: their locked parts are as at 8803cd2; the last few millimetres to the pins were made by the
+  autorouter, as on two layers, and two of those ends now run on In2: 5.2 mm of P1_DM and 5.0 mm of P4_DM, their
+  partners on F/B. No impedance control was asked for; the pairs (0.4 mm, 0.3 mm gap) now run over the In1 plane
+  0.2 mm below F, so their impedance is lower than on the two-layer board.
+- Power nets the autorouter put on In2 (1 oz), all short side branches: VSYS_SW 5.6 mm at 2.0 mm (Q405 to the
+  camera polyfuse F403, 0.75 A hold), CHG_GND 3.5 mm at 2.0 mm (to the TP502 test point), PRE_D 4.1 mm at 1.0 mm
+  (precharge), V5_IN 21.1 mm at 1.0 mm (R408 to U401 and D401), +5V 162.5 mm at 1.0 mm. The main supply runs are the
+  locked ones on F and B.
 - Review m19 (10 AWG pads): J101, J102, J901 and J902 are 7.5 mm pads with 3.5 mm holes and a ring of six 0.6 mm
   plated holes, joined solid (no thermal spokes) to their 2 oz pours: J101 to BAT and J901 to VM on the top, J102
   and J902 to GND on both sides. That is right for 90 A and is exactly why they are slow to heat: the build guide's
   hot plate at about 100 C or 100-150 W iron (docs/BUILD_POWER_BOARD.md, tools and step 11) is needed; the README's
   assembly order now says so too.
 - Review m20: done, numbers under "What changed".
-- Tracks below their class width, where nothing wider fits (lengths on the final board): SERVO_V 2.0 mm (60.9),
-  1.9 mm (26.6), 1.6 mm (8.8, the neck at H1003), 1.0 mm (2.7, the TP403 stub); VSYS_SW 1.0 mm front branch (75.2,
-  lidar and camera; 3.95 A at a 10 C rise for 2 oz by the IPC-2221 outer-layer formula) and 0.5 mm to the sense and gate parts (18.1); CHG_RB 1.2 mm
-  (50.2); VDEV 1.0 mm (31.5, the C405 branch); CAM_VIN, LID_SW, LIDAR_V 1.0 mm; CHG_IN and CHG_GND 0.5 mm only on the
-  branches to the PD-trigger decoupling, Q502/Q503 and their resistors (the charge current path itself is 2 mm);
-  +3V3 0.25 mm (26.3), PICO_VSYS 0.25 mm (18.1), HUB_VBUS 0.25 mm (15.9), CON_3V3 0.25 mm (15.2), and 0.25 mm pieces
-  on LATCH_ON, SERVO_SIG, CON_RX, PRE_G, J14_RECOVERY_N, OV_K.
-- The build guide (step 2) says the bottom silkscreen shows each chip's reference; on this board they are on B.Fab.
-  Either print the B.Fab layer (gerbers/atlas_power-B_Fab.gbr) as the assembly drawing, or move the references to
-  the silkscreen where they fit.
-- The board text still carries the date 2026-10-24.
+- Tracks below their class width (lengths in mm on the final board; every signal is at its class width now, the
+  0.25 mm pieces of the two-layer board are gone): SERVO_V 2.0 mm (60.9), 1.9 mm (26.6), 1.6 mm (8.8, the neck at
+  H1003), 1.0 mm (2.7, the TP403 stub); VSYS_SW 1.0 mm (75.3, the front branch to the lidar and camera; 3.95 A at a
+  10 C rise for 2 oz by the IPC-2221 outer-layer formula) and 0.5 mm to the sense and gate parts (18.1); CHG_RB
+  1.2-1.3 mm (51.3) and 0.5 mm (9.3); VDEV 1.0 mm (31.5, the C405 branch); VDEV_F 1.5 mm (11.0, the D404 branch),
+  1.0 mm (2.2, the R419-C407 link) and 0.5 mm (9.9, short links to the cut-off parts); CAM_VIN 1.0 mm (23.7), LID_SW
+  1.0 mm (13.9), LIDAR_V 1.0 mm (11.7); CHG_IN and CHG_GND 0.5 mm only on the branches to the PD-trigger decoupling,
+  Q502/Q503 and their resistors (the charge current path itself is 2 mm); VM 0.4 and 0.3 mm (37.2 and 13.8, the sense
+  links); BAT 0.4 mm (2.6, R401), 0.6 mm (1.7, C104's hand link) and 1.6-1.9 mm stubs (3.2) by C301/C302 and R309.
+- The build guide (docs/BUILD_POWER_BOARD.md, step 2) says the bottom silkscreen shows each chip's reference: true
+  for 69 of the 107 bottom parts now, not for the 38 listed under "Markings". The guide should say so, or point to
+  the B.Fab layer for those.
+
+## PCBWay quote (instant quote, pcbway.com, 2026-10-26)
+
+4 layers, 130 x 84 mm, FR-4 S1000H TG150 (PCBWay's default for 4 layers), 1.6 mm, 8/8 mil track/space, 0.3 mm
+minimum hole, green mask, white silkscreen, HASL lead-free, tented vias, no impedance control, 4-5 day build, DHL to
+the US (USD 26.55, 2-4 business days; shown ship date 2026-10-31, delivery 2026-11-03). Customs duties and VAT not
+included; the final price is subject to PCBWay's review of the files.
+
+| Copper | 5 pcs | 10 pcs |
+| --- | --- | --- |
+| 2 oz outer, 1 oz inner (this stackup) | USD 155.79 + 26.55 = 182.34 | USD 173.32 + 26.55 = 199.87 |
+| 1 oz everywhere (for comparison) | USD 82.63 + 26.55 = 109.18 | USD 95.30 + 26.55 = 121.85 |
+
+The two-layer quote at 8803cd2 (2 oz) was USD 50.09 + 26.55 for 5 and 60.25 + 26.55 for 10.
 
 ## Regenerating on the laptop (KiCad 10, run_kicad.sh)
 
@@ -220,6 +344,9 @@ boards/tools/run_kicad.sh glb-power      # 3D model for share/make_renders.py: o
 - If KiCad 10 says the zones are out of date, open the board, press B (refill), save, and run `drc-power` again.
   The zones here were filled by KiCad 7.
 - Do not run `pcb-power`: it builds the board again from the placement and throws the routing away.
+- If `placer.py power` runs again (it also writes the copper JSON that `build_pcb.py` reads), it moves R412, R419,
+  R1001, C704 and C407 even with `KEEP_AUTO`: keep the copper JSON it writes and put `out/atlas_power_placement.json`
+  back from git. The stackup in the board file comes from `layout.STACKUP` (`build_pcb.py`); KiCad keeps it on save.
 - Do not use `fab-power` for the order: it deletes out/fab first and writes KiCad's own set (both CPL sides, a BOM
   from the schematic, a zip with every layer). The files in out/fab come from `tools/fab_outputs.py power` (plain
   Python around kicad-cli, KiCad 7 or later, no schematic needed); run that again after any change to the board.

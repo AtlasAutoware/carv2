@@ -1,19 +1,20 @@
 """Resistance of a high-current path through a board's real copper (plain Python: numpy, scipy, Pillow).
 
     python3 pour_resistance.py DUMP.json --from REF.PAD[,..] --to REF.PAD[,..] [--link REF.PAD:REF.PAD:OHM ...]
-                               [--nets NET,..] [--res 0.1] [--cu-um 70] [--plating-um 25] [--amps 90]
+                               [--nets NET,..] [--res 0.1] [--cu-um 70] [--cu-um-inner 35] [--plating-um 25] [--amps 90]
                                [--report FILE.json]
 
 DUMP.json comes from `dump_board.py BOARD.kicad_pcb DUMP.json --fills NET,..` (filled zones of the nets).
-The copper of --nets (default: the nets of the --from/--to/--link pads) is rasterised on every copper layer
-on a --res mm grid: zone fills, tracks and pads. Each cell is joined to its four neighbours on the same
-layer by the sheet conductance of the foil (copper 1.72e-8 Ohm m at 20 C, --cu-um thick: 70 um = 2 oz
-nominal). Vias and plated holes join the layers with the resistance of their barrel (--plating-um wall,
-1.6 mm long). Every pad is one node (the soldered lead or wire makes it equipotential); --from pads sit at
-1 V, --to pads at 0 V, and each --link puts a resistor between two pads (a FET's on-resistance between its
-drain and source pads). Prints the path resistance, the drop at --amps, the voltage of every named pad on
-that scale, the drop in each net's copper, and the highest current per mm of copper width (the neck).
-Copper only: the leads of the parts, the solder and contact resistance are not included.
+The copper of --nets (default: the nets of the --from/--to/--link pads) is rasterised on every copper layer on
+a --res mm grid: zone fills, tracks and pads. Each cell is joined to its four neighbours on the same layer by
+the sheet conductance of the foil (copper 1.72e-8 Ohm m at 20 C, --cu-um thick: 70 um = 2 oz nominal;
+--cu-um-inner for the inner layers, default the same). Vias and plated holes join the layers with the
+resistance of their barrel (--plating-um wall, 1.6 mm long). Every pad is one node (the soldered lead or wire
+makes it equipotential); --from pads sit at 1 V, --to pads at 0 V, and each --link puts a resistor between two
+pads (a FET's on-resistance between its drain and source pads). Prints the path resistance, the drop at
+--amps, the voltage of every named pad on that scale, the drop in each net's copper, and the highest current
+per mm of copper width (the neck). Copper only: the leads of the parts, the solder and contact resistance are
+not included.
 """
 import json
 import math
@@ -37,6 +38,8 @@ def main():
     D = json.load(open(args[0]))
     res = float(opt(args, '--res', 0.1))
     t_cu = float(opt(args, '--cu-um', 70.0)) * 1e-6
+    t_in = float(opt(args, '--cu-um-inner', t_cu * 1e6)) * 1e-6     # inner layers (a 4-layer board: 1 oz inside)
+    t_of = lambda lay: t_in if lay.startswith('In') else t_cu
     t_pl = float(opt(args, '--plating-um', 25.0)) * 1e-6
     amps = float(opt(args, '--amps', 90.0))
     src = opt(args, '--from', '').split(',')
@@ -109,8 +112,8 @@ def main():
         cols.extend([i, j, j, i])
         vals.extend([g, g, -g, -g])
 
-    g_sheet = t_cu / RHO            # S per square
     for key, idx in index.items():
+        g_sheet = t_of(key[1]) / RHO            # S per square
         for dy, dx in ((0, 1), (1, 0)):
             a = idx[:idx.shape[0] - dy, :idx.shape[1] - dx]
             b = idx[dy:, dx:]
@@ -184,6 +187,7 @@ def main():
     R = 1.0 / I
     scale = amps * R                                        # node voltage -> volts at `amps`
     out = {'R_mohm': R * 1e3, 'drop_mV': amps * R * 1e3, 'amps': amps, 'res_mm': res, 'cu_um': t_cu * 1e6,
+           'cu_um_inner': t_in * 1e6,
            'barrels': n_barrels, 'pads_V': {k: round(v[i] * scale * 1e3, 2) for k, i in pad_node.items()}}
     # current density per net and layer: the neck (A per mm of copper width) and the copper's own drop
     neck = []
@@ -195,7 +199,7 @@ def main():
         jx = np.nan_to_num(gx[:-1, :]) if gx.shape[0] > 1 else gx
         jy = np.nan_to_num(gy[:, :-1]) if gy.shape[1] > 1 else gy
         h, w = min(jx.shape[0], jy.shape[0]), min(jx.shape[1], jy.shape[1])
-        J = np.hypot(jx[:h, :w], jy[:h, :w]) * t_cu / RHO / 1000.0     # A per mm of width
+        J = np.hypot(jx[:h, :w], jy[:h, :w]) * t_of(key[1]) / RHO / 1000.0     # A per mm of width
         J[~((idx[:h, :w] >= 0))] = 0
         if J.size and np.nanmax(J) > 0:
             k = np.unravel_index(np.nanargmax(J), J.shape)

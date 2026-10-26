@@ -37,8 +37,21 @@ NAME = 'atlas_power'
 L_BOARD = 130.0
 SIZE = (L_BOARD, 84.0)
 PAGE_ORIGIN = (30.0, 30.0)
-COPPER_LAYERS = 2
-LAYER_TYPES = {}                 # two layers, no inner planes
+COPPER_LAYERS = 4
+# (E2b) four layers since 2026-10-26: two 2-layer routings left 21 and 37 signal connections open in the logic half
+# (J802 pinned 4.6 mm west of the Pico walls it) and the ground round the Pico had no path to the pack
+# (LAYOUT_NOTES.md).
+# F.Cu 2 oz: THT parts, the BAT/VM/GND power pours, the hand routes. In1.Cu 1 oz: solid GND plane (cut out under the
+# BMS domain). In2.Cu 1 oz: signals and the +3V3/+5V/PICO_VSYS runs. B.Cu 2 oz: bottom chips, the bottom GND pours.
+LAYER_TYPES = {'In1': 'power', 'In2': 'signal'}
+# physical stack (build_pcb.py writes it into the board's setup): copper and dielectric thickness in mm, 1.6 mm
+# nominal (the fab sets the real dielectrics), HASL lead-free
+STACKUP = {'copper': {'F': 0.070, 'In1': 0.035, 'In2': 0.035, 'B': 0.070},
+           'dielectric': [('prepreg', 0.2), ('core', 0.97), ('prepreg', 0.2)], 'mask': 0.01, 'finish': 'HAL lead-free'}
+# the BMS domain (BMS-side pins of U201/U202, R201, R204, C201, J201) plus its 2 mm isolation band: no plane, no
+# track, no fill on the inner layers there (the same boxes keep the auto placer's bottom chips out, NO_AUTO)
+BMS_DOMAIN = [(76.0, 58.0, 85.0, 84.0), (76.0, 76.6, 92.5, 84.0)]
+FULL_CONNECT = ['J408']          # pads joined to every GND fill and the plane without thermal spokes (DEV-, 5 A)
 CORNER_R = 2.0
 
 HOLES = {'H1001': (4.0, 4.0), 'H1002': (4.0, 80.0), 'H1003': (75.0, 4.0), 'H1004': (75.0, 80.0),
@@ -274,6 +287,18 @@ def place_all(B):
     c(find(value='10k', nets=['FET_NTC']), 112.85, 66.0, 90, 'B')   # NTC series 10k at GP28, between U302 and the Pico pins
     c(find(value='10k', nets=['+3V3', 'NTC_NODE']), 112.85, 60.6, 90, 'B')   # (D) NTC divider top, same channel
     c(find(value='100n', nets=['FET_NTC']), 112.85, 71.2, 90, 'B')
+    # (E2b) the J12 ribbon's series resistors whose far side is a Pico pin, next to that pin (bottom, under or beside
+    # the Pico): the long runs are now the J12_* nets from the header pins (how far their routing got: LAYOUT_NOTES.md).
+    # R803/R804 (to the FSESC COMM header) and the pull-downs R805, R808, R810 stay at the ribbon header.
+    for v_, nets_, x_, y_, r_ in (('330', ['J12_SDA', 'I2C0_SDA'], 100.25, 67.75, 90),
+                                  ('330', ['J12_SCL', 'I2C0_SCL'], 100.25, 62.5, 90),
+                                  ('10k', ['J12_JETSON_UP', 'JETSON_UP'], 100.25, 50.0, 90),
+                                  ('10k', ['J12_3V3', 'JETSON_3V3_SENSE'], 106.75, 40.5, 90),
+                                  ('100k', ['JETSON_3V3_SENSE', 'GND'], 109.5, 34.5, 90),
+                                  ('1k', ['ESTOP_OK_TO_JETSON', 'J12_ESTOP_OK'], 112.75, 48.25, 90),
+                                  ('1k', ['CHG_STAT_N_TO_JETSON', 'J12_CHG_STAT_N'], 127.75, 45.0, 90),
+                                  ('10k', ['J12_LIDAR_REQ', 'LIDAR_REQ'], 112.75, 53.5, 90)):
+        c(find(value=v_, nets=nets_), x_, y_, r_, 'B')
 
     # ------------------------------------------------------------ front edge (X = L)
     pin(find(value='SERVO'), '1', L_BOARD - 2.4, 19.6)
@@ -345,6 +370,11 @@ def finish(B):
         t.SetTextSize(pcbnew.VECTOR2I(MM(size), MM(size)))
         t.SetTextThickness(MM(0.2 if size < 2 else 0.3))
         b.Add(t)
+    for ref in FULL_CONNECT:
+        fp = b.FindFootprintByReference(ref)
+        if fp is not None:
+            for pd in fp.Pads():
+                pd.SetZoneConnection(pcbnew.ZONE_CONNECTION_FULL)
     marks(B)
 
 
@@ -352,9 +382,9 @@ def finish(B):
 FIDUCIAL_NEAR = [[(15.75, 14.25), (10.0, 4.5), (9.75, 77.5)], [(127.0, 10.0), (121.0, 4.5), (114.0, 12.0)], [(121.0, 79.5)]]   # three, non-collinear
 TEXTS = [  # (text, [(near X, near Y), ...], height mm, layer 'F'/'B', bold)
     ('FET bar is at pack voltage', [(21.6, 56.9), (30.5, 56.9)], 1.0, 'F', True),     # across the FET row from the bar
-    ('ATLAS-PWR-1 rev B  2026-10-24', [(34.0, 38.0)], 1.2, 'F', True),
+    ('ATLAS-PWR-1 rev B  2026-10-26', [(34.0, 38.0)], 1.2, 'F', True),
     ('Atlas Autoware   S/N ____', [(30.0, 44.0)], 1.2, 'B', False),       # the top has no free strip for it
-    ('ATLAS-PWR-1 rev B  2026-10-24', [(30.0, 50.0)], 1.5, 'B', True),
+    ('ATLAS-PWR-1 rev B  2026-10-26', [(30.0, 50.0)], 1.5, 'B', True),
     ('bottom: 1206/1210 chips, solder these first', [(30.0, 47.0)], 1.0, 'B', False),
 ]
 WIRE_SIGNS = {'BAT+': '+', 'BAT-': '-', 'ESC+': '+', 'ESC-': '-', 'BEC+': '+', 'BEC-': '-', 'DEV+': '+', 'DEV-': '-',
@@ -749,9 +779,19 @@ def copper(B, C):
     # stitching: GND corner top <-> bottom
     n_gnd = C.via_grid('GND', box(1.0, 69.5, 12.4, 75.5).union(box(9.5, 57.0, 12.4, 62.0)), 2.0, 0.5, 1.0)
     # mounting holes: no copper within 3.5 mm (CF-filled printed parts can conduct), kept after routing
+    cu_layers = ['F', 'In1', 'In2', 'B'] if COPPER_LAYERS == 4 else ['F', 'B']
     for i, (x, y) in enumerate(HOLES.values()):
-        C.keepout(f'K:hole{i + 1}', ['F', 'B'], Point(x, y).buffer(3.5, 32), tracks=True, vias=True, zones=True,
+        C.keepout(f'K:hole{i + 1}', cu_layers, Point(x, y).buffer(3.5, 32), tracks=True, vias=True, zones=True,
                   dsn_only=False)
+    if COPPER_LAYERS == 4:
+        # (E2b) In1: one solid GND plane under the whole board except the BMS domain and its 2 mm band, which stays
+        # an island on its own ground (BMS_GND); every through-hole GND pin joins the plane, J408 (DEV-, the dev
+        # kit's 5 A return) solid (FULL_CONNECT, set in finish()), surface GND pads by a via each (pad_vias.py)
+        bms = unary_union([box(*b_) for b_ in BMS_DOMAIN])
+        zone('P:GND_In1', 'GND', 'In1', box(0.0, 0.0, SIZE[0], SIZE[1]).difference(bms), prio=0, connect='tht')
+        for i, g_ in enumerate([bms] if bms.geom_type == 'Polygon' else list(bms.geoms)):
+            C.keepout(f'K:bms_in{i + 1}', ['In1', 'In2'], g_.intersection(edge), tracks=True, vias=False, zones=True,
+                      dsn_only=False)
     # autorouter: foreign tracks stay out of the top power pours (0.6 mm inside their outline)
     for z in list(C.zones):
         if z['name'].startswith('P:') and z['layer'] == 'F':

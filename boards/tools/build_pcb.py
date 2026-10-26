@@ -10,6 +10,7 @@ import importlib.util
 import json
 import math
 import os
+import re
 import sys
 
 import pcbnew
@@ -362,11 +363,44 @@ def write_project():
     print('net classes written to', pro)
 
 
+def write_stackup(path):
+    """layout.STACKUP (copper and dielectric thickness per layer, finish) into the board file's setup: KiCad 7's
+    Python has no stackup API, so the (stackup ...) block is written as text; KiCad keeps it on every later save"""
+    S = getattr(L, 'STACKUP', None)
+    if not S:
+        return
+    cu = S['copper']
+    names = ['F'] + [f'In{k}' for k in range(1, L.COPPER_LAYERS - 1)] + ['B']
+    diel = S['dielectric']
+    assert len(diel) == len(names) - 1, 'one dielectric between each pair of copper layers'
+    rows = ['(layer "F.SilkS" (type "Top Silk Screen"))', '(layer "F.Paste" (type "Top Solder Paste"))',
+            f'(layer "F.Mask" (type "Top Solder Mask") (thickness {S["mask"]}))']
+    for i, n in enumerate(names):
+        rows.append(f'(layer "{n}.Cu" (type "copper") (thickness {cu[n]}))')
+        if i < len(diel):
+            kind, t = diel[i]
+            rows.append(f'(layer "dielectric {i + 1}" (type "{kind}") (thickness {t}) (material "FR4") '
+                        f'(epsilon_r 4.5) (loss_tangent 0.02))')
+    rows += [f'(layer "B.Mask" (type "Bottom Solder Mask") (thickness {S["mask"]}))',
+             '(layer "B.Paste" (type "Bottom Solder Paste"))', '(layer "B.SilkS" (type "Bottom Silk Screen"))',
+             f'(copper_finish "{S.get("finish", "None")}")', '(dielectric_constraints no)']
+    total = sum(cu.values()) + sum(t for k, t in diel) + 2 * S['mask']
+    txt = open(path).read()
+    txt = re.sub(r'\n\s*\(stackup\n.*?\n\s*\)\n', '\n', txt, count=1, flags=re.S)   # an older block goes
+    blk = '\n    (stackup\n' + ''.join(f'      {r}\n' for r in rows) + '    )'
+    txt = txt.replace('(setup', '(setup' + blk, 1)
+    txt = re.sub(r'\(general\n(\s*)\(thickness [\d.]+\)', lambda m: f'(general\n{m.group(1)}(thickness {total:.4g})', txt,
+                 count=1)
+    open(path, 'w').write(txt)
+    print('stackup:', ', '.join(f'{n}.Cu {cu[n] * 1000:.0f} um' for n in names), f'- {total:.3g} mm')
+
+
 if kc.K7:
     # KiCad 7: a board made in Python has no DRC engine, and the zone filler crashes without one. Save it
     # unfilled with the project file next to it, load it back (LoadBoard sets up the DRC engine with the
     # net classes from the .kicad_pro and the custom rules from the .kicad_dru), then fill.
     kc.save(out, b)
+    write_stackup(out)
     write_project()
     held_board = b
     b = pcbnew.LoadBoard(out)
@@ -375,6 +409,7 @@ if kc.K7:
 else:
     pcbnew.ZONE_FILLER(b).Fill(b.Zones())
     pcbnew.SaveBoard(out, b)
+    write_stackup(out)
 
 
 def dump_geometry(path):
