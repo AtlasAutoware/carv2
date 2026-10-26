@@ -1,74 +1,124 @@
+"""The `atlas` command against a fake Pico on a pty (no daemon running: it talks to the port)."""
+import json
+import os
+import threading
+
 import pytest
 
-from atlas_hw import cli
-from fakes import FakeBus, FakeEEPROM24AA02, FakeINA228, FakePCAL6408A, FakeTPS25751
-from test_tps25751 import LOW, full_image
+from atlas_hw import cli, vesc
 
 
 @pytest.fixture
-def car(monkeypatch):
-    stack = FakeBus()
-    tps = stack.attach(0x20, FakeTPS25751(stack, [LOW]))
-    ina = stack.attach(0x40, FakeINA228())
-    stack.attach(0x50, FakeEEPROM24AA02())
-    sysbus = FakeBus()
-    exp = sysbus.attach(0x20, FakePCAL6408A())
-    monkeypatch.setattr(cli, '_stack', lambda args: stack)
-    monkeypatch.setattr(cli, '_sys', lambda args: sysbus)
-    monkeypatch.setattr('atlas_hw.battery.read_live', lambda *a, **k: None)
-    return {'tps': tps, 'ina': ina, 'exp': exp}
+def car(pico, run_dir, world):
+    pico.start()
+    return pico
 
 
-def test_pd_flash_from_blank(car, tmp_path, capsys):
-    img, low = tmp_path / 'full.bin', tmp_path / 'low.bin'
-    img.write_bytes(full_image())
-    low.write_bytes(LOW)
-    cli.main(['pd', 'flash', str(img), '--lowregion', str(low)])
-    out = capsys.readouterr().out
-    assert 'matches the Full Flash image: yes' in out and 'booted from the EEPROM' in out
-    assert car['tps'].mode == 'APP '
-
-
-def test_pd_flash_blank_needs_lowregion(car, tmp_path):
-    img = tmp_path / 'full.bin'
-    img.write_bytes(full_image())
-    with pytest.raises(SystemExit, match='--lowregion'):
-        cli.main(['pd', 'flash', str(img)])
-
-
-def test_pd_ensure_loads_patch(car, tmp_path, monkeypatch, capsys):
-    low = tmp_path / 'low.bin'
-    low.write_bytes(LOW)
-    monkeypatch.setenv('ATLAS_PD_LOWREGION', str(low))
-    cli.main(['pd', 'ensure'])
-    assert car['tps'].mode == 'APP '
-    cli.main(['pd', 'ensure'])
-    assert "mode 'APP '" in capsys.readouterr().out
-
-
-def test_stm32_refused_without_power_en_fix(car, monkeypatch):
-    monkeypatch.delenv('ATLAS_POWER_EN_FIXED', raising=False)
-    with pytest.raises(SystemExit, match='R609'):
-        cli.main(['stm32', 'bootloader'])
-    assert car['exp'].writes == []
-
-
-def test_stm32_bootloader_sequence(car):
-    cli.main(['stm32', 'bootloader', '--power-en-fixed'])
-    outs = [v for r, v in car['exp'].writes if r == 0x01]
-    # BOOT0 (P1) goes high before the reset pulse on P0, and the reset is released at the end
-    assert outs[-3] & 0b10 and not outs[-3] & 0b01
-    assert outs[-2] & 0b11 == 0b11
-    assert outs[-1] & 0b11 == 0b10
-
-
-def test_status_and_lidar(car, capsys):
-    cli.main(['hw-init', '--lidar', 'on'])
+def test_status(car, capsys):
     cli.main(['status'])
     out = capsys.readouterr().out
-    assert 'lidar power  on' in out and 'E-stop       closed' in out and 'PTCH' in out
+    assert 'supervisor   RUN (test)' in out
+    assert 'battery      15.62 V, +1.50 A, BMS 60 %, cells 3.900 3.900 3.910 3.910 V' in out
+    assert 'E-stop closed' in out and 'J12 inputs   ESTOP_OK 1, CHG_STAT_N 1' in out
 
 
-def test_id_write_and_read(car, capsys):
-    cli.main(['id', '--write', '--serial', '007', '--built', '2026-10-20'])
-    assert '"serial": "007"' in capsys.readouterr().out
+def test_status_json_from_the_daemon_file(car, run_dir, capsys):
+    import time
+    (run_dir / 'supervisor.json').write_text(json.dumps(dict(car.state, state='LOCKOUT', time=time.time())))
+    cli.main(['status', '--json'])
+    assert json.loads(capsys.readouterr().out)['state'] == 'LOCKOUT'
+    assert 'status' not in car.cmds()                        # did not need to ask the Pico
+
+
+def test_lidar(car, capsys):
+    cli.main(['lidar', 'off'])
+    assert car.state['lidar'] is False
+    assert 'lidar power off' in capsys.readouterr().out
+    cli.main(['lidar'])
+    assert 'lidar power off' in capsys.readouterr().out
+
+
+def test_battery_without_daemon(car, capsys):
+    cli.main(['battery'])
+    out = capsys.readouterr().out
+    assert '15.62 V (bms)' in out and '+1.50 A' in out and 'atlas-battery.service is not running' in out
+
+
+def test_supervisor_commands(car, capsys):
+    cli.main(['supervisor', 'shutdown'])
+    cli.main(['supervisor', 'fan', '40'])
+    cli.main(['supervisor', 'fan', 'auto'])
+    cli.main(['supervisor', 'hb-timeout', '0'])
+    cli.main(['supervisor', 'bms-fets', 'charge-off'])
+    sent = {m['cmd']: m for m in car.received}
+    assert sent['fan']['auto'] is True
+    assert sent['hb_timeout']['s'] == 0
+    assert sent['bms_fets']['charge'] is False and sent['bms_fets']['discharge'] is True
+
+
+def test_discharge_off_needs_yes(car):
+    with pytest.raises(SystemExit, match='--yes'):
+        cli.main(['supervisor', 'bms-fets', 'off'])
+    assert 'bms_fets' not in car.cmds()
+    cli.main(['supervisor', 'bms-fets', 'off', '--yes'])
+    m = [m for m in car.received if m['cmd'] == 'bms_fets'][0]
+    assert m['discharge'] is False and m['force'] is True
+
+
+def test_supervisor_send_prints_the_reply(car, capsys):
+    with pytest.raises(SystemExit) as e:
+        cli.main(['supervisor', 'send', '{"cmd": "nope"}'])
+    assert e.value.code == 1 and 'unknown command' in capsys.readouterr().out
+    import argparse
+    with pytest.raises(SystemExit, match='unknown command'):         # the other commands stop on err
+        cli._request(argparse.Namespace(tty=None), {'cmd': 'nope'})
+
+
+def test_repl_needs_yes(car):
+    with pytest.raises(SystemExit, match='--yes'):
+        cli.main(['supervisor', 'repl'])
+    cli.main(['supervisor', 'repl', '--yes'])
+    assert car.cmds()[-1] == 'repl'
+
+
+def test_hw_init_sets_lidar_from_config(car, monkeypatch, capsys):
+    monkeypatch.setenv('ATLAS_LIDAR_AT_BOOT', '0')
+    cli.main(['hw-init', '--wait', '0'])
+    assert car.state['lidar'] is False
+    assert 'lidar off (ATLAS_LIDAR_AT_BOOT)' in capsys.readouterr().out
+
+
+def test_halt_hook(car, world, capsys):
+    world.chips['/dev/gpiochip0'][106]['value'] = 1
+    cli.main(['halt-hook', 'reboot'])
+    assert car.received[-1] == {'cmd': 'halt', 'verb': 'reboot'}
+    assert world.chips['/dev/gpiochip0'][106]['value'] == 0   # JETSON_UP dropped
+    assert 'HALT acknowledged, JETSON_UP low' in capsys.readouterr().out
+
+
+def test_halt_hook_without_a_pico(run_dir, world, monkeypatch, capsys):
+    monkeypatch.setenv('ATLAS_SUPERVISOR_TTY', '/dev/does-not-exist')
+    cli.main(['halt-hook', 'poweroff'])                       # never fails the shutdown
+    assert 'HALT not sent' in capsys.readouterr().out
+
+
+def test_vesc_probe(monkeypatch, capsys):
+    master, slave = os.openpty()
+    monkeypatch.setenv('ATLAS_VESC_TTY', os.ttyname(slave))
+
+    def esc():
+        os.read(master, 64)
+        os.write(master, vesc.packet(bytes([0, 6, 6]) + b'60_MK6\0' + bytes(12)))
+    threading.Thread(target=esc, daemon=True).start()
+    try:
+        cli.main(['vesc', '--probe'])
+    finally:
+        os.close(master)
+        os.close(slave)
+    assert 'firmware    6.06, hardware 60_MK6' in capsys.readouterr().out
+
+
+def test_rev_a_commands_are_gone():
+    for old in ('pd', 'usb-role', 'stm32', 'id'):
+        with pytest.raises(SystemExit):
+            cli.main([old])

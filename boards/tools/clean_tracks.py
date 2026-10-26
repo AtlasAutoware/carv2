@@ -19,6 +19,9 @@ import sys
 import pcbnew
 from pcbnew import VECTOR2I, ToMM
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kicompat as kc  # noqa: E402  (KiCad 7 / KiCad 10 API differences)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 bdir = os.path.abspath(os.path.join(HERE, '..', sys.argv[1]))
 name = [f for f in os.listdir(bdir) if f.endswith('.kicad_pcb')][0][:-len('.kicad_pcb')]
@@ -257,7 +260,7 @@ for _ in range(60):
     if not removed:
         break
 pcbnew.ZONE_FILLER(b).Fill(b.Zones())
-pcbnew.SaveBoard(path, b)
+kc.save(path, b)
 b.BuildConnectivity()
 conn = b.GetConnectivity()
 left = [t for t in segs() if conn.TestTrackEndpointDangling(t, False)]

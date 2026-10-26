@@ -7,6 +7,8 @@ tracks and vias per net, zones (name, net, layers, priority, outline bbox), boar
 --route-view   dump the board as the autorouter sees it (route_prep.prepare), and add every zone's and
                rule area's outline ('areas': name, net, rule, layers, no_tracks, no_vias, polygons as
                [outline, holes...] in page mm) and the plane layers, for mazeroute.py
+--fills NET,.. also dump the filled copper of these nets' zones (GND's fills are left out otherwise), with
+               every zone kept (no route_prep), for pour_resistance.py
 """
 import json
 import os
@@ -14,6 +16,9 @@ import sys
 
 import pcbnew
 from pcbnew import ToMM
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kicompat as kc  # noqa: E402  (KiCad 7 / KiCad 10 API differences)
 
 b = pcbnew.LoadBoard(sys.argv[1])
 held = []
@@ -32,7 +37,7 @@ for f in b.GetFootprints():
     p = f.GetPosition()
     e = {'ref': f.GetReference(), 'value': f.GetValue(), 'fpid': f.GetFPIDAsString(), 'x': round(ToMM(p.x), 4),
          'y': round(ToMM(p.y), 4), 'rot': f.GetOrientationDegrees(), 'side': 'B' if f.IsFlipped() else 'F',
-         'dnp': bool(f.IsDNP()), 'bb': bb(f.GetBoundingBox(False)), 'pads': []}
+         'dnp': kc.is_dnp(f), 'bb': bb(kc.fp_bbox(f)), 'pads': []}
     try:
         e['sheet'] = f.GetSheetname()
     except Exception:
@@ -47,7 +52,7 @@ for t in b.GetTracks():
     if t.Type() == pcbnew.PCB_VIA_T:
         q = t.GetPosition()
         out['vias'].append({'net': t.GetNetname(), 'x': round(ToMM(q.x), 4), 'y': round(ToMM(q.y), 4),
-                            'dia': round(ToMM(t.GetWidth(pcbnew.F_Cu) if hasattr(t, 'GetWidth') else 0), 3),
+                            'dia': round(ToMM(kc.via_width(t)), 3),
                             'drill': round(ToMM(t.GetDrill()), 3), 'locked': bool(t.IsLocked())})
     else:
         s, e_ = t.GetStart(), t.GetEnd()
@@ -58,7 +63,10 @@ for z in b.Zones():
     out['zones'].append({'name': z.GetZoneName(), 'net': z.GetNetname(), 'rule': bool(z.GetIsRuleArea()),
                          'layers': [b.GetLayerName(l) for l in z.GetLayerSet().Seq()], 'prio': z.GetAssignedPriority(),
                          'bb': bb(z.GetBoundingBox())})
-if '--route-view' in sys.argv:
+FILL_NETS = set(sys.argv[sys.argv.index('--fills') + 1].split(',')) if '--fills' in sys.argv else set()
+if FILL_NETS:
+    pcbnew.ZONE_FILLER(b).Fill(b.Zones())
+if '--route-view' in sys.argv or FILL_NETS:
     out['areas'] = []
     for z in b.Zones():
         ol = z.Outline()
@@ -73,7 +81,8 @@ if '--route-view' in sys.argv:
             polys.append(rings)
         rule = bool(z.GetIsRuleArea())
         fills = {}
-        if not rule and z.GetNetname() != 'GND':       # the copper the zone really has (as last filled)
+        if not rule and (z.GetNetname() != 'GND' or z.GetNetname() in FILL_NETS) and \
+                (not FILL_NETS or z.GetNetname() in FILL_NETS):   # the copper the zone really has (as last filled)
             for l in z.GetLayerSet().Seq():
                 if not pcbnew.IsCopperLayer(l):
                     continue

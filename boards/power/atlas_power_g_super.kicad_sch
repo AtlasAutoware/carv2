@@ -1,0 +1,966 @@
+(kicad_sch (version 20250114) (generator "eeschema") (generator_version "9.0")
+ (uuid "0eaa1969-0986-5bbd-8ec1-5d97a2800962")
+ (paper "A2")
+ (title_block (title "ATLAS-PWR-1 power board: Supervisor: Raspberry Pi Pico in sockets (GPIO map: PINMAP.md)") (date "2026-10-24") (rev "B") (company "Atlas Autoware (501c3), Fairfax VA") (comment 1 "Generated from design.py by tools/eda.py; edit the Python, not this file"))
+ (lib_symbols (symbol "atlas:RPi_Pico"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "MOD"
+			(at 0 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "RPi_Pico"
+			(at 0 -29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "atlas:RaspberryPi_Pico_Socketed_2x20_P17.78mm"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "Raspberry Pi Pico (RP2040) in two 1x20 female sockets"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "RPi_Pico_0_1"
+			(rectangle
+				(start -12.70 22.86)
+				(end 12.70 -22.86)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "RPi_Pico_1_1"
+			(pin bidirectional line
+				(at -15.24 20.32 0)
+				(length 2.54)
+				(name "GP0"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -15.24 17.78 0)
+				(length 2.54)
+				(name "GP1"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -15.24 15.24 0)
+				(length 2.54)
+				(name "GP2"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "4"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -15.24 12.70 0)
+				(length 2.54)
+				(name "GP3"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "5"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -15.24 10.16 0)
+				(length 2.54)
+				(name "GP4"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "6"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -15.24 7.62 0)
+				(length 2.54)
+				(name "GP5"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "7"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -15.24 5.08 0)
+				(length 2.54)
+				(name "GP6"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "9"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -15.24 2.54 0)
+				(length 2.54)
+				(name "GP7"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "10"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -15.24 0.00 0)
+				(length 2.54)
+				(name "GP8"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "11"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -15.24 -2.54 0)
+				(length 2.54)
+				(name "GP9"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "12"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -15.24 -5.08 0)
+				(length 2.54)
+				(name "GP10"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "14"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -15.24 -7.62 0)
+				(length 2.54)
+				(name "GP11"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "15"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -15.24 -10.16 0)
+				(length 2.54)
+				(name "GP12"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "16"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -15.24 -12.70 0)
+				(length 2.54)
+				(name "GP13"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "17"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -15.24 -15.24 0)
+				(length 2.54)
+				(name "GP14"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "19"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at -15.24 -17.78 0)
+				(length 2.54)
+				(name "GP15"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "20"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at 15.24 20.32 180)
+				(length 2.54)
+				(name "GP16"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "21"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at 15.24 17.78 180)
+				(length 2.54)
+				(name "GP17"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "22"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at 15.24 15.24 180)
+				(length 2.54)
+				(name "GP18"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "24"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at 15.24 12.70 180)
+				(length 2.54)
+				(name "GP19"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "25"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at 15.24 10.16 180)
+				(length 2.54)
+				(name "GP20"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "26"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at 15.24 7.62 180)
+				(length 2.54)
+				(name "GP21"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "27"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at 15.24 5.08 180)
+				(length 2.54)
+				(name "GP22"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "29"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at 15.24 2.54 180)
+				(length 2.54)
+				(name "RUN"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "30"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at 15.24 0.00 180)
+				(length 2.54)
+				(name "GP26_ADC0"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "31"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at 15.24 -2.54 180)
+				(length 2.54)
+				(name "GP27_ADC1"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "32"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 15.24 -5.08 180)
+				(length 2.54)
+				(name "AGND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "33"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin bidirectional line
+				(at 15.24 -7.62 180)
+				(length 2.54)
+				(name "GP28_ADC2"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "34"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 15.24 -10.16 180)
+				(length 2.54)
+				(name "ADC_VREF"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "35"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_out line
+				(at 15.24 -12.70 180)
+				(length 2.54)
+				(name "3V3"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "36"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin input line
+				(at 15.24 -15.24 180)
+				(length 2.54)
+				(name "3V3_EN"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "37"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 15.24 -17.78 180)
+				(length 2.54)
+				(name "VSYS"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "39"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 15.24 -20.32 180)
+				(length 2.54)
+				(name "VBUS"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "40"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin power_in line
+				(at 0.00 -25.40 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -25.40 90)
+				(length 2.54)
+				(hide yes)
+				(name "GND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "8"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -25.40 90)
+				(length 2.54)
+				(hide yes)
+				(name "GND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "13"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -25.40 90)
+				(length 2.54)
+				(hide yes)
+				(name "GND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "18"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -25.40 90)
+				(length 2.54)
+				(hide yes)
+				(name "GND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "23"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -25.40 90)
+				(length 2.54)
+				(hide yes)
+				(name "GND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "28"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 0.00 -25.40 90)
+				(length 2.54)
+				(hide yes)
+				(name "GND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "38"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "Device:C"
+		(pin_numbers hide)
+		(pin_names
+			(offset 0.254))
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Value" "C"
+			(at 0.635 -2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Footprint" ""
+			(at 0.9652 -3.81 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "cap capacitor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "Unpolarized capacitor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_fp_filters" "C_*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "C_0_1"
+			(polyline
+				(pts
+					(xy -2.032 -0.762)
+					(xy 2.032 -0.762))
+				(stroke
+					(width 0.508)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -2.032 0.762)
+					(xy 2.032 0.762))
+				(stroke
+					(width 0.508)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "C_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)))))))
+(symbol "Device:R"
+		(pin_numbers hide)
+		(pin_names
+			(offset 0))
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "R"
+			(at 2.032 0 90)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "R"
+			(at 0 0 90)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at -1.778 0 90)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "R res resistor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "Resistor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_fp_filters" "R_*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "R_0_1"
+			(rectangle
+				(start -1.016 -2.54)
+				(end 1.016 2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "R_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)))))))
+(symbol "Device:LED"
+		(pin_numbers hide)
+		(pin_names
+			(offset 1.016)
+			hide)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "D"
+			(at 0 2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "LED"
+			(at 0 -2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "LED diode"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "Light emitting diode"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_fp_filters" "LED* LED_SMD:* LED_THT:*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "LED_0_1"
+			(polyline
+				(pts
+					(xy -1.27 -1.27)
+					(xy -1.27 1.27))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -1.27 0)
+					(xy 1.27 0))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy 1.27 -1.27)
+					(xy 1.27 1.27)
+					(xy -1.27 0)
+					(xy 1.27 -1.27))
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -3.048 -0.762)
+					(xy -4.572 -2.286)
+					(xy -3.81 -2.286)
+					(xy -4.572 -2.286)
+					(xy -4.572 -1.524))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -1.778 -0.762)
+					(xy -3.302 -2.286)
+					(xy -2.54 -2.286)
+					(xy -3.302 -2.286)
+					(xy -3.302 -1.524))
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "LED_1_1"
+			(pin passive line
+				(at -3.81 0 0)
+				(length 2.54)
+				(name "K"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 3.81 0 180)
+				(length 2.54)
+				(name "A"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)))))))
+(symbol "Connector:TestPoint"
+		(pin_numbers hide)
+		(pin_names
+			(offset 0.762)
+			hide)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "TP"
+			(at 0 6.858 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "TestPoint"
+			(at 0 5.08 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at 5.08 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 5.08 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "test point tp"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "test point"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_fp_filters" "Pin* Test*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "TestPoint_0_1"
+			(circle
+				(center 0 3.302)
+				(radius 0.762)
+				(stroke
+					(width 0)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "TestPoint_1_1"
+			(pin passive line
+				(at 0 0 90)
+				(length 2.54)
+				(name "1"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27))))))))
+ (text "Supervisor: Raspberry Pi Pico in sockets (GPIO map: PINMAP.md)" (exclude_from_sim no) (at 25.4 25.4 0) (effects (font (size 3 3) (thickness 0.5) bold) (justify left)) (uuid "bf3c66c9-65b2-50e9-a251-98886ddd351d"))
+(text "Pico VSYS from +5V through the 1N5817; its 3V3(OUT) is the board +3V3 (about 300 mA available)." (exclude_from_sim no) (at 25.4 33.02 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "c4617e19-33e9-5f4b-acc2-5b2b91474023"))
+(text "Its micro-USB goes to a dev-kit USB-A (USB CDC link), or to hub port 4 (J603) for flashing from the laptop." (exclude_from_sim no) (at 25.4 38.1 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "be734b8d-fe83-5ee9-b2df-8eaf513f87c9"))
+(text "ADC dividers 100k / 18k: 16.8 V -> 2.56 V, 20 V -> 3.05 V, 30 V -> 4.6 V through 15k (65 uA into the clamp)." (exclude_from_sim no) (at 25.4 43.18000000000001 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "fb5ac042-e98b-5838-a3e2-9bd5def7278b"))
+(text "BAT_SENSE is taken from VSYS_SW (equals the pack when on) so no divider drains the pack while the car is off." (exclude_from_sim no) (at 25.4 48.260000000000005 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "57d0ea42-c332-535e-b265-1964096af9e3"))
+(text "Status LEDs from GP17 / GP18 through 470 Ohm (2.8 mA, within the default 4 mA drive)." (exclude_from_sim no) (at 25.4 53.34 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "f6d93498-976a-5885-8e03-323fcb93edd9"))
+(symbol (lib_id "atlas:RPi_Pico") (at 68.58 99.06 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "8133d2cf-5dc2-5566-b680-adacaa288fa8")
+ (property "Reference" "MOD701" (at 68.58 75.24 0) (effects (font (size 1.27 1.27)) )) (property "Value" "RPi_Pico" (at 68.58 127.96 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "atlas:RaspberryPi_Pico_Socketed_2x20_P17.78mm" (at 68.58 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 68.58 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "SC0915" (at 68.58 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Raspberry Pi" (at 68.58 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "supervisor MCU module in 2 x 1x20 female sockets (Sullins PPTC201LFBN-RC, 8.5 mm, $1.05 each); the 74HCT08 and two PC817s sit under it" (at 68.58 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "6.10" (at 68.58 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/SC0915" (at 68.58 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 68.58 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "8749f96e-3880-5aa3-8420-c8f29876da04")) (pin "2" (uuid "296e57bf-0090-58b8-b8d2-89a42b5566a5")) (pin "4" (uuid "6a13658a-f33c-5afe-90fb-5d449a13cf29")) (pin "5" (uuid "b154572c-cc43-5b2c-97e4-d537ffd3b64f")) (pin "6" (uuid "4db78122-b29b-5976-9cc6-4025cd36bf27")) (pin "7" (uuid "b085b31c-a41c-5923-9b2a-de55643294b0")) (pin "9" (uuid "9c4bb56c-b8ec-5b26-a68a-5a953ef8a39c")) (pin "10" (uuid "4f48f2a3-b3be-5d3c-ad04-0fb5031e8cbc")) (pin "11" (uuid "7e5e97b2-6ed3-55e1-9599-3546d0e79d6b")) (pin "12" (uuid "4e565e6e-1e31-5739-9cac-6b5f87bb7ca1")) (pin "14" (uuid "4a8ad8ad-57e9-56b6-9308-2b63c5f08927")) (pin "15" (uuid "43787e3a-28a6-5e20-906a-7ef29a16efcc")) (pin "16" (uuid "d0124270-2b0f-565b-b03b-ca6f76325730")) (pin "17" (uuid "1d894fb9-9266-5f97-95d2-caae156dccaf")) (pin "19" (uuid "4aaa4c51-268d-5119-9da9-4970261f8fff")) (pin "20" (uuid "a25bc43f-b183-575c-b71f-d2fbe87873cd")) (pin "21" (uuid "ff0c3b24-de87-5d1e-b952-0ac4b2718cda")) (pin "22" (uuid "405209a2-0956-5463-b97b-bd0c7fef8e35")) (pin "24" (uuid "dfd80614-0ccc-5d42-9de4-ece0d21250a4")) (pin "25" (uuid "e89f3f97-b405-55dd-9581-0f7c0b8d4c8f")) (pin "26" (uuid "4723df4f-35f2-5cf3-a58a-ec522e70722a")) (pin "27" (uuid "a0359621-b215-5166-bbb9-8c5ff1997b73")) (pin "29" (uuid "ba410876-8569-580a-9cd3-ecf8d563f334")) (pin "30" (uuid "02a71aa2-540c-5ace-bf90-939cda96f6ba")) (pin "31" (uuid "2728ca96-a15e-58d1-bc99-6593bf5b2a65")) (pin "32" (uuid "376c5380-8360-551e-b3b7-53a6820177a3")) (pin "33" (uuid "2a38e6bc-5f71-59be-bdcf-ac03adc16910")) (pin "34" (uuid "b4836420-6fbf-53b2-a6e2-fee2089c68f7")) (pin "35" (uuid "918c2407-d833-5e84-9802-12be8a900bd2")) (pin "36" (uuid "4fc2870e-7b82-5403-91fb-b06194872e90")) (pin "37" (uuid "331dc52c-aa16-5ba4-9131-c5c3651f4072")) (pin "39" (uuid "9c62d630-561c-5125-b824-835a8446e337")) (pin "40" (uuid "23e9e330-a5eb-5f11-9176-82da0bf39e73")) (pin "3" (uuid "a8677171-f348-576a-9f7e-f0326ee62a36")) (pin "8" (uuid "fcac54b1-2e58-50d4-9316-22cd479a13da")) (pin "13" (uuid "6eccf52a-0cfb-5087-ac40-c25655a07653")) (pin "18" (uuid "66be5f87-b7b6-51e3-bc64-6758a061d734")) (pin "23" (uuid "c753e1e1-f15e-558d-95a6-ea64fcdbb4cd")) (pin "28" (uuid "dc620b90-8921-52ab-9107-7de9794db718")) (pin "38" (uuid "69fe6e3d-2eb2-5cf2-b1b4-d9f0bf968712"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/0eaa1969-0986-5bbd-8ec1-5d97a2800962" (reference "MOD701") (unit 1)))))
+(global_label "BMS_TX" (shape passive) (at 53.34 78.74 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6e51260c-6cb5-5427-b69c-662d2f41e211") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 78.74 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BMS_RX" (shape passive) (at 53.34 81.28 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "066a814e-b6fc-5823-b7c0-7d220d133cdb") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 81.28 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "PRECHARGE_EN" (shape passive) (at 53.34 83.82 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "7e011de0-1414-5b66-9f72-01c13565bc25") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "MAIN_EN" (shape passive) (at 53.34 86.36 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "f8c431cf-15f1-589e-91ac-b9cd0f4a4917") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "I2C0_SDA" (shape passive) (at 53.34 88.9 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "3f56b954-016a-59fb-9668-720abf8d24bd") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 88.9 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "I2C0_SCL" (shape passive) (at 53.34 91.44 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e6e469a7-5243-5f21-ab66-37637aaab385") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 91.44 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "LIDAR_EN" (shape passive) (at 53.34 93.98 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c221126c-d319-5655-b496-2f855d491997") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "JETSON_PWR_KEY" (shape passive) (at 53.34 96.52 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0934be86-f5a6-5ff0-842d-e569164d387e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 96.52 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "JETSON_RESET" (shape passive) (at 53.34 99.06 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "fec59fb6-c762-5fc0-8e8d-a75288b7c2ad") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "LATCH_OFF" (shape passive) (at 53.34 101.6 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "374fc6db-6291-5694-8913-d4d9ed119714") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "ESTOP_OK" (shape passive) (at 53.34 104.14 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "01163b6b-c18c-5d53-96aa-b466ba7a8dc9") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 104.14 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "JETSON_UP" (shape passive) (at 53.34 106.68 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "b45d9ac7-f84a-5d6b-836c-d6587113de59") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 106.68 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "JETSON_3V3_SENSE" (shape passive) (at 53.34 109.22 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a46e2032-bf31-518a-a524-df3ad14d1bb2") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BUTTON_N" (shape passive) (at 53.34 111.76 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "44a610fb-497e-5196-8a49-d790e52ace9a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "VESC_KILL" (shape passive) (at 53.34 114.3 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "bae0a475-5fa0-50ba-a19c-5b1616136627") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 114.3 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CHG_PRESENT_N" (shape passive) (at 53.34 116.84 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "1162f292-d7dd-5f13-a9f1-54b01bc1993a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 53.34 116.84 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "FAN_PWM" (shape passive) (at 83.82 78.74 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "fbe374aa-aabf-522c-9bbc-d9c2d2441c2b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 83.82 78.74 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "LED_STATUS" (shape passive) (at 83.82 81.28 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "7a7b37e0-dcdf-5aa1-847e-e97e2d8a7768") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 83.82 81.28 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "LED_FAULT" (shape passive) (at 83.82 83.82 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "66882baf-243f-53fa-a053-dbf487e90f27") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 83.82 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "ESTOP_OK_TO_JETSON" (shape passive) (at 83.82 86.36 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "8076c1e0-0608-5e2a-864b-5ee340d6f234") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 83.82 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "CHG_STAT_N_TO_JETSON" (shape passive) (at 83.82 88.9 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "8b472870-8a48-5fc9-a40c-29b18543915d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 83.82 88.9 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "LIDAR_REQ" (shape passive) (at 83.82 91.44 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "a8577603-4f53-5e02-8ede-1e16a6dc67ae") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 83.82 91.44 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "DEVKIT_PWR" (shape passive) (at 83.82 93.98 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "6f140576-e5de-5109-b4f5-4bca1f87c7a1") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 83.82 93.98 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "PICO_RUN" (shape passive) (at 83.82 96.52 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "53177bb9-570b-5199-a24a-da492af7a133") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 83.82 96.52 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "VM_SENSE" (shape passive) (at 83.82 99.06 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "0ec21a12-552a-5c4e-a782-0148155385b1") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 83.82 99.06 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BAT_SENSE" (shape passive) (at 83.82 101.6 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "d3989e9c-9be2-5ae8-a8fd-6f0cb79c1e1b") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 83.82 101.6 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 83.82 104.14 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "d141efab-be7d-51ed-94e9-c702609cfaa6") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 83.82 104.14 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "FET_NTC" (shape passive) (at 83.82 106.68 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "1556cffc-adb9-55d6-900f-d0ddf192f799") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 83.82 106.68 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(no_connect (at 83.82 109.22) (uuid "ee98d1bb-51a8-5a2c-b276-d549be183347"))
+(global_label "+3V3" (shape passive) (at 83.82 111.76 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "14361929-d077-5790-803d-36a086d73bb3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 83.82 111.76 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(no_connect (at 83.82 114.3) (uuid "e2bbe56a-26c4-5cc3-a9da-ce970aec76f8"))
+(global_label "PICO_VSYS" (shape passive) (at 83.82 116.84 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "42ed4f55-1000-5803-bebd-13ed8a9361c6") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 83.82 116.84 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(no_connect (at 83.82 119.38) (uuid "170ec615-3b70-5dbf-88a4-ec39a9e0d4b8"))
+(global_label "GND" (shape passive) (at 68.58 124.46 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e2cb7928-3e45-5cfa-8d78-8756eb8a9a48") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 68.58 124.46 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 55.88 142.24 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "50bc9953-d3c8-516f-95df-c81a0ed860ce")
+ (property "Reference" "C701" (at 55.88 139.70 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100n" (at 55.88 144.78 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" (at 55.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)" (at 55.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Samsung" (at 55.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "3V3 decoupling at the Pico" (at 55.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.14" (at 55.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/CL31B104KBCNNNC" (at 55.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 55.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "88b9a650-4762-5d4b-8f1d-3ea8c79a7527")) (pin "2" (uuid "37581795-7441-5f64-8b2c-a10df7b3085d"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/0eaa1969-0986-5bbd-8ec1-5d97a2800962" (reference "C701") (unit 1)))))
+(global_label "+3V3" (shape passive) (at 52.07 142.24 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "99cda271-57f8-5978-b8f7-9b0cfa3e3511") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 59.69 142.24 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "5596823a-8120-5051-86cf-7a652e71d4a1") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 132.08 142.24 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "74028306-3df2-58d7-8fb1-9d94a1878d00")
+ (property "Reference" "C702" (at 132.08 139.70 0) (effects (font (size 1.27 1.27)) )) (property "Value" "10u 50V" (at 132.08 144.78 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" (at 132.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "Murata GRM32ER71H106KA12L (10 uF 50 V X7R 1210)" (at 132.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Murata" (at 132.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "Pico VSYS bulk" (at 132.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.86" (at 132.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/GRM32ER71H106KA12L" (at 132.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 132.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "86fcc8b9-dceb-5f57-9be0-0d4cc3f5b455")) (pin "2" (uuid "1105b6b9-e122-5ffb-ac7c-99f4e54d9bf5"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/0eaa1969-0986-5bbd-8ec1-5d97a2800962" (reference "C702") (unit 1)))))
+(global_label "PICO_VSYS" (shape passive) (at 128.27 142.24 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "592da0fd-a98d-5e3a-a89a-7eac8abd975a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 135.89 142.24 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "b9f24456-c303-574c-a140-a5dad6fa540f") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 208.28 142.24 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "0b167c33-8e9b-5ffb-8678-f886b6ea56c4")
+ (property "Reference" "R701" (at 208.28 139.70 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100k" (at 208.28 144.78 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 208.28 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-07100KL" (at 208.28 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 208.28 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "VM divider top" (at 208.28 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 208.28 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 208.28 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 208.28 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "ae7bf41b-de37-580e-acb1-9e37eee818ed")) (pin "2" (uuid "7d7e7769-5638-5be1-b172-3ffe425e4803"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/0eaa1969-0986-5bbd-8ec1-5d97a2800962" (reference "R701") (unit 1)))))
+(global_label "VM" (shape passive) (at 204.47 142.24 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "74a42871-1aa4-540d-8d6e-e8db569c9eff") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 204.47 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "VM_SENSE" (shape passive) (at 212.09 142.24 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "0dd7b21a-80e8-53c8-8ddd-fd2058000e13") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 212.09 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 284.48 142.24 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "c4e6e9d2-57a6-5a78-8703-5097f97379c5")
+ (property "Reference" "R702" (at 284.48 139.70 0) (effects (font (size 1.27 1.27)) )) (property "Value" "18k" (at 284.48 144.78 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 284.48 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-0718KL" (at 284.48 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 284.48 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "VM divider bottom: 0.1525" (at 284.48 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 284.48 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 284.48 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 284.48 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "4c59a91b-0a9f-5338-9c8f-6b82e00878e5")) (pin "2" (uuid "0ffaa265-9b05-5169-9b68-152b31f607ef"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/0eaa1969-0986-5bbd-8ec1-5d97a2800962" (reference "R702") (unit 1)))))
+(global_label "VM_SENSE" (shape passive) (at 280.67 142.24 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "4826da1f-a1bd-5d72-976e-56ed5f02f282") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.67 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 288.29 142.24 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "5ee7781f-f7c6-5b0d-9d1e-91f3dbe578bd") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 360.68 142.24 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "c2bd21fb-5dc4-5b2e-9be4-1f3bbe26e3d5")
+ (property "Reference" "C703" (at 360.68 139.70 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100n" (at 360.68 144.78 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" (at 360.68 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)" (at 360.68 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Samsung" (at 360.68 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "VM sense filter (1.5 ms)" (at 360.68 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.14" (at 360.68 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/CL31B104KBCNNNC" (at 360.68 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 360.68 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "e7bf74d4-3cb3-57f8-a918-8e11948f98b4")) (pin "2" (uuid "3f7b2146-daab-568c-bb18-290720f4b256"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/0eaa1969-0986-5bbd-8ec1-5d97a2800962" (reference "C703") (unit 1)))))
+(global_label "VM_SENSE" (shape passive) (at 356.87 142.24 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "8c159437-a368-5fa3-a20e-9f122991ee5e") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 356.87 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 364.49 142.24 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "684ab504-e870-5c69-ba7b-b03d843234a0") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 364.49 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 436.88 142.24 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "b1dd735b-9a51-5213-8394-b912b7dd1a36")
+ (property "Reference" "R703" (at 436.88 139.70 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100k" (at 436.88 144.78 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 436.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 436.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-07100KL" (at 436.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 436.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "pack divider top (from VSYS_SW: no drain when off)" (at 436.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 436.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 436.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 436.88 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "26a62b1f-caa1-5d95-910f-31744bf6427a")) (pin "2" (uuid "580cb051-329c-5b88-9a40-7182db6b69e3"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/0eaa1969-0986-5bbd-8ec1-5d97a2800962" (reference "R703") (unit 1)))))
+(global_label "VSYS_SW" (shape passive) (at 433.07 142.24 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "3552a25f-9447-55be-b962-5ca81a6a4ae4") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 433.07 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BAT_SENSE" (shape passive) (at 440.69 142.24 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "f7723eba-3f35-5b98-a74c-fb9607f85dda") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 440.69 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 513.08 142.24 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "3d68fc13-4726-56e7-88cd-5b5d849b8b4e")
+ (property "Reference" "R704" (at 513.08 139.70 0) (effects (font (size 1.27 1.27)) )) (property "Value" "18k" (at 513.08 144.78 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 513.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 513.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-0718KL" (at 513.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 513.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "pack divider bottom: 0.1525" (at 513.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 513.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 513.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 513.08 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "5077779f-a55b-5feb-8454-66dc43b2c618")) (pin "2" (uuid "220ee0ce-abd9-5b92-b5b0-b534ae32a071"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/0eaa1969-0986-5bbd-8ec1-5d97a2800962" (reference "R704") (unit 1)))))
+(global_label "BAT_SENSE" (shape passive) (at 509.27 142.24 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ccc8f60b-a8ff-5008-87a9-0b63d327ebd9") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 509.27 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 516.89 142.24 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "f09b5efa-86f1-5481-9925-67dbfe09ac68") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 516.89 142.24 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 55.88 154.94 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "d78ff8f3-1069-57f7-94d0-99c4e5e58ede")
+ (property "Reference" "C704" (at 55.88 152.40 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100n" (at 55.88 157.48 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" (at 55.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)" (at 55.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Samsung" (at 55.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "pack sense filter" (at 55.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.14" (at 55.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/CL31B104KBCNNNC" (at 55.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 55.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "9e26c197-03d1-5d61-b065-55963854d10c")) (pin "2" (uuid "5d3b2cf3-f2b0-52f9-bf27-ef1c6ad2bb24"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/0eaa1969-0986-5bbd-8ec1-5d97a2800962" (reference "C704") (unit 1)))))
+(global_label "BAT_SENSE" (shape passive) (at 52.07 154.94 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "19b55a82-c00f-5ee5-9900-88a92b0767c3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 59.69 154.94 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2cc3ac4f-09b1-54a2-95a6-e784512e4966") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 132.08 154.94 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "007ceef8-29ac-5ae4-b224-fd338aba0f1e")
+ (property "Reference" "R705" (at 132.08 152.40 0) (effects (font (size 1.27 1.27)) )) (property "Value" "470" (at 132.08 157.48 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 132.08 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-07470RL" (at 132.08 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 132.08 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "status LED" (at 132.08 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 132.08 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 132.08 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 132.08 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "a8df74be-1003-5350-84ec-568a0ac63249")) (pin "2" (uuid "ed0cce44-1e86-524f-a35c-3e2e734622e0"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/0eaa1969-0986-5bbd-8ec1-5d97a2800962" (reference "R705") (unit 1)))))
+(global_label "LED_STATUS" (shape passive) (at 128.27 154.94 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6737bd29-e9d2-5699-8fd3-ce67ab90bbe3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "LEDS_A" (shape passive) (at 135.89 154.94 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4fa71c9b-f5d8-5d1a-8de5-83e058f60b49") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:LED") (at 208.28 154.94 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "c288ae47-6d3f-56fa-a014-6c1d0167e4c0")
+ (property "Reference" "D701" (at 208.28 152.40 0) (effects (font (size 1.27 1.27)) )) (property "Value" "GREEN" (at 208.28 157.48 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "LED_THT:LED_D3.0mm" (at 208.28 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "Lite-On LTL-4231N (3 mm green)" (at 208.28 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Lite-On" (at 208.28 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "LED_STATUS" (at 208.28 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 208.28 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/LTL-4231N" (at 208.28 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 208.28 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "18a469b9-e919-5417-8030-1e97ba781c17")) (pin "2" (uuid "8c33bb62-b7d6-5ee9-a37c-7b067ff2c3dc"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/0eaa1969-0986-5bbd-8ec1-5d97a2800962" (reference "D701") (unit 1)))))
+(global_label "GND" (shape passive) (at 208.28 158.75 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "cf195821-c484-5499-badd-a6bc20c6ee1f") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 208.28 158.75 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "LEDS_A" (shape passive) (at 208.28 151.13 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "75eba335-de31-59c6-a7f5-1f0476f1d2a1") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 208.28 151.13 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 284.48 154.94 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "27c5f6d6-91b5-5c04-8677-ffbcae99187a")
+ (property "Reference" "R706" (at 284.48 152.40 0) (effects (font (size 1.27 1.27)) )) (property "Value" "470" (at 284.48 157.48 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 284.48 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-07470RL" (at 284.48 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 284.48 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "fault LED" (at 284.48 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 284.48 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 284.48 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 284.48 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "f3e61354-eb3b-5a50-877e-fdfcdd6305ab")) (pin "2" (uuid "36dfa6d7-dec3-5b5b-b64b-2b8a6a8536f0"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/0eaa1969-0986-5bbd-8ec1-5d97a2800962" (reference "R706") (unit 1)))))
+(global_label "LED_FAULT" (shape passive) (at 280.67 154.94 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "eaa3283a-524d-5775-9bea-9e4785e6e740") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.67 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "LEDF_A" (shape passive) (at 288.29 154.94 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "004d53bc-0ade-5e3c-a90c-e86b2c1d37a8") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:LED") (at 360.68 154.94 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "5fe95e49-cc4a-56c4-b487-823cf93f27ee")
+ (property "Reference" "D702" (at 360.68 152.40 0) (effects (font (size 1.27 1.27)) )) (property "Value" "RED" (at 360.68 157.48 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "LED_THT:LED_D3.0mm" (at 360.68 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "Lite-On LTL-4221N (3 mm red)" (at 360.68 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Lite-On" (at 360.68 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "LED_FAULT" (at 360.68 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.12" (at 360.68 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/LTL-4221N" (at 360.68 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 360.68 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "2a54c2de-6b00-5715-988f-52bcd9fb57b8")) (pin "2" (uuid "264a5e58-df1b-5717-b0e9-3bcab8744b18"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/0eaa1969-0986-5bbd-8ec1-5d97a2800962" (reference "D702") (unit 1)))))
+(global_label "GND" (shape passive) (at 360.68 158.75 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "858aae7d-41bd-5166-91a6-81874c5ffd0f") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 360.68 158.75 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "LEDF_A" (shape passive) (at 360.68 151.13 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4212cb1f-fef4-55cb-b830-a055b33d825c") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 360.68 151.13 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Connector:TestPoint") (at 436.88 154.94 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "ecaba174-b7f4-511c-8d62-789b849ff5ec")
+ (property "Reference" "TP701" (at 436.88 151.44 0) (effects (font (size 1.27 1.27)) )) (property "Value" "+3V3" (at 436.88 158.44 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "TestPoint:TestPoint_Keystone_5000-5004_Miniature" (at 436.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 436.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "Keystone 5000 (red) / 5001 (black)" (at 436.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Keystone" (at 436.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "test loop" (at 436.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.27" (at 436.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/36-5000-ND" (at 436.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 436.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "b07dabbf-5a08-5c42-bcad-104fd3194b58"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/0eaa1969-0986-5bbd-8ec1-5d97a2800962" (reference "TP701") (unit 1)))))
+(global_label "+3V3" (shape passive) (at 436.88 154.94 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a95f70cf-427f-51e2-b533-b976f7b91401") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 436.88 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Connector:TestPoint") (at 513.08 154.94 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "fcd35ab5-4ed0-5880-9b12-f121861b99dc")
+ (property "Reference" "TP702" (at 513.08 151.44 0) (effects (font (size 1.27 1.27)) )) (property "Value" "PICO_RUN" (at 513.08 158.44 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm" (at 513.08 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 513.08 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "" (at 513.08 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "" (at 513.08 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "test point" (at 513.08 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "dbfc01fc-6968-53a8-a2f3-742dbcb588b0"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/0eaa1969-0986-5bbd-8ec1-5d97a2800962" (reference "TP702") (unit 1)))))
+(global_label "PICO_RUN" (shape passive) (at 513.08 154.94 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "433b5e2a-9456-5781-8891-d131683f9ddf") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 513.08 154.94 0) (effects (font (size 1.27 1.27)) (hide yes))))
+ (embedded_fonts no))

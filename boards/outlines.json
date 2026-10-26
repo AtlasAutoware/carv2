@@ -1,5 +1,5 @@
 {
- "drive": {
+ "reva_drive": {
   "size_mm": [
    140.0,
    90.0
@@ -31,7 +31,7 @@
    ]
   ]
  },
- "brain": {
+ "reva_brain": {
   "size_mm": [
    120.0,
    90.0
@@ -54,5 +54,459 @@
     84.0
    ]
   ]
+ },
+ "power": {
+  "size_mm": [
+   130.0,
+   84.0
+  ],
+  "car_origin": [
+   -32.0,
+   -68.0
+  ],
+  "pcb_z": 7.0,
+  "outline_local": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    130.0,
+    0.0
+   ],
+   [
+    130.0,
+    84.0
+   ],
+   [
+    0.0,
+    84.0
+   ]
+  ],
+  "holes_local": [
+   [
+    4.0,
+    4.0
+   ],
+   [
+    4.0,
+    80.0
+   ],
+   [
+    75.0,
+    4.0
+   ],
+   [
+    75.0,
+    80.0
+   ],
+   [
+    126.0,
+    4.0
+   ],
+   [
+    126.0,
+    80.0
+   ]
+  ],
+  "hole_d": 3.2,
+  "hole_keepout_d": 7.0,
+  "servo_notch_local": null,
+  "height_zones_local": [
+   {
+    "name": "low",
+    "x": [
+     20.0,
+     120.0
+    ],
+    "y": [
+     0.0,
+     84.0
+    ],
+    "max_h": 23.0
+   },
+   {
+    "name": "tall_rear",
+    "x": [
+     0.0,
+     20.0
+    ],
+    "y": [
+     9.0,
+     75.0
+    ],
+    "max_h": 35.0
+   },
+   {
+    "name": "low_rear_arm_r",
+    "x": [
+     0.0,
+     20.0
+    ],
+    "y": [
+     0.0,
+     9.0
+    ],
+    "max_h": 23.0
+   },
+   {
+    "name": "low_rear_arm_l",
+    "x": [
+     0.0,
+     20.0
+    ],
+    "y": [
+     75.0,
+     84.0
+    ],
+    "max_h": 23.0
+   },
+   {
+    "name": "tall_front",
+    "x": [
+     120.0,
+     130.0
+    ],
+    "y": [
+     9.0,
+     75.0
+    ],
+    "max_h": 35.0
+   },
+   {
+    "name": "low_front_arm_r",
+    "x": [
+     120.0,
+     130.0
+    ],
+    "y": [
+     0.0,
+     9.0
+    ],
+    "max_h": 23.0
+   },
+   {
+    "name": "low_front_arm_l",
+    "x": [
+     120.0,
+     130.0
+    ],
+    "y": [
+     75.0,
+     84.0
+    ],
+    "max_h": 23.0
+   },
+   {
+    "name": "low_shield",
+    "x": [
+     20.0,
+     54.0
+    ],
+    "y": [
+     49.0,
+     72.0
+    ],
+    "max_h": 21.0
+   }
+  ],
+  "devkit_shadow_local": {
+   "x": [
+    20.0,
+    120.0
+   ],
+   "y": [
+    5.0,
+    84.0
+   ]
+  },
+  "tray_underside_above_pcb_top": 25.0,
+  "tray_rails_local": [
+   [
+    20.0,
+    120.0,
+    0,
+    8.0
+   ],
+   [
+    20.0,
+    120.0,
+    76.0,
+    84.0
+   ],
+   [
+    20.0,
+    28.0,
+    0,
+    84.0
+   ],
+   [
+    112.0,
+    120.0,
+    0,
+    84.0
+   ],
+   [
+    0,
+    20.0,
+    0,
+    8.0
+   ],
+   [
+    0,
+    20.0,
+    76.0,
+    84.0
+   ],
+   [
+    71.0,
+    79.0,
+    0,
+    84.0
+   ],
+   [
+    120.0,
+    130.0,
+    0,
+    8.0
+   ],
+   [
+    120.0,
+    130.0,
+    76.0,
+    84.0
+   ],
+   [
+    20.0,
+    120.0,
+    11.5,
+    19.5
+   ],
+   [
+    23.0,
+    31.0,
+    0,
+    84.0
+   ],
+   [
+    20.0,
+    120.0,
+    11.5,
+    19.5
+   ],
+   [
+    109.0,
+    117.0,
+    0,
+    84.0
+   ],
+   [
+    20.0,
+    120.0,
+    69.5,
+    77.5
+   ],
+   [
+    23.0,
+    31.0,
+    0,
+    84.0
+   ],
+   [
+    20.0,
+    120.0,
+    69.5,
+    77.5
+   ],
+   [
+    109.0,
+    117.0,
+    0,
+    84.0
+   ]
+  ],
+  "edges": {
+   "Y=84 (pack side)": "pack BAT+ / BAT- pads (10 AWG pigtail to an XT90 male), BMS UART J201 JST-XH 4, dev-kit DEV+ / DEV- pads, Pico micro-USB",
+   "X=0 (rear, ESC bay)": "ESC+ / ESC- pads, fan header J1003, FSESC COMM J903 JST-PH 7, SERVO_IN J904, BEC_OUT J403, BEC and servo-supply pads",
+   "X=L (front)": "servo J406, lidar power J409 Phoenix, camera regulator input pads MOD402, E-stop J1001, remote button J1002",
+   "Y=0 (right, pod side)": "hub USB-C (laptop), dev-kit USB-A J601 on its edge, power button SW401 (right angle), status LEDs; the PD trigger and the CC/CV module are off the board in the pod",
+   "middle": "J12 box header J801, J14 header J802, PD-trigger and CC/CV pads, FSESC USB header J602, spare J603, Pico and hub modules on sockets, Pololu latch pads, R-78E, FET switch with its heatsink bar"
+  },
+  "connectors_local": {
+   "esc_plus": [
+    5.0,
+    42.0,
+    1.5
+   ],
+   "esc_minus": [
+    5.0,
+    54.0,
+    1.5
+   ],
+   "vesc_comm": [
+    2.7,
+    27.6,
+    8.0
+   ],
+   "fan": [
+    3.6,
+    13.4,
+    11.0
+   ],
+   "bat_plus": [
+    19.5,
+    79.6,
+    1.5
+   ],
+   "bat_minus": [
+    6.25,
+    65.6,
+    1.5
+   ],
+   "bms_uart": [
+    85.3,
+    81.0,
+    10.0
+   ],
+   "dev_plus": [
+    92.0,
+    74.0,
+    1.5
+   ],
+   "dev_minus": [
+    92.0,
+    68.2,
+    1.5
+   ],
+   "pico_usb": [
+    106.5,
+    83.4,
+    13.9
+   ],
+   "hub_usbc": [
+    88.5,
+    -0.4,
+    14.2
+   ],
+   "j601": [
+    102.8,
+    0.5,
+    7.25
+   ],
+   "j602": [
+    109.3,
+    16.0,
+    12.0
+   ],
+   "j12_box": [
+    41.1,
+    7.3,
+    18.0
+   ],
+   "j14_hdr": [
+    93.0,
+    48.4,
+    14.0
+   ],
+   "chg_pd": [
+    19.3,
+    21.0,
+    1.5
+   ],
+   "chg_cccv": [
+    26.9,
+    24.0,
+    1.5
+   ],
+   "servo": [
+    127.6,
+    17.1,
+    17.0
+   ],
+   "lidar_pwr": [
+    125.0,
+    26.8,
+    4.5
+   ],
+   "camera_pads": [
+    125.1,
+    44.6,
+    1.5
+   ]
+  },
+  "connectors_note": "board X, Y and the cable entry height above the board top, from agent D (HANDOFF_E, 24 Oct); heights are estimates",
+  "pod_windows_car_x": {
+   "charge_usbc": [
+    11.0,
+    27.0,
+    10.3,
+    20.3,
+    "outer"
+   ],
+   "charge_pd": [
+    6.25,
+    31.75,
+    11.5,
+    17.4,
+    "inner"
+   ],
+   "cccv": [
+    -51.0,
+    2.0,
+    5.0,
+    33.3,
+    "inner"
+   ],
+   "debug_usbc": [
+    48.5,
+    64.5,
+    17.8,
+    27.8,
+    "both"
+   ],
+   "devkit_usba": [
+    65.5,
+    77.0,
+    6.0,
+    26.0,
+    "inner"
+   ],
+   "button": [
+    76.19999999999999,
+    90.0,
+    8.0,
+    17.0,
+    "both"
+   ]
+  },
+  "lidar_plug_ends_car_x": 114.63,
+  "fet_shield": {
+   "on": true,
+   "rect_local": [
+    20.0,
+    54.0,
+    49.0,
+    72.0
+   ],
+   "screws_local": [
+    [
+     22.5,
+     51.0
+    ],
+    [
+     25.5,
+     58.0
+    ]
+   ],
+   "max_part_h_under": 21.0,
+   "fet_bar_local": [
+    10.54,
+    50.54,
+    57.4,
+    65.92,
+    20.0
+   ],
+   "note": "3 mm acrylic hung under the tray; nylon nuts under it at the two screws need 2.4 mm, so keep parts under those two points at 18 mm or less"
+  }
  }
 }

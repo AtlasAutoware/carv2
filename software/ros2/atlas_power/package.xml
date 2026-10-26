@@ -3,7 +3,7 @@
 <package format="3">
   <name>atlas_power</name>
   <version>0.1.0</version>
-  <description>Battery state, E-stop and charging status, and lidar power for the Atlas car v2 boards</description>
+  <description>Battery state, E-stop and charging status, and lidar power for Atlas car 2 (rev B power board and supervisor)</description>
   <maintainer email="admin@atlasautoware.org">Atlas Autoware</maintainer>
   <license>Apache-2.0</license>
 

@@ -1,79 +1,105 @@
-"""Where the drive board and brain board parts sit, as the Jetson sees them.
+"""Rev B: what the Jetson is wired to, on the NVIDIA dev-kit carrier and the ATLAS-PWR-1 power board.
 
-Sources: boards/stack/stack.py (stack pin map), boards/brain/out/atlas_brain.net (module pins), the
-Linux device trees for the Orin Nano (tegra234.dtsi aliases: i2c1 = gen2 at 0xc240000, i2c7 = gen8
-at 0xc250000) and the Orin Nano 40-pin header tables (module I2C0 on pins 185/187 is /dev/i2c-1,
-module I2C1 on pins 189/191 is /dev/i2c-7, module UART1 on pins 203/205 is serial@3100000).
+Sources: the rev B decisions of Oct 24, 2026; NVIDIA's Jetson Orin Nano developer kit carrier
+board specification, Table 3-3 (J12, 40-pin header) and Table 3-4 (J14, button header);
+MicroPython's rp2 port for the Pico's USB IDs (ports/rp2/mpconfigport.h: VID 0x2E8A Raspberry
+Pi, PID 0x0005 "RP2 MicroPython").
 
-Bus numbers are looked up by controller address at run time, so a different numbering in a
-later JetPack does not break anything. ATLAS_I2C_STACK, ATLAS_I2C_SYS and ATLAS_VESC_TTY override.
+  J12 pins 8/10   UART1 (serial@3100000, /dev/ttyTHS1 on JetPack 6) -> FSESC UART: /dev/atlas_vesc
+  Pico micro-USB  -> a dev-kit USB-A port: USB CDC /dev/ttyACM*, udev name /dev/atlas_supervisor
+  J12 pins 3/5    I2C bus 7 (c250000.i2c) -> the Pico's spare I2C pins; no chips on it
+  J12 pin 31      JETSON_UP   (out): high while the Atlas software runs
+  J12 pin 29      LIDAR_REQ   (out): lidar power request, edges (the Pico owns the switch)
+  J12 pin 33      ESTOP_OK    (in):  high = E-stop loop closed (driven by the Pico through 10 k)
+  J12 pin 32      CHG_STAT_N  (in):  low = charger connected
+  J14 pins 12/11  power key (KEY_POWER), pressed by the Pico through an optocoupler
+
+The rev A constants (expander, INA228, TPS25751, ID EEPROM) are in atlas_hw.reva.board.
 """
 import glob
 import os
 
-# Module I2C1 (pins 189/191) -> stack pins 19/20 -> drive board
-STACK_I2C_CONTROLLER = 'c250000.i2c'
-STACK_I2C_DEFAULT = 7
-INA228_ADDR = 0x40          # drive board, BMS shunt 0.5 mOhm, pack voltage on B+
-ID_EEPROM_ADDR = 0x50       # drive board 24AA02, WP tied low (it answers on all of 0x50-0x57)
-TPS25751_ADDR = 0x20        # drive board PD controller target port (ADCIN1 = LDO_3V3, ADCIN2 = GND: index #1)
-TPS23861_ADDR = 0x28        # brain board PoE PSE (A3 open); every TPS23861 also answers 0x30 (broadcast)
+# ---------------------------------------------------------------- serial links
+SUPERVISOR_LINK = '/dev/atlas_supervisor'
+SUPERVISOR_USB_VID = '2e8a'         # Raspberry Pi
+SUPERVISOR_USB_PID = '0005'         # MicroPython on an RP2040/RP2350
+SUPERVISOR_BAUD = 115200            # ignored by USB CDC; set so a terminal looks normal
 
-# Module I2C0 (pins 185/187) -> brain board "SYS I2C": the expander (and the module's own INA3221 at 0x40)
-SYS_I2C_CONTROLLER = 'c240000.i2c'
-SYS_I2C_DEFAULT = 1
-EXPANDER_ADDR = 0x20        # PCAL6408A U34, ADDR strapped to GND
+VESC_LINK = '/dev/atlas_vesc'
+VESC_UART_CONTROLLER = '3100000.serial'     # UART1, J12 pins 8 (TX) / 10 (RX)
+VESC_BAUD = 115200
 
-# Module UART1 (pins 203/205) -> NTS0102 -> stack pins 15/16 -> STM32 USART3 (VESC, 115200)
-VESC_UART_CONTROLLER = '3100000.serial'
+# ---------------------------------------------------------------- I2C (spare)
+POWER_I2C_CONTROLLER = 'c250000.i2c'        # J12 pins 3/5, normally /dev/i2c-7
+POWER_I2C_DEFAULT = 7
 
-# Expander lines (fork_config.py RENAME_GLOBAL, peripherals sheet)
-EXP_MCU_RST_REQ = 0     # out: 1 = hold the STM32 in reset (Q1003 pulls NRST low)
-EXP_MCU_BOOT0 = 1       # out: 1 = STM32 starts its ROM bootloader at the next reset
-EXP_LIDAR_EN = 2        # out: 1 = lidar eFuse (TPS26600) on
-EXP_ESTOP_OK = 3        # in:  1 = E-stop loop closed
-EXP_CHG_STAT_N = 4      # in:  0 = charging (BQ25798 STAT through 10k)
-EXP_SPARE1 = 5          # stack pin 31, test pad on the drive board
-EXP_SPARE2 = 6          # stack pin 32
-EXP_PSE_INT_N = 7       # in:  0 = PoE controller interrupt
-EXP_OUTPUTS = (1 << EXP_MCU_RST_REQ) | (1 << EXP_MCU_BOOT0) | (1 << EXP_LIDAR_EN)
+# ---------------------------------------------------------------- J12 GPIO lines
+# (chip, line offset, line name). The line names are what the tegra234 GPIO driver reports
+# (`gpioinfo`); gpio.py looks a line up by name first and falls back to the offset. The offsets
+# are the commonly published ones for the Orin Nano dev kit on JetPack 6: CHECK WITH `gpioinfo`
+# on the car. ATLAS_GPIO_<NAME>=gpiochip0:106 (or =PQ.06) in /etc/atlas/atlas.conf overrides.
+GPIO_JETSON_UP = ('gpiochip0', 106, 'PQ.06')    # J12 pin 31, GPIO11
+GPIO_LIDAR_REQ = ('gpiochip0', 105, 'PQ.05')    # J12 pin 29, GPIO01
+GPIO_ESTOP_OK = ('gpiochip0', 43, 'PH.00')      # J12 pin 33, GPIO13
+GPIO_CHG_STAT_N = ('gpiochip0', 41, 'PG.06')    # J12 pin 32, GPIO07
 
-# Battery pack: 4S3P Molicel P28A
+GPIO_OUTPUTS = ('JETSON_UP', 'LIDAR_REQ')
+GPIO_INPUTS = ('ESTOP_OK', 'CHG_STAT_N')
+
+# ---------------------------------------------------------------- battery pack (4S3P Molicel P28A)
 PACK_CELLS_SERIES = 4
 PACK_CAPACITY_AH = 8.4
-BMS_SHUNT_OHM = 0.0005
 
 
-def _find_i2c_bus(controller, env, default):
-    if os.environ.get(env):
-        return int(os.environ[env])
+def _tty_by_controller(pattern, controller):
+    for path in sorted(glob.glob(pattern)):
+        if controller in os.path.realpath(os.path.join(path, 'device')):
+            return '/dev/' + os.path.basename(path)
+    return None
+
+
+def _tty_by_usb_id(vid, pid):
+    for path in sorted(glob.glob('/sys/class/tty/ttyACM*')):
+        dev = os.path.realpath(os.path.join(path, 'device'))
+        for up in (dev, os.path.dirname(dev)):
+            try:
+                with open(os.path.join(up, 'idVendor')) as f:
+                    v = f.read().strip()
+                with open(os.path.join(up, 'idProduct')) as f:
+                    p = f.read().strip()
+            except OSError:
+                continue
+            if v == vid and p == pid:
+                return '/dev/' + os.path.basename(path)
+    return None
+
+
+def supervisor_tty():
+    """The Pico's USB CDC port: $ATLAS_SUPERVISOR_TTY, the udev name, or found by USB ID."""
+    if os.environ.get('ATLAS_SUPERVISOR_TTY'):
+        return os.environ['ATLAS_SUPERVISOR_TTY']
+    if os.path.exists(SUPERVISOR_LINK):
+        return SUPERVISOR_LINK
+    return _tty_by_usb_id(SUPERVISOR_USB_VID, SUPERVISOR_USB_PID) or SUPERVISOR_LINK
+
+
+def vesc_tty():
+    """The UART to the FSESC: $ATLAS_VESC_TTY, the udev name, or the ttyTHS* on serial@3100000."""
+    if os.environ.get('ATLAS_VESC_TTY'):
+        return os.environ['ATLAS_VESC_TTY']
+    if os.path.exists(VESC_LINK):
+        return VESC_LINK
+    return _tty_by_controller('/sys/class/tty/ttyTHS*', VESC_UART_CONTROLLER) or '/dev/ttyTHS1'
+
+
+def power_i2c_bus():
+    """Linux bus number of J12's I2C (pins 3/5), found by controller address."""
+    if os.environ.get('ATLAS_I2C_POWER'):
+        return int(os.environ['ATLAS_I2C_POWER'])
     for path in glob.glob('/sys/bus/i2c/devices/i2c-*'):
-        real = os.path.realpath(path)
-        if f'/{controller}/' in real + '/':
+        if f'/{POWER_I2C_CONTROLLER}/' in os.path.realpath(path) + '/':
             try:
                 return int(os.path.basename(path).split('-')[1])
             except ValueError:
                 pass
-    return default
-
-
-def stack_i2c_bus():
-    """Linux bus number of the stack I2C (INA228, ID EEPROM, TPS25751, TPS23861)."""
-    return _find_i2c_bus(STACK_I2C_CONTROLLER, 'ATLAS_I2C_STACK', STACK_I2C_DEFAULT)
-
-
-def sys_i2c_bus():
-    """Linux bus number of the brain board SYS I2C (PCAL6408A expander)."""
-    return _find_i2c_bus(SYS_I2C_CONTROLLER, 'ATLAS_I2C_SYS', SYS_I2C_DEFAULT)
-
-
-def vesc_tty():
-    """The tty that reaches the STM32 (VESC firmware), e.g. /dev/ttyTHS0."""
-    if os.environ.get('ATLAS_VESC_TTY'):
-        return os.environ['ATLAS_VESC_TTY']
-    if os.path.exists('/dev/atlas_vesc'):
-        return '/dev/atlas_vesc'
-    for path in sorted(glob.glob('/sys/class/tty/ttyTHS*')):
-        if VESC_UART_CONTROLLER in os.path.realpath(os.path.join(path, 'device')):
-            return '/dev/' + os.path.basename(path)
-    return '/dev/ttyTHS0'
+    return POWER_I2C_DEFAULT

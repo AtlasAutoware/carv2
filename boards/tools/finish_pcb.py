@@ -1,7 +1,11 @@
 """Last steps on a routed board (KiCad Python): 3D model fixes, GND stitching vias between the outer
-GND fills and the inner planes, silkscreen cleanup, refill, save.
+GND fills and the inner planes (an inner signal layer without a GND fill only has to be cleared), silkscreen
+cleanup, refill, save.
 
     flatpak run --command=python3 --filesystem=home org.kicad.KiCad finish_pcb.py drive [--no-stitch] [--no-silk]
+        [--via 0.8/0.4] [--pitch 3.0]
+
+--via D/H sets the stitching via (default 0.6/0.3 mm), --pitch its grid (default 3 mm).
 
 Stitching: a via goes on a 3 mm grid wherever a 0.6 mm GND via plus 0.25 mm fits inside the GND
 copper of every layer (so it touches no other net anywhere) and keeps 1 mm from other holes
@@ -16,6 +20,9 @@ import sys
 
 import pcbnew
 from pcbnew import VECTOR2I, FromMM as MM, ToMM
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kicompat as kc  # noqa: E402  (KiCad 7 / KiCad 10 API differences)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 bdir = os.path.abspath(os.path.join(HERE, '..', sys.argv[1]))
@@ -54,9 +61,30 @@ def inside(polys, x, y, r):
 
 def stitch(pitch=3.0, dia=0.6, drill=0.3, margin=0.25, hole_gap=1.0, pad_gap=0.3):
     fills = gnd_fills()
-    if len(fills) < len(CU):
-        print('stitch: GND is not on every copper layer here, skipped')
+    if len(fills) < 2:
+        print('stitch: GND is on fewer than two copper layers here, skipped')
         return 0
+    # a signal layer with no GND fill (the power board's In2): the via only has to clear its copper
+    bare = [lay for lay in CU.values() if lay not in fills]
+    clr = MM(0.25)
+    segs = [(t.GetStart(), t.GetEnd(), t.GetWidth() // 2) for t in b.GetTracks()
+            if t.Type() == pcbnew.PCB_TRACE_T and t.GetLayer() in bare]
+    blobs = [(t.GetPosition(), t.GetWidth() // 2) for t in b.GetTracks() if t.Type() == pcbnew.PCB_VIA_T]
+    for fp in b.GetFootprints():
+        for pd in fp.Pads():
+            if any(pd.IsOnLayer(lay) for lay in bare):
+                bb_ = pd.GetBoundingBox()
+                blobs.append((pd.GetPosition(), max(bb_.GetWidth(), bb_.GetHeight()) // 2))
+
+    def seg_dist(px, py, a, c):
+        ax, ay, cx, cy = a.x, a.y, c.x, c.y
+        dx, dy = cx - ax, cy - ay
+        t = 0.0 if dx == dy == 0 else max(0.0, min(1.0, ((px - ax) * dx + (py - ay) * dy) / float(dx * dx + dy * dy)))
+        return math.hypot(px - ax - t * dx, py - ay - t * dy)
+
+    def clear_bare(x, y, rv):
+        return all(seg_dist(x, y, a, c) >= rv + clr + hw for a, c, hw in segs) and \
+            all(math.hypot(x - q.x, y - q.y) >= rv + clr + hr for q, hr in blobs)
     gnd = b.FindNet('GND')
     holes = [(v.GetPosition().x, v.GetPosition().y) for v in b.GetTracks() if v.Type() == pcbnew.PCB_VIA_T]
     pads = []
@@ -74,7 +102,9 @@ def stitch(pitch=3.0, dia=0.6, drill=0.3, margin=0.25, hole_gap=1.0, pad_gap=0.3
     while y < bb.GetBottom():
         x = bb.GetLeft() + step // 2
         while x < bb.GetRight():
-            ok = all(inside(fills[lay], x, y, r) for lay in CU.values())
+            ok = all(inside(fills[lay], x, y, r) for lay in fills)
+            if ok and bare:
+                ok = clear_bare(x, y, MM(dia / 2))
             if ok:
                 ok = all(math.hypot(x - hx, y - hy) >= MM(hole_gap) for hx, hy in holes)
             if ok:
@@ -117,7 +147,7 @@ def silk():
                 if pd.IsOnLayer(cl):
                     pads[sl].append((rect(pd.GetBoundingBox(), MM(0.1)), fp.GetReference()))
         for it in fp.GraphicalItems():
-            if it.GetLayer() in SILK and it.Type() != pcbnew.PCB_TEXT_T:
+            if it.GetLayer() in SILK and not kc.is_text(it):
                 outl[it.GetLayer()].append((rect(it.GetBoundingBox(), MM(0.05)), fp.GetReference(), it))
     # 1) outline strokes over another footprint's pads: remove
     cut = 0
@@ -192,7 +222,7 @@ MODEL_BY_MPN = {
 def models():
     n = 0
     for fp in b.GetFootprints():
-        new = MODEL_BY_MPN.get(fp.GetFieldText('MPN') if fp.HasField('MPN') else '')
+        new = MODEL_BY_MPN.get(kc.get_field(fp, 'MPN'))
         if new and len(fp.Models()):
             fp.Models()[0].m_Filename = new
             n += 1
@@ -201,9 +231,15 @@ def models():
 
 print('3D models swapped:', models())
 if '--no-stitch' not in args:
-    print('stitching vias:', stitch())
+    kw = {}
+    if '--via' in args:
+        d_, h_ = (float(v) for v in args[args.index('--via') + 1].split('/'))
+        kw.update(dia=d_, drill=h_)
+    if '--pitch' in args:
+        kw['pitch'] = float(args[args.index('--pitch') + 1])
+    print('stitching vias:', stitch(**kw))
 if '--no-silk' not in args:
     print('silk: outline strokes removed %d, references moved %d, references to fab %d' % silk())
 filler.Fill(b.Zones())
-pcbnew.SaveBoard(path, b)
+kc.save(path, b)
 print('saved', path)

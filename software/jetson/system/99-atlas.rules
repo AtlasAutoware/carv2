@@ -1,8 +1,21 @@
-# Atlas car v2: ATLAS-BRN-1 brain board on a Jetson Orin Nano. Installed by software/jetson/system/install.sh.
-#
-# The UART that reaches the drive board's STM32 (module UART1, serial@3100000): /dev/atlas_vesc
+# Atlas car 2, rev B: NVIDIA Orin Nano dev-kit carrier + ATLAS-PWR-1 power board.
+# Installed by software/jetson/system/install.sh as /etc/udev/rules.d/99-atlas.rules.
+
+# FSESC (VESC firmware) on UART1, 40-pin header pins 8 (TX) / 10 (RX): /dev/atlas_vesc.
+# serial@3100000 is /dev/ttyTHS1 on JetPack 6 (ttyTHS0 on JetPack 5); check `ls -l /dev/atlas_vesc`.
 SUBSYSTEM=="tty", KERNELS=="3100000.serial", SYMLINK+="atlas_vesc", GROUP="dialout", MODE="0660"
-# Stack I2C to the drive board (module I2C1, i2c@c250000): INA228, ID EEPROM, TPS25751, TPS23861
-SUBSYSTEM=="i2c-dev", KERNELS=="c250000.i2c", SYMLINK+="atlas_i2c_stack", GROUP="i2c", MODE="0660"
-# Brain board SYS I2C (module I2C0, i2c@c240000): PCAL6408A expander
-SUBSYSTEM=="i2c-dev", KERNELS=="c240000.i2c", SYMLINK+="atlas_i2c_sys", GROUP="i2c", MODE="0660"
+
+# Power board supervisor: a Raspberry Pi Pico running MicroPython (USB 2e8a:0005), on a dev-kit
+# USB-A port: /dev/atlas_supervisor. ModemManager must not probe it with AT commands.
+SUBSYSTEM=="tty", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0005", SYMLINK+="atlas_supervisor", GROUP="dialout", MODE="0660", ENV{ID_MM_DEVICE_IGNORE}="1"
+
+# J12 GPIO lines (JETSON_UP, LIDAR_REQ, ESTOP_OK, CHG_STAT_N) through libgpiod, for the gpio group.
+SUBSYSTEM=="gpio", KERNEL=="gpiochip*", GROUP="gpio", MODE="0660"
+
+# J12 pins 3/5 (I2C bus 7): wired to the Pico's spare I2C pins, no chips on it today.
+SUBSYSTEM=="i2c-dev", KERNELS=="c250000.i2c", SYMLINK+="atlas_i2c_power", GROUP="i2c", MODE="0660"
+
+# The lidar's USB 3 gigabit adapter gets a fixed name, lidar0. Drivers of the candidate adapters
+# (docs/SOFTWARE.md, rev B): RTL8153 = r8152, AX88179 = ax88179_178a, LAN78xx = lan78xx. The dev
+# kit's own port (r8168, the camera) and the Wi-Fi card do not match. Check with `ethtool -i`.
+SUBSYSTEM=="net", ACTION=="add", SUBSYSTEMS=="usb", DRIVERS=="r8152|ax88179_178a|lan78xx", NAME="lidar0"

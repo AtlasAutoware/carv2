@@ -10,12 +10,15 @@ import importlib.util
 import json
 import math
 import os
+import re
 import sys
 
 import pcbnew
 from pcbnew import VECTOR2I, FromMM as MM, ToMM
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import kicompat as kc  # noqa: E402  (KiCad 7 / KiCad 10 API differences)
 _cands = [os.environ.get('KICAD_FP_DIR', ''), '/app/extensions/Library/footprints',
           os.path.expanduser('~/.local/share/flatpak/runtime/org.kicad.KiCad.Library.Footprints/x86_64/stable/active/files/footprints'),
           '/usr/share/kicad/footprints']
@@ -109,22 +112,13 @@ for ref, p in parts.items():
     for k, v in p['fields'].items():
         if k == 'in_bom':
             continue
-        if k in ('Description', 'Datasheet'):
-            f = fp.GetField(k)
-            if f:
-                f.SetText(str(v))
-                continue
-        fp.SetField(k, str(v))
-        f = fp.GetField(k)
-        f.SetVisible(False)
-        f.SetLayer(pcbnew.F_Fab)
+        kc.set_field(fp, k, v, layer=pcbnew.F_Fab)
     if p['fields'].get('in_bom') == 'no':
         fp.SetExcludedFromBOM(True)
     else:
         fp.SetExcludedFromBOM(False)           # some library footprints (solder jumpers) carry the flag themselves
     if p.get('dnp'):
-        fp.SetDNP(True)                        # stays in the BOM, marked DNP, like the schematic symbol
-        fp.SetExcludedFromPosFiles(True)
+        kc.set_dnp(fp, True)                   # stays in the BOM, marked DNP, like the schematic symbol
     rf = fp.Reference()
     rf.SetTextSize(VECTOR2I(MM(0.8), MM(0.8)))
     rf.SetTextThickness(MM(0.12))
@@ -136,16 +130,18 @@ for ref, p in parts.items():
 def place(ref, x, y, rot=0, side='F'):
     fp = fps[ref]
     if side == 'B' and not fp.IsFlipped():
-        fp.Flip(fp.GetPosition(), pcbnew.FLIP_DIRECTION_LEFT_RIGHT)
+        kc.flip(fp)
     fp.SetOrientationDegrees(rot)
     fp.SetPosition(P(x, y))
 
 
 def pad_xy(ref, num):
-    for pd in fps[ref].Pads():
-        if pd.GetNumber() == num:
-            return back(pd.GetPosition())
-    raise KeyError(f'{ref} pad {num}')
+    """pad `num`; the largest one when several share the number (as placer.pad_xy)"""
+    hits = [pd for pd in fps[ref].Pads() if pd.GetNumber() == num]
+    if not hits:
+        raise KeyError(f'{ref} pad {num}')
+    pd = max(hits, key=lambda q: q.GetBoundingBox().GetWidth() * q.GetBoundingBox().GetHeight())
+    return back(pd.GetPosition())
 
 
 def face(ref, x, y, pads, direction, side='F'):
@@ -195,13 +191,13 @@ for ref in SILK_REF:
 def courtyard(fp, margin=0.15):
     lay = pcbnew.B_CrtYd if fp.IsFlipped() else pcbnew.F_CrtYd
     try:
-        poly = fp.GetCourtyard(lay)
+        poly = kc.courtyard(fp, lay)
         if poly.OutlineCount():
             bb = poly.BBox()
             return (ToMM(bb.GetLeft()) - margin, ToMM(bb.GetTop()) - margin, ToMM(bb.GetRight()) + margin, ToMM(bb.GetBottom()) + margin)
     except Exception:
         pass
-    bb = fp.GetBoundingBox(False)
+    bb = kc.fp_bbox(fp)
     return (ToMM(bb.GetLeft()) - margin, ToMM(bb.GetTop()) - margin, ToMM(bb.GetRight()) + margin, ToMM(bb.GetBottom()) + margin)
 
 
@@ -216,29 +212,22 @@ L.finish(sys.modules[__name__])
 for lay, lt in getattr(L, 'LAYER_TYPES', {'In1': 'power', 'In2': 'power'}).items():
     b.SetLayerType(LAYER[lay],
                    {'power': pcbnew.LT_POWER, 'mixed': pcbnew.LT_MIXED, 'signal': pcbnew.LT_SIGNAL}[lt])
-ds.m_MinClearance = MM(0.15)
-ds.m_TrackMinWidth = MM(0.15)
-ds.m_ViasMinSize = MM(0.5)
-ds.m_MinThroughDrill = MM(0.2)
-ds.m_HoleClearance = MM(0.2)
-ds.m_HoleToHoleMin = MM(0.25)
-ds.m_CopperEdgeClearance = MM(0.3)
 NETCLASSES = getattr(L, 'NETCLASSES', {})
-nset = ds.m_NetSettings
-dflt = nset.GetDefaultNetclass()
-dflt.SetClearance(MM(0.2))
-dflt.SetTrackWidth(MM(0.2))
-dflt.SetViaDiameter(MM(0.6))
-dflt.SetViaDrill(MM(0.3))
-for name, c in NETCLASSES.items():
-    nc = pcbnew.NETCLASS(name)
-    nc.SetClearance(MM(c['clearance']))
-    nc.SetTrackWidth(MM(c['width']))
-    nc.SetViaDiameter(MM(c.get('via', 0.6)))
-    nc.SetViaDrill(MM(c.get('drill', 0.3)))
-    nset.SetNetclass(name, nc)
-    for n in c['nets']:
-        nset.SetNetclassPatternAssignment(n, name)
+DEFAULT_CLASS = getattr(L, 'DEFAULT_CLASS', {'clearance': 0.2, 'width': 0.2, 'via': 0.6, 'drill': 0.3})
+RULES = {'min_clearance': 0.15, 'min_track_width': 0.15, 'min_via_diameter': 0.5, 'min_via_annular_width': 0.1,
+         'min_through_hole_diameter': 0.2, 'min_hole_clearance': 0.2, 'min_hole_to_hole': 0.25,
+         'min_copper_edge_clearance': 0.3}
+RULES.update(getattr(L, 'BOARD_RULES', {}))     # a board may raise the floors (power: the fab's 2-layer limits)
+ds.m_MinClearance = MM(RULES['min_clearance'])
+ds.m_TrackMinWidth = MM(RULES['min_track_width'])
+ds.m_ViasMinSize = MM(RULES['min_via_diameter'])
+ds.m_MinThroughDrill = MM(RULES['min_through_hole_diameter'])
+ds.m_HoleClearance = MM(RULES['min_hole_clearance'])
+ds.m_HoleToHoleMin = MM(RULES['min_hole_to_hole'])
+ds.m_CopperEdgeClearance = MM(RULES['min_copper_edge_clearance'])
+kc.netclass_setup(b, DEFAULT_CLASS, NETCLASSES)
+if getattr(L, 'DRU', None):                      # before the fill: the filler may read the custom rules
+    open(os.path.join(BDIR, f'{L.NAME}.kicad_dru'), 'w').write(L.DRU)
 
 # ----------------------------------------------------------------------------- copper from the placer (zones, vias, tracks)
 COPPER = os.path.join(BDIR, 'out', f'{L.NAME}_copper.json')
@@ -318,10 +307,109 @@ for t in cu['tracks']:
         tr.SetNet(net(t['net']))
         tr.SetLocked(bool(t.get('locked', True)))
         b.Add(tr)
-pcbnew.ZONE_FILLER(b).Fill(b.Zones())
+# solder mask openings (bare copper) from the copper file: filled polygons on F.Mask / B.Mask. A polygon with
+# holes is drawn as its outline with each hole cut back in by a slit (KiCad's PCB_SHAPE polygon has no holes).
+MASK_LAYER = {'F': pcbnew.F_Mask, 'B': pcbnew.B_Mask}
+for m in cu.get('masks', []):
+    sp = pcbnew.SHAPE_POLY_SET()
+    oi = sp.NewOutline()
+    for (x, y) in m['rings'][0]:
+        sp.Append(*xy(x, y), oi, -1)
+    for hole in m['rings'][1:]:
+        hi = sp.NewHole(oi)
+        for (x, y) in hole:
+            sp.Append(*xy(x, y), oi, hi)
+    try:
+        sp.Fracture(pcbnew.SHAPE_POLY_SET.PM_FAST)          # KiCad 7, 8
+    except (TypeError, AttributeError):
+        sp.Fracture()                                       # KiCad 9+
+    for k in range(sp.OutlineCount()):
+        sh = pcbnew.PCB_SHAPE(b)
+        sh.SetShape(pcbnew.SHAPE_T_POLY)
+        o = sp.Outline(k)
+        sh.SetPolyPoints([o.CPoint(j) for j in range(o.PointCount())])
+        sh.SetFilled(True)
+        sh.SetWidth(0)
+        sh.SetLayer(MASK_LAYER[m['layer']])
+        b.Add(sh)
 
 out = os.path.join(BDIR, f'{L.NAME}.kicad_pcb')
-pcbnew.SaveBoard(out, b)
+pro = os.path.join(BDIR, f'{L.NAME}.kicad_pro')
+
+
+def write_project():
+    """net classes also go into the project file (KiCad keeps them there)"""
+    if not (os.path.exists(pro) and NETCLASSES):
+        return
+    P_ = json.load(open(pro))
+    ns = P_.setdefault('net_settings', {})
+    classes = [c for c in ns.get('classes', []) if c.get('name') == 'Default']
+    for c in classes:
+        c.update({'clearance': DEFAULT_CLASS['clearance'], 'track_width': DEFAULT_CLASS['width'],
+                  'via_diameter': DEFAULT_CLASS.get('via', 0.6), 'via_drill': DEFAULT_CLASS.get('drill', 0.3)})
+    for name, c in NETCLASSES.items():
+        classes.append({'name': name, 'clearance': c['clearance'], 'track_width': c['width'],
+                        'via_diameter': c.get('via', 0.6), 'via_drill': c.get('drill', 0.3),
+                        'diff_pair_width': 0.2, 'diff_pair_gap': 0.25, 'wire_width': 6, 'bus_width': 12,
+                        'line_style': 0, 'priority': len(classes)})
+    ns['classes'] = classes
+    ns['netclass_patterns'] = [{'netclass': name, 'pattern': n} for name, c in NETCLASSES.items() for n in c['nets']]
+    sev = P_.setdefault('board', {}).setdefault('design_settings', {}).setdefault('rule_severities', {})
+    sev.update({'lib_footprint_issues': 'ignore', 'lib_footprint_mismatch': 'ignore'})
+    sev.update(getattr(L, 'RULE_SEVERITIES', {}))
+    rules = P_.setdefault('board', {}).setdefault('design_settings', {}).setdefault('rules', {})
+    rules.update(RULES)
+    json.dump(P_, open(pro, 'w'), indent=2)
+    print('net classes written to', pro)
+
+
+def write_stackup(path):
+    """layout.STACKUP (copper and dielectric thickness per layer, finish) into the board file's setup: KiCad 7's
+    Python has no stackup API, so the (stackup ...) block is written as text; KiCad keeps it on every later save"""
+    S = getattr(L, 'STACKUP', None)
+    if not S:
+        return
+    cu = S['copper']
+    names = ['F'] + [f'In{k}' for k in range(1, L.COPPER_LAYERS - 1)] + ['B']
+    diel = S['dielectric']
+    assert len(diel) == len(names) - 1, 'one dielectric between each pair of copper layers'
+    rows = ['(layer "F.SilkS" (type "Top Silk Screen"))', '(layer "F.Paste" (type "Top Solder Paste"))',
+            f'(layer "F.Mask" (type "Top Solder Mask") (thickness {S["mask"]}))']
+    for i, n in enumerate(names):
+        rows.append(f'(layer "{n}.Cu" (type "copper") (thickness {cu[n]}))')
+        if i < len(diel):
+            kind, t = diel[i]
+            rows.append(f'(layer "dielectric {i + 1}" (type "{kind}") (thickness {t}) (material "FR4") '
+                        f'(epsilon_r 4.5) (loss_tangent 0.02))')
+    rows += [f'(layer "B.Mask" (type "Bottom Solder Mask") (thickness {S["mask"]}))',
+             '(layer "B.Paste" (type "Bottom Solder Paste"))', '(layer "B.SilkS" (type "Bottom Silk Screen"))',
+             f'(copper_finish "{S.get("finish", "None")}")', '(dielectric_constraints no)']
+    total = sum(cu.values()) + sum(t for k, t in diel) + 2 * S['mask']
+    txt = open(path).read()
+    txt = re.sub(r'\n\s*\(stackup\n.*?\n\s*\)\n', '\n', txt, count=1, flags=re.S)   # an older block goes
+    blk = '\n    (stackup\n' + ''.join(f'      {r}\n' for r in rows) + '    )'
+    txt = txt.replace('(setup', '(setup' + blk, 1)
+    txt = re.sub(r'\(general\n(\s*)\(thickness [\d.]+\)', lambda m: f'(general\n{m.group(1)}(thickness {total:.4g})', txt,
+                 count=1)
+    open(path, 'w').write(txt)
+    print('stackup:', ', '.join(f'{n}.Cu {cu[n] * 1000:.0f} um' for n in names), f'- {total:.3g} mm')
+
+
+if kc.K7:
+    # KiCad 7: a board made in Python has no DRC engine, and the zone filler crashes without one. Save it
+    # unfilled with the project file next to it, load it back (LoadBoard sets up the DRC engine with the
+    # net classes from the .kicad_pro and the custom rules from the .kicad_dru), then fill.
+    kc.save(out, b)
+    write_stackup(out)
+    write_project()
+    held_board = b
+    b = pcbnew.LoadBoard(out)
+    pcbnew.ZONE_FILLER(b).Fill(b.Zones())
+    kc.save(out, b)
+else:
+    pcbnew.ZONE_FILLER(b).Fill(b.Zones())
+    pcbnew.SaveBoard(out, b)
+    write_stackup(out)
 
 
 def dump_geometry(path):
@@ -347,29 +435,5 @@ os.makedirs(os.path.join(BDIR, 'out'), exist_ok=True)
 dump_geometry(os.path.join(BDIR, 'out', f'{L.NAME}_geom.json'))
 print('saved', out, len(b.GetFootprints()), 'footprints', len(b.GetTracks()), 'tracks+vias', len(b.Zones()), 'zones')
 
-if getattr(L, 'DRU', None):
-    open(os.path.join(BDIR, f'{L.NAME}.kicad_dru'), 'w').write(L.DRU)
-
-# net classes also go into the project file (KiCad keeps them there)
-pro = os.path.join(BDIR, f'{L.NAME}.kicad_pro')
-if os.path.exists(pro) and NETCLASSES:
-    P_ = json.load(open(pro))
-    ns = P_.setdefault('net_settings', {})
-    classes = [c for c in ns.get('classes', []) if c.get('name') == 'Default']
-    for c in classes:
-        c.update({'clearance': 0.2, 'track_width': 0.2, 'via_diameter': 0.6, 'via_drill': 0.3})
-    for name, c in NETCLASSES.items():
-        classes.append({'name': name, 'clearance': c['clearance'], 'track_width': c['width'],
-                        'via_diameter': c.get('via', 0.6), 'via_drill': c.get('drill', 0.3),
-                        'diff_pair_width': 0.2, 'diff_pair_gap': 0.25, 'wire_width': 6, 'bus_width': 12,
-                        'line_style': 0, 'priority': len(classes)})
-    ns['classes'] = classes
-    ns['netclass_patterns'] = [{'netclass': name, 'pattern': n} for name, c in NETCLASSES.items() for n in c['nets']]
-    sev = P_.setdefault('board', {}).setdefault('design_settings', {}).setdefault('rule_severities', {})
-    sev.update({'lib_footprint_issues': 'ignore', 'lib_footprint_mismatch': 'ignore'})
-    rules = P_.setdefault('board', {}).setdefault('design_settings', {}).setdefault('rules', {})
-    rules.update({'min_clearance': 0.15, 'min_track_width': 0.15, 'min_via_diameter': 0.5, 'min_via_annular_width': 0.1,
-                  'min_through_hole_diameter': 0.2, 'min_hole_clearance': 0.2, 'min_hole_to_hole': 0.25,
-                  'min_copper_edge_clearance': 0.3})
-    json.dump(P_, open(pro, 'w'), indent=2)
-    print('net classes written to', pro)
+if not kc.K7:
+    write_project()            # after SaveBoard, which writes the project file on KiCad 9+

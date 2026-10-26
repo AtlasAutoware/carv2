@@ -113,6 +113,96 @@ REMOVED = [
     ('UGREEN Nexode 20,000 mAh 130 W power bank', None, 'replaced by the built-in 18650 pack and USB-C charger'),
 ]
 
+# ---------------------------------------------------------------- rev B (2026-10-24, docs/REV_B.md "Cost")
+# Rev A's two boards as PCBWay quoted them in October 2026 (one assembled set and five bare boards of each).
+REVA_QUOTE = [
+    ('Drive board: 5 PCBs, 1 assembled (PCB 452.05, assembly 380.36, parts 270.50)', 452.05 + 380.36 + 270.50),
+    ('Brain board: 5 PCBs, 1 assembled (PCB 373.34, assembly 253.58, parts 197.98)', 373.34 + 253.58 + 197.98),
+]
+REVA_TWO_SETS = 'about 2,400'          # PCBWay, two assembled sets of both boards
+# What replaces rev A's on-board circuits in rev B, per car: item, USD, source (read on 2026-10-24 unless 'estimate').
+REVB_CAR = [
+    ('JBD 4S 100 A smart BMS', 66.90, 'JBD store, sold out on Oct 24 (a JBD 4S 100 A on eBay was 42.74)'),
+    ('Castle BEC 2.0 (servo 7.5 V)', 46.95, 'holmeshobbies.com'),
+    ('MIDI 125 A fuse, Littelfuse 0498125.M', 2.74, 'Mouser via findchips'),
+    ('XT90-S anti-spark pair', 2.25, 'gator-rc.com (out of stock on Oct 24)'),
+    ('M5 ring terminals, heat-shrink, fuse cover', 3.00, 'estimate'),
+    ('Silicone wire: 10 AWG pigtails, 16 AWG BEC, 18 AWG', 8.00, 'estimate'),
+    ('BMS adapter harness (pack 7-pin XH to the BMS, UART lead)', 3.00, 'estimate'),
+    ('40-wire IDC ribbon, 150 mm (Adafruit 1988)', 2.95, 'adafruit.com (price unverified)'),
+    ('J14 harness: 1 x 12 Dupont housings and crimps', 2.00, 'estimate'),
+    ('Dev-kit DC lead, Tensility 10-01779', 3.87, 'tensility.com'),
+    ('USB 3 gigabit adapter for the lidar (ZimaSpace RTL8153)', 9.90, 'shop.zimaspace.com (sale; list 15.90)'),
+    ('LUCID GPIO-M8-5M-RA2-A camera power cable', 40.00, 'thinklucid.com'),
+]
+REVB_TOOLS = [('Castle Link V3, sets the BEC to 7.5 V (one-time; skip if the team has one)', 26.99, 'robotshop.com')]
+# The bare boards: PCBWay instant quote 2026-10-26 (boards/power/LAYOUT_NOTES.md, "PCBWay quote"), 5 pcs, 4 layers,
+# 2 oz outer / 1 oz inner, HASL lead-free, DHL to the US; before the Future Innovators discount and customs.
+# One 5-piece order covers both cars, so it is counted once.
+REVB_PCB = (155.79, 26.55)
+# rev A purchase rows rev B no longer needs (matched by the start of the item text)
+REVB_NOT_NEEDED = ('Thermal pad', 'Board stack standoffs', 'Canopy standoffs')
+REVB_BOM = os.path.join(HERE, 'revb', 'power_board_bom.csv')
+
+
+def revb_table(pack, sensor, other):
+    """Rev A (October quote) against rev B, as a Markdown table plus notes."""
+    with open(REVB_BOM, newline='') as f:
+        bom = list(csv.DictReader(f))
+    board = sum(float(r['line_usd']) for r in bom)
+    board_unv = sum(float(r['line_usd']) for r in bom if r['verified'] != 'yes')
+    dropped = sum(q * u for g, it, pn, q, u, st, pb, src, why in ROWS
+                  if st == 'buy' and it.startswith(REVB_NOT_NEEDED))
+    reva_el = sum(v for _, v in REVA_QUOTE)
+    car = sum(v for _, v, _ in REVB_CAR)
+    tools = sum(v for _, v, _ in REVB_TOOLS)
+    revb_el = board + car
+    other_b = other - dropped
+    pcb = sum(REVB_PCB)
+    m = lambda v: f'{v:,.2f}'
+    rows = [(a, m(v), '', 'PCBWay quote, Oct 2026') for a, v in REVA_QUOTE]
+    rows += [
+        ('ATLAS-PWR-1 parts, one board (with the Pico, hub, latch, camera regulator, PD trigger, CC/CV buck, DIP sockets)', '',
+         m(board), f'`bom/revb/power_board_bom.csv` ({m(board_unv)} not verified)'),
+        ('ATLAS-PWR-1 bare boards, 5 pcs (4 layers, 2 oz outer, 1 oz inner; one order for both cars)', '', m(pcb),
+         f'PCBWay instant quote 2026-10-26: {m(REVB_PCB[0])} + {m(REVB_PCB[1])} DHL; `boards/power/LAYOUT_NOTES.md`'),
+        ('Assembly', 'in the quotes', '0', 'students at school'),
+        ('ESC', 'on the drive board', '0', 'owned Flipsky Mini FSESC 6.7 Pro'),
+        ('Jetson carrier', 'brain board', '0', 'owned NVIDIA dev-kit carrier'),
+    ]
+    rows += [(a, '', m(v), s) for a, v, s in REVB_CAR]
+    rows += [
+        ('USB leads (Adafruit 4449 for the FSESC, USB-A to USB-C for the dev kit, micro-USB to USB-A, panel-mount USB-C)', '',
+         'not priced', ''),
+        ('**Electronics for one car**', f'**{m(reva_el)}**', f'**{m(revb_el + pcb)}**',
+         f'rev B: {m(revb_el)} + the board order'),
+        ('18650 pack materials', m(pack), m(pack), 'rev A table above'),
+        ('Lens', m(sensor), m(sensor), 'rev A table above'),
+        ('Charger, cable, fan, hardware, antennas', m(other), m(other_b),
+         f'rev A table above; rev B does without the thermal pad and the stack and canopy standoffs ({m(dropped)})'),
+        ('Standoffs: 6 x M3 7 mm and 6 x M3 25 mm', 'in the line above', 'not priced', '`mech/README.md`'),
+    ]
+    rows += [(a, '', m(v), s) for a, v, s in REVB_TOOLS]
+    rows += [
+        ('**One car, new money**', f'**{m(reva_el + pack + sensor + other)}**',
+         f'**{m(revb_el + pcb + pack + sensor + other_b + tools)}**', 'the board order included'),
+        ('**Board electronics for two cars**', f'**{REVA_TWO_SETS}**', f'**{m(2 * revb_el + pcb)}**',
+         'rev A: two assembled PCBWay sets; rev B: one board order'),
+        ('**Two cars, new money**', f'**about {2400 + 2 * (pack + sensor + other):,.0f}**',
+         f'**{m(2 * (revb_el + pack + sensor + other_b) + tools + pcb)}**',
+         'rev A: about 2,400 for the boards; rev B: the board order and the Castle Link once'),
+    ]
+    out = ['| line | rev A (USD) | rev B (USD) | source |', '| --- | ---: | ---: | --- |']
+    out += [f'| {a} | {b} | {c} | {d} |' for a, b, c, d in rows]
+    out += ['', 'The Jetson dev kit and NVMe (459.00 on the September sheet) are owned now and left out of both columns, '
+            'as are the conditional camera cable and the optional spot welder. The rev B charger line keeps rev A\'s '
+            '15 cm antenna pigtails; the routed runs need 20 cm ones, not priced. A second car also needs its own '
+            'Jetson and pack in either revision; in rev B its ESC is the team\'s second FSESC. The board quote is '
+            'before PCBWay\'s review of the files, the Future Innovators discount and customs; ten boards would be '
+            '199.87 (173.32 + 26.55), and 1 oz copper everywhere 109.18 (82.63 + 26.55), but the pours were designed '
+            'for 2 oz, so the first build keeps 2 oz. Details: `docs/REV_B.md`, "Cost".']
+    return '\n'.join(out) + '\n'
+
 
 def main():
     with open(os.path.join(HERE, 'bom.csv'), 'w', newline='') as f:
@@ -155,12 +245,17 @@ def main():
         for a, b in lines:
             w.writerow([a, f'{b:.2f}'])
     with open(os.path.join(HERE, 'cost_summary.md'), 'w') as f:
+        f.write('# Car v2 cost summary\n\nGenerated by `bom/make_bom.py`.\n\n')
+        f.write('## Rev A (September 2026 estimates)\n\n')
         f.write('| line | USD |\n| --- | ---: |\n')
         for a, b in lines:
             f.write(f'| {a} | {b:,.2f} |\n')
         f.write('\nRemoved from the purchase sheet (no longer needed):\n\n')
         for a, b, why in REMOVED:
             f.write(f'- {a}' + (f' (${b:.2f})' if b else '') + f': {why}\n')
+        f.write('\n## Rev B (October 2026), against rev A as quoted\n\n')
+        f.write('Rev A\'s two boards are the October PCBWay quote here, not the September estimates above.\n\n')
+        f.write(revb_table(pack, sensor, other))
     for a, b in lines:
         print(f'{a:75s} {b:10,.2f}')
 

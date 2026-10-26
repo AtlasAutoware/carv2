@@ -18,6 +18,9 @@ import sys
 import pcbnew
 from pcbnew import VECTOR2I, FromMM as MM, ToMM
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kicompat as kc  # noqa: E402  (KiCad 7 / KiCad 10 API differences)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 board = sys.argv[1]
 refs = sys.argv[2].split(',')
@@ -55,7 +58,7 @@ for fp in b.GetFootprints():
         continue
     v = place[ref]
     if (v['side'] == 'B') != fp.IsFlipped():
-        fp.Flip(fp.GetPosition(), pcbnew.FLIP_DIRECTION_LEFT_RIGHT)
+        kc.flip(fp)
     fp.SetOrientationDegrees(v['rot'])
     fp.SetPosition(P(v['x'], v['y']))
     moved += 1
@@ -117,5 +120,5 @@ for t in cu['tracks']:
         b.Add(tr)
         added += 1
 pcbnew.ZONE_FILLER(b).Fill(b.Zones())
-pcbnew.SaveBoard(path, b)
+kc.save(path, b)
 print('moved %d parts, took up %d tracks and vias, added %d locked pieces' % (moved, gone, added))

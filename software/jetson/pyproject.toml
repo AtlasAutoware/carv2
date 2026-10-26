@@ -4,12 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "atlas-hw"
-version = "0.1.0"
-description = "Jetson-side tools for the Atlas car v2 drive board and brain board"
+version = "0.2.0"
+description = "Jetson-side tools for Atlas car 2 rev B: dev-kit carrier, ATLAS-PWR-1 power board and its Pico supervisor"
 requires-python = ">=3.8"
-dependencies = ["smbus2>=0.4"]
+dependencies = []
 
 [project.optional-dependencies]
+i2c = ["smbus2>=0.4"]          # only for the rev A drivers in atlas_hw.reva
 ftdi = ["pyftdi>=0.55"]
 test = ["pytest"]
 
@@ -17,4 +18,4 @@ test = ["pytest"]
 atlas = "atlas_hw.cli:main"
 
 [tool.setuptools]
-packages = ["atlas_hw"]
+packages = ["atlas_hw", "atlas_hw.reva"]

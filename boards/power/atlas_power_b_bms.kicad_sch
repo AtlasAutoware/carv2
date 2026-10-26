@@ -1,0 +1,402 @@
+(kicad_sch (version 20250114) (generator "eeschema") (generator_version "9.0")
+ (uuid "783b1d27-0a78-512e-8157-71dc61afe83f")
+ (paper "A2")
+ (title_block (title "ATLAS-PWR-1 power board: BMS link: opto-isolated UART to the JBD smart BMS") (date "2026-10-24") (rev "B") (company "Atlas Autoware (501c3), Fairfax VA") (comment 1 "Generated from design.py by tools/eda.py; edit the Python, not this file"))
+ (lib_symbols (symbol "atlas:BMS_UART"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 11.43 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "BMS_UART"
+			(at 0 -11.43 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "to the JBD UART port through the adapter lead (BMS-side domain, isolated)"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "BMS_UART_0_1"
+			(rectangle
+				(start -5.08 7.62)
+				(end 5.08 -7.62)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "BMS_UART_1_1"
+			(pin passive line
+				(at -7.62 5.08 0)
+				(length 2.54)
+				(name "VDD"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 2.54 0)
+				(length 2.54)
+				(name "TX"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 0.00 0)
+				(length 2.54)
+				(name "RX"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 -2.54 0)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "4"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "atlas:PC817"
+		(pin_names
+			(offset 0.508))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "PC817"
+			(at 0 -8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" "Package_DIP:DIP-4_W7.62mm"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(property "Description" "optocoupler, 5 kV isolation, DIP-4"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(hide yes)))
+		(symbol "PC817_0_1"
+			(rectangle
+				(start -5.08 5.08)
+				(end 5.08 -5.08)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type background))))
+		(symbol "PC817_1_1"
+			(pin passive line
+				(at -7.62 2.54 0)
+				(length 2.54)
+				(name "A"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "1"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at -7.62 0.00 0)
+				(length 2.54)
+				(name "K"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "2"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 7.62 2.54 180)
+				(length 2.54)
+				(name "C"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "4"
+					(effects
+						(font
+							(size 1.016 1.016)))))
+			(pin passive line
+				(at 7.62 0.00 180)
+				(length 2.54)
+				(name "E"
+					(effects
+						(font
+							(size 1.016 1.016))))
+				(number "3"
+					(effects
+						(font
+							(size 1.016 1.016)))))))
+(symbol "Device:R"
+		(pin_numbers hide)
+		(pin_names
+			(offset 0))
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "R"
+			(at 2.032 0 90)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Value" "R"
+			(at 0 0 90)
+			(effects
+				(font
+					(size 1.27 1.27))))
+		(property "Footprint" ""
+			(at -1.778 0 90)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "R res resistor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "Resistor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_fp_filters" "R_*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "R_0_1"
+			(rectangle
+				(start -1.016 -2.54)
+				(end 1.016 2.54)
+				(stroke
+					(width 0.254)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "R_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)))))))
+(symbol "Device:C"
+		(pin_numbers hide)
+		(pin_names
+			(offset 0.254))
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Value" "C"
+			(at 0.635 -2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				(justify left)))
+		(property "Footprint" ""
+			(at 0.9652 -3.81 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_keywords" "cap capacitor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_description" "Unpolarized capacitor"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(property "ki_fp_filters" "C_*"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27))
+				hide))
+		(symbol "C_0_1"
+			(polyline
+				(pts
+					(xy -2.032 -0.762)
+					(xy 2.032 -0.762))
+				(stroke
+					(width 0.508)
+					(type default))
+				(fill
+					(type none)))
+			(polyline
+				(pts
+					(xy -2.032 0.762)
+					(xy 2.032 0.762))
+				(stroke
+					(width 0.508)
+					(type default))
+				(fill
+					(type none))))
+		(symbol "C_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)))))
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27))))
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27))))))))
+ (text "BMS link: opto-isolated UART to the JBD smart BMS" (exclude_from_sim no) (at 25.4 25.4 0) (effects (font (size 3 3) (thickness 0.5) bold) (justify left)) (uuid "1b216b86-a4ad-57c2-bda8-b860e9c17cca"))
+(text "JBD UART port (Overkill/JBD manual D.1.2): 1 VDD, 2 TX, 3 RX, 4 GND; on the BMS it is a 4-pin JST-PA 2.0." (exclude_from_sim no) (at 25.4 33.02 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "97351f4e-2bb9-5353-9901-81ffc072ef4a"))
+(text "An off-board adapter lead maps it to J201 (JST-XH 4). The BMS side switches B-, so its GND must never" (exclude_from_sim no) (at 25.4 38.1 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "fead8bed-2731-54c6-90bb-ea31d8369f27"))
+(text "meet board GND (esphome-jbd-bms warning; rev A review P-M1): two PC817s are the only link." (exclude_from_sim no) (at 25.4 43.18000000000001 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "280db494-e42e-5f73-bbbc-f2b980b01b2f"))
+(text "BMS side powered from the port VDD (3.3-5 V expected; measure before plugging). 9600 baud." (exclude_from_sim no) (at 25.4 48.260000000000005 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "a5aba5a4-209b-5faf-ba1b-5cb5e3bcc2e2"))
+(text "Pico TX low -> U202 LED on -> BMS RX low. BMS TX low -> U201 LED on -> Pico RX low (both non-inverting)." (exclude_from_sim no) (at 25.4 53.34 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "70db8db9-8384-5701-98ef-1e65f7cd2906"))
+(text "Keep 2 mm between the BMS_* copper and everything else; no pour crosses the U201/U202 gap." (exclude_from_sim no) (at 25.4 58.42 0) (effects (font (size 1.8 1.8)) (justify left)) (uuid "b3f1227e-7b21-5068-9265-5524c3dadf57"))
+(symbol (lib_id "atlas:BMS_UART") (at 48.26 88.90 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "973dcc38-31d8-5788-9066-25b9e6b319d0")
+ (property "Reference" "J201" (at 48.26 80.32 0) (effects (font (size 1.27 1.27)) )) (property "Value" "BMS_UART" (at 48.26 94.94 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical" (at 48.26 88.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 48.26 88.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "B4B-XH-A(LF)(SN)" (at 48.26 88.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "JST" (at 48.26 88.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "to the JBD UART port through the adapter lead (BMS-side domain, isolated)" (at 48.26 88.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.11" (at 48.26 88.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/B4B-XH-A" (at 48.26 88.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 48.26 88.90 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "43ee551c-a044-5a60-b61e-a73f18ddab89")) (pin "2" (uuid "97daec7d-4f28-5559-9861-68d0aced00f6")) (pin "3" (uuid "b77a34a7-62c1-5544-8201-11a068ee437c")) (pin "4" (uuid "762c3631-1b0b-5315-8835-0e90c0ca0bc6"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/783b1d27-0a78-512e-8157-71dc61afe83f" (reference "J201") (unit 1)))))
+(global_label "BMS_VDD" (shape passive) (at 40.64 83.82 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "516dd498-d7d8-5a73-b620-8886fc1ab0fe") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 40.64 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BMS_TXD" (shape passive) (at 40.64 86.36 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e6a1a9d1-957f-56f1-9011-eb9055860108") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 40.64 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BMS_RXD" (shape passive) (at 40.64 88.9 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "71add6d3-4975-554d-95d9-fe9256fe2b7a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 40.64 88.9 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BMS_GND" (shape passive) (at 40.64 91.44 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "7e8a37a6-e6b0-5970-8ae3-ec4ce9abf450") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 40.64 91.44 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:PC817") (at 83.82 86.36 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "f6e312bd-02c7-5540-b918-5b55e92ace99")
+ (property "Reference" "U201" (at 83.82 80.32 0) (effects (font (size 1.27 1.27)) )) (property "Value" "PC817" (at 83.82 89.86 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Package_DIP:DIP-4_W7.62mm" (at 83.82 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 83.82 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "PC817X2NSZ9F" (at 83.82 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Sharp" (at 83.82 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "BMS TX -> Pico GP1 (UART0 RX)" (at 83.82 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.42" (at 83.82 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/PC817X2NSZ9F" (at 83.82 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 83.82 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "f2709e89-c454-579e-bbd6-5eb966af0d07")) (pin "2" (uuid "56617163-0352-514a-a8c9-f995924c3ad9")) (pin "4" (uuid "2225b69d-6d0e-5d8f-acc8-71cede8e1693")) (pin "3" (uuid "878c20b3-34bd-56f9-b47b-23f3d723a083"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/783b1d27-0a78-512e-8157-71dc61afe83f" (reference "U201") (unit 1)))))
+(global_label "BMS_OPT1_A" (shape passive) (at 76.2 83.82 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "673b8975-91b2-5865-bf3a-e56b0617a674") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 76.2 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BMS_TXD" (shape passive) (at 76.2 86.36 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "3bba4aa2-e4be-595b-9ce7-ce82d9f2f0f3") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 76.2 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BMS_RX" (shape passive) (at 91.44 83.82 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "42ac5d4b-9b2f-5539-8e3e-93e7f1e9378a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 91.44 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "GND" (shape passive) (at 91.44 86.36 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "847b5077-fed8-5477-962f-5118be4a02ca") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 91.44 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "atlas:PC817") (at 137.16 86.36 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "fdd11673-b55e-5d59-9ecd-9d05e1a3ed72")
+ (property "Reference" "U202" (at 137.16 80.32 0) (effects (font (size 1.27 1.27)) )) (property "Value" "PC817" (at 137.16 89.86 0) (effects (font (size 1.27 1.27)) )) (property "Footprint" "Package_DIP:DIP-4_W7.62mm" (at 137.16 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 137.16 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "PC817X2NSZ9F" (at 137.16 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Sharp" (at 137.16 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "Pico GP0 (UART0 TX) -> BMS RX" (at 137.16 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.42" (at 137.16 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/PC817X2NSZ9F" (at 137.16 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 137.16 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "03124c05-edbc-59be-b945-6653986142a8")) (pin "2" (uuid "fd058fe6-931e-5818-a627-f9a8c558609f")) (pin "4" (uuid "9359c62c-1152-56db-839f-33699b83e15c")) (pin "3" (uuid "df946b57-4d77-5fb0-a700-816abfbf9da5"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/783b1d27-0a78-512e-8157-71dc61afe83f" (reference "U202") (unit 1)))))
+(global_label "BMS_OPT2_A" (shape passive) (at 129.54 83.82 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "dda0f8c9-11d1-5c18-a6ab-c09f3fae0c94") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 129.54 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BMS_TX" (shape passive) (at 129.54 86.36 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "f7ce1421-f815-5097-8d78-1fc5b15051a4") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 129.54 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BMS_RXD" (shape passive) (at 144.78 83.82 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "b1d3e4b2-079f-5666-bae1-c13e854f7d1c") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 144.78 83.82 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BMS_GND" (shape passive) (at 144.78 86.36 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "0bbbe9fd-b59f-5a36-9ecf-f32b72aedc76") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 144.78 86.36 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 55.88 109.22 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "26a54f78-69ee-5fb6-b12a-8acf92efe973")
+ (property "Reference" "R201" (at 55.88 106.68 0) (effects (font (size 1.27 1.27)) )) (property "Value" "1k" (at 55.88 111.76 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 55.88 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 55.88 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-071KL" (at 55.88 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 55.88 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "U201 LED: 1.9 mA at 3.3 V, 3.5 mA at 5 V (BMS TX sinks it)" (at 55.88 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 55.88 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 55.88 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 55.88 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "bb5827b4-8705-5086-b277-a3028d8343f4")) (pin "2" (uuid "43fcd33e-084a-590c-8571-7575f4ad5467"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/783b1d27-0a78-512e-8157-71dc61afe83f" (reference "R201") (unit 1)))))
+(global_label "BMS_VDD" (shape passive) (at 52.07 109.22 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "2303fc64-2c56-59e3-9160-3c8081f601ac") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 52.07 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BMS_OPT1_A" (shape passive) (at 59.69 109.22 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "d4de11be-da65-593f-8b52-9678acd14984") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 59.69 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 132.08 109.22 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "453973c7-9607-5ee5-85af-b7f08bf77203")
+ (property "Reference" "R202" (at 132.08 106.68 0) (effects (font (size 1.27 1.27)) )) (property "Value" "4.7k" (at 132.08 111.76 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 132.08 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 132.08 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-074K7L" (at 132.08 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 132.08 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "Pico RX pull-up; idle high" (at 132.08 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 132.08 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 132.08 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 132.08 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "7d6d78ae-dea6-5cf5-ad79-b8e5c39d81f6")) (pin "2" (uuid "bf547188-54f9-515c-afb8-b2ee6f230848"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/783b1d27-0a78-512e-8157-71dc61afe83f" (reference "R202") (unit 1)))))
+(global_label "+3V3" (shape passive) (at 128.27 109.22 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "3e404c9d-aa94-5086-947e-8bba69a96e1f") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BMS_RX" (shape passive) (at 135.89 109.22 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "7b48e38d-358e-5af2-904d-a4e863928f1d") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 135.89 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 208.28 109.22 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "b4a4887b-d04f-5f54-ba51-4dd36c297dbf")
+ (property "Reference" "R203" (at 208.28 106.68 0) (effects (font (size 1.27 1.27)) )) (property "Value" "470" (at 208.28 111.76 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 208.28 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 208.28 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-07470RL" (at 208.28 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 208.28 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "U202 LED: 4 mA from the Pico pin (sinks); CTR >= 50 % gives >= 2 mA" (at 208.28 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 208.28 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 208.28 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 208.28 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "bd01603f-1f97-5e82-ae8f-f3f88b53f11b")) (pin "2" (uuid "4a705071-a795-5d45-b032-a503fcf77180"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/783b1d27-0a78-512e-8157-71dc61afe83f" (reference "R203") (unit 1)))))
+(global_label "+3V3" (shape passive) (at 204.47 109.22 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "334475e2-c0ca-54e7-910d-d2a6d1858725") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 204.47 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BMS_OPT2_A" (shape passive) (at 212.09 109.22 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "41a543dd-d3a2-5372-ac8b-a7e425ee3991") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 212.09 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:R") (at 284.48 109.22 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "3ff0aab9-37f7-5ecb-894d-7a61c0af53dd")
+ (property "Reference" "R204" (at 284.48 106.68 0) (effects (font (size 1.27 1.27)) )) (property "Value" "4.7k" (at 284.48 111.76 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" (at 284.48 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 284.48 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "RC1206FR-074K7L" (at 284.48 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Yageo" (at 284.48 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "BMS RX pull-up to the port VDD; idle high; 0.7-1.1 mA when low" (at 284.48 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.10" (at 284.48 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/RC1206FR-0710KL" (at 284.48 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 284.48 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "b4783095-d1c1-5da3-bc9b-d929678f3722")) (pin "2" (uuid "7210182b-a24f-5f8b-8192-b2c55e0e4735"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/783b1d27-0a78-512e-8157-71dc61afe83f" (reference "R204") (unit 1)))))
+(global_label "BMS_VDD" (shape passive) (at 280.67 109.22 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "dc03ee10-52e7-5281-a8eb-850f3c8cf329") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 280.67 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BMS_RXD" (shape passive) (at 288.29 109.22 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "59b5393b-2827-5a79-b09c-fd18468a4205") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 288.29 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(symbol (lib_id "Device:C") (at 360.68 109.22 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "40db29e6-1438-5ad9-8e8b-e4249035ae8d")
+ (property "Reference" "C201" (at 360.68 106.68 0) (effects (font (size 1.27 1.27)) )) (property "Value" "100n" (at 360.68 111.76 0) (effects (font (size 1.0 1.0)) )) (property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" (at 360.68 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 360.68 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "MPN" "Samsung CL31B104KBCNNNC (100 nF 50 V X7R 1206)" (at 360.68 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Manufacturer" "Samsung" (at 360.68 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Description" "BMS-side decoupling (stays in the BMS domain)" (at 360.68 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Price" "0.14" (at 360.68 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Source" "https://www.findchips.com/search/CL31B104KBCNNNC" (at 360.68 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Verified" "yes" (at 360.68 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "9e758b73-426a-5f22-b8ee-93870e7f8447")) (pin "2" (uuid "e0d34660-8b22-5423-a827-8bd4aed3fe16"))
+ (instances (project "atlas_power" (path "/4fb10d18-90ef-5893-9604-a133982dd744/783b1d27-0a78-512e-8157-71dc61afe83f" (reference "C201") (unit 1)))))
+(global_label "BMS_VDD" (shape passive) (at 356.87 109.22 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "22121e98-4286-57b3-bb20-89a06d0f1ff2") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 356.87 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+(global_label "BMS_GND" (shape passive) (at 364.49 109.22 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "05515cdf-94e4-56be-88fa-6df6ca84315a") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 364.49 109.22 0) (effects (font (size 1.27 1.27)) (hide yes))))
+ (embedded_fonts no))

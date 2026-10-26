@@ -1,5 +1,7 @@
 # Car v2: integrated electronics and printed kit
 
+This is rev A, kept as the record of the first design; the car is now built to rev B, described in `docs/REV_B.md`.
+
 Design for the second Atlas car on the Traxxas Slash 4x4 (6822 chassis, the one with the
 "KA2246-R00" label and the Holmes Hobbies Puller Pro 540 2200 kV motor). The aim: plug in as
 few things as possible. Everything that can live on a circuit board does, the battery is

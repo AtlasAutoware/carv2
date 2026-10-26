@@ -1,0 +1,104 @@
+# ATLAS-PWR-1 rev B: copper placed by hand (E2, 2026-10-25), in the order it went on, each file with add_routes.py --lock.
+# Board-local mm (layout.py frame). tools/hand_routes.py turns this into a routes JSON. See LAYOUT_NOTES.md, Routing.
+
+# ---- h_gate
+# gate drive on the bottom (HANDOFF_E: SW_GATE along the north side of the gate resistors, stubs south to the G pins)
+SW_GATE B 0.6 15,65.15 15,64.65 28,64.65 28,65.15
+SW_GATE B 0.6 28,64.65 41,64.65 41,65.15
+SW_GATE B 0.6 41,64.65 69.8,64.65 70.7,63.75 70.7,63.25
+SW_GATE B 0.6 70.7,63.25 72.32,64.87 72.32,66.18
+SW_G1 B 0.6 15,62.05 15,59.5
+SW_G2 B 0.6 28,62.05 28,59.5
+SW_G3 B 0.6 41,62.05 41,59.5
+# SW_GATE test point TP302 on the top, from the MIC5014 GATE pin round the BAT pour corner
+SW_GATE F 0.6 72.32,66.18 75.3,64.6 76.3,61.6
+
+# ---- h_servo
+# SERVO_V (Castle BEC output, up to 8 A peaks): SRV+ wire pad J404 and BEC_OUT header pin J403.2 at the rear,
+# south along X 11.35 (1.9 mm between the J403/J904 pins and J405), east along Y 11.4 above J801 (2.5 mm),
+# through the 1.6 mm neck between H1003's keep-out and the hub socket, under the hub module (2.0 mm),
+# on the bottom under J601's shell (three vias each end), north between SW401's pins to C404 and J406.
+SERVO_V F 1.9 14.6,33.0 11.35,29.75 11.35,18.6 14.0,15.95 14.0,12.4 15.0,11.4
+SERVO_V F 1.9 9.2,22.66 11.35,22.66
+SERVO_V F 2.5 15.0,11.4 75.5,11.4
+SERVO_V F 1.0 43.99,14.1 43.99,11.4
+SERVO_V F 1.6 75.5,11.4 78.97,5.82 80.3,4.0
+SERVO_V F 2.0 80.3,4.0 82.5,4.0 83.8,5.84 93.2,5.84 94.45,4.6 97.8,4.6
+SERVO_V F 2.0 97.8,4.6 97.8,1.6
+via SERVO_V 97.8,1.6 1.2/0.6
+via SERVO_V 97.8,3.1 1.2/0.6
+via SERVO_V 97.8,4.6 1.2/0.6
+SERVO_V B 2.0 97.8,1.6 97.8,4.6
+SERVO_V B 2.5 97.8,3.1 110.6,3.1
+SERVO_V B 2.0 109.1,1.6 110.6,1.6 110.6,3.1
+via SERVO_V 109.1,1.6 1.2/0.6
+via SERVO_V 110.6,1.6 1.2/0.6
+via SERVO_V 110.6,3.1 1.2/0.6
+SERVO_V F 2.0 109.1,1.6 110.6,1.6 110.6,3.1 112.75,3.1 112.75,11.0 116.5,14.75 117.09,16.4
+SERVO_V F 2.0 117.09,16.4 118.6,18.9 124.4,18.9 125.9,17.06 127.6,17.06
+
+# ---- h_power1
+# BAT feed from the BAT pour strip (north of F501) to the Pololu latch VIN, top, 2 mm, clear of the VM pour corner,
+# J410 and Q305
+BAT F 2.0 48.3,30.77 58.1,37.75 62.6,37.75 63.6,38.75 64.9,48.6
+# precharge: R313 PRE_F (inside the VM pour on the top) to the precharge fuse F301 on the bottom, 1 mm
+PRE_F B 1.0 54.5,45.5 57.0,48.0 61.0,50.52
+# FET heatsink NTC (TH301, inside the BAT pour on the top): out on the bottom between R306's pads and between
+# U301's pins 2/3 and 6/7 (pin 6 is NC), the router takes it on from X 74
+NTC_NODE B 0.3 36.75,67.9 38.84,69.99 73.6,69.99
+
+# ---- h_vsys
+# VSYS_SW (latch output) on the top, 2 mm: latch -> R408 (R-78E feed) -> TP401 -> J410 (BEC+ALT) -> F401 (dev-kit fuse)
+VSYS_SW F 2.0 48.3,26.77 49.67,26.24 58.47,25.89 59.19,25.6
+VSYS_SW F 2.0 59.19,25.6 59.66,26.22 61.61,28.27 62.04,29.14 63.6,34.45
+VSYS_SW F 2.0 63.6,34.45 65.36,35.22 73.91,39.22 74.36,39.77 78.41,44.77 78.9,46.04
+VSYS_SW B 2.0 78.9,46.04 82.3,46.04
+
+# ---- h_chgrb
+# CHG_RB (charge current after the reverse block, 2.5 A): Q501 source up on the top, two vias, then on the bottom
+# under the BAT and VSYS_SW feeds, south of J410, through the gap between J410 and D403, to the charge fuse F501
+CHG_RB F 1.2 42.54,24.56 44.6,26.6 44.6,34.4
+via CHG_RB 44.6,32.9 1.2/0.6
+via CHG_RB 44.6,34.4 1.2/0.6
+CHG_RB B 1.2 44.6,32.9 44.6,34.4 59.6,34.4 61.3,31.4 66.485,31.4 66.485,37.5 68.3,40.0 68.3,41.74 71.7,41.74
+
+# ---- h_vdev
+# dev-kit feed, 2 mm: fuse F401 -> Q402 source (VDEV_F), Q402 drain -> DEV+ wire pad J407 (VDEV), west of DEV- (moved 1.5 mm east)
+VDEV_F F 2.0 82.3,55.96 85.28,58.94 88.44,58.94
+VDEV_F B 2.0 78.9,55.96 82.3,55.96
+VDEV F 2.0 88.44,56.4 90.75,56.4 90.75,61.0 90.0,61.75 90.0,72.0 92.0,74.0
+
+# ---- h_c104
+# C104 (1 uF across C101's pins, bottom): its BAT pad into the top BAT pour
+BAT B 0.6 28.94,71.6 28.94,69.9
+via BAT 28.94,69.9 0.8/0.4
+
+# ---- h_vm
+# VM sense links (MIC5014 SOURCE, R304 gate pull-down, R315 VM LED): via from the VM pour's east edge, bottom,
+# north past F501 to R304, then between U301 pins 5/6 to pin 3 (0.3 mm there)
+via VM 56.0,42.5 0.8/0.4
+VM B 0.4 56.0,42.5 63.6,42.5 64.75,43.65 64.75,44.2
+VM B 0.4 64.75,44.2 66.25,45.7 66.25,58.5 72.5,58.5 73.8,59.8 73.8,63.25
+VM B 0.3 73.8,63.25 73.8,67.45 66.0,67.45 64.7,68.72
+
+# ---- h_r701
+# R701 (VM_SENSE divider top) on the VM link; R306 (MIC5014 IN pull-down) to U301 pin 2
+VM B 0.4 70.0,57.55 70.0,58.5
+MIC_IN B 0.3 62.0,71.35 64.7,71.26
+# R401 (33k, BAT to the power button's BTN_HI) beside F501: its BAT pad to F501's BAT pin on the bottom
+BAT B 0.4 74.95,49.8 72.6,51.0
+
+# ---- h_restruct (after the first full routing left the MIC5014-side signals boxed in)
+# VSYS_SW front branch (lidar switch Q405, camera polyfuse F403): from J410 straight east along Y 31.2, south of D403
+# and U402, north of Q403 and the hub pins, into the existing run at X 96.6 (it was a router diagonal from F401
+# through the dev-kit feed, which together with the C405 branch below closed that area on both layers)
+VSYS_SW F 1.0 63.6,34.45 66.3,31.2 95.9,31.2 96.62,30.47
+# C405 (dev-kit output bulk cap) on the top: south of Q404, then north between D404/Q402 and J802 into the VDEV
+# trunk (it was a 1 mm bottom track round F401 and up beside D404)
+VDEV F 1.0 78.74,36.2 80.2,37.8 83.5,37.8 84.5,37.25 89.9,37.25 90.7,38.05 90.7,55.6 90.75,56.4
+# R411 (the cut-off's VDEV_F-to-OV_G resistor, moved beside R412): its VDEV_F pad up to a via on the top
+# F401-to-Q402 track
+VDEV_F B 0.5 85.7,55.93 86.3,57.8
+via VDEV_F 86.3,57.8 0.8/0.4
+# (E2b) R419 to C407 on VDEV_F: the router could not join R419's stub to C407 pin 1 at the class width (2 mm)
+VDEV_F B 1.0 80.6,51.66 81.19,49.5

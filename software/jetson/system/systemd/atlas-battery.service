@@ -1,12 +1,14 @@
 [Unit]
-Description=Atlas battery monitor (INA228 state of charge, low-battery shutdown)
-After=atlas-hw-init.service
+Description=Atlas supervisor link (heartbeat, JETSON_UP, status) and battery monitor
+After=local-fs.target
 
 [Service]
 EnvironmentFile=-/etc/atlas/atlas.conf
 ExecStart=/usr/local/bin/atlas battery-daemon
-Restart=on-failure
-RestartSec=5
+# 60 s after the last heartbeat (120 s after the "bye" this service sends when it stops) the
+# supervisor presses the Jetson's power key, so come back quickly after a crash.
+Restart=always
+RestartSec=2
 
 [Install]
 WantedBy=multi-user.target
