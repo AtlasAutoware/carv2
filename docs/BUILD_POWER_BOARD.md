@@ -6,11 +6,12 @@ multimeter and a current-limited bench supply. What the board does and why is in
 the reason for every value, is `boards/power/design.py`. This version follows the design as changed after the
 pre-order review (`docs/review_revb_2026-10-24.md`; the changes are listed in `boards/power/DESIGN_FIXED.md`).
 
-The board has 80 through-hole parts on the top (three of them DIP sockets), 104 chip resistors and capacitors (1206,
-five of them 1210) on the bottom, two modules on sockets (the Raspberry Pi Pico and the USB hub), and four modules
-wired off the board. Work in
-the order below. It goes from the flattest parts to the tallest, so the board always sits level on the bench, and it
-puts the four bench tests where they catch a mistake before it can do damage.
+The board is 130 x 84 mm with four copper layers: 2 oz on the top and bottom, and two 1 oz layers inside, one of them
+a solid ground plane (`boards/power/LAYOUT_NOTES.md`). It carries 80 through-hole parts on the top (three of them DIP
+sockets), 104 chip resistors and capacitors (1206, five of them 1210) on the bottom, two modules on sockets (the
+Raspberry Pi Pico and the USB hub), and four modules wired off the board. Work in the order below. It goes from the
+flattest parts to the tallest, so the board always sits level on the bench, and it puts the four bench tests where
+they catch a mistake before it can do damage.
 
 Where a value in this guide has not been checked on real parts yet, it says "not verified".
 
@@ -22,10 +23,12 @@ Read this before you start, and again before test 3.
   into a short. A tool dropped across its leads is that short. The 125 A fuse and the BMS are there for faults;
   never test them on purpose.
 - **The pack side of the board is live whenever the XT90-S is plugged in,** even with the car switched off. The power
-  button and the main switch come after it. That includes the pack pads, the three big capacitors, the wide copper
-  between them and the aluminium bar on the main FETs.
+    button and the main switch come after it. That includes the pack pads, the three big capacitors, the wide copper
+  between them and the aluminium bar on the main FETs. On the top, the solder mask is left off over the main pack
+  (BAT) and motor-bus (VM) copper on purpose, so it can be tinned: those bare strips are live too.
 - **The FET bar is at pack voltage.** All three main FET tabs are bolted to it, and every tab is the FET's drain,
-  which is pack plus. Nothing metal may touch the bar, and nothing may lean on it. On the car a 3 mm acrylic shield
+    which is pack plus, and the board says so beside it ("FET bar is at pack voltage"). Nothing metal may touch the bar,
+  and nothing may lean on it. On the car a 3 mm acrylic shield
   hangs 2 mm above it under the dev-kit tray; it is always fitted. The four other TO-220 FETs on the board have live
   tabs too.
 - **Nothing on the board stops a reversed pack.** A pigtail wired the wrong way round puts the pack TVS (D101) in
@@ -49,10 +52,11 @@ Read this before you start, and again before test 3.
 
 Tools:
 
-- Hakko FM-206 station: a fine tip for the chips, and the largest chisel tip you have for the TO-220 legs and the
-  electrolytics (2 oz copper and the wide power copper pull heat away fast)
+- Hakko FM-206 station: a fine tip for the chips, and the largest chisel tip you have for the TO-220 legs, the
+  electrolytics and every ground pin (2 oz copper, the wide power copper and the inner ground plane pull heat away fast)
 - for the four 10 AWG pads (J101, J102, J901, J902): a hot plate to preheat the board to about 100 C, or a 100-150 W
-  iron; a 70 W iron may not wet them (review m19)
+  iron; a 70 W iron may not wet them (review m19). Each is a 7.5 mm pad with a 3.5 mm hole and a ring of six 0.6 mm
+  plated holes, joined solid to its 2 oz pour, which is right for 90 A and is why they are slow to heat
 - fine-point tweezers, flush cutters, calipers
 - microscope
 - multimeter with a continuity beep and a 10 A current range
@@ -85,10 +89,11 @@ Consumables:
 
 ## Check the parts kit
 
-Count every part against `bom/revb/power_board_bom.csv` before you start, one block at a time, and put each block's
-parts in its own labelled tray. The reference numbers tell you the block: 1xx is block A, 2xx is B, and so on up to
-10xx for block J. Keep each chip value in its tape until you place it: the ceramic capacitors carry no marking at all,
-and a loose 10k looks like a loose 100k.
+Count every part against `bom/revb/power_board_bom.csv` before you start (the layout's own lists in
+`boards/power/out/fab/`, `atlas_power_bom.csv` and `atlas_power_tht_top.csv`, say the same), one block at a time, and
+put each block's parts in its own labelled tray. The reference numbers tell you the block: 1xx is block A, 2xx is B,
+and so on up to 10xx for block J. Keep each chip value in its tape until you place it: the ceramic capacitors carry no
+marking at all, and a loose 10k looks like a loose 100k.
 
 | block | through-hole parts (top) | chips (bottom) | other |
 | --- | --- | --- | --- |
@@ -128,7 +133,9 @@ a TO-220 from 2 oz copper is slow. The marks below are the ones the board's KiCa
 the board renders from the layout step before you start, and have a second person check
 every part in this table before it is soldered.
 
-On this board, **pin 1 of every part has a square (or rounded-square) pad.** The other pads are round or oval.
+On this board, **pin 1 of every part has a square (or rounded-square) pad.** The other pads are round or oval. Every
+polarised part on the top also has a pin-1 dot on the silkscreen beside it, except D702 (the red fault LED) and J1002
+(the remote-button connector), where there was no room: for those two, go by the square pad.
 
 | part type | parts | the mark on the part | the mark on the board |
 | --- | --- | --- | --- |
@@ -159,6 +166,8 @@ Test loops: black for the two ground loops (TP102 and TP1002), red for the other
 ### 1. Inspect the bare board
 
 Look at both sides under the microscope for scratches through the copper and for solder mask missing between pads.
+The bare copper strips on the top over the BAT and VM pours are meant to be bare. The two inner layers cannot be seen;
+the meter checks below cover them.
 Then, with the meter on continuity, check that none of these beep against GND (TP102): the pack pad BAT+, the motor bus
 (the ESC+ pad), VSYS_SW (TP401), +5V (TP402), +3V3 (TP701). Check also that J201 pin 4 (the BMS's ground) does not
 beep against GND: the two grounds must never meet on this board. Nor may TP502 (CHG_GND, the charger side's ground):
@@ -166,10 +175,23 @@ on the car it meets GND only inside the CC/CV module.
 
 Write the board's serial number in the box on the silkscreen.
 
-### 2. The chips on the bottom (98)
+### 2. The chips on the bottom (104)
 
-Turn the board upside down. Every chip goes on the bottom side, and the silkscreen there shows each reference. None
-of them is polarised. Work one value at a time: take one tape, place every part of that value, then the next.
+Turn the board upside down. Every chip goes on the bottom side. None of them is polarised. Work one value at a time:
+take one tape, place every part of that value, then the next.
+
+**Finding each chip's place.** The bottom silkscreen shows the reference for 69 of the 107 bottom parts (the 104 chips
+plus the empty R801, R802 and R805 places). The other 38, mostly packed under the Pico and the hub, had no room for
+their reference and have it only on the bottom fab layer:
+
+C1001, C303, C402, C407, C603, C702, C704, R1001, R1003, R1004, R203, R314, R316, R401, R402, R411, R412, R413, R417,
+R421, R422, R501, R503, R506, R602, R603, R705, R806, R807, R811, R812, R813, R814, R815, R903, R904, R905, R906.
+
+For those, print the bottom fab layer as an assembly drawing: `boards/power/out/fab/gerbers/atlas_power-B_Fab.gbr`,
+opened in any Gerber viewer (it is not in the zip that goes to PCBWay). The placement file
+`boards/power/out/fab/atlas_power_cpl_bottom_smd.csv` lists every bottom chip with its value, its position in mm and
+its rotation, and `boards/power/out/render/bottom.png` shows the bottom silkscreen as seen from below. Tick each part
+off on the printout as it goes on.
 
 Iron at about 330 C (`boards/power/README.md`). The 1206 pads are KiCad's longer hand-solder pads, so there is room
 for the tip. **Tack one end, then solder the other:**
@@ -213,6 +235,10 @@ its top is under 9 mm and check with the calipers.
 
 Insert, bend the leads slightly so the part stays put, turn the board over, solder, cut the leads. Check the
 orientation table before each type.
+
+Every through-hole ground pin on the board is also joined to the inner ground plane, so ground joints take longer to
+heat than the others. Use the bigger tip on them and check that the solder has run through the hole and shows on the
+top. The dev-kit return pad, J408 (DEV-), is joined with no thermal spokes at all.
 
 ### 5. TO-92 parts, polyfuses and the NTC
 
@@ -285,10 +311,11 @@ XT90 to reach the supply.
 
 After test 2 has passed:
 
-- The pack pigtail into J101 (BAT+) and J102 (BAT-): 10 AWG with an XT90 male on the end (the pack carries the
-  XT90-S female, the half with the anti-spark resistor). Preheat the board on the hot plate (about 100 C) or use the
-  100-150 W iron: these pads sit in large 2 oz pours. Tin the wire first, then heat the pad and the wire together and
-  feed solder until the hole is full. Then check with the meter that the XT90's plus contact goes to BAT+ (TP101).
+- The pack pigtail into J101 (BAT+) and J102 (BAT-): 10 AWG with an XT90 male on the end (the pack carries the XT90-S
+  female, the half with the anti-spark resistor). Preheat the board on the hot plate (about 100 C) or use the 100-150
+  W iron: these pads are joined solid, with no thermal spokes, to large 2 oz pours. Tin the wire first, then heat the
+  pad and the wire together and feed solder until the hole is full. Then check with the meter that the XT90's plus
+  contact goes to BAT+ (TP101).
 - For test 3, the load goes on the ESC pads (J901 ESC+, J902 ESC-) with 10 AWG leads. If the FSESC will connect through
   an XT60 pigtail (`design.py` allows that), solder the pigtail now and use it for the load too.
 
@@ -398,9 +425,10 @@ the supervisor firmware). The main switch now stays closed for the whole test, a
 closes after precharge with the ESC idle and only opens under load when the E-stop is pulled. Closing the main switch
 straight into a 50 A load is not part of the test.
 
-1. 50 A for 2 s, then 20 s off, ten times. Watch: SW_GATE minus the motor bus stays at 10 V or more; the drop from
-   the pack bus to the motor bus is tens of millivolts; the tab temperature climbs no more than about 20 C over the
-   run. Compare the Pico's FET_NTC reading with the thermocouple.
+1. 50 A for 2 s, then 20 s off, ten times. Watch: SW_GATE minus the motor bus stays at 10 V or more; the drop from the
+   pack bus to the motor bus is tens of millivolts (the layout's copper model gives 1.035 mOhm from J101 to J901 with
+   the FETs at their maximum resistance: about 52 mV at 50 A and 72 mV at 70 A, measured pad to pad); the tab
+   temperature climbs no more than about 20 C over the run. Compare the Pico's FET_NTC reading with the thermocouple.
 2. 70 A for 1 s, then 30 s off, five times, with the same checks.
 3. Open the E-stop during a 50 A pulse, with the scope on TP101 and TP301. The spike must stay well under the TVS
    clamps (27.7 V at full TVS current); expect a few volts.
@@ -542,38 +570,40 @@ above: maximum input voltage 18 V, and battery cut-off from 13.4 V (start) to 12
 
 ## Harnesses
 
-Lengths are from `docs/WIRING.md` (rev B): "cut to" is the length to cut for a lead you make, "at least" is the
-shortest bought cable that reaches. They were modelled before the layout fixed the pad positions (WIRING.md still
-shows a board-mount XT90 and XT60, a camera connector on the board and a USB-C to USB-C dev-kit cable), so treat
-them as provisional and check each
-run on the car before you cut. Where WIRING.md has no number yet, the table says so.
+Lengths are from `docs/WIRING.md` (rev B), modelled with the board's final connector positions: "cut to" is the length
+to cut for a lead you make, "at least" is the shortest bought cable that reaches. The heights of the plugs, the dev
+kit's and the FSESC's ports, the BMS terminals and the charge modules are still estimates there (MEASURE_FIRST items
+20, 21, 25, 26 and 29 to 31), so check each run on the car before you cut. Where WIRING.md has no number, the table
+says so.
 
 | harness | from | to | wire, connectors | length |
 | --- | --- | --- | --- | --- |
 | pack + to fuse | pack + strip | MIDI fuse input stud | 10 AWG, M5 ring terminal | cut to 90 mm |
-| fuse to XT90-S | MIDI fuse output stud | XT90-S, + | 10 AWG | cut to 100 mm |
+| fuse to XT90-S | MIDI fuse output stud | pack XT90-S female, + | 10 AWG | cut to 140 mm |
 | pack - to BMS | pack - strip | JBD B- | 10 AWG | cut to 120 mm |
-| BMS to XT90-S | JBD P- | XT90-S, - | 10 AWG | cut to 130 mm |
+| BMS to XT90-S | JBD P- | pack XT90-S female, - | 10 AWG | cut to 100 mm |
 | balance adapter | pack 7-pin JST-XH (B0-B4, NTC, NTC return) | JBD balance connector and NTC input | adapter harness | at least 200 mm |
-| pack pigtail | board J101 (BAT+), J102 (BAT-) | XT90 male, mates with the pack's XT90-S female | 10 AWG | not in WIRING.md: measure on the car |
-| BMS UART | JBD 4-pin UART port | board J201 (JST-XH 4) | adapter lead | at least 180 mm |
+| pack pigtail | board J101 (BAT+), J102 (BAT-) | XT90 male, mates with the pack's XT90-S female | 10 AWG pair | cut to 90 mm each |
+| BMS UART | JBD 4-pin UART port | board J201 (JST-XH 4) | adapter lead | at least 250 mm |
 | J12 ribbon | dev kit J12 | board J801 | 40-wire IDC ribbon, 150 mm (Adafruit 1988), bought | at least 90 mm |
-| J14 harness | dev kit J14 | board J802 | 1 x 12 Dupont housing at both ends, 8 wires | cut to 70 mm |
-| FSESC COMM | FSESC COMM port | board J903 | JST-PH 7 at both ends, 4 wires | at least 40 mm |
+| J14 harness | dev kit J14 | board J802 | 1 x 12 Dupont housing at both ends, 8 wires | cut to 110 mm |
+| FSESC COMM | FSESC COMM port | board J903 | JST-PH 7 at both ends, 4 wires | at least 50 mm |
 | servo signal | FSESC servo/PPM port | board J904 | 3-pin lead (the FSESC kit includes a PPM cable) | not in WIRING.md |
-| ESC battery leads | FSESC battery end | board ESC+ (J901), ESC- (J902) | the FSESC's own 12 AWG leads, run as one tied pair | + cut to 90 mm, - cut to 120 mm |
+| ESC battery leads | FSESC battery end | board ESC+ (J901), ESC- (J902) | the FSESC's own 12 AWG leads, run as one tied pair | cut to 50 mm each |
 | Castle BEC | board BEC+ (J401; or BEC+ALT, J410, if test 4 says so), BEC- pads; its output into J403 | the BEC | its own 16 AWG leads and servo plug; the red lead long enough to reach J410 | not in WIRING.md |
-| camera power | camera M8 GPIO connector | Pololu S18V20F12 output (on the tray) | LUCID GPIO-M8-5M-RA2-A, cut | cut to 220 mm |
-| camera regulator input | board camera pads | S18V20F12 input | 22 AWG pair | not in WIRING.md |
-| dev-kit DC lead | board DEV+, DEV- | dev kit DC jack | Tensility 10-01779 (5.5 x 2.5 mm right-angle plug, 18 AWG), cut | cut to 70 mm |
-| latch | board latch pads | Pololu #2813 (on the tray) | 18 AWG VIN, VOUT, GND; 24 AWG ON, OFF | not in WIRING.md |
-| charge modules | board PD pads and CC/CV pads | Adafruit 5807 and the CC/CV buck (in the pod) | 20 AWG, six wires, one per module terminal: PD VOUT, PD GND, buck IN+, IN-, OUT+, OUT- | not in WIRING.md |
-| dev kit USB-C | board J601 (USB-A receptacle at the pod edge, hub port 1) | dev kit USB-C | one ordinary USB 2.0 USB-A to USB-C cable; the plug needs about 40 mm beyond the board edge (estimate), or use a cable with a right-angle USB-A plug | at least 140 mm |
-| FSESC USB | board J602 (hub port 3, 1 x 4 header) | FSESC micro-USB | Adafruit 4449 jack lead and the FSESC's micro-USB cable | at least 120 mm |
+| camera power | camera M8 GPIO connector | Pololu S18V20F12 output (upright on the camera arch's right leg) | LUCID GPIO-M8-5M-RA2-A, cut | cut to 120 mm |
+| camera regulator input | board camera pads (MOD402, front edge) | S18V20F12 input | 22 AWG pair | cut to 80 mm |
+| dev-kit DC lead | board DEV+, DEV- | dev kit DC jack | Tensility 10-01779 (5.5 x 2.5 mm right-angle plug, 18 AWG), cut | cut to 140 mm |
+| latch | board latch pads | Pololu #2813 | 18 AWG VIN, VOUT, GND; 24 AWG ON, OFF | not in WIRING.md |
+| PD trigger | board PD-trigger pads | Adafruit 5807 VOUT and GND (CHG_GND), in the right pod | 20 AWG pair | cut to 80 mm |
+| CC/CV input | board CC/CV pads | buck IN+ and IN- (CHG_GND) | 20 AWG pair | cut to 60 mm |
+| CC/CV output | board CC/CV pads | buck OUT+ and OUT- (GND) | 20 AWG pair | cut to 90 mm |
+| dev kit USB-C | board J601 (USB-A receptacle at the pod edge, hub port 1) | dev kit USB-C | USB 2.0 cable, right-angle USB-A plug (cable leaving the plug's narrow side) to USB-C, 0.3 m; plug it in before the right pod goes on | at least 210 mm |
+| FSESC USB | board J602 (hub port 3, 1 x 4 header) | FSESC micro-USB | Adafruit 4449 jack lead and the FSESC's micro-USB cable | at least 160 mm, the whole run |
 | Pico USB | Pico micro-USB | a dev kit USB-A port | micro-USB to USB-A, 0.3 m | at least 100 mm |
-| laptop port | right pod, debug window | the hub's USB-C | panel-mount USB-C extension (or the hub's USB-C straight through the window) | at least 120 mm |
-| lidar power | board J409 | lidar power M12 | the donor SICK M12 power cable, cut and stripped | cut to 40 mm |
-| fan | 40 mm fan in the right pod | board J1003 (rear edge) | the fan's own 4-pin lead | about 60 mm to the rear edge (`mech/NOTES_REVB.md`) |
+| laptop port | the laptop | the hub module's USB-C, through both pod walls | the laptop's own USB-C cable; no panel socket or pigtail | |
+| lidar power | board J409 | lidar power M12 | the donor SICK M12 power cable, cut and stripped | cut to 70 mm |
+| fan | 40 mm fan in the right pod | board J1003 (rear edge) | the fan's own 4-pin lead | at least 120 mm |
 | E-stop | board J1001 | the E-stop button | JST-PH 2; with no button, a lead with its two wires joined | |
 
 Notes on the ones that can go wrong:
@@ -599,8 +629,8 @@ Notes on the ones that can go wrong:
 - **Dev kit USB.** J601 is a normal USB-A socket: one USB-A to USB-C cable to the dev kit's USB-C port gives USB
   networking (192.168.55.1). For flashing JetPack, if it fails through the hub, plug the laptop straight into the dev
   kit's USB-C (review M7).
-- **Charge modules.** Six separate wires. The PD trigger's GND and the buck's IN- go to the CHG_GND pads, the buck's
-  OUT- to GND. Never join IN- and OUT- outside the module (review B1).
+- **Charge modules.** Six separate wires, in three pairs. The PD trigger's GND and the buck's IN- go to the CHG_GND
+  pads, the buck's OUT- to GND. Never join IN- and OUT- outside the module (review B1).
 - **Pack pigtail.** The board's pigtail ends in an XT90 male; the pack's lead ends in the XT90-S female, the half with
   the anti-spark resistor. Meter-check the polarity at both connectors before the first connection (review m15).
 - **Dev-kit DC lead.** The jack is centre positive. With the board powered, check with the meter that the plug's centre

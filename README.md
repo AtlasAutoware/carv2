@@ -5,7 +5,7 @@ and a LUCID Triton camera, built on a carbon-fibre-printed deck.
 
 Rev B (October 2026) is the version being built. Its electronics are:
 
-- **Power board (ATLAS-PWR-1).** A 2-layer board that students solder at school: the motor-bus switch with
+- **Power board (ATLAS-PWR-1).** A 4-layer board that students solder at school: the motor-bus switch with
   precharge and a hardware E-stop, the power latch, the feeds for the Jetson, lidar, camera, servo and fan, USB-C
   charging, a USB hub so one laptop cable reaches the Jetson, the ESC and the serial console, and a Raspberry Pi Pico
   that sequences it all and talks to the Jetson.
@@ -24,15 +24,20 @@ The picture is the rev A car; the whole-car renders have not been redone for rev
 
 ## Status
 
-**24 October 2026: rev B is being designed, and nothing has been ordered or built.**
+**26 October 2026: the rev B power board is routed and its order files are made; nothing is ordered or built yet.**
 
 - An independent pre-order review (`docs/review_revb_2026-10-24.md`) said "fix first, then order; no redesign is
   needed". Its one blocker and seven majors are fixed in the design and the firmware (`boards/power/DESIGN_FIXED.md`,
   `firmware/supervisor/NOTES.md`). It asks for three bench tests before ordering; they are listed in `docs/REV_B.md`.
-- The power board's schematic, parts list and placement are done (`boards/power/`). `netcheck.py` finds 0 errors and
-  14 warnings (small back-power currents into unpowered pins, all within its limits). Parts cost $149.37 per board at
-  quantity 1 (`bom/revb/power_board_cost.md`). Layout, routing, DRC and the fab files are in progress
-  (`boards/power/HANDOFF_E.md`, `LAYOUT_NOTES.md`); the PCBWay price for the bare boards comes with them.
+- The power board is designed and routed (`boards/power/`). `netcheck.py` finds 0 errors and 14 warnings (small
+  back-power currents into unpowered pins, all within its limits). It is routed on four layers (2 oz outside, a 1 oz
+  ground plane and a 1 oz signal layer inside; two attempts on two layers left 18-21 logic nets open round the Pico),
+  and KiCad's DRC finds 0 unconnected items and 0 clearance errors (`boards/power/LAYOUT_NOTES.md`). Parts cost
+  $149.37 per board at quantity 1 (`bom/revb/power_board_cost.md`); PCBWay's instant quote for five bare boards is
+  $182.34 with shipping. The order files are in `boards/power/out/fab/`, renders in `boards/power/out/render/`.
+- Before the boards are ordered: ERC and the KiCad 10 DRC with schematic parity on the team laptop
+  (`boards/tools/run_kicad.sh erc-power` and `drc-power`; KiCad 7, used for the layout, cannot read the schematic
+  sheets).
 - The supervisor firmware (`firmware/supervisor/`) passes its 119 tests on a simulated board. It has not run on a
   Pico.
 - The Jetson tools (`software/jetson/`) are rewritten for the dev-kit carrier and the supervisor and pass their tests,
@@ -42,7 +47,7 @@ The picture is the rev A car; the whole-car renders have not been redone for rev
   laser-cut from 3 mm sheet, and a 3 mm acrylic shield over the live FET bar is always cut (`mech/README.md`,
   "Laser-cut parts"). The dev-kit carrier's hole positions are placeholders until the owned
   board is measured.
-- Still to measure before ordering and printing: `docs/MEASURE_FIRST.md`, items 12 and 17-28. The open questions are
+- Still to measure before ordering and printing: `docs/MEASURE_FIRST.md`, items 12 and 17-31. The open questions are
   at the end of `docs/REV_B.md`.
 
 ## What is in here
@@ -67,13 +72,15 @@ From `bom/cost_summary.md` and `docs/REV_B.md` (prices from September and Octobe
 
 | | rev A | rev B |
 | --- | ---: | ---: |
-| Electronics for one car (rev A: one assembled PCBWay set; rev B: power board parts, BMS, BEC, fuse, leads, lidar adapter, camera cable) | 1,927.81 | 340.93 + bare boards |
+| Electronics for one car (rev A: one assembled PCBWay set; rev B: power board parts, BMS, BEC, fuse, leads, lidar adapter, camera cable, and the order of five bare boards) | 1,927.81 | 523.27 |
 | Pack materials, lens, charger, fan, hardware, antennas | 402.55 | 376.56 |
 | Castle Link (one-time, to set the servo BEC) | | 26.99 |
-| **One car, new money** | **2,330.36** | **744.48 + bare boards** |
+| **One car, new money** | **2,330.36** | **926.82** |
+| **Two cars, new money** (one bare-board order for both) | **about 3,205** | **1,644.31** |
 
-The ESC and the Jetson dev kit are owned and cost nothing new. Assembly is done by students at school. The bare-board
-price for the power board comes from the layout step (`boards/power/LAYOUT_NOTES.md`, pending).
+The ESC and the Jetson dev kit are owned and cost nothing new. Assembly is done by students at school. The five bare
+boards are PCBWay's instant quote of October 26 ($155.79 + $26.55 DHL), before the Future Innovators discount and
+customs.
 
 ## Rebuilding
 
@@ -89,10 +96,14 @@ Rev B:
   python3 ../power/netcheck.py
   python3 ../../bom/revb/make_power_bom.py
   ```
-  The PCB itself (`build_pcb.py`, routing, DRC, fab files) is the layout step: `boards/power/HANDOFF_E.md`.
+    The board is routed: do not run `placer.py` or `build_pcb.py` again unless the layout is to be redone, because they
+  rebuild the board from the placement and drop the routing (`boards/power/LAYOUT_NOTES.md`, "Regenerating"). The
+  order files come from `python3 fab_outputs.py power` (KiCad 7 or later). On the laptop with KiCad 10, from the repo
+  root: `boards/tools/run_kicad.sh erc-power` and `boards/tools/run_kicad.sh drc-power` before ordering; not
+  `pcb-power` or `fab-power`.
 - **Printed kit.** `pip install cadquery ezdxf shapely matplotlib`, then from `mech/`:
-  `POWER_L=130 python3 kit.py`, `POWER_L=130 python3 extras.py` and `python3 ../boards/board_outlines.py`. `kit.py`
-  still defaults to a 150 mm board; 130 mm is the length the power board was laid out at.
+  `python3 kit.py`, `python3 extras.py` and `python3 ../boards/board_outlines.py` (the default board length is the
+  layout's 130 mm; `SHEET_PARTS=all` checks the laser-cut parts in place of the printed ones).
 - **Supervisor firmware.** `python3 -m pytest firmware/supervisor/tests`. To put it on a Pico: MicroPython from
   micropython.org, then `mpremote connect /dev/ttyACM0 cp pins.py hal.py jbd.py link.py sequencer.py main.py :` from
   `firmware/supervisor/` (`firmware/supervisor/README.md`).

@@ -33,7 +33,7 @@ Rev A's two boards are the October PCBWay quote here, not the September estimate
 | Drive board: 5 PCBs, 1 assembled (PCB 452.05, assembly 380.36, parts 270.50) | 1,102.91 |  | PCBWay quote, Oct 2026 |
 | Brain board: 5 PCBs, 1 assembled (PCB 373.34, assembly 253.58, parts 197.98) | 824.90 |  | PCBWay quote, Oct 2026 |
 | ATLAS-PWR-1 parts, one board (with the Pico, hub, latch, camera regulator, PD trigger, CC/CV buck, DIP sockets) |  | 149.37 | `bom/revb/power_board_bom.csv` (11.30 not verified) |
-| ATLAS-PWR-1 bare boards |  | PCBWay estimate | pending in `boards/power/LAYOUT_NOTES.md` |
+| ATLAS-PWR-1 bare boards, 5 pcs (4 layers, 2 oz outer, 1 oz inner; one order for both cars) |  | 182.34 | PCBWay instant quote 2026-10-26: 155.79 + 26.55 DHL; `boards/power/LAYOUT_NOTES.md` |
 | Assembly | in the quotes | 0 | students at school |
 | ESC | on the drive board | 0 | owned Flipsky Mini FSESC 6.7 Pro |
 | Jetson carrier | brain board | 0 | owned NVIDIA dev-kit carrier |
@@ -50,13 +50,14 @@ Rev A's two boards are the October PCBWay quote here, not the September estimate
 | USB 3 gigabit adapter for the lidar (ZimaSpace RTL8153) |  | 9.90 | shop.zimaspace.com (sale; list 15.90) |
 | LUCID GPIO-M8-5M-RA2-A camera power cable |  | 40.00 | thinklucid.com |
 | USB leads (Adafruit 4449 for the FSESC, USB-A to USB-C for the dev kit, micro-USB to USB-A, panel-mount USB-C) |  | not priced |  |
-| **Electronics for one car** | **1,927.81** | **340.93 + bare boards** |  |
+| **Electronics for one car** | **1,927.81** | **523.27** | rev B: 340.93 + the board order |
 | 18650 pack materials | 134.20 | 134.20 | rev A table above |
 | Lens | 144.00 | 144.00 | rev A table above |
 | Charger, cable, fan, hardware, antennas | 124.35 | 98.36 | rev A table above; rev B does without the thermal pad and the stack and canopy standoffs (25.99) |
 | Standoffs: 6 x M3 7 mm and 6 x M3 25 mm | in the line above | not priced | `mech/README.md` |
 | Castle Link V3, sets the BEC to 7.5 V (one-time; skip if the team has one) |  | 26.99 | robotshop.com |
-| **One car, new money** | **2,330.36** | **744.48 + bare boards** |  |
-| **Board electronics for two cars** | **about 2,400** | **681.86 + one bare-board order** | rev A: two assembled PCBWay sets |
+| **One car, new money** | **2,330.36** | **926.82** | the board order included |
+| **Board electronics for two cars** | **about 2,400** | **864.20** | rev A: two assembled PCBWay sets; rev B: one board order |
+| **Two cars, new money** | **about 3,205** | **1,644.31** | rev A: about 2,400 for the boards; rev B: the board order and the Castle Link once |
 
-The Jetson dev kit and NVMe (459.00 on the September sheet) are owned now and left out of both columns, as are the conditional camera cable and the optional spot welder. The rev B charger line keeps rev A's 15 cm antenna pigtails; the routed runs need 20 cm ones, not priced. A second car also needs its own Jetson and pack in either revision; in rev B its ESC is the team's second FSESC. Details: `docs/REV_B.md`, "Cost".
+The Jetson dev kit and NVMe (459.00 on the September sheet) are owned now and left out of both columns, as are the conditional camera cable and the optional spot welder. The rev B charger line keeps rev A's 15 cm antenna pigtails; the routed runs need 20 cm ones, not priced. A second car also needs its own Jetson and pack in either revision; in rev B its ESC is the team's second FSESC. The board quote is before PCBWay's review of the files, the Future Innovators discount and customs; ten boards would be 199.87 (173.32 + 26.55), and 1 oz copper everywhere 109.18 (82.63 + 26.55), but the pours were designed for 2 oz, so the first build keeps 2 oz. Details: `docs/REV_B.md`, "Cost".

@@ -1,19 +1,21 @@
 # Car v2 rev B: one power board, the owned dev kit and the owned ESC
 
-Rev B of the second Atlas car (Traxxas Slash 4x4, Holmes Hobbies Puller Pro 540 2200 kV, SICK TiM561, LUCID
-Triton). The car does the same job as in rev A. What changes is how it is built: one 2-layer power board that
-students solder at school, the NVIDIA dev-kit carrier the team already owns, the Flipsky ESC the team already owns,
-and a smart BMS that lives with the pack. `docs/ARCHITECTURE.md` stays as the record of rev A, and its boards stay in
-`boards/drive/` and `boards/brain/`.
+Rev B of the second Atlas car (Traxxas Slash 4x4, Holmes Hobbies Puller Pro 540 2200 kV, SICK TiM561, LUCID Triton).
+The car does the same job as in rev A. What changes is how it is built: one power board that students solder at
+school, the NVIDIA dev-kit carrier the team already owns, the Flipsky ESC the team already owns, and a smart BMS that
+lives with the pack. `docs/ARCHITECTURE.md` stays as the record of rev A, and its boards stay in `boards/drive/` and
+`boards/brain/`.
 
-Status on 2026-10-24: the power board's schematic, parts list and placement are done and have been through an
-independent pre-order review (below); the fixes are in (`boards/power/DESIGN_FIXED.md`). `boards/power/netcheck.py`
+Status on 2026-10-26: the power board is designed, reviewed and routed. Its schematic and parts went through an
+independent pre-order review (below) and the fixes are in (`boards/power/DESIGN_FIXED.md`); `boards/power/netcheck.py`
 reports 0 errors and 14 warnings (back-power of 0.05-0.28 mA into unpowered pins, under its 0.5 mA limit, and up to
-2.7 mA into the dev kit's 1 kOhm-fed inputs while the dev kit is off). Layout and routing are in progress
-(`boards/power/HANDOFF_E.md`, `LAYOUT_NOTES.md`). The supervisor firmware and the Jetson tools pass their tests on
-simulated hardware. The printed kit is modelled and has zero interference with a 130 mm board; five of its flat parts
-can be laser-cut instead. Nothing has been ordered or built. The student assembly guide is
-`docs/BUILD_POWER_BOARD.md`.
+2.7 mA into the dev kit's 1 kOhm-fed inputs while the dev kit is off). The board is routed on four layers and KiCad's
+DRC finds 0 unconnected items and 0 clearance errors (`boards/power/LAYOUT_NOTES.md`). The fabrication files are in
+`boards/power/out/fab/`, and PCBWay's instant quote for five bare boards is $182.34 with shipping. Before ordering,
+ERC and the KiCad 10 DRC with schematic parity still have to run on the team laptop. The supervisor firmware and the
+Jetson tools pass their tests on simulated hardware. The printed kit is modelled and has zero interference with a 130
+mm board; five of its flat parts can be laser-cut instead. Nothing has been ordered or built. The student assembly
+guide is `docs/BUILD_POWER_BOARD.md`.
 
 ![rev B stack: power board height map, dev-kit tray and carrier, ESC in its cradle](../mech/out/renders/stack_revb.png)
 
@@ -45,8 +47,8 @@ boards are not.
 
 Rev B stops making the parts of the car that already exist as products. The Jetson goes back on the NVIDIA carrier
 the team owns, the ESC is the Flipsky the team owns, and the battery protector is a module. What is left is power
-switching, sequencing and distribution, and that fits a 2-layer board of through-hole parts plus 1206 chips that an
-iron can solder.
+switching, sequencing and distribution, and that fits a board of through-hole parts plus 1206 chips that an iron can
+solder.
 
 ## Pre-order review
 
@@ -83,7 +85,7 @@ flowchart LR
     CELLS -- "B+" --> FUSE --> XT
     CELLS -- "B-" --> BMS -- "P- = system GND" --> XT
   end
-  subgraph PWR["power board ATLAS-PWR-1 (130 x 84 mm, 2 layers, 2 oz)"]
+  subgraph PWR["power board ATLAS-PWR-1 (130 x 84 mm, 4 layers, 2 oz outside)"]
     BULK["3 x 680 uF + TVS<br/>at the pack pads"]
     SW["main switch<br/>3 x IRFB7430 + MIC5014<br/>precharge IRF9Z34N + 10 Ohm"]
     AND["74HCT08<br/>E-stop AND enables"]
@@ -130,7 +132,8 @@ acrylic on the school's CO2 laser instead of printed; those sheets do not conduc
 Why one board and the dev kit, and not a new pair of custom boards: rev A needed two boards because the ESC needed 2 oz
 copper for 70-150 A while the Jetson carrier needed eight impedance-controlled layers. With the ESC and the carrier
 both already owned, neither requirement is left. Nothing on the power board is fast: two UARTs at 115200 and 9600
-baud, gate drive in milliseconds, and one USB 2.0 hub whose runs are kept short. Two layers are enough.
+baud, gate drive in milliseconds, and one USB 2.0 hub whose runs are kept short, so it needs no impedance control.
+It has four layers for routing room and a ground plane, not for speed ("The power board", below).
 
 ## What you plug in
 
@@ -154,7 +157,7 @@ provisional until the layout fixes the pad positions.
 | dev kit power | DEV+/DEV- pads | Tensility 10-01779 5.5 x 2.5 mm right-angle plug lead, 18 AWG |
 | dev kit J12 (40-pin) | J801 box header | 150 mm 40-wire IDC ribbon |
 | dev kit J14 (button header) | J802 1 x 12 header | Dupont housing, 8 wires, keyed with a printed clip |
-| dev kit USB-C | hub port 1: J601, a through-hole USB-A receptacle at the pod edge | one ordinary USB-A to USB-C cable |
+| dev kit USB-C | hub port 1: J601, a through-hole USB-A receptacle at the pod edge | one 0.3 m USB 2.0 cable, right-angle USB-A plug to USB-C |
 | Pico micro-USB | a dev kit USB-A port | micro-USB to USB-A, 0.3 m (supervisor link) |
 | lidar power | J409 Phoenix terminal at the front edge | the donor M12 power cable, cut and stripped |
 | lidar Ethernet | USB 3 gigabit adapter on a dev kit USB-A port | the donor M12-D to RJ45 cable |
@@ -276,9 +279,39 @@ nothing on.
 
 ### The power board, ATLAS-PWR-1
 
-130 x 84 mm, 2 layers, 2 oz copper, 1.6 mm, HASL, no impedance control, 0.25 mm minimum track and gap, 0.3 mm
-minimum drill. Sources in `boards/power/`: `design.py` is the circuit, with the reason for every value, `layout.py`
-the placement and the hand-drawn power copper, `PINMAP.md` the Pico pin map.
+130 x 84 mm, 4 layers, 1.6 mm, HASL lead-free, no impedance control, 0.25 mm minimum track, 0.2 mm minimum gap,
+0.3 mm minimum drill. Sources in `boards/power/`: `design.py` is the circuit, with the reason for every value,
+`layout.py` the placement and the hand-drawn power copper, `PINMAP.md` the Pico pin map, `LAYOUT_NOTES.md` the
+routing, the checks and the quote.
+
+| layer | copper | what is on it |
+| --- | --- | --- |
+| F.Cu (top) | 2 oz | the through-hole parts and modules, the BAT, VM and GND power pours, the power runs, signals |
+| In1.Cu | 1 oz | one solid GND plane over the whole board, with the BMS domain cut out so the BMS's ground stays an island |
+| In2.Cu | 1 oz | signals, and most of the +3V3, +5V and Pico supply runs |
+| B.Cu (bottom) | 2 oz | the 1206 chips, the GND pour under the power section, signals |
+
+**Why four layers.** The plan was two, and two full routing attempts on two layers each left 18 to 21 logic
+connections open, all around the Pico. The J14 harness header (J802) sits 4.6 mm from the Pico's pins: it has to be
+within reach of the short harness from the dev kit's J14, and a search of the whole board found no other spot in reach
+that clears the parts around it. With it there, the strip into the Pico is too narrow for the J12 ribbon nets, the
+rear-connector nets and the J14 and hub nets all at once (one 0.3 mm track fits between two pins), and moving J802
+would have meant moving six other fixed parts. The ground round the Pico was also cut off from the pack ground, so the
+dev kit's 5 A return had no proper path. An inner GND plane and an inner signal layer fix both without touching the
+placement: on four layers the board routed completely, and the dev kit's return from DEV- to the pack pad comes to
+0.976 mOhm in the layout's copper model (4.9 mV at 5 A). The cost: five bare boards are $182.34 with shipping, against
+$76.64 in the last 2-layer quote (Cost).
+
+**Checks on the finished board** (`LAYOUT_NOTES.md`, KiCad 7 DRC): 0 unconnected items and 0 clearance, short,
+crossing, hole, edge, courtyard or mask errors; only silkscreen warnings. 1,944 track segments and 435 vias (317 of
+them ground, 284 of those stitching the outer ground fills to the plane). In the layout's copper model the whole 90 A
+path from the pack pad J101 through the BAT pour, the three FETs (each at its 1.3 mOhm maximum) and the VM pour to
+ESC+ (J901) is 1.035 mOhm, 93 mV at 90 A; the FETs share it as 33.8, 29.9 and 26.3 A. Solder mask is left open over
+the main BAT and VM current paths so they can be tinned or strapped (review m20). The fabrication files are in
+`boards/power/out/fab/`: a PCBWay zip with 14 Gerber and drill files (four copper layers, both masks, pastes and
+silkscreens, the outline, plated and unplated drill files, the job file with the stackup), the placement file for the
+bottom chips, a list of the top through-hole parts and the BOM. Renders of each side and each copper layer are in
+`boards/power/out/render/`.
 
 **Size and the 1206 compromise.** The printed kit sets the length: at 150 mm the board's front 3.4 mm sits inside the
 TiM561's M12 plugs (an estimate: 45 mm long plugs, MEASURE_FIRST item 12), and at 130 mm both kit scripts report zero
@@ -368,8 +401,8 @@ receptacle (J601, Wurth 614004134726) at the pod edge, and one ordinary USB-A to
 kit's USB-C (USB networking and flashing); the first draft went through a header and a jack lead, which the review
 judged marginal at 480 Mb/s (M7). Port 2 goes to an MCP2221A USB-UART on the dev kit's J14 console pins, port 3 to a
 1 x 4 header for the FSESC's USB (VESC Tool, full speed only, its ground through 2.2 Ohm), port 4 is spare. The
-high-speed pairs run short and coupled over ground; 90 Ohm is not reachable on a 1.6 mm 2-layer board, so runs stay
-under 40 mm. If flashing JetPack through the hub fails, the laptop plugs straight into the dev kit.
+high-speed pairs run short and coupled over the ground plane; there is no impedance control, so runs stay under
+40 mm. If flashing JetPack through the hub fails, the laptop plugs straight into the dev kit.
 
 **G. Supervisor.** The Raspberry Pi Pico in its sockets, two ADC dividers (100k / 18k: 16.8 V reads 2.56 V) for the
 motor bus and the pack, and the status and fault LEDs. The pack is sensed from VSYS_SW, so no divider drains the pack
@@ -500,14 +533,15 @@ Other things rev B loses along the way:
 Rev A's boards are the October PCBWay quote. The pack, lens and smaller items are the September estimates in
 `bom/cost_summary.md`, which apply to both revisions. Rev B's board parts are `bom/revb/power_board_cost.md`; the
 modules and leads that replace rev A's on-board circuits are the prices the Phase 1 studies read on 2026-10-24, with
-their links under Sources.
+their links under Sources. The bare boards are PCBWay's instant quote of 2026-10-26 for the finished 4-layer board
+(`boards/power/LAYOUT_NOTES.md`). One order of five boards covers both cars, so it is counted once.
 
 | line | rev A (USD) | rev B (USD) | source |
 | --- | ---: | ---: | --- |
 | Drive board: 5 PCBs, 1 assembled | 1,102.91 | | PCBWay quote, Oct 2026 |
 | Brain board: 5 PCBs, 1 assembled | 824.90 | | PCBWay quote, Oct 2026 |
 | ATLAS-PWR-1 parts, one board (includes the Pico, the hub, the Pololu latch, the camera regulator, the PD trigger, the CC/CV buck and the DIP sockets) | | 149.37 | `bom/revb/power_board_cost.md` ($11.30 not verified; $140.67 before the review's changes) |
-| ATLAS-PWR-1 bare boards | | PCBWay estimate, pending in `boards/power/LAYOUT_NOTES.md` | layout step |
+| ATLAS-PWR-1 bare boards, 5 pcs: 4 layers, 2 oz outside, 1 oz inside, HASL lead-free, 4-5 day build | | 182.34 | PCBWay instant quote, 2026-10-26: 155.79 + 26.55 DHL to the US |
 | Assembly | in the quotes | 0, students at school | |
 | ESC | on the drive board | 0, owned Mini FSESC 6.7 Pro | |
 | Jetson carrier | the brain board | 0, owned dev-kit carrier | |
@@ -524,14 +558,15 @@ their links under Sources.
 | USB 3 gigabit adapter for the lidar (ZimaSpace RTL8153) | | 9.90 | ZimaSpace (sale price; list 15.90) |
 | LUCID GPIO-M8-5M-RA2-A camera power cable | | 40.00 | LUCID listing |
 | USB leads: an Adafruit 4449 jack lead (FSESC), a USB-A to USB-C cable (J601 to the dev kit), a micro-USB to USB-A cable (Pico), a panel-mount USB-C extension (laptop port) | | not priced | |
-| **Electronics for one car** | **1,927.81** | **340.93 + bare boards** | |
+| **Electronics for one car** | **1,927.81** | **523.27** | rev B: 340.93 + the board order |
 | 18650 pack materials | 134.20 | 134.20 | `bom/cost_summary.md` |
 | Lens | 144.00 | 144.00 | `bom/cost_summary.md` |
 | Charger, cable, fan, hardware, antennas | 124.35 | 98.36 | `bom/make_bom.py` lines; rev B drops the thermal pad (10.00), the stack standoffs (8.00) and the canopy standoffs (7.99) |
 | Standoffs: 6 x M3 7 mm and 6 x M3 25 mm | in the line above | not priced | `mech/README.md` |
 | One-time tool: Castle Link V3, to set the BEC (skip if the team has one) | | 26.99 | RobotShop |
-| **One car, new money** | **2,330.36** | **744.48 + bare boards** | |
-| **Board electronics for two cars** | **about 2,400** (two assembled PCBWay sets) | **681.86 + one bare-board order** | |
+| **One car, new money** | **2,330.36** | **926.82** | the board order included |
+| **Board electronics for two cars** | **about 2,400** (two assembled PCBWay sets) | **864.20** | rev B: 2 x 340.93 + one board order |
+| **Two cars, new money** | **about 3,205** | **1,644.31** (about 822 a car) | the board order and the Castle Link counted once |
 
 Notes on the table:
 
@@ -539,22 +574,27 @@ Notes on the table:
   So are the conditional camera M12 cable ($30.00) and the optional spot welder ($304.51), as in rev A's summary.
 - The 98.36 keeps rev A's 15 cm antenna pigtails at $6.99; the routed runs need 20 cm pigtails, whose price was not
   checked.
-- The two-car line counts only what replaces the two boards. A second car needs its own Jetson and pack in either
+- "Board electronics for two cars" counts only what replaces the two boards. "Two cars, new money" adds each car's
+  pack, lens and small items (rev A: about 2,400 + 2 x 402.55). A second car also needs its own Jetson in either
   revision; in rev B its ESC is the team's second FSESC.
-- Phase 1 estimated five 2-layer 2 oz boards of about this size at $45-65 at JLCPCB. The team orders at PCBWay, where
-  it has an account and the Future Innovators 50 % program, and the layout step adds that estimate.
+- The board quote is before PCBWay's review of the files, before the Future Innovators discount (the team has an
+  account and the 50 % program there) and before US customs. Ten boards would be $199.87 (173.32 + 26.55).
+- With 1 oz copper on every layer the same order would be $109.18 (82.63 + 26.55). The BAT, VM and GND pours and the
+  10 AWG pads were designed and checked for 2 oz outside, so the first build stays at 2 oz. The last 2-layer quote,
+  before the board went to four layers, was $76.64 (50.09 + 26.55).
 - The tools for the bench tests (a current-limited bench supply, a meter, a thermocouple, an oscilloscope, a load
   for 50-70 A pulses, a 4.7 Ohm 50 W resistor) are assumed to be in the lab and are not priced.
 - Laser-cutting the tray, the BMS holder, the canopy and the splices instead of printing them, and the acrylic FET
   shield that is always cut, take one 300 x 300 mm sheet of 3 mm plywood and a 100 x 50 mm acrylic offcut
   (`mech/PRINTING.md`); not priced.
 
-Rev B's electronics for one car cost about a sixth of rev A's quote before the bare boards are added, and the
-assembly money goes to zero. Rev A could buy one set within the $2,760 on hand; rev B leaves room for both cars.
+With the board order included, rev B's electronics for one car cost about a quarter of rev A's quote ($523.27
+against $1,927.81), and the assembly money goes to zero. Rev A could buy one set within the $2,760 on hand; both rev B
+cars together come to $1,644.31.
 
 ## Open questions, and what to measure before ordering
 
-From `docs/MEASURE_FIRST.md`, items 17-28 (rev B) and item 12. Each one is a parameter in `mech/kit.py` or
+From `docs/MEASURE_FIRST.md`, items 17-31 (rev B) and item 12. Each one is a parameter in `mech/kit.py` or
 `mech/extras.py`; change it and rerun the scripts.
 
 | # | what | blocks |
@@ -572,8 +612,22 @@ From `docs/MEASURE_FIRST.md`, items 17-28 (rev B) and item 12. Each one is a par
 | 26 | the MIDI fuse holder; the XT90-S plug length with its leads | pack lead lengths |
 | 27 | each laser sheet's real thickness | the tab-and-slot laser-cut parts |
 | 28 | the highest live point of the FET bar on the built board (20 mm assumed) | the acrylic shield hangs 2 mm above it; 21 mm at most under it |
+| 29 | J601's height and opening, and the right-angle USB-A plug bought for it | the window in the right pod |
+| 30 | the charge modules actually bought: the PD trigger's USB-C position, the CC/CV module's size and holes | their mounts and windows in the right pod |
+| 31 | on the built board: the hub's USB-C height and the power button's plunger height | the debug and button windows |
 
-Before the PCB order, from `boards/power/NOTES.md`:
+Before the PCB order:
+
+- **The KiCad 10 checks on the team laptop** (`boards/power/LAYOUT_NOTES.md`, last section): KiCad 7, used here,
+  cannot read the KiCad 9 schematic sheets, so ERC and the DRC with schematic parity have not run. From the repo root:
+  `boards/tools/run_kicad.sh erc-power` and `boards/tools/run_kicad.sh drc-power`. A footprint or net difference in
+  the parity check means the board and the schematic have drifted apart and must be fixed before ordering. Do not run
+  `pcb-power` (it rebuilds the board from the placement and drops the routing) or `fab-power` (it replaces the files
+  in `out/fab`); the order files come from `boards/tools/fab_outputs.py power`.
+- **A look at the files in `boards/power/out/fab/`** in a Gerber viewer, then the upload to PCBWay, whose final price
+  follows its own review of the files.
+
+From `boards/power/NOTES.md`:
 
 - **Heights:** the hub module's underside (nothing may hang below its PCB where the MCP2221A sits), the height of its
   USB-C (sets the pod window), the power button's plunger, the mini blade fuse holder with a fuse in it (must stay
@@ -583,8 +637,8 @@ Before the PCB order, from `boards/power/NOTES.md`:
 - **The CC/CV module** is a generic XL4015-class part; its price ($8.00) and limits are not verified, and no module
   whose published schematic shows high-side sensing could be named. The review's bench check settles the one in hand.
 - **The dev-kit USB-A (J601):** its height and the exact position of its face come from the KiCad footprint, because
-  Wurth's drawing could not be opened. The right pod needs a window or clearance for its plug at car x 70.8, which the
-  printed kit does not have yet (`boards/power/DESIGN_FIXED.md`).
+  Wurth's drawing could not be opened. The printed kit now has a window for a right-angle USB-A plug there and assumes
+  a 14.5 mm high socket (`mech/NOTES_REVB.md`, MEASURE_FIRST item 29).
 - **The review's three bench tests** (above).
 
 Before the car runs:
@@ -667,11 +721,15 @@ Things the team deferred on purpose:
 - **The USB-C PD trigger back on the board.** It moved off only to make 130 mm.
 - **The 1206 chips back to through-hole,** if the team accepts a longer board (roughly 160 mm) or a second, stacked
   logic board.
+- **Back to two layers,** to bring the bare boards down from $182.34 toward the $76.64 of the 2-layer quote. That needs
+  J802 (the J14 harness header) moved away from the Pico, which moves six other fixed parts with it, and the area round
+  the Pico laid out again, so the J12, J14 and hub nets have room to reach it and the ground there has a path to the
+  pack ground.
 
 ## Sources
 
 Repo: `docs/review_revb_2026-10-24.md` (the pre-order review); `boards/power/design.py`, `README.md`, `NOTES.md`,
-`HANDOFF_E.md`, `PINMAP.md`, `DESIGN_FIXED.md`; `bom/revb/`;
+`HANDOFF_E.md`, `PINMAP.md`, `DESIGN_FIXED.md`, `LAYOUT_NOTES.md` (routing, checks, PCBWay quote); `bom/revb/`;
 `bom/cost_summary.md` and `bom/make_bom.py`; `mech/NOTES_REVB.md` and `README.md`; `docs/WIRING.md`,
 `MEASURE_FIRST.md`, `SOFTWARE.md`, `FLASHING.md`, `PACK_BUILD.md`; `firmware/supervisor/README.md` and `NOTES.md`;
 `mech/PRINTING.md`;
